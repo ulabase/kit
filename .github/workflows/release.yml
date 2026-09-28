@@ -19,8 +19,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          # writes an .npmrc that reads NODE_AUTH_TOKEN, used by the Publish step below
-          registry-url: https://registry.npmjs.org
 
       - run: npm install -g npm@latest
 
@@ -68,12 +66,9 @@ jobs:
 
       - name: Publish
         if: success()
-        # The packages with a trusted publisher publish through OIDC (id-token above). NPM_TOKEN,
-        # a secret of the integration-test environment, is only for the first release of a
-        # package, which npm will not let a trusted publisher create: once every package has its
-        # trusted publisher, delete the secret and this env.
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # Through the trusted publisher of each package (OIDC, id-token above), and staged: every
+        # version waits for approval on npmjs.com. A package that does not exist yet cannot have a
+        # trusted publisher, so its first version is published by hand.
         run: |
           npm publish --access public -w packages/kit
           npm publish --access public packages/kit-ng/dist
