@@ -102,8 +102,8 @@ The core's integration tests hit a live Ulabase instance. Create `packages/kit/.
 (not committed):
 
 ```
-RH_TEST_API_URL=https://<your-instance>.restheart.com
-RH_TEST_ADMIN_PASSWORD=<root-password>
+ULABASE_TEST_API_URL=https://<your-service>.ulabase.app
+ULABASE_TEST_ADMIN_PASSWORD=<root-password>
 ```
 
 Then run:

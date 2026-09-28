@@ -226,7 +226,7 @@ A new `E. Payments` section, following the pattern of the existing ones:
 table must be extended with the E column.
 
 The core's (live, gated) integration tests need a service with `stripe` configured and test Stripe
-keys: they belong in the same `RH_TEST_*` scheme as the others, and must be **skipped** when the
+keys: they belong in the same `ULABASE_TEST_*` scheme as the others, and must be **skipped** when the
 variable is absent, not failed — the pattern `helpers.ts` already uses.
 
 ## Task 7 — documentation
@@ -275,16 +275,16 @@ adapters' unit tests don't depend on this and can proceed beforehand.
 
 The core's integration tests (`packages/kit/src/__tests__/integration/`) run against a real
 Ulabase service. Testing payments requires a service with the `stripe` plugin enabled and
-configured. The environment variables are the same as the other tests (`RH_TEST_API_URL`,
-`RH_TEST_ADMIN_PASSWORD`), plus a new one to enable the payment tests.
+configured. The environment variables are the same as the other tests (`ULABASE_TEST_API_URL`,
+`ULABASE_TEST_ADMIN_PASSWORD`), plus a new one to enable the payment tests.
 
 #### Environment variables
 
 | Variable | Required | Description |
 |---|---|---|
-| `RH_TEST_API_URL` | yes | Base URL of the service (e.g. `https://xxx.restheart.com`) |
-| `RH_TEST_ADMIN_PASSWORD` | yes | Password of the `root` user for admin calls |
-| `RH_TEST_STRIPE` | no | If absent or empty, the payment tests are **skipped** (not failed). Set to `true` only when the service has the `stripe` plugin active. |
+| `ULABASE_TEST_API_URL` | yes | Base URL of the service (e.g. `https://xxx.restheart.com`) |
+| `ULABASE_TEST_ADMIN_PASSWORD` | yes | Password of the `root` user for admin calls |
+| `ULABASE_TEST_STRIPE` | no | If absent or empty, the payment tests are **skipped** (not failed). Set to `true` only when the service has the `stripe` plugin active. |
 
 The pattern is the same one `helpers.ts` already uses: gated tests silently skip when the variable
 is absent, so the same code runs in CI (where the service has stripe) and locally (where it often
@@ -375,7 +375,7 @@ The tests verify the **client-side flow**, not Stripe itself:
 
 They don't test the actual payment on Stripe — that's handled server-side by the webhook.
 Gated tests should be skipped with `it.skip` or with a guard at the top of the file when
-`RH_TEST_STRIPE` isn't set.
+`ULABASE_TEST_STRIPE` isn't set.
 
 ---
 
@@ -641,7 +641,7 @@ Two things remain.
 
 ### Live integration tests (Task 6)
 
-Everything for them is specified above — the `RH_TEST_STRIPE` gate, the service configuration,
+Everything for them is specified above — the `ULABASE_TEST_STRIPE` gate, the service configuration,
 the ACL, and what they should cover. They are not written because the rollout blocker still
 holds: no reachable service has the `stripe` plugin enabled. Write them when one does; the
 gating pattern means they will skip, not fail, everywhere else.

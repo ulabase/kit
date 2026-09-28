@@ -3,14 +3,14 @@ import type { AuthConfig } from '../../types';
 // ── Config ──────────────────────────────────────────────────────────────────
 
 export function getConfig(): AuthConfig {
-  const apiBaseUrl = process.env['RH_TEST_API_URL'];
-  if (!apiBaseUrl) throw new Error('RH_TEST_API_URL is not set');
+  const apiBaseUrl = process.env['ULABASE_TEST_API_URL'];
+  if (!apiBaseUrl) throw new Error('ULABASE_TEST_API_URL is not set');
   return { apiBaseUrl };
 }
 
 export function getAdminPassword(): string {
-  const password = process.env['RH_TEST_ADMIN_PASSWORD'];
-  if (!password) throw new Error('RH_TEST_ADMIN_PASSWORD is not set');
+  const password = process.env['ULABASE_TEST_ADMIN_PASSWORD'];
+  if (!password) throw new Error('ULABASE_TEST_ADMIN_PASSWORD is not set');
   return password;
 }
 
@@ -19,7 +19,7 @@ export function getAdminPassword(): string {
 const runId = crypto.randomUUID().slice(0, 8);
 
 export function testEmail(label: string): string {
-  return `test-${runId}-${label}@restheart-test.com`;
+  return `test-${runId}-${label}@test.ulabase.dev`;
 }
 
 // ── Admin fetch (Basic Auth, no cookie jar) ──────────────────────────────────
@@ -154,7 +154,7 @@ export async function deleteUser(email: string): Promise<void> {
 }
 
 export async function cleanupTestUsers(): Promise<void> {
-  const filter = encodeURIComponent(JSON.stringify({ _id: { $regex: '@restheart-test\\.com$' } }));
+  const filter = encodeURIComponent(JSON.stringify({ _id: { $regex: '@test\\.ulabase\\.dev$' } }));
   await adminFetch(`/users/*?filter=${filter}`, { method: 'DELETE' });
   await adminFetch(`/auth_invitations/*?filter=${filter}`, { method: 'DELETE' });
 }

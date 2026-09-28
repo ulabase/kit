@@ -23,8 +23,8 @@ jobs:
 
       - run: npm test -w packages/kit
         env:
-          RH_TEST_API_URL: ${{ secrets.RH_TEST_API_URL }}
-          RH_TEST_ADMIN_PASSWORD: ${{ secrets.RH_TEST_ADMIN_PASSWORD }}
+          ULABASE_TEST_API_URL: ${{ secrets.ULABASE_TEST_API_URL }}
+          ULABASE_TEST_ADMIN_PASSWORD: ${{ secrets.ULABASE_TEST_ADMIN_PASSWORD }}
 
       - name: Upload test results
         if: always()
