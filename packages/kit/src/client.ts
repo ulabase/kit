@@ -98,20 +98,38 @@ let _memoryToken: string | null = null;
 
 // ── URL validation ──────────────────────────────────────────────────────────
 
-/** Returns true if `apiBaseUrl` is a well-formed RESTHeart Cloud service URL (*.restheart.com). */
+/** Host names that resolve only on a developer machine: there plain http is allowed. */
+const LOCAL_HOST = /^localhost$|\.localhost$|\.local$|\.test$/;
+
+/**
+ * Returns true if `apiBaseUrl` is a well-formed service URL: any `https://` URL, whatever its
+ * domain, so that the kit works on every platform domain and on-prem; `http://` only on a local
+ * host name (`localhost`, `.localhost`, `.local`, `.test`).
+ *
+ * The `*.restheart.com` hosts are also accepted with `http://`, as before: the local integration
+ * environment still serves its services there, until it moves to `ulabase.local`.
+ */
 export function isValidApiBaseUrl(apiBaseUrl: string): boolean {
+  let url: URL;
   try {
-    return new URL(apiBaseUrl).hostname.toLowerCase().endsWith('.restheart.com');
+    url = new URL(apiBaseUrl);
   } catch {
     return false;
   }
+
+  if (url.protocol === 'https:') {
+    return true;
+  }
+
+  const host = url.hostname.toLowerCase();
+  return url.protocol === 'http:' && (LOCAL_HOST.test(host) || host.endsWith('.restheart.com'));
 }
 
 function assertValidApiBaseUrl(apiBaseUrl: string): void {
   if (!isValidApiBaseUrl(apiBaseUrl)) {
     throw {
       status: 0,
-      message: `Invalid URL: apiBaseUrl must be a RESTHeart Cloud service (*.restheart.com), got "${apiBaseUrl}"`,
+      message: `Invalid URL: apiBaseUrl must be an https:// service URL (http:// only on localhost, .local or .test), got "${apiBaseUrl}"`,
     } satisfies ApiError;
   }
 }

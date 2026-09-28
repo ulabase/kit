@@ -251,7 +251,7 @@ rhc setup --srv <id> [options]
                 Defaults to ./rhc.setup.ts in the working directory.
 --srv <id>      The service to set up.
 --dry-run       Run every check, apply nothing, write nothing.
---api <url>     Admin node (default https://cloud-api.restheart.com).
+--api <url>     Admin node (default: RHC_API, else https://cloud-api.restheart.com).
 --json          Emit the report as JSON instead of a step list.
 ```
 

@@ -17,6 +17,14 @@ import {
 
 const DEFAULT_API = 'https://cloud-api.restheart.com';
 
+/** The environment variable that names the admin node, instead of --api. */
+const API_VAR = 'RHC_API';
+
+/** The admin node when --api is not given: RHC_API, or the default. */
+function defaultApi(): string {
+  return process.env[API_VAR]?.trim() || DEFAULT_API;
+}
+
 /**
  * This package's version, read from its own `package.json`.
  *
@@ -84,7 +92,7 @@ Options
                   an edited permission under the id it already had. Repeatable.
                   Bare --force takes every step, which is usually wrong: an
                   apply written to run once may not survive running twice.
-  --api <url>     Admin node (default ${DEFAULT_API}).
+  --api <url>     Admin node (default: ${API_VAR}, else ${DEFAULT_API}).
   --json          Emit the report as JSON instead of a step list.
   --version, -v   Print the version and exit.
   --help
@@ -124,7 +132,7 @@ interface Args {
 }
 
 function parseArgs(argv: string[]): Args {
-  const args: Args = { api: DEFAULT_API, dryRun: false, force: false, json: false, help: false, version: false };
+  const args: Args = { api: defaultApi(), dryRun: false, force: false, json: false, help: false, version: false };
 
   // The first bare word is the command. Taken before the option loop so an
   // unknown one is rejected as a command rather than as a stray option.
@@ -142,7 +150,7 @@ function parseArgs(argv: string[]): Args {
     switch (a) {
       case '--file': args.file = argv[++i]; break;
       case '--srv': args.srv = argv[++i]; break;
-      case '--api': args.api = argv[++i] ?? DEFAULT_API; break;
+      case '--api': args.api = argv[++i] ?? defaultApi(); break;
       case '--dry-run': args.dryRun = true; break;
       case '--force': {
         // A value only if the next argument is not another option. `--force`

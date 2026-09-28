@@ -4,15 +4,15 @@ import type { ApiError } from '@restheart-cloud/kit';
  * A request against a service node.
  *
  * The core's `apiFetch` is what the admin client uses, and it is the right
- * thing there: it validates that `apiBaseUrl` is a `*.restheart.com` service,
- * which is a real guard on a browser-facing kit and costs nothing when the URL
- * is `cloud-api.restheart.com`.
+ * thing there: it validates that `apiBaseUrl` is an `https://` service URL,
+ * `http://` only on a local host name, which is a real guard on a browser-facing
+ * kit and costs nothing for the admin node.
  *
  * A service node's URL is not the caller's to choose — it comes back from
  * `GET /srvs-mgmt/{srvId}/jwt`, already decided by the server. Re-validating a
  * value the server just issued buys no safety and does break the one case where
- * it is not `*.restheart.com`: a local integration environment, where the node
- * is `{srvId}.{node}.cloud.local:8081`. So this speaks `fetch` directly, and
+ * it does not pass: a local integration environment on a host name the guard does
+ * not know. So this speaks `fetch` directly, and
  * fails in the same `ApiError` shape as everything else so a caller still has
  * one error type to handle.
  */
