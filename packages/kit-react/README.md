@@ -1,16 +1,16 @@
-# @restheart-cloud/kit-react
+# @ulabase/kit-react
 
-Wraps [`@restheart-cloud/kit`](https://www.npmjs.com/package/@restheart-cloud/kit) in a React context with hooks and route guards — `useAuth()` for authentication, [`usePayments()`](#usepayments) for subscriptions and orders. A [`/next`](#nextjs-subpath) subpath adds server-side rendering support for Next.js.
+Wraps [`@ulabase/kit`](https://www.npmjs.com/package/@ulabase/kit) in a React context with hooks and route guards — `useAuth()` for authentication, [`usePayments()`](#usepayments) for subscriptions and orders. A [`/next`](#nextjs-subpath) subpath adds server-side rendering support for Next.js.
 
-Pairs with [RESTHeart Cloud](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit-react
+npm install @ulabase/kit-react
 ```
 
-The core `@restheart-cloud/kit` is a regular dependency, so it is pulled in automatically — you don't install it separately.
+The core `@ulabase/kit` is a regular dependency, so it is pulled in automatically — you don't install it separately.
 
 `react-router-dom` (for the guards) and `next` (for the `/next` subpath) are **optional peer dependencies** — install them only if you use those parts.
 
@@ -19,7 +19,7 @@ The core `@restheart-cloud/kit` is a regular dependency, so it is pulled in auto
 Wrap your app once, near the root:
 
 ```tsx
-import { RhAuthProvider } from '@restheart-cloud/kit-react';
+import { RhAuthProvider } from '@ulabase/kit-react';
 
 createRoot(document.getElementById('root')!).render(
   <RhAuthProvider config={{ apiBaseUrl: import.meta.env.VITE_API_URL }}>
@@ -37,14 +37,14 @@ Same two modes as the core kit:
 - **Bearer token** (default) — stored in `localStorage`, sent as `Authorization: Bearer <token>`.
 - **Cookie** — JWT managed by the backend as an HttpOnly cookie, **same-origin only**.
 
-Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. A RESTHeart Cloud service lives on `*.restheart.com` while your app lives on your own domain, so that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
+Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. A Ulabase service lives on `*.restheart.com` while your app lives on your own domain, so that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
 
 `login()` stores the token and schedules a proactive refresh at 80% of its TTL. Every authenticated request sends the Bearer token automatically. If the token expires, the next API call gets a 401 and the session is cleared.
 
 ## `useAuth`
 
 ```tsx
-import { useAuth } from '@restheart-cloud/kit-react';
+import { useAuth } from '@ulabase/kit-react';
 
 function Header() {
   const auth = useAuth();
@@ -125,7 +125,7 @@ Pass a path, not a URL. Any non-2xx rejects with an `ApiError` (`{ status, messa
 Guard components for `react-router-dom`:
 
 ```tsx
-import { AuthGuard, PublicGuard } from '@restheart-cloud/kit-react';
+import { AuthGuard, PublicGuard } from '@ulabase/kit-react';
 
 <Routes>
   <Route path="/app" element={<AuthGuard><Shell /></AuthGuard>} />
@@ -207,12 +207,12 @@ useEffect(() => {
 ```
 
 `waitForSubscription` updates the provider's `subscription` itself when it resolves. See the
-[core's payments guide](https://www.npmjs.com/package/@restheart-cloud/kit#payments) for the
+[core's payments guide](https://www.npmjs.com/package/@ulabase/kit#payments) for the
 full reasoning.
 
 ## Next.js subpath
 
-For Next.js App Router apps, `@restheart-cloud/kit-react/next` adds the server pieces the SPA adapter can't cover — see [docs/ADAPTERS.md](../../docs/ADAPTERS.md) for the full rationale.
+For Next.js App Router apps, `@ulabase/kit-react/next` adds the server pieces the SPA adapter can't cover — see [docs/ADAPTERS.md](../../docs/ADAPTERS.md) for the full rationale.
 
 > **Payments are client-side only.** The `/next` subpath has no payments counterpart yet:
 > there is no `getServerSubscription` to gate a server component or middleware on the
@@ -220,7 +220,7 @@ For Next.js App Router apps, `@restheart-cloud/kit-react/next` adds the server p
 
 ```ts
 // middleware.ts — proactive refresh + guards before render
-import { rhAuthMiddleware } from '@restheart-cloud/kit-react/next';
+import { rhAuthMiddleware } from '@ulabase/kit-react/next';
 export const middleware = rhAuthMiddleware(config, {
   isProtected: (p) => p.startsWith('/app'),
   isPublicOnly: (p) => p.startsWith('/auth'),
@@ -230,20 +230,20 @@ export const config = { matcher: ['/((?!_next|.*\\..*).*)'] };
 
 ```ts
 // app/api/rh/session/route.ts — writes/clears the first-party session cookie
-import { createSessionRoute } from '@restheart-cloud/kit-react/next';
+import { createSessionRoute } from '@ulabase/kit-react/next';
 export const { POST, DELETE } = createSessionRoute();
 ```
 
 ```tsx
 // A Server Component reads the session with no client waterfall
-import { getServerSession } from '@restheart-cloud/kit-react/next';
+import { getServerSession } from '@ulabase/kit-react/next';
 const user = await getServerSession(config);
 ```
 
 ```tsx
 // The redirect landing page bridges the #access_token fragment into the cookie
 'use client';
-import { SessionSync } from '@restheart-cloud/kit-react/next';
+import { SessionSync } from '@ulabase/kit-react/next';
 <SessionSync onSynced={() => router.replace('/app')} />
 ```
 
@@ -262,7 +262,7 @@ Server actions keep the token out of the browser entirely — the credentials ne
 ```ts
 // app/actions.ts
 'use server';
-import { rhLogin, rhSwitchTeam } from '@restheart-cloud/kit-react/next';
+import { rhLogin, rhSwitchTeam } from '@ulabase/kit-react/next';
 import { revalidatePath } from 'next/cache';
 
 export async function login(formData: FormData) {
@@ -280,6 +280,6 @@ export async function switchTeam(teamId: { $oid: string }) {
 
 ## Quickstart
 
-1. Create a service on [RESTHeart Cloud](https://cloud.restheart.com)
+1. Create a service on [Ulabase](https://cloud.restheart.com)
 2. Set `apiBaseUrl` to your service URL
 3. Wrap your app in `<RhAuthProvider>` and use `useAuth()`

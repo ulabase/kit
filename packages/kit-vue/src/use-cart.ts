@@ -8,7 +8,7 @@ import type { RhCartStore } from './cart-store.js';
  *
  * ```vue
  * <script setup lang="ts">
- * import { useCart } from '@restheart-cloud/kit-vue';
+ * import { useCart } from '@ulabase/kit-vue';
  * const cart = useCart();
  * </script>
  * <template>

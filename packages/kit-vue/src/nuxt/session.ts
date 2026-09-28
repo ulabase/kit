@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3';
-import type { AuthConfig, TeamMembership, UserInfo } from '@restheart-cloud/kit';
-import { checkSession, getTeams } from '@restheart-cloud/kit';
+import type { AuthConfig, TeamMembership, UserInfo } from '@ulabase/kit';
+import { checkSession, getTeams } from '@ulabase/kit';
 import { rhServerConfig, RH_SESSION_COOKIE } from './cookies.js';
 
 /**

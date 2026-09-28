@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { RouteLocationNormalized } from 'vue-router';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { createRhAuthStore } from '../store';
 import { buildGuards } from '../guards';
 
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 const user = { _id: 'a@b.com', roles: ['user'] } as kit.UserInfo;

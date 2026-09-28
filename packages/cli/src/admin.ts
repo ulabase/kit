@@ -1,5 +1,5 @@
-import { apiFetch, login } from '@restheart-cloud/kit';
-import type { AuthConfig, UserInfo } from '@restheart-cloud/kit';
+import { apiFetch, login } from '@ulabase/kit';
+import type { AuthConfig, UserInfo } from '@ulabase/kit';
 import { resolveEnvRefs, defaultEnv, type EnvSource } from './env.js';
 import type {
   CatalogFeature,
@@ -21,11 +21,11 @@ export interface AdminClientConfig extends Omit<AuthConfig, 'getToken' | 'setTok
 }
 
 export interface AdminClient {
-  /** Authenticate as the RESTHeart Cloud account. Must precede every other call. */
+  /** Authenticate as the Ulabase account. Must precede every other call. */
   login(email: string, password: string): Promise<UserInfo>;
 
   /**
-   * Authenticate with a personal access token instead — what `rhc` does.
+   * Authenticate with a personal access token instead — what the `ulabase` CLI does.
    *
    * No round trip: a token *is* the credential, where an email and a password
    * are only the means of getting one. Nothing is verified here; call

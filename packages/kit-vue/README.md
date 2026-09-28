@@ -1,16 +1,16 @@
-# @restheart-cloud/kit-vue
+# @ulabase/kit-vue
 
-Wraps [`@restheart-cloud/kit`](https://www.npmjs.com/package/@restheart-cloud/kit) in Vue plugins with composables and navigation guards — `useAuth()` for authentication, [`usePayments()`](#usepayments) for subscriptions and orders. A [`/nuxt`](#nuxt-subpath) subpath adds server-side rendering support for Nuxt.
+Wraps [`@ulabase/kit`](https://www.npmjs.com/package/@ulabase/kit) in Vue plugins with composables and navigation guards — `useAuth()` for authentication, [`usePayments()`](#usepayments) for subscriptions and orders. A [`/nuxt`](#nuxt-subpath) subpath adds server-side rendering support for Nuxt.
 
-Pairs with [RESTHeart Cloud](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit-vue @restheart-cloud/kit
+npm install @ulabase/kit-vue @ulabase/kit
 ```
 
-The core `@restheart-cloud/kit` is a regular dependency, so it is pulled in automatically — you don't install it separately.
+The core `@ulabase/kit` is a regular dependency, so it is pulled in automatically — you don't install it separately.
 
 `vue-router` (for the guards) and `h3` (for the `/nuxt` subpath) are **optional peer dependencies** — install them only if you use those parts.
 
@@ -18,7 +18,7 @@ The core `@restheart-cloud/kit` is a regular dependency, so it is pulled in auto
 
 ```ts
 // main.ts
-import { createRhAuth } from '@restheart-cloud/kit-vue';
+import { createRhAuth } from '@ulabase/kit-vue';
 
 const rhAuth = createRhAuth({ apiBaseUrl: import.meta.env.VITE_API_URL });
 app.use(rhAuth);
@@ -36,13 +36,13 @@ Same two modes as the core kit:
 - **Bearer token** (default) — stored in `localStorage`, sent as `Authorization: Bearer <token>`.
 - **Cookie** — JWT managed by the backend as an HttpOnly cookie, **same-origin only**.
 
-Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a RESTHeart Cloud service lives on `*.restheart.com` while your app lives on your own domain, that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
+Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a Ulabase service lives on `*.restheart.com` while your app lives on your own domain, that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
 
 ## `useAuth`
 
 ```vue
 <script setup lang="ts">
-import { useAuth } from '@restheart-cloud/kit-vue';
+import { useAuth } from '@ulabase/kit-vue';
 const auth = useAuth();
 </script>
 
@@ -117,7 +117,7 @@ ever made:
 
 ```ts
 // main.ts
-import { createRhAuth, createRhPayments } from '@restheart-cloud/kit-vue';
+import { createRhAuth, createRhPayments } from '@ulabase/kit-vue';
 
 const config = {
   apiBaseUrl: import.meta.env.VITE_API_URL,
@@ -137,7 +137,7 @@ loads on sign-in and reloads on `switchTeam`.
 
 ```vue
 <script setup lang="ts">
-import { usePayments } from '@restheart-cloud/kit-vue';
+import { usePayments } from '@ulabase/kit-vue';
 const payments = usePayments();
 
 async function upgrade() {
@@ -186,7 +186,7 @@ onMounted(async () => {
 ```
 
 `waitForSubscription` updates the store's `subscription` itself when it resolves. See the
-[core's payments guide](https://www.npmjs.com/package/@restheart-cloud/kit#payments) for the
+[core's payments guide](https://www.npmjs.com/package/@ulabase/kit#payments) for the
 full reasoning.
 
 > Prefer wiring the store yourself? `createRhPaymentsStore(config, user)` is exported too —
@@ -194,7 +194,7 @@ full reasoning.
 
 ## Nuxt subpath
 
-For Nuxt apps, `@restheart-cloud/kit-vue/nuxt` adds the server pieces the SPA adapter can't cover — see [docs/ADAPTERS.md](../../docs/ADAPTERS.md).
+For Nuxt apps, `@ulabase/kit-vue/nuxt` adds the server pieces the SPA adapter can't cover — see [docs/ADAPTERS.md](../../docs/ADAPTERS.md).
 
 > **Payments are client-side only.** The `/nuxt` subpath has no payments counterpart yet:
 > there is no `getServerSubscription` to gate a route on the subscription before render.
@@ -202,7 +202,7 @@ For Nuxt apps, `@restheart-cloud/kit-vue/nuxt` adds the server pieces the SPA ad
 
 ```ts
 // server/middleware/rh-auth.ts — proactive refresh + guards before render
-import { rhAuthServerMiddleware } from '@restheart-cloud/kit-vue/nuxt';
+import { rhAuthServerMiddleware } from '@ulabase/kit-vue/nuxt';
 export default rhAuthServerMiddleware(config, {
   isProtected: (p) => p.startsWith('/app'),
   isPublicOnly: (p) => p.startsWith('/auth'),
@@ -211,13 +211,13 @@ export default rhAuthServerMiddleware(config, {
 
 ```ts
 // server/api/rh/session.ts — writes/clears the first-party session cookie
-import { createSessionHandler } from '@restheart-cloud/kit-vue/nuxt';
+import { createSessionHandler } from '@ulabase/kit-vue/nuxt';
 export default createSessionHandler();
 ```
 
 ```ts
 // server/api/me.get.ts — read the session on the server, no client waterfall
-import { getServerSession } from '@restheart-cloud/kit-vue/nuxt';
+import { getServerSession } from '@ulabase/kit-vue/nuxt';
 export default defineEventHandler((event) => getServerSession(event, config));
 ```
 
@@ -235,7 +235,7 @@ The server handlers take the h3 `event`, so the credentials never leave the serv
 
 ```ts
 // server/api/login.post.ts
-import { rhLogin } from '@restheart-cloud/kit-vue/nuxt';
+import { rhLogin } from '@ulabase/kit-vue/nuxt';
 export default defineEventHandler(async (event) => {
   const { email, password } = await readBody(event);
   return rhLogin(event, config, email, password); // sets the cookie, returns the user
@@ -246,6 +246,6 @@ export default defineEventHandler(async (event) => {
 
 ## Quickstart
 
-1. Create a service on [RESTHeart Cloud](https://cloud.restheart.com)
+1. Create a service on [Ulabase](https://cloud.restheart.com)
 2. Set `apiBaseUrl` to your service URL
 3. `app.use(createRhAuth(config))` and use `useAuth()` in components

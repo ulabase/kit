@@ -8,13 +8,13 @@ ticket.
 
 ## Testing principle
 
-The core (`@restheart-cloud/kit`) is integration-tested against a live RESTHeart Cloud
+The core (`@ulabase/kit`) is integration-tested against a live Ulabase
 instance — it owns the network and the business rules. **Adapter tests must not re-test that.**
 They mock the core and assert only the *wiring*: which core call fires, and how the reactive
 state (signals / context / refs) and the framework glue (guards, middleware, cookies) react.
 
 - Fast, deterministic, **no backend and no secrets** → runs on every push.
-- Mock `@restheart-cloud/kit` wholesale; drive return values per case.
+- Mock `@ulabase/kit` wholesale; drive return values per case.
 
 `kit-react` is the reference implementation of this file (`packages/kit-react/src/**/*.test.*`).
 

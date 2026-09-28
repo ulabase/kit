@@ -105,9 +105,6 @@ const LOCAL_HOST = /^localhost$|\.localhost$|\.local$|\.test$/;
  * Returns true if `apiBaseUrl` is a well-formed service URL: any `https://` URL, whatever its
  * domain, so that the kit works on every platform domain and on-prem; `http://` only on a local
  * host name (`localhost`, `.localhost`, `.local`, `.test`).
- *
- * The `*.restheart.com` hosts are also accepted with `http://`, as before: the local integration
- * environment still serves its services there, until it moves to `ulabase.local`.
  */
 export function isValidApiBaseUrl(apiBaseUrl: string): boolean {
   let url: URL;
@@ -122,7 +119,7 @@ export function isValidApiBaseUrl(apiBaseUrl: string): boolean {
   }
 
   const host = url.hostname.toLowerCase();
-  return url.protocol === 'http:' && (LOCAL_HOST.test(host) || host.endsWith('.restheart.com'));
+  return url.protocol === 'http:' && LOCAL_HOST.test(host);
 }
 
 function assertValidApiBaseUrl(apiBaseUrl: string): void {

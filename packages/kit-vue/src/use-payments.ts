@@ -8,7 +8,7 @@ import type { RhPaymentsStore } from './payments.js';
  *
  * ```vue
  * <script setup lang="ts">
- * import { usePayments } from '@restheart-cloud/kit-vue';
+ * import { usePayments } from '@ulabase/kit-vue';
  * const payments = usePayments();
  * </script>
  * <template>

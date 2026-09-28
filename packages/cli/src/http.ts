@@ -1,4 +1,4 @@
-import type { ApiError } from '@restheart-cloud/kit';
+import type { ApiError } from '@ulabase/kit';
 
 /**
  * A request against a service node.

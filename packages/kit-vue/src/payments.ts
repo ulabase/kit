@@ -1,5 +1,5 @@
 import { computed, ref, watch, type ComputedRef, type Ref } from 'vue';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import type {
   AuthConfig,
   CatalogItem,
@@ -11,7 +11,7 @@ import type {
   UserInfo,
   WaitOptions,
   CatalogQuery,
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 
 /**
  * The reactive payments store. Separated from {@link RhAuthStore} because

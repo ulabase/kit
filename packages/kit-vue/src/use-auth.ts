@@ -8,7 +8,7 @@ import type { RhAuthStore } from './store.js';
  *
  * ```vue
  * <script setup lang="ts">
- * import { useAuth } from '@restheart-cloud/kit-vue';
+ * import { useAuth } from '@ulabase/kit-vue';
  * const auth = useAuth();
  * </script>
  * <template>

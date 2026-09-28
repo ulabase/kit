@@ -38,10 +38,10 @@ jobs:
           npm pkg set version=${{ github.ref_name }} -w packages/kit-react
           npm pkg set version=${{ github.ref_name }} -w packages/kit-vue
           npm pkg set version=${{ github.ref_name }} -w packages/cli
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/kit-ng
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/kit-react
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/kit-vue
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/cli
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-ng
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-react
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-vue
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/cli
 
       - run: npm install
 
@@ -50,7 +50,7 @@ jobs:
       - run: mkdir -p packages/kit/test-results
 
       - name: Integration tests
-        run: npm test -w @restheart-cloud/kit
+        run: npm test -w @ulabase/kit
         env:
           RH_TEST_API_URL: ${{ secrets.RH_TEST_API_URL }}
           RH_TEST_ADMIN_PASSWORD: ${{ secrets.RH_TEST_ADMIN_PASSWORD }}

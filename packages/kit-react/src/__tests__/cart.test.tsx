@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import type { ReactNode } from 'react';
 import { RhCartProvider, useCart } from '../index';
 
-// The cart logic itself is unit-tested in @restheart-cloud/kit. What is left to
+// The cart logic itself is unit-tested in @ulabase/kit. What is left to
 // assert here is the adapter's own job: that state and localStorage stay in
 // step, and that a second mount reads back what the first one left.
 

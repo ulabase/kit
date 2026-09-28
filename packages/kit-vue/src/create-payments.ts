@@ -1,5 +1,5 @@
 import type { App } from 'vue';
-import type { AuthConfig } from '@restheart-cloud/kit';
+import type { AuthConfig } from '@ulabase/kit';
 import { createRhPaymentsStore, type RhPaymentsStore } from './payments.js';
 import type { RhAuth } from './create.js';
 import type { RhAuthStore } from './store.js';

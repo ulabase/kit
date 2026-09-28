@@ -2,7 +2,7 @@
 
 **Status:** Tasks 1–6 written, unit-tested, not yet run against a live service. See
 [Where this stands](#where-this-stands) at the bottom.
-**Repo:** `restheart-cloud-kit` (a new package, not a fourth adapter).
+**Repo:** `ulabase/kit` (a new package, not a fourth adapter).
 **Depends on:** nothing new server-side — everything below already exists and is verified.
 
 ## Why
@@ -26,7 +26,7 @@ Two hosts. **This is the fact everything else follows from.**
 
 ### The admin node — `cloud-api.restheart.com`
 
-Authenticated as the **RESTHeart Cloud (SaaS) account**. It runs `restheart-accounts`
+Authenticated as the **Ulabase (SaaS) account**. It runs `restheart-accounts`
 (`etc/prod-admin.yml`: `/accountsService/enabled: true`), so **the kit's existing `login()` already
 works against it** — same `/token`, same flows, nothing new to write.
 
@@ -117,7 +117,7 @@ state, and none of it applies here: there is no user to track, no session to res
 update. Adding a `RhConfigService` alongside `RhAuthService` and `RhPaymentsService` would suggest a
 parity that does not exist and cannot exist — the thing does not run in a browser.
 
-It gets its own package, **`@restheart-cloud/cli`**, depending on `@restheart-cloud/kit` for
+It gets its own package, **`@ulabase/cli`**, depending on `@ulabase/kit` for
 `login`, `apiFetch` and the error type. The client layer stays isomorphic (`fetch` only, no Node
 built-ins) so it can be unit-tested without a live service; only the CLI is Node-specific.
 
@@ -254,8 +254,8 @@ provider-side rejection when it is not; a dry run of that setup touches `process
 **File:** `packages/cli/src/cli.ts`, `bin` entry
 
 ```bash
-npx @restheart-cloud/cli setup --srv ea820b
-npx @restheart-cloud/cli setup --srv ea820b --dry-run
+npx @ulabase/cli setup --srv c0ffee
+npx @ulabase/cli setup --srv c0ffee --dry-run
 ```
 
 Credentials by prompt or environment (`RH_CLOUD_EMAIL`, `RH_CLOUD_PASSWORD`) — never by flag, which
@@ -272,7 +272,7 @@ job, not shaped into one after the fact.
 
 ```yaml
 # .github/workflows/deploy.yml
-- run: npx @restheart-cloud/cli setup --srv ea820b
+- run: npx @ulabase/cli setup --srv c0ffee
   env:
     RH_CLOUD_EMAIL: ${{ secrets.RH_CLOUD_EMAIL }}
     RH_CLOUD_PASSWORD: ${{ secrets.RH_CLOUD_PASSWORD }}
@@ -283,7 +283,7 @@ job, not shaped into one after the fact.
 # bitbucket-pipelines.yml
 - step:
     script:
-      - npx @restheart-cloud/cli setup --srv ea820b
+      - npx @ulabase/cli setup --srv c0ffee
     # RH_CLOUD_EMAIL, RH_CLOUD_PASSWORD, STRIPE_SECRET_KEY set as repository/deployment variables
 ```
 
@@ -345,7 +345,7 @@ it is cheaper to change that shape before a CLI is built on top of it.
 
 ## Out of scope
 
-- **Creating services.** Provisioning a new RESTHeart Cloud service is the console's job; this
+- **Creating services.** Provisioning a new Ulabase service is the console's job; this
   configures one that exists.
 - **Billing.** `/plugins-mgmt/{srvId}/{pluginId}/purchase`, `/cancel` and `/invoices` move money or
   report on it. A wizard that can spend the developer's money by accident is not a wizard.
@@ -383,7 +383,7 @@ is free and real); the service client uses a small internal `request()` that pro
 ## Where this stands
 
 Written and unit-tested: `packages/cli`, with `src/{types,env,http,admin,service,setup,cli}.ts` and
-unit suites for each. The ecommerce setup is `rhc.setup.ts` in the starter's own repo. Nothing has run
+unit suites for each. The ecommerce setup is `ulabase.setup.ts` in the starter's own repo. Nothing has run
 against a live service yet.
 
 Four departures from what is written above:
@@ -395,11 +395,11 @@ Four departures from what is written above:
   explained every time it appeared. The nearer ancestor was never Terraform but Ansible — a list of
   named idempotent tasks reporting `ok/changed/skipped/failed`, which is literally
   `satisfied/applied/skipped/failed`. So: `defineSetup`, `runSetup`, `Setup`, `SetupReport`,
-  `rhc setup`, and `rhc.setup.ts` discovered by convention so the flag can be dropped.
+  `ulabase setup`, and `ulabase.setup.ts` discovered by convention so the flag can be dropped.
   "Config" was the alternative and lost on collision: this tool already reads and writes plugin
   *config*, and two meanings of the word in one tool is a real cost.
-- **The package is `@restheart-cloud/cli`, not `@restheart-cloud/kit-config`,** and the bin is
-  `rhc setup` rather than a bare `rh-config`. See [`provisioning.md`](./provisioning.md) — a global
+- **The package is `@ulabase/cli`, not `@ulabase/kit-config`,** and the bin is
+  `ulabase setup` rather than a bare `rh-config`. See [`provisioning.md`](./provisioning.md) — a global
   install of a package named `kit-config` would not have satisfied a setup file's import anyway.
 - **A sixth ecommerce step.** The starter's README lists three settings that must line up; writing
   them as code exposed a fourth, `orders-read-anon`, without which the buyer pays, lands on
@@ -413,7 +413,7 @@ Outstanding:
 
 - **A live run.** Task 5's acceptance — "a fresh service goes from empty to a working shop with one
   command" — is the only one no unit test can stand in for.
-- **Publishing.** The starter's `rhc.setup.ts` imports `@restheart-cloud/cli`, which is unpublished,
+- **Publishing.** The starter's `ulabase.setup.ts` imports `@ulabase/cli`, which is unpublished,
   so the starter cannot yet declare the dependency and its README keeps the manual checklist
   alongside the setup. Both close with the first release that includes this package.
 - **`testPlugin` is unused by any setup.** It validates a stored config against the real provider,

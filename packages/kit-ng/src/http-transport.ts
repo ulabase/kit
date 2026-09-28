@@ -6,7 +6,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import type { AuthConfig } from '@restheart-cloud/kit';
+import type { AuthConfig } from '@ulabase/kit';
 import { RH_KIT_REQUEST } from './tokens.js';
 
 /** Statuses the Fetch spec forbids a body on — `new Response(body, …)` throws. */

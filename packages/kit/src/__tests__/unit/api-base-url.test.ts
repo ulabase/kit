@@ -9,19 +9,19 @@ describe('isValidApiBaseUrl', () => {
     expect(isValidApiBaseUrl('https://api.acme.co.uk')).toBe(true);
   });
 
-  it('accepts http only on local host names, and on the legacy integration environment', () => {
+  it('accepts http only on local host names', () => {
     expect(isValidApiBaseUrl('http://localhost:8080')).toBe(true);
     expect(isValidApiBaseUrl('http://c0ffee.localhost:8080')).toBe(true);
     expect(isValidApiBaseUrl('http://c0ffee.ulabase.local:8080')).toBe(true);
     expect(isValidApiBaseUrl('http://api.acme.test')).toBe(true);
-    expect(isValidApiBaseUrl('http://ea820b.eu-central-1-it-free-1.restheart.com:8081')).toBe(true);
+    expect(isValidApiBaseUrl('http://c0ffee.eu-central-1-it-free-1.restheart.com:8081')).toBe(false);
     expect(isValidApiBaseUrl('http://100f07.ulabase.app')).toBe(false);
     expect(isValidApiBaseUrl('http://api.acme.it')).toBe(false);
   });
 
   it('rejects what is not an http(s) URL', () => {
     expect(isValidApiBaseUrl('not a url')).toBe(false);
-    expect(isValidApiBaseUrl('ftp://c0ffee.restheart.com')).toBe(false);
+    expect(isValidApiBaseUrl('ftp://c0ffee.ulabase.app')).toBe(false);
     expect(isValidApiBaseUrl('')).toBe(false);
   });
 });

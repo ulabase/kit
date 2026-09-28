@@ -1,4 +1,4 @@
-# @restheart-cloud/kit
+# @ulabase/kit
 
 Adds signup, login and payments to your frontend — zero dependencies, works with Angular, React, Vue, or vanilla JS.
 
@@ -6,12 +6,12 @@ Covers every [`restheart-accounts`](https://restheart.org/docs/accounts) flow: s
 
 For apps that sell something, it also covers [`restheart-stripe`](#payments): subscription plans, Stripe Checkout and Customer Portal, seat licences, and a product/order flow with guest checkout. No Stripe.js, no publishable key — the whole flow is hosted pages, so the kit hands you a URL and you navigate to it.
 
-Pairs with [RESTHeart Cloud](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit
+npm install @ulabase/kit
 ```
 
 > **v0.3.0+ requires RESTHeart 9.6.0 or later.** Bearer-mode `activate()`, `resetPassword()`, and `switchTeam()` rely on the `delivery=body` query parameter, introduced in RESTHeart 9.6.0. Against an older server the request still succeeds, but the kit won't be able to capture the bearer token from the response (the extra param is silently ignored) — you'll need to log in again to get a token. Cookie mode is unaffected.
@@ -19,7 +19,7 @@ npm install @restheart-cloud/kit
 ## Usage
 
 ```typescript
-import { checkSession, login, logout } from '@restheart-cloud/kit';
+import { checkSession, login, logout } from '@ulabase/kit';
 
 const config = { apiBaseUrl: 'https://api.example.com' };
 
@@ -31,7 +31,7 @@ await logout(config);
 If the users collection has a JSON Schema with additional fields, pass them in the register payload:
 
 ```typescript
-import { register } from '@restheart-cloud/kit';
+import { register } from '@ulabase/kit';
 
 await register(config, {
   email: 'user@example.com',
@@ -50,7 +50,7 @@ Authentication is handled via a Bearer token stored in `localStorage` — every 
 
 Cookie authentication (`mode: 'cookie'`) is also supported, but **only for same-origin setups**: the backend manages an HttpOnly JWT cookie and no token ever touches `localStorage` or JavaScript.
 
-Because a RESTHeart Cloud service lives on `*.restheart.com` while your app lives on your own domain, that cookie is *third-party* on every request your page makes — blocked by default in Safari and Firefox, and left to the user in Chrome. A permissive CORS configuration does not change this: the browser drops the cookie before CORS is even consulted. **Use bearer mode unless the app is served from the same origin as the service.**
+Because a Ulabase service lives on `*.restheart.com` while your app lives on your own domain, that cookie is *third-party* on every request your page makes — blocked by default in Safari and Firefox, and left to the user in Chrome. A permissive CORS configuration does not change this: the browser drops the cookie before CORS is even consulted. **Use bearer mode unless the app is served from the same origin as the service.**
 
 If you are building on Next.js or Nuxt, note that this is a different cookie from the one those frameworks use — theirs is a first-party cookie set by your own server, holding the same bearer token, and it needs no cookie support from RESTHeart at all. See [docs/ADAPTERS.md](../../docs/ADAPTERS.md#2-token-delivery--the-cookie-story).
 
@@ -218,7 +218,7 @@ const config = { apiBaseUrl: 'https://my-service.restheart.com', payments: true 
 The whole flow is hosted pages — Checkout and the Customer Portal both hand back a URL:
 
 ```typescript
-import { createCheckoutSession, openBillingPortal } from '@restheart-cloud/kit';
+import { createCheckoutSession, openBillingPortal } from '@ulabase/kit';
 
 const { url } = await createCheckoutSession(config, 'gold', 'month');
 window.location.href = url;
@@ -236,7 +236,7 @@ plan — so the user who just paid is told they haven't.
 Poll instead, with an explicit exit condition:
 
 ```typescript
-import { waitForSubscription, WaitTimeoutError } from '@restheart-cloud/kit';
+import { waitForSubscription, WaitTimeoutError } from '@ulabase/kit';
 
 try {
   const sub = await waitForSubscription(config, s => s.plan === 'gold' && s.active);
@@ -274,7 +274,7 @@ URL and it interpolates them when it creates the Checkout session:
 Then, on the return page:
 
 ```typescript
-import { readOrderRef, clearOrderRef, waitForOrder } from '@restheart-cloud/kit';
+import { readOrderRef, clearOrderRef, waitForOrder } from '@ulabase/kit';
 
 const ref = readOrderRef();          // reads window.location
 if (ref) {
@@ -321,7 +321,7 @@ const config = { apiBaseUrl: '…', payments: true, ownershipRole: 'admin' };
 each currency's digits, so `formatPrice` delegates to it:
 
 ```typescript
-import { formatPrice } from '@restheart-cloud/kit';
+import { formatPrice } from '@ulabase/kit';
 
 formatPrice(1990, 'eur', 'en-IE');   // "€19.90"
 formatPrice(500, 'jpy', 'ja-JP');    // "¥500"
@@ -384,6 +384,6 @@ and `WaitOptions` are exported too.
 
 ## Framework adapters
 
-- **Angular** → [`@restheart-cloud/kit-ng`](https://www.npmjs.com/package/@restheart-cloud/kit-ng) — signals, guards, interceptor
-- **React** → [`@restheart-cloud/kit-react`](https://www.npmjs.com/package/@restheart-cloud/kit-react) — context, hooks, guards, plus a `/next` subpath
-- **Vue** → [`@restheart-cloud/kit-vue`](https://www.npmjs.com/package/@restheart-cloud/kit-vue) — composables, navigation guards, plus a `/nuxt` subpath
+- **Angular** → [`@ulabase/kit-ng`](https://www.npmjs.com/package/@ulabase/kit-ng) — signals, guards, interceptor
+- **React** → [`@ulabase/kit-react`](https://www.npmjs.com/package/@ulabase/kit-react) — context, hooks, guards, plus a `/next` subpath
+- **Vue** → [`@ulabase/kit-vue`](https://www.npmjs.com/package/@ulabase/kit-vue) — composables, navigation guards, plus a `/nuxt` subpath

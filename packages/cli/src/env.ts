@@ -18,7 +18,7 @@
  * dry run never resolves one at all, because a dry run runs no `apply`.
  */
 
-const MARKER = Symbol.for('@restheart-cloud/cli:fromEnv');
+const MARKER = Symbol.for('@ulabase/cli:fromEnv');
 
 export interface EnvRef {
   readonly [MARKER]: true;
@@ -55,7 +55,7 @@ export function fromEnv(name: string): string {
     toJSON: () => {
       throw new Error(
         `fromEnv(${name}) reached JSON serialisation unresolved — ` +
-          'this is a bug in @restheart-cloud/cli, not in your setup'
+          'this is a bug in @ulabase/cli, not in your setup'
       );
     },
   };

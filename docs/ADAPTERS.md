@@ -12,12 +12,12 @@ roadmap ordering in §5 are still the plan.
 ## 1. Layering
 
 ```
-@restheart-cloud/kit          pure TypeScript, no framework, Promise API
+@ulabase/kit          pure TypeScript, no framework, Promise API
         │
-        ├── @restheart-cloud/kit-ng          Angular   — signals, guards, interceptor
-        ├── @restheart-cloud/kit-react       React     — hooks, context, guard component
+        ├── @ulabase/kit-ng          Angular   — signals, guards, interceptor
+        ├── @ulabase/kit-react       React     — hooks, context, guard component
         │       └── /next  subpath           Next.js   — middleware, route handlers
-        └── @restheart-cloud/kit-vue         Vue       — composables, navigation guards
+        └── @ulabase/kit-vue         Vue       — composables, navigation guards
                 └── /nuxt  subpath           Nuxt      — server middleware, route rules
 ```
 
@@ -34,8 +34,8 @@ and the usual reaction is to write a private wrapper instead.
 The subpath answers that without a fourth package to version and release:
 
 ```ts
-import { useAuth }        from '@restheart-cloud/kit-react';
-import { rhAuthMiddleware } from '@restheart-cloud/kit-react/next';
+import { useAuth }        from '@ulabase/kit-react';
+import { rhAuthMiddleware } from '@ulabase/kit-react/next';
 ```
 
 One version, one changelog, one release. Code importing `next/headers` and `next/server`
@@ -56,7 +56,7 @@ This is the part that most often gets designed wrong, in both directions.
 
 ### 2.1 The cookie RESTHeart cannot set
 
-RESTHeart Cloud can set an `HttpOnly` JWT cookie — `POST /token/cookie`, and
+Ulabase can set an `HttpOnly` JWT cookie — `POST /token/cookie`, and
 `delivery=cookie` on the verification redirect. Both are usable **only when the app and the
 service share an origin.**
 
@@ -67,7 +67,7 @@ app.cliente.com         ── the page it must authenticate
 
 Different registrable domains, so on every request from that page the cookie is
 **third-party**: blocked by default in Safari and Firefox, left to the user in Chrome. Since
-a RESTHeart Cloud service always lives on `*.restheart.com` while the app lives on the
+a Ulabase service always lives on `*.restheart.com` while the app lives on the
 customer's own domain, **cookie mode is not available to normal deployments** and the kit
 defaults to bearer everywhere.
 
@@ -294,7 +294,7 @@ implementations pinned to a kit version, or the ongoing maintenance is budgeted 
 
 ## 6. What the CLI is not
 
-`@restheart-cloud/cli` sits in this monorepo and depends on the core, so it looks like a
+`@ulabase/cli` sits in this monorepo and depends on the core, so it looks like a
 fourth adapter in the tree listing. It is not one, and the difference is worth stating once so
 nobody re-litigates it in six months.
 
@@ -326,13 +326,13 @@ same layer, and one of them does not belong in a deployed page at all.
 The layering, then:
 
 ```
-@restheart-cloud/kit             the core — login, apiFetch, the error type
+@ulabase/kit             the core — login, apiFetch, the error type
         │
         ├── kit-ng / kit-react / kit-vue     browser, tenant token, reactive state
-        └── @restheart-cloud/cli            Node, SaaS account, no state at all
+        └── @ulabase/cli            Node, SaaS account, no state at all
 ```
 
-`@restheart-cloud/cli` reuses `login` and `apiFetch` for the admin node — supplying its own
+`@ulabase/cli` reuses `login` and `apiFetch` for the admin node — supplying its own
 `getToken`/`setToken`, because `AuthConfig`'s default store is `localStorage` and Node has none.
 It does *not* use `apiFetch` for the service node: `apiFetch` validates that the base URL is a
 `*.restheart.com` service, which is a real guard on a browser-facing kit, and a service node's URL

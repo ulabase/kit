@@ -18,9 +18,9 @@ import {
 const DEFAULT_API = 'https://cloud-api.restheart.com';
 
 /** The environment variable that names the admin node, instead of --api. */
-const API_VAR = 'RHC_API';
+const API_VAR = 'ULABASE_API';
 
-/** The admin node when --api is not given: RHC_API, or the default. */
+/** The admin node when --api is not given: ULABASE_API, or the default. */
 function defaultApi(): string {
   return process.env[API_VAR]?.trim() || DEFAULT_API;
 }
@@ -33,7 +33,7 @@ function defaultApi(): string {
  * `tsc` ran would be the placeholder `0.0.0` for ever. Which is also what it
  * reports from a checkout, correctly — a linked build is not a release.
  *
- * Resolved from this module rather than the working directory, or `rhc` run
+ * Resolved from this module rather than the working directory, or `ulabase` run
  * inside any other project would report that project's version.
  */
 function version(): string {
@@ -48,12 +48,12 @@ function version(): string {
 /**
  * Looked for in the working directory when `--file` is not given.
  *
- * Conventional rather than configurable on purpose: `rhc setup --srv ea820b`
+ * Conventional rather than configurable on purpose: `ulabase setup --srv c0ffee`
  * is the command people type dozens of times, and a flag that is always the
  * same value is a flag worth not typing. `.ts` first because that is what a
  * setup is normally written in — it wants the types.
  */
-const DEFAULT_FILES = ['rhc.setup.ts', 'rhc.setup.mts', 'rhc.setup.js', 'rhc.setup.mjs'];
+const DEFAULT_FILES = ['ulabase.setup.ts', 'ulabase.setup.mts', 'ulabase.setup.js', 'ulabase.setup.mjs'];
 
 /**
  * What a personal access token starts with.
@@ -61,17 +61,17 @@ const DEFAULT_FILES = ['rhc.setup.ts', 'rhc.setup.mts', 'rhc.setup.js', 'rhc.set
  * Advisory only — it is server configuration, and this copy of it is used to
  * warn, never to refuse. See {@link warnIfNotAPat}.
  */
-const PAT_PREFIX = 'rhc_live_';
+const PAT_PREFIX = 'ula_live_';
 
 const USAGE = `
-rhc — the RESTHeart Cloud CLI
+ulabase — the Ulabase CLI, also installed as \`ula\`
 
-  rhc login
-  rhc setup --srv ea820b
-  rhc setup --srv ea820b --dry-run
+  ulabase login
+  ulabase setup --srv c0ffee
+  ulabase setup --srv c0ffee --dry-run
 
-  npm i -g @restheart-cloud/cli   for a terminal
-  npx @restheart-cloud/cli setup  for a pipeline
+  npm i -g @ulabase/cli   for a terminal
+  npx @ulabase/cli setup  for a pipeline
 
 Commands
   login           Store a personal access token for later commands.
@@ -103,8 +103,8 @@ Credentials
   and cannot buy one, and it is revoked by itself, without touching anything
   else the account is used for.
 
-  ${TOKEN_VAR}    in a pipeline. Always wins over a stored session.
-  rhc login           in a terminal. Stored 0600 under ~/.config/restheart.
+  ${TOKEN_VAR}       in a pipeline. Always wins over a stored session.
+  ulabase login       in a terminal. Stored 0600 under ~/.config/ulabase.
 
   Never a flag: a credential in a flag is a credential in the shell history,
   and in the process list of every other user on the machine.
@@ -203,7 +203,7 @@ function resolveFile(explicit?: string): string {
  *
  * - **the setup file's own imports do not resolve.** A setup imports
  *   `defineSetup` and `step` from this package, and a bare specifier resolves
- *   from the *importing file's* directory — not from where `rhc` lives. A global
+ *   from the *importing file's* directory — not from where `ulabase` lives. A global
  *   install is not on that path, so the project needs its own copy. That is the
  *   documented shape (global for the command, local for the file), which makes
  *   it a setup instruction rather than a bug — but only if it is said.
@@ -226,7 +226,7 @@ async function loadSetup(file: string): Promise<Setup> {
       const pkg = missing[1];
       throw new Error(
         `${file} imports ${pkg}, which is not installed in that project.\n\n` +
-          'A setup file resolves its imports from its own directory, so a global `rhc` does not\n' +
+          'A setup file resolves its imports from its own directory, so a global `ulabase` does not\n' +
           `satisfy them. In ${dirname(resolve(process.cwd(), file))}:\n\n` +
           `  npm i -D ${pkg}\n`
       );
@@ -308,13 +308,13 @@ async function prompt(question: string, silent = false): Promise<string> {
  * A bare `401` is true and useless. There are only two reasons a token that was
  * good is refused — it was revoked, or it expired — and neither is a thing the
  * user can debug from a status code. The cure differs by where the token came
- * from: a pipeline has no `rhc login` to run.
+ * from: a pipeline has no `ulabase login` to run.
  */
 function credentialError(source: ResolvedToken['source']): string {
   return source === 'env'
     ? `The token in ${TOKEN_VAR} was revoked or has expired. Issue a new one at ` +
         'cloud.restheart.com and update it in your secret store.'
-    : 'Your session was revoked or has expired. Run `rhc login`.';
+    : 'Your session was revoked or has expired. Run `ulabase login`.';
 }
 
 /** Turn anything thrown into one line worth printing. */
@@ -346,18 +346,9 @@ function requireToken(): ResolvedToken {
   const resolved = resolveToken();
   if (resolved) return resolved;
 
-  if (process.env['RH_CLOUD_PASSWORD'] !== undefined || process.env['RH_CLOUD_EMAIL'] !== undefined) {
-    throw new Error(
-      'RH_CLOUD_EMAIL and RH_CLOUD_PASSWORD are no longer used. They were the account password, ' +
-        'which reaches billing and every service and cannot be revoked without changing it ' +
-        `everywhere.\nIssue a personal access token at cloud.restheart.com and set ${TOKEN_VAR}, ` +
-        'or run `rhc login`.'
-    );
-  }
-
   throw new Error(
     process.stdin.isTTY
-      ? 'Not logged in. Run `rhc login`.'
+      ? 'Not logged in. Run `ulabase login`.'
       : `${TOKEN_VAR} is not set, and there is no terminal to ask.\n` +
           "In a pipeline, set it from your platform's secret store."
   );
@@ -379,7 +370,7 @@ async function cmdLogin(args: Args): Promise<number> {
   if (!fromEnv && !process.stdin.isTTY) {
     process.stderr.write(
       `${TOKEN_VAR} is not set, and there is no terminal to ask.\n` +
-        'In a pipeline, set it from your secret store — there is no need to run `rhc login` at all.\n'
+        'In a pipeline, set it from your secret store — there is no need to run `ulabase login` at all.\n'
     );
     return 1;
   }
@@ -408,7 +399,7 @@ async function cmdLogin(args: Args): Promise<number> {
     if (isApiError(err) && (err.status === 401 || err.status === 403)) {
       process.stderr.write(
         'That token was not accepted. It may have been revoked, it may have expired, ' +
-          'or it may be a token for a different RESTHeart Cloud.\n'
+          'or it may be a token for a different Ulabase installation.\n'
       );
     } else {
       process.stderr.write(`Could not reach ${args.api}: ${describe(err)}\n`);
@@ -504,7 +495,7 @@ async function cmdSetup(args: Args): Promise<number> {
   if (credential.source === 'file' && credential.api !== undefined && credential.api !== args.api) {
     throw new Error(
       `Your stored session is for ${credential.api}, not ${args.api}.\n` +
-        `Run \`rhc login --api ${args.api}\`, or set ${TOKEN_VAR}.`
+        `Run \`ulabase login --api ${args.api}\`, or set ${TOKEN_VAR}.`
     );
   }
 
@@ -548,7 +539,7 @@ async function cmdSetup(args: Args): Promise<number> {
 async function main(): Promise<number> {
   const args = parseArgs(process.argv.slice(2));
 
-  // Before everything else, including the command check: `rhc -v` has to answer
+  // Before everything else, including the command check: `ulabase -v` has to answer
   // on a machine where nothing is set up yet, which is most of when it is asked.
   if (args.version) {
     process.stdout.write(`${version()}\n`);
@@ -557,7 +548,7 @@ async function main(): Promise<number> {
 
   if (args.help || args.command === undefined) {
     // No command is not an error worth a non-zero exit only when it was asked
-    // for: `rhc` alone should show what it can do, `rhc --srv x` should not
+    // for: `ulabase` alone should show what it can do, `ulabase --srv x` should not
     // silently guess that `setup` was meant.
     const asked = args.help || process.argv.length <= 2;
     (asked ? process.stdout : process.stderr).write(USAGE);

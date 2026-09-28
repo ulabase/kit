@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { createApp, defineComponent, h } from 'vue';
 import { createRhCart, createRhCartStore, useCart } from '../index';
 
-// The cart logic itself is unit-tested in @restheart-cloud/kit. What is left
+// The cart logic itself is unit-tested in @ulabase/kit. What is left
 // here is the adapter's own job: refs and localStorage staying in step, and the
 // plugin actually providing the store.
 

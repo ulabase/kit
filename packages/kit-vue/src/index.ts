@@ -17,6 +17,6 @@ export { buildGuards } from './guards.js';
 export type { RhGuards, GuardOptions } from './guards.js';
 export { RH_AUTH_KEY, RH_PAYMENTS_KEY, RH_CART_KEY } from './keys.js';
 
-// Re-exported so Vue apps only need this one package — @restheart-cloud/kit
+// Re-exported so Vue apps only need this one package — @ulabase/kit
 // is an internal (non-peer) dependency of kit-vue.
-export * from '@restheart-cloud/kit';
+export * from '@ulabase/kit';

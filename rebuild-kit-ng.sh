@@ -4,20 +4,20 @@ set -euo pipefail
 SCRIPT_DIR="${0:A:h}"
 STARTER_DIR="/Users/uji/development/restheart-cloud/restheart-cloud-starter-ng"
 
-echo "Building @restheart-cloud/kit..."
+echo "Building @ulabase/kit..."
 npm run build -w packages/kit
 
-echo "Building @restheart-cloud/kit-ng..."
+echo "Building @ulabase/kit-ng..."
 npm run build -w packages/kit-ng
 
-echo "Linking @restheart-cloud/kit..."
+echo "Linking @ulabase/kit..."
 npm link -w packages/kit
 
-echo "Linking @restheart-cloud/kit-ng..."
+echo "Linking @ulabase/kit-ng..."
 (cd packages/kit-ng/dist && npm link)
 
 echo "Linking into starter..."
-cd "$STARTER_DIR" && npm link @restheart-cloud/kit @restheart-cloud/kit-ng
+cd "$STARTER_DIR" && npm link @ulabase/kit @ulabase/kit-ng
 
 echo "Clearing starter cache..."
 rm -rf "$STARTER_DIR/.angular/cache"

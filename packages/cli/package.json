@@ -1,7 +1,7 @@
 {
-  "name": "@restheart-cloud/cli",
+  "name": "@ulabase/cli",
   "version": "0.0.0",
-  "description": "The RESTHeart Cloud CLI. Configure a service from a plan committed to git — collections, indexes, permissions and plugins, applied idempotently from a terminal or a CI pipeline.",
+  "description": "The Ulabase CLI. Configure a service from a plan committed to git — collections, indexes, permissions and plugins, applied idempotently from a terminal or a CI pipeline.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,11 +9,11 @@
     ".": "./dist/index.js"
   },
   "bin": {
-    "rhc": "./dist/cli.js"
+    "ulabase": "./dist/cli.js",
+    "ula": "./dist/cli.js"
   },
   "keywords": [
-    "restheart",
-    "restheart-cloud",
+    "ulabase",
     "cli",
     "configuration",
     "infrastructure-as-code"
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SoftInstigate/restheart-cloud-kit.git",
+    "url": "git+https://github.com/ulabase/kit.git",
     "directory": "packages/cli"
   },
   "license": "MIT",
@@ -33,7 +33,7 @@
     "test:unit": "vitest run --config vitest.unit.config.ts"
   },
   "dependencies": {
-    "@restheart-cloud/kit": "0.0.0"
+    "@ulabase/kit": "0.0.0"
   },
   "devDependencies": {
     "@types/node": "^22",

@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import type {
   AuthConfig,
   Invitation,
@@ -17,13 +17,13 @@ import type {
   TeamMember,
   TeamMembership,
   UserInfo,
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 
 /**
  * The reactive auth surface, shared app-wide through {@link RhAuthProvider}.
  *
  * State fields are plain values that trigger a re-render when they change;
- * methods are thin wrappers over `@restheart-cloud/kit` that update that state.
+ * methods are thin wrappers over `@ulabase/kit` that update that state.
  * This is the React equivalent of `kit-ng`'s `RhAuthService` — the same contract,
  * returning Promises instead of Observables.
  */

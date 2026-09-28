@@ -4,5 +4,5 @@
     "entryFile": "src/index.ts"
   },
   "dest": "dist",
-  "allowedNonPeerDependencies": ["@restheart-cloud/kit"]
+  "allowedNonPeerDependencies": ["@ulabase/kit"]
 }

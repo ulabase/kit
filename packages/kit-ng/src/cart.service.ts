@@ -10,7 +10,7 @@ import {
   DEFAULT_CART_STORAGE_KEY,
   type CartItem,
   type CartLine,
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 /**
  * Where {@link RhCartService} keeps the cart in `localStorage`. Defaults to `'rh-cart'`.
  *

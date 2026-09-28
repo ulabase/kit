@@ -18,7 +18,7 @@ export interface SessionHandlerOptions {
  *
  * ```ts
  * // server/api/rh/session.ts
- * import { createSessionHandler } from '@restheart-cloud/kit-vue/nuxt';
+ * import { createSessionHandler } from '@ulabase/kit-vue/nuxt';
  * export default createSessionHandler();
  * ```
  *

@@ -18,7 +18,7 @@ import {
   type CartItem,
   type CartLine,
   type OrderItem,
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 
 /**
  * The cart, shared app-wide through {@link RhCartProvider}.

@@ -8,8 +8,8 @@ import {
 import { Observable, catchError, from, switchMap, throwError } from 'rxjs';
 import { RhAuthService } from './auth.service.js';
 import { RH_AUTH_CONFIG, RH_KIT_REQUEST } from './tokens.js';
-import { clearToken, cancelRefresh, getToken } from '@restheart-cloud/kit';
-import type { AuthConfig } from '@restheart-cloud/kit';
+import { clearToken, cancelRefresh, getToken } from '@ulabase/kit';
+import type { AuthConfig } from '@ulabase/kit';
 
 /** The token source is pluggable and may be async — keep the sync path sync. */
 function readToken(config: AuthConfig): string | null | Promise<string | null> {

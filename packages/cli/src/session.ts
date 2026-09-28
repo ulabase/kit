@@ -26,25 +26,25 @@ export interface ResolvedToken {
   api?: string;
 }
 
-export const TOKEN_VAR = 'RH_CLOUD_TOKEN';
+export const TOKEN_VAR = 'ULABASE_TOKEN';
 
 /**
- * `~/.config/restheart/session.json`, or under `XDG_CONFIG_HOME` when set.
+ * `~/.config/ulabase/session.json`, or under `XDG_CONFIG_HOME` when set.
  *
  * Not in the project directory, and deliberately: a credential in a working
  * tree is a credential one `git add -A` away from a public repository.
  */
 export function sessionPath(env: NodeJS.ProcessEnv = process.env): string {
   const base = env['XDG_CONFIG_HOME'] ?? join(homedir(), '.config');
-  return join(base, 'restheart', 'session.json');
+  return join(base, 'ulabase', 'session.json');
 }
 
 /**
  * The stored session, or `null` when there is none.
  *
  * A file that cannot be parsed reads as absent rather than as an error: the
- * cure for a corrupt session is `rhc login`, and refusing to run until the user
- * finds and deletes a file they have never heard of helps nobody.
+ * cure for a corrupt session is `ulabase login`, and refusing to run until the
+ * user finds and deletes a file they have never heard of helps nobody.
  */
 export function readSession(env: NodeJS.ProcessEnv = process.env): Session | null {
   const path = sessionPath(env);
@@ -88,8 +88,8 @@ export function clearSession(env: NodeJS.ProcessEnv = process.env): boolean {
 /**
  * The token to authenticate with, and where it came from.
  *
- * **`RH_CLOUD_TOKEN` wins over the stored file, always.** A pipeline has no
- * `rhc login` step, so a CI run must never quietly fall back to a session left
+ * **The environment wins over the stored file, always.** A pipeline has no
+ * `ulabase login` step, so a CI run must never quietly fall back to a session left
  * behind on a shared runner; and on a developer's machine, an environment
  * variable set on purpose must not be shadowed by a login from last month.
  * Precedence in one direction, with no condition attached to it, is the only

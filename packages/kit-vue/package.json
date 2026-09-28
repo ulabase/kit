@@ -1,7 +1,7 @@
 {
-  "name": "@restheart-cloud/kit-vue",
+  "name": "@ulabase/kit-vue",
   "version": "0.0.0",
-  "description": "Vue composables and navigation guards for RESTHeart Cloud authentication and payments — wraps @restheart-cloud/kit. Includes a /nuxt subpath for Nuxt server-side rendering.",
+  "description": "Vue composables and navigation guards for Ulabase authentication and payments — wraps @ulabase/kit. Includes a /nuxt subpath for Nuxt server-side rendering.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SoftInstigate/restheart-cloud-kit.git",
+    "url": "git+https://github.com/ulabase/kit.git",
     "directory": "packages/kit-vue"
   },
   "license": "MIT",
@@ -42,7 +42,7 @@
     }
   },
   "dependencies": {
-    "@restheart-cloud/kit": "0.0.0"
+    "@ulabase/kit": "0.0.0"
   },
   "devDependencies": {
     "h3": "^1",

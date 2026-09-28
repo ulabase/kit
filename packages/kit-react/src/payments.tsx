@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import type {
   AuthConfig,
   CatalogItem,
@@ -19,7 +19,7 @@ import type {
   Plan,
   Subscription,
   WaitOptions,
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 import { useAuth } from './context.js';
 
 /**

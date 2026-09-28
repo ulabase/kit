@@ -1,11 +1,12 @@
 {
-  "name": "restheart-cloud-kit-monorepo",
+  "name": "ulabase-kit-monorepo",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build -w packages/kit && npm run build -w packages/kit-ng && npm run build -w packages/kit-react && npm run build -w packages/kit-vue && npm run build -w packages/cli"
+    "build": "npm run build -w packages/kit && npm run build -w packages/kit-ng && npm run build -w packages/kit-react && npm run build -w packages/kit-vue && npm run build -w packages/cli",
+    "test": "npm run test:unit -w packages/kit && npm test -w packages/kit-react -w packages/kit-vue -w packages/kit-ng -w packages/cli"
   },
   "allowScripts": {
     "sharp@0.34.5": true,

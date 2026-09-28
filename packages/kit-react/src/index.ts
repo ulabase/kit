@@ -7,6 +7,6 @@ export type { RhCart, RhCartProviderProps } from './cart.js';
 export { AuthGuard, PublicGuard } from './guards.js';
 export type { GuardProps } from './guards.js';
 
-// Re-exported so React apps only need this one package — @restheart-cloud/kit
+// Re-exported so React apps only need this one package — @ulabase/kit
 // is an internal (non-peer) dependency of kit-react.
-export * from '@restheart-cloud/kit';
+export * from '@ulabase/kit';

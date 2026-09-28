@@ -11,7 +11,7 @@ export interface SessionRouteOptions {
  *
  * ```ts
  * // app/api/rh/session/route.ts
- * import { createSessionRoute } from '@restheart-cloud/kit-react/next';
+ * import { createSessionRoute } from '@ulabase/kit-react/next';
  * export const { POST, DELETE } = createSessionRoute();
  * ```
  *

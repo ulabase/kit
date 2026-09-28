@@ -1,4 +1,4 @@
-import { getTokenExpiry } from '@restheart-cloud/kit';
+import { getTokenExpiry } from '@ulabase/kit';
 import type { AdminClient } from './admin.js';
 import { existsOr404, request } from './http.js';
 import { resolveEnvRefs, defaultEnv } from './env.js';

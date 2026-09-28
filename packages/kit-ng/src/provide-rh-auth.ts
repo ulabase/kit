@@ -1,6 +1,6 @@
 import { EnvironmentProviders, inject, makeEnvironmentProviders } from '@angular/core';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
-import type { AuthConfig } from '@restheart-cloud/kit';
+import type { AuthConfig } from '@ulabase/kit';
 import { RH_AUTH_CONFIG } from './tokens.js';
 import { rhAuthInterceptor } from './auth.interceptor.js';
 import { httpClientTransport } from './http-transport.js';

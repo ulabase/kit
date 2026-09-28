@@ -1,6 +1,6 @@
 name: Unit Tests
 
-# Adapter unit tests mock @restheart-cloud/kit, so they need no backend and no
+# Adapter unit tests mock @ulabase/kit, so they need no backend and no
 # secrets — unlike the core's live integration tests (integration-test.yml).
 # They run on every push and pull request as the fast feedback gate.
 
@@ -27,7 +27,7 @@ jobs:
 
       - run: npm ci
 
-      # Adapters resolve @restheart-cloud/kit from its built dist.
+      # Adapters resolve @ulabase/kit from its built dist.
       - run: npm run build
 
       # Scope to the adapters explicitly — never --workspaces, which would also

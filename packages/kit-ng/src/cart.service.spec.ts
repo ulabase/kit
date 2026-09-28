@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { RhCartService, RH_CART_STORAGE_KEY } from './cart.service';
 
-// The cart logic itself is unit-tested in @restheart-cloud/kit. What is left
+// The cart logic itself is unit-tested in @ulabase/kit. What is left
 // here is the service's own job: signals and localStorage staying in step.
 
 const mug = { productId: 'mug', name: 'Enamel mug', unitAmount: 1450, currency: 'eur' };

@@ -1,13 +1,13 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ReactNode } from 'react';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { RhAuthProvider, useAuth, RhPaymentsProvider, usePayments } from '../index';
 
-// The core is separately integration-tested against a live RESTHeart Cloud
+// The core is separately integration-tested against a live Ulabase
 // instance. Here we mock it entirely and assert only the adapter's wiring:
 // which core calls fire, and how the reactive state reacts.
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 const user = { _id: 'a@b.com', roles: ['user'], team: { _id: { $oid: '1' }, role: 'owner' } } as kit.UserInfo;

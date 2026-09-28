@@ -1,12 +1,12 @@
 import { getCookie, setCookie, deleteCookie, type H3Event } from 'h3';
-import type { AuthConfig, UserInfo } from '@restheart-cloud/kit';
+import type { AuthConfig, UserInfo } from '@ulabase/kit';
 import {
   login as kitLogin,
   switchTeam as kitSwitchTeam,
   activate as kitActivate,
   resetPassword as kitResetPassword,
   logout as kitLogout,
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 import {
   resolveCookieOptions,
   cookieMaxAge,

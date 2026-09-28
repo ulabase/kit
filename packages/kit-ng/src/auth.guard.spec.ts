@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router, type CanActivateFn } from '@angular/router';
 import { firstValueFrom, isObservable, type Observable } from 'rxjs';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { RhAuthService } from './auth.service';
 import { authGuard, publicGuard } from './auth.guard';
 import { RH_AUTH_CONFIG } from './tokens';
 
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 const user = { _id: 'a@b.com', roles: ['user'] } as kit.UserInfo;

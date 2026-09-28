@@ -1,4 +1,4 @@
-// Next.js subpath: server-side rendering support for @restheart-cloud/kit-react.
+// Next.js subpath: server-side rendering support for @ulabase/kit-react.
 // Everything importing `next/*` lives behind this subpath, so a React app on Vite
 // never resolves it. `next` is an optional peer dependency.
 

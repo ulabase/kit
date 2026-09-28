@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import type { AuthConfig } from '@restheart-cloud/kit';
-import { getTokenExpiry } from '@restheart-cloud/kit';
+import type { AuthConfig } from '@ulabase/kit';
+import { getTokenExpiry } from '@ulabase/kit';
 import { resolveCookieOptions, cookieMaxAge, type SessionCookieOptions } from './cookies.js';
 
 export interface RhMiddlewareOptions {

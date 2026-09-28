@@ -6,9 +6,9 @@ const { store } = vi.hoisted(() => ({
   store: { get: vi.fn(), set: vi.fn(), delete: vi.fn() },
 }));
 vi.mock('next/headers', () => ({ cookies: vi.fn(async () => store) }));
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { rhLogin, rhLogout, rhSwitchTeam } from '../actions';
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };

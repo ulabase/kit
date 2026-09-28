@@ -1,7 +1,7 @@
 {
-  "name": "@restheart-cloud/kit",
+  "name": "@ulabase/kit",
   "version": "0.0.0",
-  "description": "Signup, login and payments for your frontend \u2014 email verification, password reset, team invitations and multi-team switching, plus Stripe subscriptions, seat licences and orders, for RESTHeart Cloud.",
+  "description": "Signup, login and payments for your frontend \u2014 email verification, password reset, team invitations and multi-team switching, plus Stripe subscriptions, seat licences and orders, for Ulabase.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SoftInstigate/restheart-cloud-kit.git",
+    "url": "git+https://github.com/ulabase/kit.git",
     "directory": "packages/kit"
   },
   "license": "MIT",

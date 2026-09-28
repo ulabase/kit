@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, from, map, of, switchMap, tap, throwError } from 'rxjs';
-import type { UserInfo, TeamMembership, TeamMember, PendingInvitation, AuthConfig, LoginMode } from '@restheart-cloud/kit';
-import * as kit from '@restheart-cloud/kit';
+import type { UserInfo, TeamMembership, TeamMember, PendingInvitation, AuthConfig, LoginMode } from '@ulabase/kit';
+import * as kit from '@ulabase/kit';
 import { RH_AUTH_CONFIG } from './tokens.js';
 
 @Injectable({ providedIn: 'root' })

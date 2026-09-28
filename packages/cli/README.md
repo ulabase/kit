@@ -1,6 +1,6 @@
-# @restheart-cloud/cli
+# @ulabase/cli
 
-Set up a RESTHeart Cloud service from a file committed to git.
+Set up a Ulabase service from a file committed to git.
 
 A developer who forks a starter gets working code and an unconfigured service. What follows is
 clicking: create the catalog collection, add an index, write the ACL permission that lets a guest
@@ -11,8 +11,8 @@ quiet — a missing anonymous `GET /catalog` permission shows up as *an empty sh
 This package makes it a file:
 
 ```ts
-// rhc.setup.ts
-import { defineSetup, step } from '@restheart-cloud/cli';
+// ulabase.setup.ts
+import { defineSetup, step } from '@ulabase/cli';
 
 export default defineSetup('Shop', [
   step('catalog collection', {
@@ -31,7 +31,7 @@ export default defineSetup('Shop', [
 ```
 
 ```bash
-npx @restheart-cloud/cli setup --srv ea820b
+npx @ulabase/cli setup --srv c0ffee
 ```
 
 ```
@@ -42,12 +42,12 @@ npx @restheart-cloud/cli setup --srv ea820b
 [5/6] + guests may place an order
 [6/6] + guests may read back the order they placed
 
-Ecommerce on ea820b: 1 satisfied, 5 applied
+Ecommerce on c0ffee: 1 satisfied, 5 applied
 ```
 
 Run it again and every line is `·` — satisfied, nothing written.
 
-That output is [`rhc.setup.ts` in the ecommerce starter][starter-setup] — a real setup for a real app,
+That output is [`ulabase.setup.ts` in the ecommerce starter][starter-setup] — a real setup for a real app,
 which lives in that repo rather than in this one. This package ships the surface a setup is written
 against; a setup belongs to the application it configures, and changes in the same commit as the
 code that depends on it.
@@ -59,21 +59,21 @@ code that depends on it.
 Two install shapes, because there are two things here and they are used at different moments.
 
 ```bash
-npm i -g @restheart-cloud/cli    # the `rhc` command, for a terminal
-npm i -D @restheart-cloud/cli    # the library, for a project whose setup file imports it
+npm i -g @ulabase/cli    # the `ulabase` command, for a terminal
+npm i -D @ulabase/cli    # the library, for a project whose setup file imports it
 ```
 
 A setup file imports `defineSetup`, `step` and `fromEnv`, so a project that has one
 wants the local dependency — a global install is not on Node's resolution path and the import
-would not resolve. The `rhc` command is account-level and outlives any one project, so it wants
+would not resolve. The `ulabase` command is account-level and outlives any one project, so it wants
 the global one. Installing both is normal here, the same way `vite` is both a bin and the module
 `defineConfig` comes from.
 
-In a pipeline, neither: `npx @restheart-cloud/cli setup …` and nothing to keep installed.
+In a pipeline, neither: `npx @ulabase/cli setup …` and nothing to keep installed.
 
 The two copies do not conflict. `fromEnv` markers are matched with `Symbol.for`, which is the
 global symbol registry rather than a per-module identity, and a `Setup` is plain data —
-`{ name, steps: [{ name, check, apply }] }`, no `instanceof`, no shared class. So the `rhc` you
+`{ name, steps: [{ name, check, apply }] }`, no `instanceof`, no shared class. So the `ulabase` you
 have installed can run a setup built against a different version of the library. That is a
 property to preserve, not an accident: a `Symbol()` in place of `Symbol.for` would break it
 silently.
@@ -85,7 +85,7 @@ header. A page served from your own origin sends one and is vetoed; Node, curl a
 is not a browser pass. So this is a CLI and a library for Node, and designing it as a browser page
 would have produced an API that cannot work.
 
-It is also the right call on its own merits: the credential here is your RESTHeart Cloud account,
+It is also the right call on its own merits: the credential here is your Ulabase account,
 which governs every service you own and its billing — a much larger blast radius than the tenant
 token the framework adapters handle, and not a thing to put in a deployed page.
 
@@ -98,7 +98,7 @@ The unit is not an operation, it is a **step**: a `check` that answers satisfied
 `apply` that makes it so.
 
 ```ts
-import { defineSetup, step } from '@restheart-cloud/cli';
+import { defineSetup, step } from '@ulabase/cli';
 
 export default defineSetup('Blog', [
   step('posts collection', {
@@ -180,9 +180,9 @@ The credential is a **personal access token**. Issue one at
 [cloud.restheart.com](https://cloud.restheart.com), under your profile.
 
 ```bash
-rhc login                     # prompts, stores 0600 under ~/.config/restheart
-rhc setup --srv ea820b
-rhc logout                    # forgets it here; revoke it in the console
+ulabase login                     # prompts, stores 0600 under ~/.config/ulabase
+ulabase setup --srv c0ffee
+ulabase logout                    # forgets it here; revoke it in the console
 ```
 
 The CLI has no way to accept a password, and that is the design rather than a gap. If you signed up
@@ -198,7 +198,7 @@ one token by itself, without disturbing anything else the account is used for.
 
 ## From a pipeline
 
-Set `RH_CLOUD_TOKEN` from your platform's secret store. There is no `rhc login` step: the variable
+Set `ULABASE_TOKEN` from your platform's secret store. There is no `ulabase login` step: the variable
 **always wins over a stored session**, in that direction and with no condition attached, so a CI run
 can never quietly fall back to a session left behind on a shared runner.
 
@@ -207,9 +207,9 @@ of every other user on the machine.
 
 ```yaml
 # .github/workflows/deploy.yml
-- run: npx @restheart-cloud/cli setup --srv ea820b
+- run: npx @ulabase/cli setup --srv c0ffee
   env:
-    RH_CLOUD_TOKEN: ${{ secrets.RH_CLOUD_TOKEN }}
+    ULABASE_TOKEN: ${{ secrets.ULABASE_TOKEN }}
     STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
     STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
 ```
@@ -218,13 +218,13 @@ of every other user on the machine.
 # bitbucket-pipelines.yml
 - step:
     script:
-      - npx @restheart-cloud/cli setup --srv ea820b
-    # RH_CLOUD_TOKEN, STRIPE_* as repository or deployment variables
+      - npx @ulabase/cli setup --srv c0ffee
+    # ULABASE_TOKEN, STRIPE_* as repository or deployment variables
 ```
 
 A revoked or expired token is reported as exactly that rather than as a bare `401`, and the message
 differs by where the token came from: a pipeline is told to update its secret store, a terminal is
-told to run `rhc login`.
+told to run `ulabase login`.
 
 Both platforms mask a registered secret in their own logs, but that is their safety net and not
 this package's: the progress callback emits a step's name and state and nothing else, so there is
@@ -242,27 +242,27 @@ misconfigured Stripe key fails the pipeline before it can report success.
 ## CLI
 
 ```
-rhc login  [--api <url>]
-rhc logout
-rhc setup --srv <id> [options]
+ulabase login  [--api <url>]
+ulabase logout
+ulabase setup --srv <id> [options]
 
 --file <path>   A module exporting a setup (default export, or `setup`).
                 A function export is called with no arguments.
-                Defaults to ./rhc.setup.ts in the working directory.
+                Defaults to ./ulabase.setup.ts in the working directory.
 --srv <id>      The service to set up.
 --dry-run       Run every check, apply nothing, write nothing.
---api <url>     Admin node (default: RHC_API, else https://cloud-api.restheart.com).
+--api <url>     Admin node (default: ULABASE_API, else https://cloud-api.restheart.com).
 --json          Emit the report as JSON instead of a step list.
 ```
 
-`rhc login` checks the token against the admin node before storing it. Writing an unverified
+`ulabase login` checks the token against the admin node before storing it. Writing an unverified
 credential to disk only moves the failure to the next command, where it lands as a `401` in the
 middle of something you cared about instead of while you can still paste the right thing. The
 stored session records which admin node the token was verified against, and a `--api` that
 disagrees is refused rather than sent — otherwise a production credential would be offered to
 whatever host happened to be named.
 
-`rhc new free|shared` — creating a service from the terminal — is specified in
+`ulabase new free|shared` — creating a service from the terminal — is specified in
 [`specs/todo/provisioning.md`](../../specs/todo/provisioning.md) and not built.
 
 Provisioning will deliberately not be reachable from a setup: a pipeline re-runs a setup on every

@@ -1,11 +1,11 @@
 import { beforeEach, expect, it, vi } from 'vitest';
 import { createApp, h, type Plugin } from 'vue';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { createRhAuth } from '../create';
 import { createRhPayments } from '../create-payments';
 import { usePayments } from '../use-payments';
 
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com', payments: true };
 

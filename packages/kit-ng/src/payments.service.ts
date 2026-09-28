@@ -10,8 +10,8 @@ import type {
   Subscription,
   WaitOptions,
   CatalogQuery,
-} from '@restheart-cloud/kit';
-import * as kit from '@restheart-cloud/kit';
+} from '@ulabase/kit';
+import * as kit from '@ulabase/kit';
 import { RH_AUTH_CONFIG } from './tokens.js';
 import { RhAuthService } from './auth.service.js';
 

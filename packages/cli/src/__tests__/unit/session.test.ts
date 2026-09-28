@@ -17,7 +17,7 @@ let home: string;
 let env: NodeJS.ProcessEnv;
 
 beforeEach(() => {
-  home = mkdtempSync(join(tmpdir(), 'rhc-session-'));
+  home = mkdtempSync(join(tmpdir(), 'ulabase-session-'));
   env = { XDG_CONFIG_HOME: home };
 });
 
@@ -27,25 +27,25 @@ afterEach(() => {
 
 describe('sessionPath', () => {
   it('lives under XDG_CONFIG_HOME when it is set', () => {
-    expect(sessionPath(env)).toBe(join(home, 'restheart', 'session.json'));
+    expect(sessionPath(env)).toBe(join(home, 'ulabase', 'session.json'));
   });
 
   it('falls back to ~/.config', () => {
-    expect(sessionPath({})).toMatch(/[/\\]\.config[/\\]restheart[/\\]session\.json$/);
+    expect(sessionPath({})).toMatch(/[/\\]\.config[/\\]ulabase[/\\]session\.json$/);
   });
 });
 
 describe('writeSession', () => {
   it('round-trips', () => {
-    writeSession({ token: 'rhc_live_abc', api: 'https://cloud-api.restheart.com' }, env);
+    writeSession({ token: 'ula_live_abc', api: 'https://cloud-api.restheart.com' }, env);
     expect(readSession(env)).toEqual({
-      token: 'rhc_live_abc',
+      token: 'ula_live_abc',
       api: 'https://cloud-api.restheart.com',
     });
   });
 
   it('is readable only by its owner', () => {
-    const path = writeSession({ token: 'rhc_live_abc', api: 'https://x.restheart.com' }, env);
+    const path = writeSession({ token: 'ula_live_abc', api: 'https://x.restheart.com' }, env);
     expect(statSync(path).mode & 0o777).toBe(0o600);
   });
 
@@ -53,7 +53,7 @@ describe('writeSession', () => {
     // writeFileSync's `mode` applies only when it creates the file, so a
     // session written before this rule existed would keep its old permissions.
     const path = sessionPath(env);
-    mkdirSync(join(home, 'restheart'), { recursive: true });
+    mkdirSync(join(home, 'ulabase'), { recursive: true });
     writeFileSync(path, '{}', { mode: 0o644 });
 
     writeSession({ token: 't', api: 'https://x.restheart.com' }, env);
@@ -67,16 +67,16 @@ describe('readSession', () => {
   });
 
   it('reads a corrupt file as absent rather than throwing', () => {
-    // The cure is `rhc login`; refusing to run until the user finds a file they
+    // The cure is `ulabase login`; refusing to run until the user finds a file they
     // have never heard of helps nobody.
-    mkdirSync(join(home, 'restheart'), { recursive: true });
+    mkdirSync(join(home, 'ulabase'), { recursive: true });
     writeFileSync(sessionPath(env), 'not json at all');
     expect(readSession(env)).toBeNull();
   });
 
   it('reads a file missing either field as absent', () => {
-    mkdirSync(join(home, 'restheart'), { recursive: true });
-    writeFileSync(sessionPath(env), JSON.stringify({ token: 'rhc_live_abc' }));
+    mkdirSync(join(home, 'ulabase'), { recursive: true });
+    writeFileSync(sessionPath(env), JSON.stringify({ token: 'ula_live_abc' }));
     expect(readSession(env)).toBeNull();
   });
 });
@@ -87,9 +87,9 @@ describe('resolveToken', () => {
   });
 
   it('reads the stored session', () => {
-    writeSession({ token: 'rhc_live_stored', api: 'https://cloud-api.restheart.com' }, env);
+    writeSession({ token: 'ula_live_stored', api: 'https://cloud-api.restheart.com' }, env);
     expect(resolveToken(env)).toEqual({
-      token: 'rhc_live_stored',
+      token: 'ula_live_stored',
       source: 'file',
       api: 'https://cloud-api.restheart.com',
     });
@@ -98,19 +98,19 @@ describe('resolveToken', () => {
   it('lets the environment win over the stored session, always', () => {
     // The property that matters: a CI run must never silently fall back to a
     // session left on a shared runner, nor the reverse.
-    writeSession({ token: 'rhc_live_stored', api: 'https://cloud-api.restheart.com' }, env);
-    const resolved = resolveToken({ ...env, [TOKEN_VAR]: 'rhc_live_from_ci' });
+    writeSession({ token: 'ula_live_stored', api: 'https://cloud-api.restheart.com' }, env);
+    const resolved = resolveToken({ ...env, [TOKEN_VAR]: 'ula_live_from_ci' });
 
-    expect(resolved).toEqual({ token: 'rhc_live_from_ci', source: 'env' });
+    expect(resolved).toEqual({ token: 'ula_live_from_ci', source: 'env' });
   });
 
   it('ignores an empty variable, which is how an unset CI secret arrives', () => {
-    writeSession({ token: 'rhc_live_stored', api: 'https://cloud-api.restheart.com' }, env);
+    writeSession({ token: 'ula_live_stored', api: 'https://cloud-api.restheart.com' }, env);
     expect(resolveToken({ ...env, [TOKEN_VAR]: '  ' })?.source).toBe('file');
   });
 
   it('trims the variable, because a secret store pastes a trailing newline', () => {
-    expect(resolveToken({ ...env, [TOKEN_VAR]: 'rhc_live_x\n' })?.token).toBe('rhc_live_x');
+    expect(resolveToken({ ...env, [TOKEN_VAR]: 'ula_live_x\n' })?.token).toBe('ula_live_x');
   });
 });
 

@@ -1,5 +1,5 @@
 import type { App } from 'vue';
-import type { AuthConfig } from '@restheart-cloud/kit';
+import type { AuthConfig } from '@ulabase/kit';
 import { createRhAuthStore, type RhAuthStore } from './store.js';
 import { buildGuards, type GuardOptions, type RhGuards } from './guards.js';
 import { RH_AUTH_KEY } from './keys.js';

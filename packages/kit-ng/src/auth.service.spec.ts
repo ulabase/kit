@@ -1,14 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { firstValueFrom } from 'rxjs';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { RhAuthService } from './auth.service';
 import { RhPaymentsService } from './payments.service';
 import { RH_AUTH_CONFIG } from './tokens';
 
 // The core is integration-tested against a live instance; here we mock it and
 // assert only the service's signal wiring.
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 const user = { _id: 'a@b.com', roles: ['user'], team: { _id: { $oid: '1' }, role: 'owner' } } as kit.UserInfo;

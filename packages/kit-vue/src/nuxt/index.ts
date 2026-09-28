@@ -1,4 +1,4 @@
-// Nuxt subpath: server-side rendering support for @restheart-cloud/kit-vue.
+// Nuxt subpath: server-side rendering support for @ulabase/kit-vue.
 // Everything importing `h3` lives behind this subpath, so a Vue app on Vite
 // never resolves it. `h3` is an optional peer dependency.
 

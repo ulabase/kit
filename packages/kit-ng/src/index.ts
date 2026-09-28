@@ -7,6 +7,6 @@ export { httpClientTransport } from './http-transport.js';
 export { provideRhAuth } from './provide-rh-auth.js';
 export { RH_AUTH_CONFIG } from './tokens.js';
 
-// Re-exported so Angular apps only need this one package — @restheart-cloud/kit
+// Re-exported so Angular apps only need this one package — @ulabase/kit
 // is an internal (non-peer) dependency of kit-ng.
-export * from '@restheart-cloud/kit';
+export * from '@ulabase/kit';

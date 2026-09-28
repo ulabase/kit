@@ -1,10 +1,10 @@
 {
-  "name": "@restheart-cloud/kit-ng",
+  "name": "@ulabase/kit-ng",
   "version": "0.0.0",
-  "description": "Angular services, route guards, and HTTP interceptor for RESTHeart Cloud authentication and payments — wraps @restheart-cloud/kit.",
+  "description": "Angular services, route guards, and HTTP interceptor for Ulabase authentication and payments — wraps @ulabase/kit.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SoftInstigate/restheart-cloud-kit.git",
+    "url": "git+https://github.com/ulabase/kit.git",
     "directory": "packages/kit-ng"
   },
   "license": "MIT",
@@ -15,7 +15,7 @@
     "rxjs": ">=7"
   },
   "dependencies": {
-    "@restheart-cloud/kit": "0.0.0"
+    "@ulabase/kit": "0.0.0"
   },
   "devDependencies": {
     "@angular/build": "^22.0.0",

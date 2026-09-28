@@ -7,12 +7,12 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { RhAuthService } from './auth.service';
 import { rhAuthInterceptor } from './auth.interceptor';
 import { RH_AUTH_CONFIG, RH_KIT_REQUEST } from './tokens';
 
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 

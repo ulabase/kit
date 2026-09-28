@@ -1,5 +1,5 @@
 import { computed, ref, type ComputedRef, type Ref } from 'vue';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import type {
   AuthConfig,
   Invitation,
@@ -8,7 +8,7 @@ import type {
   TeamMember,
   TeamMembership,
   UserInfo,
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 
 /**
  * The reactive auth store shared app-wide. This is the Vue equivalent of

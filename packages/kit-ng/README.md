@@ -1,13 +1,13 @@
-# @restheart-cloud/kit-ng
+# @ulabase/kit-ng
 
-Wraps [`@restheart-cloud/kit`](https://www.npmjs.com/package/@restheart-cloud/kit) in Angular services with signals, route guards, and an HTTP interceptor — authentication in `RhAuthService`, and [payments](#rhpaymentsservice) in `RhPaymentsService`.
+Wraps [`@ulabase/kit`](https://www.npmjs.com/package/@ulabase/kit) in Angular services with signals, route guards, and an HTTP interceptor — authentication in `RhAuthService`, and [payments](#rhpaymentsservice) in `RhPaymentsService`.
 
-Pairs with [RESTHeart Cloud](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit-ng @restheart-cloud/kit
+npm install @ulabase/kit-ng @ulabase/kit
 ```
 
 > **v0.3.0+ requires RESTHeart 9.6.0 or later.** Bearer-mode `activate()`, `resetPassword()`, and `switchTeam()` rely on the `delivery=body` query parameter, introduced in RESTHeart 9.6.0. Against an older server the request still succeeds, but the kit won't be able to capture the bearer token from the response — you'll need to log in again to get a token. Cookie mode is unaffected.
@@ -17,7 +17,7 @@ npm install @restheart-cloud/kit-ng @restheart-cloud/kit
 In `app.config.ts`:
 
 ```typescript
-import { provideRhAuth } from '@restheart-cloud/kit-ng';
+import { provideRhAuth } from '@ulabase/kit-ng';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,7 +35,7 @@ The kit supports **two authentication modes**:
 - **Bearer token** (default) — stored in `localStorage`, sent as `Authorization: Bearer <token>`
 - **Cookie** — JWT managed by the backend as an HttpOnly cookie, **same-origin only**
 
-Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a RESTHeart Cloud service lives on `*.restheart.com` while your app lives on your own domain, that cookie is third-party and is blocked by default in Safari and Firefox — regardless of the server's CORS configuration. **Cross-origin apps, which is the normal case, should stay on the default `'bearer'` mode.**
+Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a Ulabase service lives on `*.restheart.com` while your app lives on your own domain, that cookie is third-party and is blocked by default in Safari and Firefox — regardless of the server's CORS configuration. **Cross-origin apps, which is the normal case, should stay on the default `'bearer'` mode.**
 
 Each of these calls a matching auto-login endpoint with `delivery=body` (bearer) or `delivery=cookie`, and in bearer mode gets the fresh token back in the same response — no extra login round-trip.
 
@@ -141,7 +141,7 @@ provideRhAuth({ apiBaseUrl: environment.apiUrl, transport: myTransport }),
 ## Guards
 
 ```typescript
-import { authGuard, publicGuard } from '@restheart-cloud/kit-ng';
+import { authGuard, publicGuard } from '@ulabase/kit-ng';
 
 export const routes: Routes = [
   {
@@ -223,14 +223,14 @@ this.payments.waitForSubscription(s => s.plan === 'gold' && s.active).subscribe(
 ```
 
 `waitForSubscription` updates the `subscription` signal itself when it resolves. See the
-[core's payments guide](https://www.npmjs.com/package/@restheart-cloud/kit#payments) for the
+[core's payments guide](https://www.npmjs.com/package/@ulabase/kit#payments) for the
 full reasoning.
 
 ## Quickstart
 
 The fastest path to a working app:
 
-1. Create a service on [RESTHeart Cloud](https://cloud.restheart.com)
+1. Create a service on [Ulabase](https://cloud.restheart.com)
 2. Fork [`restheart-cloud-starter-ng`](https://github.com/SoftInstigate/restheart-cloud-starter-ng)
 3. Set `apiBaseUrl` in `environment.ts`
 4. `ng serve`

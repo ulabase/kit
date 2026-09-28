@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { HttpContextToken } from '@angular/common/http';
-import type { AuthConfig } from '@restheart-cloud/kit';
+import type { AuthConfig } from '@ulabase/kit';
 
 export const RH_AUTH_CONFIG = new InjectionToken<AuthConfig>('RH_AUTH_CONFIG');
 

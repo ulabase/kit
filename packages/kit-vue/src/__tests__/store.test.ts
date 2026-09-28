@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { createRhAuthStore } from '../store';
 import { createRhPaymentsStore } from '../payments';
 
 // The core is separately integration-tested against a live instance; here we
 // mock it and assert only the store's reactive wiring.
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 const user = { _id: 'a@b.com', roles: ['user'], team: { _id: { $oid: '1' }, role: 'owner' } } as kit.UserInfo;

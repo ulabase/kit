@@ -3,7 +3,7 @@
 **Status:** Tasks 1–4 and 7 done; Task 5 done for the three SPA adapters; Task 6 done except the
 live integration tests. See [Where this stands](#where-this-stands) at the bottom for what
 remains and why.
-**Repo:** `restheart-cloud-kit` (core + 5 adapter surfaces).
+**Repo:** `ulabase/kit` (core + 5 adapter surfaces).
 **Depends on:** a service with the `stripe` plugin configured — see "Rollout blocker" at the bottom.
 
 ## Why
@@ -274,7 +274,7 @@ adapters' unit tests don't depend on this and can proceed beforehand.
 ### Service configuration for integration tests
 
 The core's integration tests (`packages/kit/src/__tests__/integration/`) run against a real
-RESTHeart Cloud service. Testing payments requires a service with the `stripe` plugin enabled and
+Ulabase service. Testing payments requires a service with the `stripe` plugin enabled and
 configured. The environment variables are the same as the other tests (`RH_TEST_API_URL`,
 `RH_TEST_ADMIN_PASSWORD`), plus a new one to enable the payment tests.
 
@@ -359,7 +359,7 @@ The test service must allow:
 3. **`GET /stripe/subscription`** — access for any team member
 4. **`POST /stripe/checkout`**, **`POST /stripe/portal`**, **`GET/POST/DELETE /stripe/licenses`** — access only for the ownership role (default `owner`)
 
-If the test service's ACL uses RESTHeart Cloud's default rules, these are already covered. If it
+If the test service's ACL uses Ulabase's default rules, these are already covered. If it
 uses custom rules, verify that the `/stripe/*` paths aren't blocked.
 
 #### What the payment integration tests cover
@@ -388,7 +388,7 @@ fires — a service without the `stripe` plugin would respond `404` on every sta
 
 ```ts
 // app.config.ts
-import { provideRhAuth } from '@restheart-cloud/kit-ng';
+import { provideRhAuth } from '@ulabase/kit-ng';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -408,7 +408,7 @@ The state is reactive — the signals update automatically after `checkSession`,
 
 ```ts
 import { Component, inject } from '@angular/core';
-import { RhPaymentsService } from '@restheart-cloud/kit-ng';
+import { RhPaymentsService } from '@ulabase/kit-ng';
 
 @Component({
   selector: 'app-pricing',
@@ -604,7 +604,7 @@ this.payments.waitForOrder(orderId, secret).subscribe({
 Stripe amounts are in the smallest unit (cents for EUR/USD, whole units for JPY).
 
 ```ts
-import { formatPrice } from '@restheart-cloud/kit';
+import { formatPrice } from '@ulabase/kit';
 
 formatPrice(1990, 'eur');          // "€19.90"
 formatPrice(500, 'jpy', 'it-IT');  // "¥500"

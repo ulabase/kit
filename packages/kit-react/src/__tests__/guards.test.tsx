@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { AuthGuard, PublicGuard, RhAuthProvider } from '../index';
 
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 const user = { _id: 'a@b.com', roles: ['user'] } as kit.UserInfo;

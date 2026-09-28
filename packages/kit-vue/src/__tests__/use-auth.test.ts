@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createApp, h } from 'vue';
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { createRhAuth } from '../create';
 import { useAuth } from '../use-auth';
 
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
 

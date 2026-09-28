@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
-import type { AuthConfig } from '@restheart-cloud/kit';
-import { getTokenExpiry } from '@restheart-cloud/kit';
+import type { AuthConfig } from '@ulabase/kit';
+import { getTokenExpiry } from '@ulabase/kit';
 
 /**
  * Name of the first-party session cookie.
@@ -49,7 +49,7 @@ export function cookieMaxAge(token: string): number | undefined {
 
 /**
  * Build an {@link AuthConfig} whose token source is the request cookie rather
- * than `localStorage`. Pass this to any `@restheart-cloud/kit` function you call
+ * than `localStorage`. Pass this to any `@ulabase/kit` function you call
  * from a Server Component, Route Handler, or Server Action.
  *
  * ```ts

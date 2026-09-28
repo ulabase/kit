@@ -3,9 +3,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defineEventHandler } from 'h3';
 import { call, setCookieHeader } from './server';
 
-vi.mock('@restheart-cloud/kit');
+vi.mock('@ulabase/kit');
 
-import * as kit from '@restheart-cloud/kit';
+import * as kit from '@ulabase/kit';
 import { rhLogin, rhLogout, rhSwitchTeam } from '../actions';
 
 const config = { apiBaseUrl: 'https://x.restheart.com' };
