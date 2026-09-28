@@ -40,9 +40,9 @@ README checklist becomes one command, and a `--dry-run` in CI tells you what a s
 before a deploy claims it worked.
 
 ```bash
-npm i -g @ulabase/cli                # the `ulabase` command
+npm i -g ulabase                     # the `ulabase` command
 npm i -D @ulabase/cli                # the library, for a project's setup file
-npx @ulabase/cli setup --srv c0ffee   # a pipeline
+npx ulabase setup --srv c0ffee       # a pipeline
 ```
 
 Not an adapter: it runs in Node rather than a browser, holds no reactive state, and authenticates

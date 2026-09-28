@@ -38,10 +38,12 @@ jobs:
           npm pkg set version=${{ github.ref_name }} -w packages/kit-react
           npm pkg set version=${{ github.ref_name }} -w packages/kit-vue
           npm pkg set version=${{ github.ref_name }} -w packages/cli
+          npm pkg set version=${{ github.ref_name }} -w packages/ulabase
           npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-ng
           npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-react
           npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-vue
           npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/cli
+          npm pkg set dependencies.@ulabase/cli=${{ github.ref_name }} -w packages/ulabase
 
       - run: npm install
 
@@ -70,3 +72,5 @@ jobs:
           npm publish --access public -w packages/kit-react
           npm publish --access public -w packages/kit-vue
           npm publish --access public -w packages/cli
+          # after @ulabase/cli, which it depends on: `npx ulabase`
+          npm publish --access public -w packages/ulabase

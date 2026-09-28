@@ -31,7 +31,7 @@ export default defineSetup('Shop', [
 ```
 
 ```bash
-npx @ulabase/cli setup --srv c0ffee
+npx ulabase setup --srv c0ffee
 ```
 
 ```
@@ -59,7 +59,7 @@ code that depends on it.
 Two install shapes, because there are two things here and they are used at different moments.
 
 ```bash
-npm i -g @ulabase/cli    # the `ulabase` command, for a terminal
+npm i -g ulabase         # the `ulabase` command, for a terminal
 npm i -D @ulabase/cli    # the library, for a project whose setup file imports it
 ```
 
@@ -69,7 +69,7 @@ would not resolve. The `ulabase` command is account-level and outlives any one p
 the global one. Installing both is normal here, the same way `vite` is both a bin and the module
 `defineConfig` comes from.
 
-In a pipeline, neither: `npx @ulabase/cli setup …` and nothing to keep installed.
+In a pipeline, neither: `npx ulabase setup …` and nothing to keep installed.
 
 The two copies do not conflict. `fromEnv` markers are matched with `Symbol.for`, which is the
 global symbol registry rather than a per-module identity, and a `Setup` is plain data —
@@ -207,7 +207,7 @@ of every other user on the machine.
 
 ```yaml
 # .github/workflows/deploy.yml
-- run: npx @ulabase/cli setup --srv c0ffee
+- run: npx ulabase setup --srv c0ffee
   env:
     ULABASE_TOKEN: ${{ secrets.ULABASE_TOKEN }}
     STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
@@ -218,7 +218,7 @@ of every other user on the machine.
 # bitbucket-pipelines.yml
 - step:
     script:
-      - npx @ulabase/cli setup --srv c0ffee
+      - npx ulabase setup --srv c0ffee
     # ULABASE_TOKEN, STRIPE_* as repository or deployment variables
 ```
 

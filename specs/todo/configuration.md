@@ -254,8 +254,8 @@ provider-side rejection when it is not; a dry run of that setup touches `process
 **File:** `packages/cli/src/cli.ts`, `bin` entry
 
 ```bash
-npx @ulabase/cli setup --srv c0ffee
-npx @ulabase/cli setup --srv c0ffee --dry-run
+npx ulabase setup --srv c0ffee
+npx ulabase setup --srv c0ffee --dry-run
 ```
 
 Credentials by prompt or environment (`RH_CLOUD_EMAIL`, `RH_CLOUD_PASSWORD`) — never by flag, which
@@ -272,7 +272,7 @@ job, not shaped into one after the fact.
 
 ```yaml
 # .github/workflows/deploy.yml
-- run: npx @ulabase/cli setup --srv c0ffee
+- run: npx ulabase setup --srv c0ffee
   env:
     RH_CLOUD_EMAIL: ${{ secrets.RH_CLOUD_EMAIL }}
     RH_CLOUD_PASSWORD: ${{ secrets.RH_CLOUD_PASSWORD }}
@@ -283,7 +283,7 @@ job, not shaped into one after the fact.
 # bitbucket-pipelines.yml
 - step:
     script:
-      - npx @ulabase/cli setup --srv c0ffee
+      - npx ulabase setup --srv c0ffee
     # RH_CLOUD_EMAIL, RH_CLOUD_PASSWORD, STRIPE_SECRET_KEY set as repository/deployment variables
 ```
 

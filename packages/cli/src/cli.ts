@@ -70,8 +70,8 @@ ulabase — the Ulabase CLI, also installed as \`ula\`
   ulabase setup --srv c0ffee
   ulabase setup --srv c0ffee --dry-run
 
-  npm i -g @ulabase/cli   for a terminal
-  npx @ulabase/cli setup  for a pipeline
+  npm i -g ulabase        for a terminal
+  npx ulabase setup       for a pipeline
 
 Commands
   login           Store a personal access token for later commands.

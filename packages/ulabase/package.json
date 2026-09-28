@@ -1,0 +1,26 @@
+{
+  "name": "ulabase",
+  "version": "0.0.0",
+  "description": "The Ulabase CLI, as `npx ulabase`. The code is in @ulabase/cli, installed with it.",
+  "type": "module",
+  "bin": {
+    "ulabase": "./cli.js",
+    "ula": "./cli.js"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "keywords": [
+    "ulabase",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ulabase/kit.git",
+    "directory": "packages/ulabase"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@ulabase/cli": "0.0.0"
+  }
+}
