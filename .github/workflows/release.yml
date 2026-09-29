@@ -66,9 +66,9 @@ jobs:
 
       - name: Publish
         if: success()
-        # Through the trusted publisher of each package (OIDC, id-token above), and staged: every
-        # version waits for approval on npmjs.com. A package that does not exist yet cannot have a
-        # trusted publisher, so its first version is published by hand.
+        # Through the trusted publisher of each package (OIDC, id-token above), allowed to publish
+        # directly: no approval step. A package that does not exist yet cannot have a trusted
+        # publisher, so its first version is published by hand.
         run: |
           npm publish --access public -w packages/kit
           npm publish --access public packages/kit-ng/dist

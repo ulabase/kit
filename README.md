@@ -127,7 +127,7 @@ git tag 1.2.3
 git push origin 1.2.3
 ```
 
-CI runs the integration tests against the Ulabase test instance. If they pass, all five packages (`kit`, `kit-ng`, `kit-react`, `kit-vue`, `cli`) are published to npm at that version. If they fail, nothing is published.
+CI runs the integration tests against the Ulabase test instance. If they pass, all six packages (`kit`, `kit-ng`, `kit-react`, `kit-vue`, `cli`, `ulabase`) are published to npm at that version. If they fail, nothing is published.
 
 Integration tests can also be triggered manually from the **Actions** tab → **Integration Tests** → **Run workflow**.
 
