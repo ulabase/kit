@@ -302,7 +302,7 @@ result.
 
 ## Task 5 — the ecommerce setup, as the first real consumer
 
-**File:** `rhc.setup.ts` **in `restheart-cloud-starter-ecommerce`**, not in this repo.
+**File:** `ulabase.setup.ts` **in `ulabase/starter-ecommerce`**, not in this repo.
 
 The three settings the starter's README currently asks the developer to get right by hand — the
 `success-url`, the anonymous `GET /catalog`, the anonymous `POST /orders` — become steps, plus the

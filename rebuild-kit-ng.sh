@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="${0:A:h}"
-STARTER_DIR="/Users/uji/development/restheart-cloud/restheart-cloud-starter-ng"
+STARTER_DIR="/Users/uji/development/ulabase/starter-ng"
 
 echo "Building @ulabase/kit..."
 npm run build -w packages/kit

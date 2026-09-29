@@ -53,7 +53,7 @@ as your Ulabase account rather than as a tenant. [Why](./docs/ADAPTERS.md#6-what
 The fastest path to a working Angular app:
 
 1. Create a service on [Ulabase](https://cloud.restheart.com)
-2. Fork [`restheart-cloud-starter-ng`](https://github.com/SoftInstigate/restheart-cloud-starter-ng)
+2. Fork [`ulabase/starter-ng`](https://github.com/ulabase/starter-ng)
 3. Set `apiBaseUrl` in `environment.ts`
 4. `ng serve`
 

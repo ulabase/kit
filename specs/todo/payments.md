@@ -259,7 +259,7 @@ subscriptions.
 - **Cart management.** Cart state belongs to the application; the kit takes a list of items and
   creates the order.
 - **Webhooks.** They're server-side, handled by `restheart-stripe`.
-- **Ready-made pages.** The starters (`restheart-cloud-starter-*`) are separate repos: a pricing
+- **Ready-made pages.** The starters (`ulabase/starter-*`) are separate repos: a pricing
   page and a billing page are a separate piece of work, once this layer exists.
 - **Invoicing, taxes, accounting.** Those live on Stripe.
 

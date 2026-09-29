@@ -266,10 +266,10 @@ Adoption is heavily skewed — React alone outweighs Angular and Vue combined, r
 npm downloads — and meta-frameworks are growing faster than the frameworks under them. So
 these are not symmetric tasks:
 
-1. `kit-react` + `restheart-cloud-starter-react` (Vite + React Router) — proves the core
+1. `kit-react` + `ulabase/starter-react` (Vite + React Router) — proves the core
    ports cleanly, at parity with the Angular original.
 2. Pluggable token source in the core.
-3. `kit-react/next` + `restheart-cloud-starter-next` — separate starter, because
+3. `kit-react/next` + `ulabase/starter-next` — separate starter, because
    middleware guards and server components are structurally different, not a variant.
 4. `kit-vue` + starter, then `/nuxt` on the same pattern.
 
@@ -285,7 +285,7 @@ carry payments on their own for now.
 ### Keeping the starters from drifting
 
 Each starter is a full feature-parity application, so every fix has to be replayed across
-all of them. [`PORTING.md`](https://github.com/SoftInstigate/restheart-cloud-starter-ng/blob/main/PORTING.md)
+all of them. [`PORTING.md`](https://github.com/ulabase/starter-ng/blob/main/PORTING.md)
 and `TEMPLATE_API.md` in the Angular starter are the specification that makes a port
 possible; they do not stop divergence. Either the ports are declared reference
 implementations pinned to a kit version, or the ongoing maintenance is budgeted for.

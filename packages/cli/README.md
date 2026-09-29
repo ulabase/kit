@@ -52,7 +52,7 @@ which lives in that repo rather than in this one. This package ships the surface
 against; a setup belongs to the application it configures, and changes in the same commit as the
 code that depends on it.
 
-[starter-setup]: https://github.com/SoftInstigate/restheart-cloud-starter-ecommerce/blob/main/rhc.setup.ts
+[starter-setup]: https://github.com/ulabase/starter-ecommerce/blob/main/ulabase.setup.ts
 
 ## Installing
 
