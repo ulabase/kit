@@ -22,10 +22,10 @@ sources:
     resource: repo://packages/kit/src/client.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
 verified:
   - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
+    at: 2026-10-01T13:26:36.210Z
 ---
 
 # Token Delivery
@@ -39,7 +39,7 @@ Ulabase Kit supports two authentication modes:
 | Mode | Token Storage | Delivery Mechanism | Use Case |
 |------|---------------|-------------------|----------|
 | **Bearer** (default) | localStorage (or pluggable source) | `Authorization: Bearer <token>` header | Cross-origin SPAs, SSR frameworks |
-| **Cookie** | HttpOnly cookie (RESTHeart-managed) | Automatic cookie | Same-origin only |
+| **Cookie** | HttpOnly cookie (Ulabase-managed) | Automatic cookie | Same-origin only |
 
 **Recommendation**: Use bearer mode unless you have a same-origin setup where the app and API share the same domain.
 
@@ -117,7 +117,7 @@ The `applyBearerDelivery()` function extracts the token: it checks the body's `a
 
 ## Cookie Mode
 
-Cookie mode uses RESTHeart's HttpOnly JWT cookie, which is managed entirely by the backend. This mode only works when the app and API share the same origin.
+Cookie mode uses Ulabase's HttpOnly JWT cookie, which is managed entirely by the backend. This mode only works when the app and API share the same origin.
 
 ### Cookie Login Flow
 
@@ -173,7 +173,7 @@ POST /auth/switch-team?delivery=cookie
 
 ## SSR Frameworks: First-Party Cookie Pattern
 
-SSR frameworks (Next.js, Nuxt) use a different cookie pattern that doesn't require RESTHeart's cookie mode. They manage their own first-party cookies containing the same JWT that SPAs store in localStorage.
+SSR frameworks (Next.js, Nuxt) use a different cookie pattern that doesn't require Ulabase's cookie mode. They manage their own first-party cookies containing the same JWT that SPAs store in localStorage.
 
 ### SSR First-Party Cookie Flow
 
@@ -197,10 +197,10 @@ sequenceDiagram
 ### Key Insight
 
 - **Your server's cookie**: First-party, same domain, always works
-- **RESTHeart's cookie**: Third-party, different domain, usually blocked
+- **Ulabase's cookie**: Third-party, different domain, usually blocked
 - **Solution**: Your server manages its own cookie, sends Bearer token to API
 
-**RESTHeart is not aware the cookie exists** — it only sees Bearer tokens.
+**Ulabase is not aware the cookie exists** — it only sees Bearer tokens.
 
 ### Implementation in SSR Adapters
 
@@ -413,7 +413,7 @@ export const rhAuthInterceptor: HttpInterceptorFn = (req, next) => {
 
 ### No-Auth-Challenge Header
 
-The `No-Auth-Challenge: true` header suppresses RESTHeart's `WWW-Authenticate` challenge on 401 responses. Without this, browsers show their native Basic Auth popup whenever an unauthenticated request (e.g., a session check) gets a 401.
+The `No-Auth-Challenge: true` header suppresses Ulabase's `WWW-Authenticate` challenge on 401 responses. Without this, browsers show their native Basic Auth popup whenever an unauthenticated request (e.g., a session check) gets a 401.
 
 This header is set by:
 - `apiFetch()` in the core kit
@@ -437,7 +437,7 @@ This header is set by:
 - You want HttpOnly cookie security
 - You don't need to read the token in JavaScript
 
-**Example**: Self-hosted RESTHeart where app and API are on the same server.
+**Example**: Self-hosted Ulabase where app and API are on the same server.
 
 ### When to Use Bearer Mode
 
@@ -484,7 +484,7 @@ This header is set by:
 - Secure: Only sent over HTTPS
 - SameSite: CSRF protection
 
-**Key advantage**: RESTHeart doesn't need to support cookies — the server exchanges a cookie with itself.
+**Key advantage**: Ulabase doesn't need to support cookies — the server exchanges a cookie with itself.
 
 ## Implementation Examples
 
@@ -539,7 +539,7 @@ export async function loginAction(email: string, password: string) {
 
 **Cookie mode**:
 - Check Application → Cookies in DevTools
-- Look for RESTHeart cookie
+- Look for Ulabase cookie
 - Verify SameSite and Secure flags
 
 ### Requests not authenticated
@@ -564,7 +564,7 @@ export async function loginAction(email: string, password: string) {
 
 **Bearer mode**:
 - Check network connectivity
-- Verify RESTHeart Cloud is accessible
+- Verify Ulabase is accessible
 - Look for errors in console
 
 **SSR middleware**:

@@ -30,10 +30,10 @@ sources:
     resource: repo://packages/kit-react/src/next/sync.tsx
   - id: openwiki-source-cb4e00ba25df046ed879c14f
     resource: repo://packages/kit-react/src/payments.tsx
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
 verified:
   - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
+    at: 2026-10-01T13:26:36.210Z
 ---
 
 # @ulabase/kit-react
@@ -163,7 +163,7 @@ await auth.listInvitations();           // → PendingInvitation[]
 auth.api(path: string, init?: RequestInit): Promise<Response>
 ```
 
-`auth.api()` is the React counterpart of Angular's `rhAuthInterceptor`. React has no interceptor slot, so an app querying its own RESTHeart collections would otherwise attach the bearer token by hand at every call site.
+`auth.api()` is the React counterpart of Angular's `rhAuthInterceptor`. React has no interceptor slot, so an app querying its own Ulabase collections would otherwise attach the bearer token by hand at every call site.
 
 ```tsx
 const res = await auth.api('/my-collection?pagesize=10');
@@ -178,7 +178,7 @@ const res = await auth.api('/my-collection', {
 
 Rejects with an `ApiError` (`{ status, message }`) on any non-2xx response. See [Core Kit — Authenticated Fetch](kit.md#authenticated-fetch-apifetch) for the underlying behavior.
 
-**When to use**: Use `auth.api()` for any RESTHeart API call from React components that is not already covered by a dedicated method (e.g., querying custom collections).
+**When to use**: Use `auth.api()` for any Ulabase API call from React components that is not already covered by a dedicated method (e.g., querying custom collections).
 
 Methods that perform auto-login (`login`, `activate`, `resetPassword`, `switchTeam`) accept an optional `mode` parameter (`'bearer'` | `'cookie'`) that maps to the backend's `delivery` query parameter.
 
@@ -339,7 +339,8 @@ The `/next` subpath provides:
 - **Session readers** (`getServerSession`, `getServerSessionWithTeams`): read the current user from the request cookie in server components or middleware
 - **Cookie utilities**: `RH_SESSION_COOKIE`, `DEFAULT_COOKIE_OPTIONS`, `rhServerConfig`, `cookieMaxAge`, `resolveCookieOptions`
 
-Uses the core's [pluggable token source and sink](../architecture/overview.md#pluggable-token-source-and-sink) to read tokens from request cookies and capture tokens for cookie writes — no `localStorage` on the server.
+<!-- openwiki: broken internal link [../architecture/token-delivery.md#pluggable-token-source-sink-pattern] heading anchor "pluggable-token-source-sink-pattern" does not exist in "../architecture/token-delivery.md". Fix the href or restore the target, then delete this comment. -->
+Uses the core's [pluggable token source and sink](../architecture/token-delivery.md#pluggable-token-source-sink-pattern) to read tokens from request cookies and capture tokens for cookie writes — no `localStorage` on the server.
 
 ### Source Map
 

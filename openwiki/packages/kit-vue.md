@@ -3,9 +3,6 @@ type: Package
 title: "@ulabase/kit-vue"
 description: Vue adapter for Ulabase Kit. Provides composables and navigation guards for auth, payments, and cart, plus a /nuxt subpath for Nuxt SSR support.
 tags: [package, vue, adapter, composables, nuxt, payments, cart]
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-133d4dd0df065adff47b96b2
     resource: repo://packages/kit-vue/src/cart-store.ts
@@ -33,7 +30,10 @@ sources:
     resource: repo://packages/kit-vue/src/use-cart.ts
   - id: openwiki-source-2f025d008df98101db3a1cd4
     resource: repo://packages/kit-vue/src/use-payments.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T13:26:36.210Z
 ---
 
 # @ulabase/kit-vue
@@ -179,7 +179,7 @@ await auth.listInvitations();           // → PendingInvitation[]
 auth.api(path: string, init?: RequestInit): Promise<Response>
 ```
 
-`auth.api()` wraps the core `apiFetch` so that application requests to RESTHeart collections carry the session token automatically. Vue has no interceptor slot, so this is the primary way to make authenticated API calls from Vue components.
+`auth.api()` wraps the core `apiFetch` so that application requests to Ulabase collections carry the session token automatically. Vue has no interceptor slot, so this is the primary way to make authenticated API calls from Vue components.
 
 ```vue
 <script setup lang="ts">
@@ -195,7 +195,7 @@ async function loadItems() {
 
 Rejects with an `ApiError` (`{ status, message }`) on any non-2xx response. See [Core Kit — Authenticated Fetch](kit.md#authenticated-fetch-apifetch) for the underlying behavior.
 
-**When to use**: Use `auth.api()` for any RESTHeart API call from Vue components that is not already covered by a dedicated method (e.g., querying custom collections).
+**When to use**: Use `auth.api()` for any Ulabase API call from Vue components that is not already covered by a dedicated method (e.g., querying custom collections).
 
 Methods that perform auto-login (`login`, `activate`, `resetPassword`, `switchTeam`) accept an optional `mode` parameter (`'bearer'` | `'cookie'`) that maps to the backend's `delivery` query parameter.
 
