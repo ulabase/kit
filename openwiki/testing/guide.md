@@ -1,7 +1,7 @@
 ---
 type: Guide
 title: Testing Guide
-description: Testing guide for RESTHeart Cloud Kit and CLI. Covers integration tests, kit unit tests, CLI unit tests, adapter unit tests, environment configuration, running tests, and writing new tests.
+description: Testing guide for Ulabase Kit and CLI. Covers integration tests, kit unit tests, CLI unit tests, adapter unit tests, environment configuration, running tests, and writing new tests.
 tags: [testing, integration, unit, vitest, guide]
 sources:
   - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
@@ -34,26 +34,26 @@ sources:
     resource: repo://packages/kit/src/__tests__/unit/payments.test.ts
   - id: openwiki-source-f5c174f35c5102ba81477e16
     resource: repo://packages/kit/vitest.unit.config.ts
-generated: { by: "openwiki/0.6.0", at: "2026-09-25T09:43:51.410Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-25T09:43:51.410Z
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 ---
 
 # Testing Guide
 
-This guide covers testing for RESTHeart Cloud Kit and CLI: core integration tests, kit unit tests, CLI unit tests, and adapter unit tests.
+This guide covers testing for Ulabase Kit and CLI: core integration tests, kit unit tests, CLI unit tests, and adapter unit tests.
 
 ## Overview
 
-RESTHeart Cloud Kit has four test tiers:
+Ulabase Kit has four test tiers:
 
 | Tier | What it tests | Backend needed | Runs on |
 |------|---------------|----------------|---------|
-| **Core integration** (`packages/kit`) | Auth flows, token lifecycle, teams, invites against live API | RESTHeart Cloud instance + secrets | Tags (release), manual trigger |
+| **Core integration** (`packages/kit`) | Auth flows, token lifecycle, teams, invites against live API | Ulabase instance + secrets | Tags (release), manual trigger |
 | **Kit unit** (`packages/kit`) | Payments, orders, cart, client, money modules | None (mocks transport) | Every push and PR |
 | **CLI unit** (`packages/cli`) | Setup runner logic, env ref resolution, session management, admin client operations | None (mocks admin and service clients) | Every push and PR |
-| **Adapter unit** (`kit-react`, `kit-vue`, `kit-ng`) | Wiring: reactive state, guards, middleware, cookie bridge | None (mocks `@restheart-cloud/kit`) | Every push and PR |
+| **Adapter unit** (`kit-react`, `kit-vue`, `kit-ng`) | Wiring: reactive state, guards, middleware, cookie bridge | None (mocks `@ulabase/kit`) | Every push and PR |
 
 **Test Framework**: Vitest 4
 **Adapter test contract**: [`docs/ADAPTER_CONTRACT.md`](repo://docs/ADAPTER_CONTRACT.md)
@@ -65,13 +65,13 @@ RESTHeart Cloud Kit has four test tiers:
 Create `packages/kit/.env` (not committed):
 
 ```bash
-RH_TEST_API_URL=https://<your-instance>.restheart.com
-RH_TEST_ADMIN_PASSWORD=<root-password>
+ULABASE_TEST_API_URL=https://<your-instance>.ulabase.com
+ULABASE_TEST_ADMIN_PASSWORD=<root-password>
 ```
 
 **Variables**:
-- `RH_TEST_API_URL`: Your RESTHeart Cloud service URL
-- `RH_TEST_ADMIN_PASSWORD`: Admin password for test data cleanup
+- `ULABASE_TEST_API_URL`: Your Ulabase service URL
+- `ULABASE_TEST_ADMIN_PASSWORD`: Admin password for test data cleanup
 
 ### 2. Verify Configuration
 
@@ -135,7 +135,7 @@ File: `packages/kit/src/__tests__/integration/global-setup.ts`
 **Purpose**: Clean all test data before and after test suite
 
 **What it cleans**:
-1. All test users (`*@restheart-test.com`)
+1. All test users (`*@test.ulabase.dev`)
 2. All test teams (created by test users)
 3. All test invitations
 
@@ -151,7 +151,7 @@ Each test run uses unique identifiers:
 const runId = crypto.randomUUID().slice(0, 8);
 
 export function testEmail(label: string): string {
-  return `test-${runId}-${label}@restheart-test.com`;
+  return `test-${runId}-${label}@test.ulabase.dev`;
 }
 ```
 
@@ -178,7 +178,7 @@ getAdminPassword(): string
 
 ```typescript
 // Generate unique test email
-testEmail('auth')  // Returns: test-<runId>-auth@restheart-test.com
+testEmail('auth')  // Returns: test-<runId>-auth@test.ulabase.dev
 ```
 
 #### Admin Access
@@ -337,7 +337,7 @@ describe('my feature', () => {
 
 ```typescript
 const email = testEmail('my-feature');
-// Generates: test-<runId>-my-feature@restheart-test.com
+// Generates: test-<runId>-my-feature@test.ulabase.dev
 ```
 
 #### 2. Clean Up After Tests
@@ -424,7 +424,7 @@ File: `packages/kit/vitest.unit.config.ts`
 import { defineConfig } from 'vitest/config';
 
 // Kept apart from vitest.config.ts on purpose: that one drives the integration
-// suite, which needs a live service and the RH_TEST_* secrets the release
+// suite, which needs a live service and the ULABASE_TEST_* secrets the release
 // workflow provides. These run anywhere, with nothing configured.
 export default defineConfig({
   test: {
@@ -547,7 +547,7 @@ import { describe, it, expect } from 'vitest';
 import { someFunction } from '../../index';
 import type { AuthConfig } from '../../types';
 
-const apiBaseUrl = 'https://x.restheart.com';
+const apiBaseUrl = 'https://x.ulabase.com';
 
 describe('someFunction', () => {
   it('does something', async () => {
@@ -577,11 +577,11 @@ CLI unit tests mock the admin and service clients, testing setup runner logic, e
 
 ```bash
 # From monorepo root
-npm test -w packages/cli
+npm run test:unit -w packages/cli
 
 # From package directory
 cd packages/cli
-npm test
+npm run test:unit
 ```
 
 ### Configuration
@@ -694,10 +694,12 @@ export default defineConfig({
 
 ### Writing CLI Unit Tests
 
-CLI unit tests use mock clients to test the setup runner and client operations:
+CLI unit tests use mock clients to test the setup runner and client operations. The admin and service test files use different mock patterns:
+
+**admin.test.ts** uses a `stub` function that answers from a route table and records what it was asked:
 
 ```typescript
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { createAdminClient } from '../../admin.js';
 import type { AdminClient } from '../../admin.js';
 
@@ -731,7 +733,7 @@ function stub(routes: Record<string, unknown>) {
   return { calls, transport };
 }
 
-const base = 'https://cloud-api.restheart.com';
+const base = 'https://api.ulabase.com';
 
 describe('admin client', () => {
   it('speaks to the endpoints the admin node exposes', async () => {
@@ -758,8 +760,75 @@ describe('admin client', () => {
 });
 ```
 
+**service.test.ts** uses a `harness` function that includes a `serviceToken` mock:
+
+```typescript
+import { describe, it, expect, vi } from 'vitest';
+import { createServiceClient } from '../../service.js';
+import type { AdminClient } from '../../admin.js';
+
+/** A JWT whose payload says when it expires. Only `exp` is ever read. */
+function jwt(expiresInMs: number): string {
+  const payload = Buffer.from(
+    JSON.stringify({ exp: Math.floor((Date.now() + expiresInMs) / 1000) })
+  ).toString('base64url');
+  return `header.${payload}.signature`;
+}
+
+interface Call {
+  path: string;
+  method: string;
+  auth: string | null;
+  body: unknown;
+}
+
+function harness(routes: Record<string, { status: number; body?: unknown }>) {
+  const calls: Call[] = [];
+  const transport = async (url: string, init?: RequestInit): Promise<Response> => {
+    const method = init?.method ?? 'GET';
+    const u = new URL(url);
+    const path = `${u.pathname}${u.search}`;
+    calls.push({
+      path,
+      method,
+      auth: new Headers(init?.headers).get('Authorization'),
+      body: init?.body ? JSON.parse(init.body as string) : undefined,
+    });
+    const route = routes[`${method} ${path}`] ?? { status: 404, body: { message: 'not found' } };
+    return new Response(route.body === undefined ? null : JSON.stringify(route.body), {
+      status: route.status,
+    });
+  };
+
+  const serviceToken = vi.fn(async () => ({
+    token: jwt(15 * 60_000),
+    url: 'https://c0ffee.ulabase.app',
+    node: 'c0ffee.ulabase.app',
+  }));
+
+  const admin = { config: { apiBaseUrl: 'https://api.ulabase.com', transport }, serviceToken } as unknown as AdminClient;
+  return { calls, admin, serviceToken };
+}
+
+describe('service client', () => {
+  it('mints a token once and reuses it', async () => {
+    const { admin, serviceToken, calls } = harness({
+      'GET /catalog': { status: 200, body: { _id: 'catalog' } },
+      'GET /orders': { status: 200, body: { _id: 'orders' } },
+    });
+    const service = createServiceClient(admin, 'ea820b');
+
+    await service.collectionExists('catalog');
+    await service.collectionExists('orders');
+
+    expect(serviceToken).toHaveBeenCalledTimes(1);
+    expect(calls.every(c => c.auth?.startsWith('Bearer '))).toBe(true);
+  });
+});
+```
+
 **Key Patterns**:
-- Use a `stub` function to mock HTTP responses and record calls
+- Use a `stub` function (admin.test.ts) or `harness` function (service.test.ts) to mock HTTP responses and record calls
 - Test both success and error cases
 - Test edge cases (missing variables, corrupt data)
 - Use `vi.fn()` to track function calls
@@ -767,7 +836,7 @@ describe('admin client', () => {
 
 ## Adapter Unit Tests
 
-Adapter tests mock `@restheart-cloud/kit` and assert only the **wiring**: which core call fires, and how the reactive state (signals / context / refs) and framework glue (guards, middleware, cookies) react.
+Adapter tests mock `@ulabase/kit` and assert only the **wiring**: which core call fires, and how the reactive state (signals / context / refs) and framework glue (guards, middleware, cookies) react.
 
 - Fast, deterministic, **no backend and no secrets**
 - Run on every push and PR (the **Unit Tests** CI workflow)
@@ -776,12 +845,13 @@ Adapter tests mock `@restheart-cloud/kit` and assert only the **wiring**: which 
 ### Running Adapter Tests
 
 ```bash
-npm run build   # adapters resolve @restheart-cloud/kit from its built dist
+npm run build   # adapters resolve @ulabase/kit from its built dist
 npm test -w packages/kit-react -w packages/kit-vue -w packages/kit-ng
 ```
 
-**Important**: The `npm run build` step is required because adapter tests mock `@restheart-cloud/kit`, which must be built first. This ensures adapters test against the actual compiled code, not the TypeScript sources.
+**Important**: The `npm run build` step is required because adapter tests mock `@ulabase/kit`, which must be built first. This ensures adapters test against the actual compiled code, not the TypeScript sources.
 
+<!-- openwiki: broken internal link [/openwiki/contributing/development.md] link "/openwiki/contributing/development.md" is root-absolute, which no real consumer resolves against the repository root (not a coding agent reading the page, not GitHub's Markdown renderer, not a local viewer); use a path relative to this file instead. Fix the href or restore the target, then delete this comment. -->
 **Note**: `kit-ng` uses Angular's experimental Vitest runner (requires Node ≥ 22.22.3, as specified in the [development guide](/openwiki/contributing/development.md)). The others use Vitest directly.
 
 ### Adapter Test Contract
@@ -846,7 +916,7 @@ The payments test contract (E1–E10) covers the reactive client state for Strip
 **Unit Tests** (adapter and CLI tests, every push/PR):
 - Workflow: `.github/workflows/unit-tests.yml`
 - Runs on every push to `main` and every pull request
-- No secrets needed — adapters mock `@restheart-cloud/kit`, CLI tests mock clients
+- No secrets needed — adapters mock `@ulabase/kit`, CLI tests mock clients
 - Scopes to `kit-react`, `kit-vue`, `kit-ng`, and `cli` (never `--workspaces`, which would also run kit's integration suite)
 
 ```yaml
@@ -856,7 +926,7 @@ The payments test contract (E1–E10) covers the reactive client state for Strip
 **Integration Tests** (core tests, gated):
 - Workflow: `.github/workflows/integration-test.yml`
 - Manual trigger or as part of the release pipeline
-- Requires RESTHeart Cloud instance and secrets
+- Requires Ulabase instance and secrets
 
 ```yaml
 name: Integration Tests
@@ -875,8 +945,8 @@ jobs:
       - run: npm run build -w packages/kit
       - run: npm test -w packages/kit
         env:
-          RH_TEST_API_URL: ${{ secrets.RH_TEST_API_URL }}
-          RH_TEST_ADMIN_PASSWORD: ${{ secrets.RH_TEST_ADMIN_PASSWORD }}
+          ULABASE_TEST_API_URL: ${{ secrets.ULABASE_TEST_API_URL }}
+          ULABASE_TEST_ADMIN_PASSWORD: ${{ secrets.ULABASE_TEST_ADMIN_PASSWORD }}
 ```
 
 ### Test Results
@@ -910,8 +980,8 @@ Add to `.vscode/launch.json`:
       "args": ["run", "--reporter=verbose"],
       "console": "integratedTerminal",
       "env": {
-        "RH_TEST_API_URL": "https://your-instance.restheart.com",
-        "RH_TEST_ADMIN_PASSWORD": "your-password"
+        "ULABASE_TEST_API_URL": "https://your-instance.ulabase.com",
+        "ULABASE_TEST_ADMIN_PASSWORD": "your-password"
       }
     }
   ]
@@ -922,25 +992,25 @@ Add to `.vscode/launch.json`:
 
 ```bash
 # List test users
-curl -u root:password https://your-instance.restheart.com/users?filter='{"_id":{"$regex":"@restheart-test.com$"}}'
+curl -u root:password https://your-instance.ulabase.com/users?filter='{"_id":{"$regex":"@test\\.ulabase\\.dev$"}}'
 
 # List test teams
-curl -u root:password https://your-instance.restheart.com/teams?filter='{"createdBy":{"$regex":"@restheart-test.com"}}'
+curl -u root:password https://your-instance.ulabase.com/teams?filter='{"createdBy":{"$regex":"@test\\.ulabase\\.dev"}}'
 ```
 
 ### Common Issues
 
-**Issue**: Tests fail with "RH_TEST_API_URL is not set"
+**Issue**: Tests fail with "ULABASE_TEST_API_URL is not set"
 **Solution**: Create `packages/kit/.env` with required variables
 
 **Issue**: Tests fail with 401 on admin requests
-**Solution**: Verify `RH_TEST_ADMIN_PASSWORD` is correct
+**Solution**: Verify `ULABASE_TEST_ADMIN_PASSWORD` is correct
 
 **Issue**: Tests fail with "user already exists"
 **Solution**: Run global cleanup manually or wait for next test run
 
 **Issue**: Token refresh tests fail
-**Solution**: Check if RESTHeart instance has token refresh enabled
+**Solution**: Check if Ulabase instance has token refresh enabled
 
 ## Test Configuration
 
@@ -1024,17 +1094,17 @@ it('handles validation errors', async () => {
 
 - Average test suite: ~30-60 seconds
 - Individual test: ~1-5 seconds
-- Bottleneck: API calls to RESTHeart Cloud
+- Bottleneck: API calls to Ulabase
 
 ### Optimization Tips
 
 1. **Minimize API calls**: Use admin access for setup
 2. **Reuse test data**: Create once, test multiple scenarios
 3. **Parallel execution**: Currently disabled (sequential)
-4. **Local RESTHeart**: Use local instance for faster tests
+4. **Local Ulabase**: Use local instance for faster tests
 
 ### Current Limitations
 
 - **Sequential execution**: Integration tests run sequentially (no parallel execution)
-- **API bottleneck**: Integration test performance limited by API calls to RESTHeart Cloud
-- **No mock mode**: Integration tests require a live RESTHeart Cloud instance
+- **API bottleneck**: Integration test performance limited by API calls to Ulabase
+- **No mock mode**: Integration tests require a live Ulabase instance

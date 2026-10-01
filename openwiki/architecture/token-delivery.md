@@ -3,9 +3,6 @@ type: architecture
 title: Token Delivery
 description: Explains the two authentication modes (bearer and cookie), how tokens are delivered via different mechanisms, and how SSR frameworks use first-party cookies for server-side authentication.
 tags: [architecture, authentication, tokens, bearer, cookie, ssr, nextjs, nuxt]
-verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-16T09:25:02.160Z
 sources:
   - id: openwiki-source-f11db6d857f6461980bb57f5
     resource: repo://docs/ADAPTERS.md
@@ -25,16 +22,19 @@ sources:
     resource: repo://packages/kit/src/client.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.5.2", at: "2026-09-16T09:25:02.160Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 ---
 
 # Token Delivery
 
-This document explains the two authentication modes in RESTHeart Cloud Kit: bearer token and cookie mode. It covers how tokens are delivered, stored, and refreshed, and how SSR frameworks (Next.js, Nuxt) handle token delivery through first-party cookies.
+This document explains the two authentication modes in Ulabase Kit: bearer token and cookie mode. It covers how tokens are delivered, stored, and refreshed, and how SSR frameworks (Next.js, Nuxt) handle token delivery through first-party cookies.
 
 ## Overview
 
-RESTHeart Cloud Kit supports two authentication modes:
+Ulabase Kit supports two authentication modes:
 
 | Mode | Token Storage | Delivery Mechanism | Use Case |
 |------|---------------|-------------------|----------|
@@ -52,8 +52,8 @@ Bearer mode stores the JWT in the client (localStorage by default) and attaches 
 ```mermaid
 sequenceDiagram
     participant Browser
-    participant Kit as RESTHeart Cloud Kit
-    participant API as RESTHeart Cloud API
+    participant Kit as Ulabase Kit
+    participant API as Ulabase API
 
     Browser->>Kit: login(email, password, 'bearer')
     Kit->>API: POST /token
@@ -91,7 +91,7 @@ Content-Type: application/json
 
 #### Auto-Login Endpoints
 
-Endpoints like `activate`, `resetPassword`, and `switchTeam` return the token in the JSON response body when `delivery=body` is specified, with the `Auth-Token` header as a fallback. This is handled by `applyBearerDelivery()` from `@restheart-cloud/kit`.
+Endpoints like `activate`, `resetPassword`, and `switchTeam` return the token in the JSON response body when `delivery=body` is specified, with the `Auth-Token` header as a fallback. This is handled by `applyBearerDelivery()` from `@ulabase/kit`.
 
 ```typescript
 // Activate account — token in response body
@@ -124,8 +124,8 @@ Cookie mode uses RESTHeart's HttpOnly JWT cookie, which is managed entirely by t
 ```mermaid
 sequenceDiagram
     participant Browser
-    participant Kit as RESTHeart Cloud Kit
-    participant API as RESTHeart Cloud API
+    participant Kit as Ulabase Kit
+    participant API as Ulabase API
 
     Browser->>Kit: login(email, password, 'cookie')
     Kit->>API: POST /token/cookie
@@ -181,7 +181,7 @@ SSR frameworks (Next.js, Nuxt) use a different cookie pattern that doesn't requi
 sequenceDiagram
     participant Browser
     participant SSR as Next.js/Nuxt Server
-    participant API as RESTHeart Cloud API
+    participant API as Ulabase API
 
     Browser->>SSR: Request with first-party cookie
     Note right of Browser: rh_session cookie (your domain)
@@ -204,7 +204,7 @@ sequenceDiagram
 
 ### Implementation in SSR Adapters
 
-#### Next.js (`@restheart-cloud/kit-react/next`)
+#### Next.js (`@ulabase/kit-react/next`)
 
 The Next.js adapter provides:
 
@@ -215,7 +215,7 @@ The Next.js adapter provides:
 
 ```typescript
 // Server Component usage
-import { getServerSession } from '@restheart-cloud/kit-react/next';
+import { getServerSession } from '@ulabase/kit-react/next';
 
 export default async function Page() {
   const user = await getServerSession(config);
@@ -224,7 +224,7 @@ export default async function Page() {
 }
 ```
 
-#### Nuxt (`@restheart-cloud/kit-vue/nuxt`)
+#### Nuxt (`@ulabase/kit-vue/nuxt`)
 
 The Nuxt adapter provides equivalent functionality:
 
@@ -248,8 +248,8 @@ Bearer mode implements proactive token refresh to prevent tokens from expiring d
 ```mermaid
 sequenceDiagram
     participant Timer as Refresh Timer
-    participant Kit as RESTHeart Cloud Kit
-    participant API as RESTHeart Cloud API
+    participant Kit as Ulabase Kit
+    participant API as Ulabase API
 
     Kit->>Timer: scheduleRefresh(config)
     Note right of Timer: Set timeout at 80% of TTL
@@ -443,7 +443,7 @@ This header is set by:
 
 **Always when**:
 - App and API are on different domains (most cases)
-- Using RESTHeart Cloud (*.restheart.com)
+- Using Ulabase (*.ulabase.app)
 - Building SPAs (Angular, React, Vue)
 - Building SSR apps (Next.js, Nuxt)
 - Need to read token in JavaScript
@@ -520,7 +520,7 @@ await apiFetch(config, '/some-endpoint');
 
 ```typescript
 // Server action login
-import { rhLogin } from '@restheart-cloud/kit-react/next';
+import { rhLogin } from '@ulabase/kit-react/next';
 
 export async function loginAction(email: string, password: string) {
   const user = await rhLogin(config, email, password);

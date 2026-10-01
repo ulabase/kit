@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:6c70fa76c5919cee92a28e68baca584121b2bc0d39c3c1b5c979684fea816d97",
+  "pageVersion": "sha256:ab61670bd361df7b4f0dc47a197f792140f7c7aa72f7865367ece63f5b999855",
   "claims": [
     {
       "id": "claim_e7ebb7e508804f9f92901818b0fa82a0",
       "statement": "RESTHeart Cloud Kit has four test tiers: core integration tests (against live API), kit unit tests (mock transport, no backend), CLI unit tests (mock clients, no backend), and adapter unit tests (mock core, no backend).",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L33-L33",
+          "resource": "repo://packages/cli/package.json#L34-L34",
           "version": "repo-lines-v1:sha256:a14c4eaf2c13b6b1ef14323ef7437e90fc0787ea0b1b055d0af097d24a52be5b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTE0YzRlYWYyYzEzYjZiMWVmMTQzMjNlZjc0MzdlOTBmYzA3ODdlYTBiMWIwNTVkMGFmMDk3ZDI0YTUyYmU1YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTE0YzRlYWYyYzEzYjZiMWVmMTQzMjNlZjc0MzdlOTBmYzA3ODdlYTBiMWIwNTVkMGFmMDk3ZDI0YTUyYmU1YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjBlZDBlOTMxZTU4NGM5MjIzNmRkNmU4NTg3ZjMwNzZlNTI3NzNhYzc1NzU5NWRlYmFlNDY1Y2UyNjVkZjc0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDMxMTFjNzNhNGU3NDBkMzRkMjE0YTk2ZDRkMWFiYmRjNGNiYTg4OTgwMjdjMGRlNmYzNmMwOTljZTZmNjA2OCJ9"
         },
         {
@@ -20,7 +20,7 @@
         },
         {
           "resource": "repo://packages/kit/vitest.unit.config.ts",
-          "version": "repo-file-v1:sha256:91778f5f84aedf1ba8f5c572f6c5bfa833747b12ffd1726f7345da43246f61e2"
+          "version": "repo-file-v1:sha256:62539fcd95545968329d72e57f0033e78e8029d17fe01988ffaf79da0a7a2304"
         }
       ]
     },
@@ -34,7 +34,7 @@
         },
         {
           "resource": "repo://packages/kit/vitest.unit.config.ts",
-          "version": "repo-file-v1:sha256:91778f5f84aedf1ba8f5c572f6c5bfa833747b12ffd1726f7345da43246f61e2"
+          "version": "repo-file-v1:sha256:62539fcd95545968329d72e57f0033e78e8029d17fe01988ffaf79da0a7a2304"
         }
       ]
     },
@@ -43,7 +43,7 @@
       "statement": "CLI unit tests run with `npm test -w packages/cli` using vitest.unit.config.ts, which includes only `src/__tests__/unit/**/*.test.ts` and requires no backend or secrets.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L33-L33",
+          "resource": "repo://packages/cli/package.json#L34-L34",
           "version": "repo-lines-v1:sha256:a14c4eaf2c13b6b1ef14323ef7437e90fc0787ea0b1b055d0af097d24a52be5b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTE0YzRlYWYyYzEzYjZiMWVmMTQzMjNlZjc0MzdlOTBmYzA3ODdlYTBiMWIwNTVkMGFmMDk3ZDI0YTUyYmU1YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTE0YzRlYWYyYzEzYjZiMWVmMTQzMjNlZjc0MzdlOTBmYzA3ODdlYTBiMWIwNTVkMGFmMDk3ZDI0YTUyYmU1YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjBlZDBlOTMxZTU4NGM5MjIzNmRkNmU4NTg3ZjMwNzZlNTI3NzNhYzc1NzU5NWRlYmFlNDY1Y2UyNjVkZjc0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDMxMTFjNzNhNGU3NDBkMzRkMjE0YTk2ZDRkMWFiYmRjNGNiYTg4OTgwMjdjMGRlNmYzNmMwOTljZTZmNjA2OCJ9"
         },
         {
@@ -84,7 +84,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/__tests__/unit/admin.test.ts",
-          "version": "repo-file-v1:sha256:951b6f5776f2238bbb76d8634c57b4ee63239846b5752cd751b6add72706f6d5"
+          "version": "repo-file-v1:sha256:a043f11bf05084b0052182abf2ce0996fb3c942a0b0230b3ffe702875c077614"
         },
         {
           "resource": "repo://packages/cli/src/__tests__/unit/env.test.ts",
@@ -92,11 +92,11 @@
         },
         {
           "resource": "repo://packages/cli/src/__tests__/unit/service.test.ts",
-          "version": "repo-file-v1:sha256:8c6ca47c35a1546d608d93c0d41bed1378989c2da082743bbc19e01e07c46ada"
+          "version": "repo-file-v1:sha256:c129165023a05df37a0a62cf27dea966d8690a241e0d56ed6fc7446ec46e6f64"
         },
         {
           "resource": "repo://packages/cli/src/__tests__/unit/session.test.ts",
-          "version": "repo-file-v1:sha256:1db59886b404645cf255c7b51ae203a0e9fd7d04429903e357c66a880bb13ade"
+          "version": "repo-file-v1:sha256:a4238fcabeab81b386b940758a119ec4b1cff7d21647a711c14a1aedc3ec26ea"
         },
         {
           "resource": "repo://packages/cli/src/__tests__/unit/setup.test.ts",
@@ -184,7 +184,7 @@
     },
     {
       "id": "claim_8fa3a60b1b4143fa8157207fa9ab8f8a",
-      "statement": "CLI unit tests use a stub function that answers from a route table and records what it was asked, enabling deterministic testing of admin and service client operations.",
+      "statement": "CLI unit tests use mock transport functions to enable deterministic testing of admin and service client operations: admin.test.ts uses a `stub` function that answers from a route table and records calls, while service.test.ts uses a `harness` function that includes a `serviceToken` mock and records calls with query strings included.",
       "evidence": [
         {
           "resource": "repo://packages/cli/src/__tests__/unit/admin.test.ts#L13-L34",
@@ -192,7 +192,7 @@
         },
         {
           "resource": "repo://packages/cli/src/__tests__/unit/service.test.ts#L21-L51",
-          "version": "repo-lines-v1:sha256:c44a4809e03f87edc198065aa63a504ccb895eb4fae1f8ef39edc845585ee97f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5NTM4YTdjMTY1YzgwZmMyYWFkODc1MjI1YmFmY2E3MDkwNmYyM2JmOGM3NTZiNDQ2YWU5YjY2YTQ4MTEwYjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1YjAyMWQzMjA2YWNiZDUyZmY5Y2I3MmMxMzJhZjZlZTY1NWFmMGNlMDlhN2ZjMWVlMzljOWFjYzY5MTkzMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY5OGJmNjlhZWVjNDZkNjY3YzM0MmUxNzA5NWY5OWNkMGJkMWMxZGE3MDM4MjZjNGQ3MzJhZThlYjc3ODZiZTIifQ"
+          "version": "repo-lines-v1:sha256:4d64ff639c83560c2bc8d298687349f8d7f88d40bfb95d92526f1d35e63f5bb0:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5NTM4YTdjMTY1YzgwZmMyYWFkODc1MjI1YmFmY2E3MDkwNmYyM2JmOGM3NTZiNDQ2YWU5YjY2YTQ4MTEwYjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1YjAyMWQzMjA2YWNiZDUyZmY5Y2I3MmMxMzJhZjZlZTY1NWFmMGNlMDlhN2ZjMWVlMzljOWFjYzY5MTkzMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY5OGJmNjlhZWVjNDZkNjY3YzM0MmUxNzA5NWY5OWNkMGJkMWMxZGE3MDM4MjZjNGQ3MzJhZThlYjc3ODZiZTIifQ"
         }
       ]
     },
@@ -218,7 +218,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.0",
-    "at": "2026-09-25T09:43:51.410Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

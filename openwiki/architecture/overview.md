@@ -1,11 +1,10 @@
 ---
-type: Architecture
-title: Architecture Overview
-description: Technical architecture of the RESTHeart Cloud Kit monorepo, including package structure, layering, payments subsystem, CLI tooling, and design principles.
-tags: [architecture, monorepo, design, layering, payments, cli]
+type: "Reference"
+title: "Architecture Overview"
+openwiki_generated: true
 verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-25T09:43:51.410Z
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
     resource: repo://docs/ADAPTER_CONTRACT.md
@@ -41,19 +40,21 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.0", at: "2026-09-25T09:43:51.410Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 ---
+
+
 
 # Architecture Overview
 
-This document explains the technical architecture of the RESTHeart Cloud Kit monorepo, its package structure, and the design principles that guide development.
+This document explains the technical architecture of the Ulabase Kit monorepo, its package structure, and the design principles that guide development.
 
 ## Repository Structure
 
 ```
-restheart-cloud-kit/
+ulabase-kit/
 ├── packages/
-│   ├── kit/                    # @restheart-cloud/kit (core)
+│   ├── kit/                    # @ulabase/kit (core)
 │   │   ├── src/
 │   │   │   ├── auth.ts         # Authentication flows
 │   │   │   ├── client.ts       # Token management, API fetch
@@ -69,10 +70,10 @@ restheart-cloud-kit/
 │   │   │   ├── types.ts        # TypeScript interfaces (generic UserInfo<E>)
 │   │   │   └── index.ts        # Public API exports
 │   │   └── __tests__/
-│   │       ├── integration/    # Integration tests (live RESTHeart Cloud)
+│   │       ├── integration/    # Integration tests (live Ulabase)
 │   │       └── unit/           # Unit tests
 │   │
-│   ├── kit-ng/                 # @restheart-cloud/kit-ng (Angular)
+│   ├── kit-ng/                 # @ulabase/kit-ng (Angular)
 │   │   ├── src/
 │   │   │   ├── auth.service.ts     # Angular service (signals, Observable methods)
 │   │   │   ├── auth.guard.ts       # Route guards (authGuard, publicGuard)
@@ -87,7 +88,7 @@ restheart-cloud-kit/
 │   │   │   └── index.ts            # Public API
 │   │   └── ng-package.json     # Angular packaging config
 │   │
-│   ├── kit-react/              # @restheart-cloud/kit-react (React)
+│   ├── kit-react/              # @ulabase/kit-react (React)
 │   │   ├── src/
 │   │   │   ├── context.tsx     # React auth context + provider
 │   │   │   ├── payments.tsx    # React payments context + provider
@@ -106,7 +107,7 @@ restheart-cloud-kit/
 │   │   ├── vitest.config.ts
 │   │   └── package.json
 │   │
-│   ├── kit-vue/                # @restheart-cloud/kit-vue (Vue)
+│   ├── kit-vue/                # @ulabase/kit-vue (Vue)
 │   │   ├── src/
 │   │   │   ├── create.ts       # Vue auth plugin creation
 │   │   │   ├── store.ts        # Auth reactive state (refs)
@@ -132,13 +133,13 @@ restheart-cloud-kit/
 │   │   ├── vitest.config.ts
 │   │   └── package.json
 │   │
-│   └── cli/                    # @restheart-cloud/cli (rhc)
+│   └── cli/                    # @ulabase/cli (ulabase/ula)
 │       ├── src/
-│       │   ├── cli.ts          # CLI entrypoint (rhc login, rhc setup)
+│       │   ├── cli.ts          # CLI entrypoint (ulabase login, ulabase setup)
 │       │   ├── admin.ts        # Admin-node client (createAdminClient)
 │       │   ├── service.ts      # Service-node client (createServiceClient)
 │       │   ├── setup.ts        # Setup runner (step, defineSetup, runSetup)
-│       │   ├── session.ts      # Token persistence (~/.config/restheart)
+│       │   ├── session.ts      # Token persistence (~/.config/ulabase)
 │       │   ├── env.ts          # fromEnv secret resolution
 │       │   ├── http.ts         # Low-level HTTP helpers
 │       │   ├── types.ts        # Plugin, config, and mutation types
@@ -163,7 +164,7 @@ restheart-cloud-kit/
 
 The monorepo follows a strict layered architecture:
 
-### Layer 1: Core (`@restheart-cloud/kit`)
+### Layer 1: Core (`@ulabase/kit`)
 
 **Purpose**: Framework-agnostic authentication logic
 
@@ -193,13 +194,13 @@ The monorepo follows a strict layered architecture:
 **Purpose**: Reactive wrappers for specific frameworks
 
 **Current Adapters**:
-- `@restheart-cloud/kit-ng` (Angular) — signals, guards, interceptor
-- `@restheart-cloud/kit-react` (React) — hooks, context, guard components
-- `@restheart-cloud/kit-vue` (Vue) — composables, navigation guards
+- `@ulabase/kit-ng` (Angular) — signals, guards, interceptor
+- `@ulabase/kit-react` (React) — hooks, context, guard components
+- `@ulabase/kit-vue` (Vue) — composables, navigation guards
 
 **SSR Subpaths**:
-- `@restheart-cloud/kit-react/next` — Next.js middleware, route handlers, server actions
-- `@restheart-cloud/kit-vue/nuxt` — Nuxt server middleware, route rules
+- `@ulabase/kit-react/next` — Next.js middleware, route handlers, server actions
+- `@ulabase/kit-vue/nuxt` — Nuxt server middleware, route rules
 
 **Characteristics**:
 - Depends on Layer 1 (kit)
@@ -207,16 +208,16 @@ The monorepo follows a strict layered architecture:
 - Manages reactive state
 - Never reimplements API calls or token logic
 
-**Test contract**: All adapters implement the shared checklist in `docs/ADAPTER_CONTRACT.md`. Tests mock `@restheart-cloud/kit` and assert only the wiring.
+**Test contract**: All adapters implement the shared checklist in `docs/ADAPTER_CONTRACT.md`. Tests mock `@ulabase/kit` and assert only the wiring.
 
-### Layer 3: CLI (`@restheart-cloud/cli`)
+### Layer 3: CLI (`@ulabase/cli`)
 
-**Purpose**: Infrastructure-as-code tooling for configuring RESTHeart Cloud services
+**Purpose**: Infrastructure-as-code tooling for configuring Ulabase services
 
 **Characteristics**:
-- Depends on `@restheart-cloud/kit` for `apiFetch`, `login`, and token utilities
+- Depends on `@ulabase/kit` for `apiFetch`, `login`, and token utilities
 - Runs in Node.js, not in a browser — the admin node's `originVetoer` rejects browser-origin requests
-- Ships the `rhc` binary for terminal and CI use
+- Ships the `ulabase` binary (also as `ula`) for terminal and CI use
 - Not a framework adapter — it is a standalone operational tool
 
 **Key abstractions**:
@@ -300,19 +301,19 @@ Special handling:
 ## Dependency Graph
 
 ```
-@restheart-cloud/kit-ng        @restheart-cloud/kit-react      @restheart-cloud/kit-vue
-  (Angular adapter)              (React adapter)                 (Vue adapter)
-        │                              │                               │
-        └──────────────────────────────┼───────────────────────────────┘
-                                       │
-                                       ▼
-                         @restheart-cloud/kit
-                              (core, zero deps)
-                                       ▲
-                                       │
-                                       │
-                            @restheart-cloud/cli
-                              (rhc, Node.js)
+@ulabase/kit-ng        @ulabase/kit-react      @ulabase/kit-vue
+  (Angular adapter)      (React adapter)         (Vue adapter)
+        │                      │                       │
+        └──────────────────────┼───────────────────────┘
+                               │
+                               ▼
+                         @ulabase/kit
+                          (core, zero deps)
+                               ▲
+                               │
+                               │
+                         @ulabase/cli
+                          (ulabase/ula, Node.js)
 ```
 
 All adapters and the CLI depend on `kit` at exact version `0.0.0` in development to prevent npm from resolving from the registry. The release workflow rewrites this to the tag version before publishing.
@@ -405,14 +406,14 @@ The fix is the `waitForSubscription` / `waitForOrder` polling pattern:
 sequenceDiagram
     participant Browser
     participant Kit
-    participant RESTHeart
+    participant Ulabase
     participant Stripe
 
     Browser->>Kit: createCheckoutSession(config, plan, interval)
-    Kit->>RESTHeart: POST /stripe/checkout
-    RESTHeart->>Stripe: Create Checkout Session
-    Stripe-->>RESTHeart: session.url
-    RESTHeart-->>Kit: { url }
+    Kit->>Ulabase: POST /stripe/checkout
+    Ulabase->>Stripe: Create Checkout Session
+    Stripe-->>Ulabase: session.url
+    Ulabase-->>Kit: { url }
     Kit-->>Browser: { url }
     Browser->>Stripe: redirect to hosted Checkout
     Stripe-->>Browser: redirect to successUrl
@@ -421,8 +422,8 @@ sequenceDiagram
 
     Browser->>Kit: waitForSubscription(config, predicate)
     loop Poll until predicate or timeout
-        Kit->>RESTHeart: GET /stripe/subscription
-        RESTHeart-->>Kit: Subscription
+        Kit->>Ulabase: GET /stripe/subscription
+        Ulabase-->>Kit: Subscription
         alt predicate(subscription) is true
             Kit-->>Browser: Subscription
         else predicate is false and deadline not reached
@@ -432,8 +433,8 @@ sequenceDiagram
         end
     end
 
-    Stripe->>RESTHeart: webhook (payment_intent.succeeded)
-    RESTHeart->>RESTHeart: update subscription in database
+    Stripe->>Ulabase: webhook (payment_intent.succeeded)
+    Ulabase->>Ulabase: update subscription in database
 ```
 
 *The webhook race: the browser redirect and the Stripe webhook arrive in either order; polling bridges the gap.*
@@ -506,7 +507,7 @@ Each reads from `localStorage` on mount and writes back on every mutation in the
 ├─────────────────────────────────────────────────────────┤
 │  HttpOnly Cookie (managed by backend)                   │
 │  ┌───────────────────────────────────────────────────┐  │
-│  │  Name: (RESTHeart default)                        │  │
+│  │  Name: (Ulabase default)                          │  │
 │  │  Value: JWT                                       │  │
 │  │  HttpOnly: true                                   │  │
 │  │  Secure: true (production)                        │  │
@@ -560,7 +561,7 @@ The interceptor authenticates application `HttpClient` requests and clears the s
 - **Only requests to `apiBaseUrl` are touched** — the token is a credential and must not be attached to third-party hosts
 - **Kit's own requests are marked** with `RH_KIT_REQUEST` context token — the kit owns 401s on its own endpoints (e.g., `PATCH /auth/change-password` returns 401 for wrong current password)
 - **Async token support** — the token source may be async (SSR cookie reads), so the interceptor handles both sync and Promise token sources
-- **`No-Auth-Challenge` header** suppresses RESTHeart's WWW-Authenticate challenge on 401 to prevent the browser's native Basic Auth popup
+- **`No-Auth-Challenge` header** suppresses Ulabase's WWW-Authenticate challenge on 401 to prevent the browser's native Basic Auth popup
 
 ```typescript
 export const rhAuthInterceptor: HttpInterceptorFn = (req, next) => {
@@ -605,7 +606,7 @@ export const rhAuthInterceptor: HttpInterceptorFn = (req, next) => {
 
 ### Integration Test Strategy
 
-Tests run against a real RESTHeart Cloud instance:
+Tests run against a real Ulabase instance:
 
 1. **Global Setup**: Clean all test data before/after suite
 2. **Test Isolation**: Each test uses unique email addresses with run ID
@@ -669,20 +670,20 @@ git push origin 1.2.3
 All framework adapters are implemented and unit-tested:
 
 ```
-@restheart-cloud/kit
+@ulabase/kit
         │
-        ├── @restheart-cloud/kit-ng     (Angular — signals, guards, interceptor)
+        ├── @ulabase/kit-ng     (Angular — signals, guards, interceptor)
         │       ├── RhAuthService       (auth: signals, Observable methods)
         │       ├── RhPaymentsService   (payments: subscription, billing)
         │       └── RhCartService       (cart: localStorage persistence)
         │
-        ├── @restheart-cloud/kit-react  (React — hooks, context, guards)
+        ├── @ulabase/kit-react  (React — hooks, context, guards)
         │       ├── RhAuthProvider      (auth: context, hooks)
         │       ├── RhPaymentsProvider  (payments: subscription, billing)
         │       ├── RhCartProvider      (cart: localStorage persistence)
         │       └── /next               (Next.js — middleware, route handlers, server actions)
         │
-        └── @restheart-cloud/kit-vue    (Vue — composables, navigation guards)
+        └── @ulabase/kit-vue    (Vue — composables, navigation guards)
                 ├── createRhAuth        (auth: composables, navigation guards)
                 ├── createRhPayments    (payments: subscription, billing)
                 ├── createRhCart        (cart: localStorage persistence)
@@ -719,8 +720,8 @@ Svelte does not justify an adapter until the current adapters and starters are s
 For SSR frameworks (Next.js, Nuxt), use subpaths instead of separate packages:
 
 ```typescript
-import { useAuth } from '@restheart-cloud/kit-react';
-import { rhAuthMiddleware } from '@restheart-cloud/kit-react/next';
+import { useAuth } from '@ulabase/kit-react';
+import { rhAuthMiddleware } from '@ulabase/kit-react/next';
 ```
 
 **Benefits**:

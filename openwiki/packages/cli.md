@@ -1,7 +1,7 @@
 ---
 type: Package
-title: "@restheart-cloud/cli"
-description: CLI tool and library for idempotent, file-driven configuration of RESTHeart Cloud services. Provides the rhc command, admin and service clients, session management, environment variable secret resolution, and a step-based setup runner.
+title: "@ulabase/cli"
+description: CLI tool and library for idempotent, file-driven configuration of Ulabase services. Provides the ulabase command, admin and service clients, session management, environment variable secret resolution, and a step-based setup runner.
 tags: [package, cli, configuration, infrastructure-as-code, setup, idempotent]
 sources:
   - id: openwiki-source-92450a7065eb85e0f30b5461
@@ -26,36 +26,36 @@ sources:
     resource: repo://packages/cli/src/setup.ts
   - id: openwiki-source-e5bdf5324e38ac0fd72f905f
     resource: repo://packages/cli/src/types.ts
-generated: { by: "openwiki/0.6.0", at: "2026-09-25T09:43:51.410Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-25T09:43:51.410Z
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 ---
 
-# @restheart-cloud/cli
+# @ulabase/cli
 
-The `@restheart-cloud/cli` package provides both a command-line tool (`rhc`) and a library for configuring RESTHeart Cloud services from a declarative setup file committed to version control. It turns manual console clicks — creating collections, writing ACL permissions, installing and configuring features — into a repeatable, idempotent, dry-runnable script.
+The `@ulabase/cli` package provides both a command-line tool (`ulabase`, also installed as `ula`) and a library for configuring Ulabase services from a declarative setup file committed to version control. It turns manual console clicks — creating collections, writing ACL permissions, installing and configuring features — into a repeatable, idempotent, dry-runnable script.
 
 ## Installation
 
 Two install shapes, because there are two things here used at different moments:
 
 ```bash
-npm i -g @restheart-cloud/cli    # the `rhc` command, for a terminal
-npm i -D @restheart-cloud/cli    # the library, for a project whose setup file imports it
+npm i -g ulabase            # the `ulabase` command, for a terminal
+npm i -D @ulabase/cli       # the library, for a project whose setup file imports it
 ```
 
-A setup file imports `defineSetup`, `step`, and `fromEnv`, so a project that has one wants the local dependency — a global install is not on Node's module resolution path and the import would not resolve. The `rhc` command is account-level and outlives any one project, so it wants the global one. Installing both is normal, the same way `vite` is both a bin and the module `defineConfig` comes from.
+A setup file imports `defineSetup`, `step`, and `fromEnv`, so a project that has one wants the local dependency — a global install is not on Node's module resolution path and the import would not resolve. The `ulabase` command is account-level and outlives any one project, so it wants the global one. Installing both is normal, the same way `vite` is both a bin and the module `defineConfig` comes from.
 
-In a pipeline, neither: `npx @restheart-cloud/cli setup …` and nothing to keep installed.
+In a pipeline, neither: `npx ulabase setup …` and nothing to keep installed.
 
-The two copies do not conflict. `fromEnv` markers are matched with `Symbol.for`, which is the global symbol registry rather than a per-module identity, and a `Setup` is plain data — `{ name, steps: [{ name, check, apply }] }` — no `instanceof`, no shared class. So the `rhc` you have installed can run a setup built against a different version of the library.
+The two copies do not conflict. `fromEnv` markers are matched with `Symbol.for`, which is the global symbol registry rather than a per-module identity, and a `Setup` is plain data — `{ name, steps: [{ name, check, apply }] }` — no `instanceof`, no shared class. So the `ulabase` you have installed can run a setup built against a different version of the library.
 
 ## Node only, and not by accident
 
-The admin node's `originVetoer` whitelists `cloud.restheart.com` and allows a *missing* `Origin` header. A page served from your own origin sends one and is vetoed; Node, curl, and anything that is not a browser pass. So this is a CLI and a library for Node, and designing it as a browser page would have produced an API that cannot work.
+The admin node's `originVetoer` whitelists `ulabase.com` and allows a *missing* `Origin` header. A page served from your own origin sends one and is vetoed; Node, curl, and anything that is not a browser pass. So this is a CLI and a library for Node, and designing it as a browser page would have produced an API that cannot work.
 
-It is also the right call on its own merits: the credential here is your RESTHeart Cloud account, which governs every service you own and its billing — a much larger blast radius than the tenant token the framework adapters handle, and not a thing to put in a deployed page.
+It is also the right call on its own merits: the credential here is your Ulabase account, which governs every service you own and its billing — a much larger blast radius than the tenant token the framework adapters handle, and not a thing to put in a deployed page.
 
 This is **not a fourth adapter**. There is no reactive state, no session to restore, no signal to update.
 
@@ -63,11 +63,11 @@ This is **not a fourth adapter**. There is no reactive state, no session to rest
 
 | File | Responsibility |
 |---|---|
-| `src/cli.ts` | CLI entrypoint — `rhc login`, `rhc logout`, `rhc setup` commands, argument parsing, setup file loading, progress rendering |
+| `src/cli.ts` | CLI entrypoint — `ulabase login`, `ulabase logout`, `ulabase setup` commands, argument parsing, setup file loading, progress rendering |
 | `src/admin.ts` | Admin-node client (`createAdminClient`) — feature management, service token minting, `fromEnv` resolution during serialization |
 | `src/service.ts` | Service-node client (`createServiceClient`) — collection, index, permission, user, and schema CRUD; lazy token minting with automatic renewal |
 | `src/setup.ts` | Setup runner — `step`, `defineSetup`, `runSetup`; sequential execution with check/apply halves, recheck backoff, dry-run, force |
-| `src/session.ts` | Token persistence — `~/.config/restheart/session.json` (mode 0600), `RH_CLOUD_TOKEN` env var precedence |
+| `src/session.ts` | Token persistence — `~/.config/ulabase/session.json` (mode 0600), `ULABASE_TOKEN` env var precedence |
 | `src/env.ts` | Secret handling — `fromEnv` markers, `resolveEnvRefs`, `MissingEnvError`; Symbol.for identity for cross-version interop |
 | `src/http.ts` | Low-level HTTP helpers — `request` (service-node fetch), `existsOr404`, `isApiError` |
 | `src/types.ts` | Shared types — `FeatureConfig`, `ConfigSchema`, `CatalogFeature`, `InstalledFeature`, `ServiceToken`, `REDACTED`, `isRedacted` |
@@ -78,7 +78,7 @@ This is **not a fourth adapter**. There is no reactive state, no session to rest
 The unit of configuration is not an operation, it is a **step**: a `check` that answers satisfied-or-not, and an `apply` that makes it so.
 
 ```ts
-import { defineSetup, step } from '@restheart-cloud/cli';
+import { defineSetup, step } from '@ulabase/cli';
 
 export default defineSetup('Blog', [
   step('posts collection', {
@@ -161,7 +161,7 @@ step('stripe configured', {
 
 ### How `fromEnv` Markers Work
 
-The marker uses `Symbol.for('@restheart-cloud/cli:fromEnv')` for identity, which is the global symbol registry rather than a per-module identity. This is what allows the globally-installed `rhc` binary to recognise markers created by a locally-installed copy of the library — a `Symbol()` in place of `Symbol.for` would break it silently.
+The marker uses `Symbol.for('@ulabase/cli:fromEnv')` for identity, which is the global symbol registry rather than a per-module identity. This is what allows the globally-installed `ulabase` binary to recognise markers created by a locally-installed copy of the library — a `Symbol()` in place of `Symbol.for` would break it silently.
 
 The marker carries:
 - A `toString()` that prints `fromEnv(VAR_NAME)` — the variable name, never a value
@@ -190,21 +190,21 @@ A blank or absent secret is **not** redacted, because "not configured" is inform
 
 ```mermaid
 flowchart TD
-    A["resolveToken()"] --> B{"RH_CLOUD_TOKEN set and non-empty?"}
+    A["resolveToken()"] --> B{"ULABASE_TOKEN set and non-empty?"}
     B -- Yes --> C["Return token, source = env"]
     B -- No --> D{"Stored session exists?"}
     D -- Yes --> E["Return token + api, source = file"]
     D -- No --> F["Return null"]
 ```
 
-Credential resolution chain: `RH_CLOUD_TOKEN` always wins over stored session.
+Credential resolution chain: `ULABASE_TOKEN` always wins over stored session.
 
 The credential is a **personal access token**. Issue one at [cloud.restheart.com](https://cloud.restheart.com), under your profile.
 
 ```bash
-rhc login                     # prompts, stores 0600 under ~/.config/restheart
-rhc setup --srv ea820b
-rhc logout                    # forgets it here; revoke it in the console
+ulabase login                  # prompts, stores 0600 under ~/.config/ulabase
+ulabase setup --srv ea820b
+ulabase logout                 # forgets it here; revoke it in the console
 ```
 
 The CLI has no way to accept a password, and that is the design rather than a gap. If you signed up with Google or GitHub you have no password to give it — the OAuth flow returns no token, only an httpOnly cookie, so nothing outside a browser can complete it. And an account password is the wrong thing to hand a pipeline in any case: it reaches billing and every service you own, and revoking it means changing it everywhere it is used.
@@ -213,48 +213,48 @@ A token is narrower on both counts. It carries a derived `cli` role instead of y
 
 ### Stored Session
 
-The session is stored at `~/.config/restheart/session.json` (or under `XDG_CONFIG_HOME` when set), with mode `0600` on both the directory and the file. The session records both the token and the admin node it was verified against, because a token issued by `cloud-api.restheart.com` means nothing to any other node — a session that remembered only the token would happily send a production credential at whatever `--api` came next.
+The session is stored at `~/.config/ulabase/session.json` (or under `XDG_CONFIG_HOME` when set), with mode `0600` on both the directory and the file. The session records both the token and the admin node it was verified against, because a token issued by one admin node means nothing to any other — a session that remembered only the token would happily send a production credential at whatever `--api` came next.
 
-A corrupt or unparseable session file reads as absent rather than as an error: the cure is `rhc login`, and refusing to run until the user finds and deletes a file they have never heard of helps nobody.
+A corrupt or unparseable session file reads as absent rather than as an error: the cure is `ulabase login`, and refusing to run until the user finds and deletes a file they have never heard of helps nobody.
 
-### `RH_CLOUD_TOKEN` Precedence
+### `ULABASE_TOKEN` Precedence
 
-**`RH_CLOUD_TOKEN` wins over the stored file, always.** A pipeline has no `rhc login` step, so a CI run must never quietly fall back to a session left behind on a shared runner; and on a developer's machine, an environment variable set on purpose must not be shadowed by a login from last month. Precedence in one direction, with no condition attached, is the only version of this that is predictable.
+**`ULABASE_TOKEN` wins over the stored file, always.** A pipeline has no `ulabase login` step, so a CI run must never quietly fall back to a session left behind on a shared runner; and on a developer's machine, an environment variable set on purpose must not be shadowed by a login from last month. Precedence in one direction, with no condition attached, is the only version of this that is predictable.
 
 Never a flag — a credential in a flag is a credential in the shell history, and in the process list of every other user on the machine.
 
 ## CLI Commands
 
 ```
-rhc login  [--api <url>]
-rhc logout
-rhc setup --srv <id> [options]
+ulabase login  [--api <url>]
+ulabase logout
+ulabase setup --srv <id> [options]
 
 --file <path>   A module exporting a setup (default export, or `setup`).
                 A function export is called with no arguments.
-                Defaults to ./rhc.setup.ts in the working directory.
+                Defaults to ./ulabase.setup.ts in the working directory.
 --srv <id>      The service to set up.
 --dry-run       Run every check, apply nothing, write nothing.
 --force <name>  Apply the steps whose name contains <name> without asking
                 their check first. Repeatable. Bare --force takes every step.
---api <url>     Admin node (default https://cloud-api.restheart.com).
+--api <url>     Admin node (default: ULABASE_API, else https://cloud-api.restheart.com).
 --json          Emit the report as JSON instead of a step list.
 --version, -v   Print the version and exit.
 ```
 
-### `rhc login`
+### `ulabase login`
 
 Checks the token against the admin node before storing it. Writing an unverified credential to disk only moves the failure to the next command, where it lands as a `401` in the middle of something you cared about instead of while you can still paste the right thing. The stored session records which admin node the token was verified against, and a `--api` that disagrees is refused rather than sent — otherwise a production credential would be offered to whatever host happened to be named.
 
-Warns if the token does not look like a personal access token (they start with `rhc_live_`), because a service admin token lives fifteen minutes and storing one here means it stops working before you use it.
+Warns if the token does not look like a personal access token (they start with `ula_live_`), because a service admin token lives fifteen minutes and storing one here means it stops working before you use it.
 
-### `rhc logout`
+### `ulabase logout`
 
 Removes the stored session file. Does not revoke the token — revoking is a separate act done at cloud.restheart.com.
 
-### `rhc setup`
+### `ulabase setup`
 
-Loads a setup file (default: `./rhc.setup.ts`), resolves credentials, verifies the token, and runs every step sequentially. The setup file can export a `Setup` object as its default export or as a named `setup` export; a function export is called with no arguments.
+Loads a setup file (default: `./ulabase.setup.ts`), resolves credentials, verifies the token, and runs every step sequentially. The setup file can export a `Setup` object as its default export or as a named `setup` export; a function export is called with no arguments.
 
 A `.ts` setup needs a runtime that can load one — Node 22.18+ strips types on its own, anything earlier wants `npx tsx`.
 
@@ -270,7 +270,7 @@ A `.ts` setup needs a runtime that can load one — Node 22.18+ strips types on 
 
 ## Clients
 
-The CLI provides two clients — one for the admin node, one for the service node — because RESTHeart Cloud separates management and data planes. The admin client handles feature lifecycle and credential minting; the service client handles collections, indexes, permissions, users, and schemas. A setup step receives both, since a real configuration crosses both planes.
+The CLI provides two clients — one for the admin node, one for the service node — because Ulabase separates management and data planes. The admin client handles feature lifecycle and credential minting; the service client handles collections, indexes, permissions, users, and schemas. A setup step receives both, since a real configuration crosses both planes.
 
 ### Admin Client
 
@@ -282,7 +282,7 @@ The client manages its own token in a closure (not `localStorage`, which does no
 
 | Method | Purpose |
 |---|---|
-| `login(email, password)` | Authenticate as the RESTHeart Cloud account |
+| `login(email, password)` | Authenticate as the Ulabase account |
 | `useToken(token)` | Set a personal access token (no round trip) |
 | `verifyToken()` | Cheap authenticated read (`GET /plugins`) to validate the credential |
 | `featureCatalog()` | Marketplace catalog with `config_schema` for each feature |
@@ -331,24 +331,24 @@ The service client also resolves `fromEnv` markers in request bodies, just as th
 
 ## From a Pipeline
 
-Set `RH_CLOUD_TOKEN` from your platform's secret store. There is no `rhc login` step: the variable **always wins over a stored session**, in that direction and with no condition attached, so a CI run can never quietly fall back to a session left behind on a shared runner.
+Set `ULABASE_TOKEN` from your platform's secret store. There is no `ulabase login` step: the variable **always wins over a stored session**, in that direction and with no condition attached, so a CI run can never quietly fall back to a session left behind on a shared runner.
 
 ```yaml
 # .github/workflows/deploy.yml
-- run: npx @restheart-cloud/cli setup --srv ea820b
+- run: npx ulabase setup --srv ea820b
   env:
-    RH_CLOUD_TOKEN: ${{ secrets.RH_CLOUD_TOKEN }}
+    ULABASE_TOKEN: ${{ secrets.ULABASE_TOKEN }}
     STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
     STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
 ```
 
-A revoked or expired token is reported as exactly that rather than as a bare `401`, and the message differs by where the token came from: a pipeline is told to update its secret store, a terminal is told to run `rhc login`.
+A revoked or expired token is reported as exactly that rather than as a bare `401`, and the message differs by where the token came from: a pipeline is told to update its secret store, a terminal is told to run `ulabase login`.
 
 Both platforms mask a registered secret in their own logs, but that is their safety net and not this package's: the progress callback emits a step's name and state and nothing else, so there is nothing of the secret to mask.
 
 ## Out of Scope
 
-- **Creating services.** Provisioning is the console's job; this configures one that exists. `rhc new free|shared` is specified but not built.
+- **Creating services.** Provisioning is the console's job; this configures one that exists. `ulabase new free|shared` is specified but not built.
 - **Billing.** `/purchase`, `/cancel`, and `/invoices` move money. A wizard that can spend your money by accident is not a wizard.
 - **A hosted configuration page.** Ruled out by the `originVetoer`. A local page served *by* the CLI would talk to the CLI's own process, and is a reasonable later addition.
-- **Editing arbitrary RESTHeart configuration.** Only feature config.
+- **Editing arbitrary Ulabase configuration.** Only feature config.

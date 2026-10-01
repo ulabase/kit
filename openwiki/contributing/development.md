@@ -1,11 +1,11 @@
 ---
 type: Guide
 title: Contributing & Development
-description: Development setup guide for RESTHeart Cloud Kit. Covers local development, workspace configuration, building packages, and debugging tips.
+description: Development setup guide for ULABASE Kit. Covers local development, workspace configuration, building packages, and debugging tips.
 tags: [contributing, development, setup, debugging]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-07T09:33:56.593Z
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -29,31 +29,33 @@ sources:
     resource: repo://packages/kit-react/tsconfig.json
   - id: openwiki-source-e2eb24b148aef310c446f420
     resource: repo://packages/kit/vitest.config.ts
+  - id: openwiki-source-06c92acb1e58241d198db5aa
+    resource: repo://packages/ulabase/package.json
   - id: openwiki-source-e79b0aa7b4f168ddb0be2dd4
     resource: repo://rebuild-kit-ng.sh
   - id: openwiki-source-df1e4d0dc0a35c64fd0e652b
     resource: repo://tsconfig.base.json
-generated: { by: "openwiki/0.5.0", at: "2026-09-07T09:33:56.593Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 ---
 
 # Contributing & Development
 
-This guide covers local development setup, workspace configuration, building packages, and debugging tips for contributing to RESTHeart Cloud Kit.
+This guide covers local development setup, workspace configuration, building packages, and debugging tips for contributing to ULABASE Kit.
 
 ## Prerequisites
 
 - **Node.js**: 22.22.3+ (required by Angular 22 CLI for `kit-ng` tests; the rest of the workspace is fine on any Node 22)
 - **npm**: 9+ (workspaces support)
 - **Git**: 2.30+
-- **RESTHeart Cloud**: Account for integration tests ([sign up](https://cloud.restheart.com))
+- **ULABASE**: Account for integration tests ([sign up](https://ulabase.com))
 
 ## Quick Setup
 
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/SoftInstigate/restheart-cloud-kit.git
-cd restheart-cloud-kit
+git clone https://github.com/ulabase/ulabase-kit.git
+cd ulabase-kit
 ```
 
 ### 2. Install Dependencies
@@ -79,17 +81,17 @@ Builds `kit` first, then `kit-ng`, `kit-react`, `kit-vue`, and finally `cli` (or
 **Adapter and CLI unit tests** (no backend needed):
 
 ```bash
-npm run build   # adapters resolve @restheart-cloud/kit from its built dist
+npm run build   # adapters resolve @ulabase/kit from its built dist
 npm test -w packages/kit-react -w packages/kit-vue -w packages/kit-ng -w packages/cli
 ```
 
-**Integration tests** (requires RESTHeart Cloud instance):
+**Integration tests** (requires ULABASE instance):
 
 ```bash
 # Create test environment file
 cat > packages/kit/.env << EOF
-RH_TEST_API_URL=https://<your-instance>.restheart.com
-RH_TEST_ADMIN_PASSWORD=<root-password>
+ULABASE_TEST_API_URL=https://<your-instance>.ulabase.com
+ULABASE_TEST_ADMIN_PASSWORD=<root-password>
 EOF
 
 # Run integration tests
@@ -99,9 +101,9 @@ npm test -w packages/kit
 ## Repository Structure
 
 ```
-restheart-cloud-kit/
+ulabase-kit/
 ├── packages/
-│   ├── kit/                    # Core package
+│   ├── kit/                    # Core package (@ulabase/kit)
 │   │   ├── src/                # Source code
 │   │   ├── dist/               # Compiled output (gitignored)
 │   │   ├── __tests__/          # Integration and unit tests
@@ -110,7 +112,7 @@ restheart-cloud-kit/
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── kit-ng/                 # Angular adapter
+│   ├── kit-ng/                 # Angular adapter (@ulabase/kit-ng)
 │   │   ├── src/                # Source + unit tests (*.spec.ts)
 │   │   ├── dist/               # Compiled output (gitignored)
 │   │   ├── angular.json        # Angular workspace config (Vitest runner)
@@ -118,26 +120,30 @@ restheart-cloud-kit/
 │   │   ├── ng-package.json     # Angular packaging config
 │   │   └── tsconfig.json
 │   │
-│   ├── kit-react/              # React adapter
+│   ├── kit-react/              # React adapter (@ulabase/kit-react)
 │   │   ├── src/                # Source + unit tests
 │   │   ├── src/next/           # /next subpath (Next.js SSR)
 │   │   ├── vitest.config.ts
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── kit-vue/                # Vue adapter
+│   ├── kit-vue/                # Vue adapter (@ulabase/kit-vue)
 │   │   ├── src/                # Source + unit tests
 │   │   ├── src/nuxt/           # /nuxt subpath (Nuxt SSR)
 │   │   ├── vitest.config.ts
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   └── cli/                    # CLI tool (@restheart-cloud/cli)
-│       ├── src/                # Source + unit tests
-│       ├── dist/               # Compiled output (gitignored)
-│       ├── vitest.unit.config.ts
+│   ├── cli/                    # CLI tool (@ulabase/cli)
+│   │   ├── src/                # Source + unit tests
+│   │   ├── dist/               # Compiled output (gitignored)
+│   │   ├── vitest.unit.config.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   │
+│   └── ulabase/                # ULABASE entry point package
 │       ├── package.json
-│       └── tsconfig.json
+│       └── ...
 │
 ├── docs/                       # Documentation
 │   ├── ADAPTERS.md             # Adapter contract & roadmap
@@ -152,11 +158,11 @@ restheart-cloud-kit/
 
 ### npm Workspaces
 
-The monorepo uses npm workspaces:
+The monorepo uses npm workspaces with six packages: kit (core), kit-ng (Angular adapter), kit-react (React adapter), kit-vue (Vue adapter), cli (CLI tool), and ulabase (entry point):
 
 ```json
 {
-  "name": "restheart-cloud-kit-monorepo",
+  "name": "ulabase-kit-monorepo",
   "private": true,
   "workspaces": ["packages/*"]
 }
@@ -174,7 +180,7 @@ All adapters and the CLI depend on `kit` at exact version `0.0.0`:
 ```json
 {
   "dependencies": {
-    "@restheart-cloud/kit": "0.0.0"
+    "@ulabase/kit": "0.0.0"
   }
 }
 ```
@@ -265,7 +271,7 @@ npm run build -w packages/cli
 **cli**:
 - `packages/cli/dist/` — ES modules
 - Entry point: `packages/cli/dist/index.js`
-- Binary: `packages/cli/dist/cli.js` (exposed as `rhc` command)
+- Binaries: `packages/cli/dist/cli.js` (exposed as `ulabase` and `ula` commands)
 
 ### Watch Mode
 
@@ -293,7 +299,7 @@ cd packages/kit-ng/dist && npm link
 
 # In your Angular starter app
 cd /path/to/your/angular-app
-npm link @restheart-cloud/kit @restheart-cloud/kit-ng
+npm link @ulabase/kit @ulabase/kit-ng
 
 # Clear Angular cache if needed
 rm -rf .angular/cache
@@ -301,7 +307,7 @@ rm -rf .angular/cache
 
 ### Using rebuild-kit-ng.sh
 
-The `rebuild-kit-ng.sh` script automates linking for the Angular starter app:
+The `rebuild-kit-ng.sh` script (a zsh script) builds only kit and kit-ng (not all packages), then links kit globally, links kit-ng from its dist directory, links both into the starter app at `/Users/uji/development/ulabase/starter-ng`, and clears the Angular cache.
 
 ```bash
 ./rebuild-kit-ng.sh
@@ -321,7 +327,7 @@ The `rebuild-kit-ng.sh` script automates linking for the Angular starter app:
 
 ```bash
 # In your Angular app
-npm unlink @restheart-cloud/kit @restheart-cloud/kit-ng
+npm unlink @ulabase/kit @ulabase/kit-ng
 
 # In monorepo
 npm unlink -w packages/kit
@@ -343,13 +349,13 @@ See [Testing Guide](../testing/guide.md) and `docs/ADAPTER_CONTRACT.md` for the 
 
 ### Integration Tests
 
-Tests run against a real RESTHeart Cloud instance:
+Tests run against a real ULABASE instance:
 
 ```bash
 # Create environment file
 cat > packages/kit/.env << EOF
-RH_TEST_API_URL=https://<your-instance>.restheart.com
-RH_TEST_ADMIN_PASSWORD=<root-password>
+ULABASE_TEST_API_URL=https://<your-instance>.ulabase.com
+ULABASE_TEST_ADMIN_PASSWORD=<root-password>
 EOF
 
 # Run tests
@@ -415,18 +421,18 @@ See [Testing Guide](../testing/guide.md) for detailed testing documentation.
 
 2. **CORS errors**
    - Ensure `apiBaseUrl` is correct
-   - Check RESTHeart Cloud CORS configuration
+   - Check ULABASE CORS configuration
 
 3. **401 errors**
    - Token expired or invalid
    - Check token in localStorage
-   - Verify RESTHeart Cloud is running
+   - Verify ULABASE is running
 
 ### Debug in Browser
 
 1. Open browser DevTools
 2. Go to Application → Storage → Local Storage
-3. Look for `rh_access_token` key
+3. Look for `ulabase_access_token` key
 4. Decode JWT at [jwt.io](https://jwt.io)
 
 ### Debug in Node.js (Tests)

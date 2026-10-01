@@ -1,11 +1,11 @@
 ---
 type: Package
-title: "@restheart-cloud/kit-ng"
-description: Angular adapter for RESTHeart Cloud Kit. Provides RhAuthService with signals, route guards, HTTP interceptor, payments service, and cart service for Angular applications.
+title: "@ulabase/kit-ng"
+description: Angular adapter for Ulabase Kit. Provides RhAuthService with signals, route guards, HTTP interceptor, payments service, and cart service for Angular applications.
 tags: [package, angular, adapter, signals, guards, payments, cart]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-07T09:33:56.593Z
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-bea1cd7cd3ced08116a2cc29
     resource: repo://packages/kit-ng/src/auth.guard.ts
@@ -25,23 +25,22 @@ sources:
     resource: repo://packages/kit-ng/src/provide-rh-auth.ts
   - id: openwiki-source-66f30d931d913bd85948b8cd
     resource: repo://packages/kit-ng/src/tokens.ts
-generated: { by: "openwiki/0.5.0", at: "2026-09-07T09:33:56.593Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 ---
 
-# @restheart-cloud/kit-ng
+# @ulabase/kit-ng
 
-Angular adapter for `@restheart-cloud/kit`. Wraps the core authentication, payments, and cart logic in Angular services with signals, route guards, and an HTTP interceptor.
+Angular adapter for `@ulabase/kit`. Wraps the core authentication, payments, and cart logic in Angular services with signals, route guards, and an HTTP interceptor.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit-ng @restheart-cloud/kit
+npm install @ulabase/kit-ng @ulabase/kit
 ```
 
 **Requirements**:
 - Angular 21+ (peer dependency)
 - RxJS 7+ (peer dependency)
-- RESTHeart 9.6.0+ (for `delivery=body` support)
 
 ## Quick Start
 
@@ -50,7 +49,7 @@ npm install @restheart-cloud/kit-ng @restheart-cloud/kit
 In `app.config.ts`:
 
 ```typescript
-import { provideRhAuth } from '@restheart-cloud/kit-ng';
+import { provideRhAuth } from '@ulabase/kit-ng';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -69,7 +68,7 @@ This single call:
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { RhAuthService } from '@restheart-cloud/kit-ng';
+import { RhAuthService } from '@ulabase/kit-ng';
 
 @Component({
   template: `
@@ -92,7 +91,7 @@ export class AppComponent {
 
 ```typescript
 import { Routes } from '@angular/router';
-import { authGuard, publicGuard } from '@restheart-cloud/kit-ng';
+import { authGuard, publicGuard } from '@ulabase/kit-ng';
 
 export const routes: Routes = [
   {
@@ -115,7 +114,7 @@ The main service for authentication operations.
 ### Injection
 
 ```typescript
-import { RhAuthService } from '@restheart-cloud/kit-ng';
+import { RhAuthService } from '@ulabase/kit-ng';
 
 // Inject in component or service
 auth = inject(RhAuthService);
@@ -280,7 +279,7 @@ auth.clearSession(): void
 auth.api(path: string, init?: RequestInit): Observable<Response>
 ```
 
-`auth.api()` is the Angular counterpart of React's `auth.api()`. It wraps the core `apiFetch` so that application requests to RESTHeart collections go through the Angular interceptor chain (when `httpClientTransport` is configured) and carry the session token automatically.
+`auth.api()` is the Angular counterpart of React's `auth.api()`. It wraps the core `apiFetch` so that application requests to Ulabase collections go through the Angular interceptor chain (when `httpClientTransport` is configured) and carry the session token automatically.
 
 ```typescript
 // GET
@@ -297,7 +296,7 @@ this.auth.api('/my-collection', {
 
 Rejects with an `ApiError` (`{ status, message }`) on any non-2xx response. See [Core Kit — Authenticated Fetch](kit.md#authenticated-fetch-apifetch) for the underlying behavior.
 
-**When to use**: Use `auth.api()` for any RESTHeart API call from Angular components or services that is not already covered by a dedicated method (e.g., querying custom collections). For calls that already have a wrapper (e.g., `auth.login()`, `auth.listTeamMembers()`), use the wrapper — it handles signal updates.
+**When to use**: Use `auth.api()` for any Ulabase API call from Angular components or services that is not already covered by a dedicated method (e.g., querying custom collections). For calls that already have a wrapper (e.g., `auth.login()`, `auth.listTeamMembers()`), use the wrapper — it handles signal updates.
 
 ## RhPaymentsService
 
@@ -306,7 +305,7 @@ Subscription, billing, and order management. Separated from `RhAuthService` beca
 ### Injection
 
 ```typescript
-import { RhPaymentsService } from '@restheart-cloud/kit-ng';
+import { RhPaymentsService } from '@ulabase/kit-ng';
 
 payments = inject(RhPaymentsService);
 ```
@@ -385,7 +384,7 @@ Shopping cart backed by `localStorage`. Independent of authentication — a cart
 ### Injection
 
 ```typescript
-import { RhCartService } from '@restheart-cloud/kit-ng';
+import { RhCartService } from '@ulabase/kit-ng';
 
 cart = inject(RhCartService);
 ```
@@ -395,7 +394,7 @@ cart = inject(RhCartService);
 Inject a custom key when two apps share an origin:
 
 ```typescript
-import { RH_CART_STORAGE_KEY } from '@restheart-cloud/kit-ng';
+import { RH_CART_STORAGE_KEY } from '@ulabase/kit-ng';
 
 providers: [
   { provide: RH_CART_STORAGE_KEY, useValue: 'my-app-cart' }
@@ -439,7 +438,7 @@ State and `localStorage` move together in the same operation — not via an `eff
 Protects routes that require authentication:
 
 ```typescript
-import { authGuard } from '@restheart-cloud/kit-ng';
+import { authGuard } from '@ulabase/kit-ng';
 
 const routes: Routes = [
   {
@@ -461,7 +460,7 @@ const routes: Routes = [
 Protects routes that should only be accessible when NOT authenticated:
 
 ```typescript
-import { publicGuard } from '@restheart-cloud/kit-ng';
+import { publicGuard } from '@ulabase/kit-ng';
 
 const routes: Routes = [
   {
@@ -499,7 +498,7 @@ provideRhAuth({ apiBaseUrl: environment.apiUrl })
 **Manual Registration** (if not using `provideRhAuth`):
 
 ```typescript
-import { rhAuthInterceptor } from '@restheart-cloud/kit-ng';
+import { rhAuthInterceptor } from '@ulabase/kit-ng';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 providers: [
@@ -512,7 +511,7 @@ providers: [
 By default the kit speaks `fetch` directly, which means Angular's interceptor chain never sees a login, session check, or token renewal. `httpClientTransport` is a `fetch`-compatible transport backed by Angular's `HttpClient` so the kit's own calls go through the interceptor like everything else the application sends.
 
 ```typescript
-import { httpClientTransport } from '@restheart-cloud/kit-ng';
+import { httpClientTransport } from '@ulabase/kit-ng';
 import { HttpClient } from '@angular/common/http';
 
 const http = inject(HttpClient);
@@ -564,7 +563,7 @@ await auth.switchTeam(teamId, 'cookie');
 3. Cookie sent automatically with requests
 4. Only works when app and API share same origin
 
-**Important**: RESTHeart Cloud services live on `*.restheart.com`, so cookie mode is not available for normal deployments. Use bearer mode unless you have a same-origin setup.
+**Important**: Cookie mode requires the application and API to share the same origin. Use bearer mode unless you have a same-origin deployment.
 
 ## Session Lifecycle
 
@@ -576,7 +575,7 @@ sequenceDiagram
     participant C as Component
     participant S as RhAuthService
     participant K as kit
-    participant API as RESTHeart
+    participant API as Ulabase
 
     U->>C: Enter credentials
     C->>S: auth.login(email, password)
@@ -602,7 +601,7 @@ sequenceDiagram
     participant P as provideRhAuth
     participant S as RhAuthService
     participant K as kit
-    participant API as RESTHeart
+    participant API as Ulabase
 
     A->>P: Bootstrap
     P->>P: Register RhAuthService singleton
@@ -656,7 +655,7 @@ sequenceDiagram
 
 ## Type Definitions
 
-All types are re-exported from `@restheart-cloud/kit`:
+All types are re-exported from `@ulabase/kit`:
 
 ```typescript
 import type {
@@ -668,7 +667,7 @@ import type {
   AuthConfig,
   LoginMode,
   ApiError
-} from '@restheart-cloud/kit-ng';
+} from '@ulabase/kit-ng';
 ```
 
 ## Angular-Specific Patterns
@@ -804,7 +803,7 @@ npm link -w packages/kit
 cd packages/kit-ng/dist && npm link
 
 # In your Angular app
-npm link @restheart-cloud/kit @restheart-cloud/kit-ng
+npm link @ulabase/kit @ulabase/kit-ng
 
 # Clear Angular cache if needed
 rm -rf .angular/cache
