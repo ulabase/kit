@@ -61,13 +61,13 @@ Ulabase can set an `HttpOnly` JWT cookie — `POST /token/cookie`, and
 service share an origin.**
 
 ```
-myservice.restheart.com ──Set-Cookie──▶ browser     cookie domain: .restheart.com
-app.cliente.com         ── the page it must authenticate
+myservice.ulabase.app ──Set-Cookie──▶ browser     cookie domain: .ulabase.app
+app.cliente.com             ── the page it must authenticate
 ```
 
 Different registrable domains, so on every request from that page the cookie is
 **third-party**: blocked by default in Safari and Firefox, left to the user in Chrome. Since
-a Ulabase service always lives on `*.restheart.com` while the app lives on the
+a Ulabase service always lives on `*.ulabase.app` while the app lives on the
 customer's own domain, **cookie mode is not available to normal deployments** and the kit
 defaults to bearer everywhere.
 
@@ -91,10 +91,10 @@ The server then calls the API exactly as a browser SPA does today:
 
 ```
 SPA (Angular, React+Vite, Vue+Vite)
-  browser ──localStorage──▶ Bearer ──▶ myservice.restheart.com     cross-origin, CORS
+  browser ──localStorage──▶ Bearer ──▶ myservice.ulabase.app     cross-origin, CORS
 
 SSR / BFF (Next.js, Nuxt)
-  browser ──cookie──▶ app server ──Bearer──▶ myservice.restheart.com
+  browser ──cookie──▶ app server ──Bearer──▶ myservice.ulabase.app
           first-party            server-to-server, no CORS, no browser
 ```
 
@@ -304,13 +304,13 @@ is no `RhConfigService` alongside `RhAuthService` and `RhPaymentsService`, becau
 does not exist should not be suggested by the shape of the API.
 
 **It does not run in a browser.** The admin node's `originVetoer` whitelists
-`cloud.restheart.com` and allows a *missing* `Origin` header:
+`ulabase.com` and allows a *missing* `Origin` header:
 
 ```yaml
 # etc/prod-admin.yml
 /originVetoer:
   enabled: true
-  whitelist: [https://cloud.restheart.com, cloud.restheart.com]
+  whitelist: [https://ulabase.com, ulabase.com]
   allow-missing-origin: true
 ```
 
@@ -319,9 +319,9 @@ that is not a browser, passes. A browser-facing configuration surface is therefo
 that can be built, whatever API is put in front of it.
 
 That constraint happens to agree with the security reading. The credential the adapters handle is
-a **tenant** token, scoped to one service. The credential the CLI handles is the **RESTHeart
-Cloud account**, which governs every service on it and its billing. Those do not belong in the
-same layer, and one of them does not belong in a deployed page at all.
+a **tenant** token, scoped to one service. The credential the CLI handles is the **Ulabase
+account**, which governs every service on it and its billing. Those do not belong in the same
+layer, and one of them does not belong in a deployed page at all.
 
 The layering, then:
 
@@ -335,6 +335,6 @@ The layering, then:
 `@ulabase/cli` reuses `login` and `apiFetch` for the admin node — supplying its own
 `getToken`/`setToken`, because `AuthConfig`'s default store is `localStorage` and Node has none.
 It does *not* use `apiFetch` for the service node: `apiFetch` validates that the base URL is a
-`*.restheart.com` service, which is a real guard on a browser-facing kit, and a service node's URL
+`*.ulabase.app` service, which is a real guard on a browser-facing kit, and a service node's URL
 is server-issued rather than caller-chosen (`http://…​.cloud.local:8081` in a local integration
 environment). See [`packages/cli/README.md`](../packages/cli/README.md).

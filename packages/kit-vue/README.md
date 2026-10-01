@@ -2,7 +2,7 @@
 
 Wraps [`@ulabase/kit`](https://www.npmjs.com/package/@ulabase/kit) in Vue plugins with composables and navigation guards — `useAuth()` for authentication, [`usePayments()`](#usepayments) for subscriptions and orders. A [`/nuxt`](#nuxt-subpath) subpath adds server-side rendering support for Nuxt.
 
-Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://ulabase.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
@@ -36,7 +36,7 @@ Same two modes as the core kit:
 - **Bearer token** (default) — stored in `localStorage`, sent as `Authorization: Bearer <token>`.
 - **Cookie** — JWT managed by the backend as an HttpOnly cookie, **same-origin only**.
 
-Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a Ulabase service lives on `*.restheart.com` while your app lives on your own domain, that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
+Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a Ulabase service lives on `*.ulabase.app` while your app lives on your own domain, that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
 
 ## `useAuth`
 
@@ -246,6 +246,6 @@ export default defineEventHandler(async (event) => {
 
 ## Quickstart
 
-1. Create a service on [Ulabase](https://cloud.restheart.com)
+1. Create a service on [Ulabase](https://ulabase.com)
 2. Set `apiBaseUrl` to your service URL
 3. `app.use(createRhAuth(config))` and use `useAuth()` in components

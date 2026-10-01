@@ -42,11 +42,11 @@ function harness(routes: Record<string, { status: number; body?: unknown }>) {
 
   const serviceToken = vi.fn(async () => ({
     token: jwt(15 * 60_000),
-    url: 'https://ea820b.eu-central-free-1.restheart.com',
-    node: 'ea820b.eu-central-free-1.restheart.com',
+    url: 'https://c0ffee.ulabase.app',
+    node: 'c0ffee.ulabase.app',
   }));
 
-  const admin = { config: { apiBaseUrl: 'https://cloud-api.restheart.com', transport }, serviceToken } as unknown as AdminClient;
+  const admin = { config: { apiBaseUrl: 'https://api.ulabase.com', transport }, serviceToken } as unknown as AdminClient;
   return { calls, admin, serviceToken };
 }
 
@@ -72,8 +72,8 @@ describe('service client', () => {
     const { admin, serviceToken } = harness({ 'GET /catalog': { status: 200, body: {} } });
     serviceToken.mockImplementation(async () => ({
       token: jwt(30_000),
-      url: 'https://ea820b.eu-central-free-1.restheart.com',
-      node: 'ea820b.eu-central-free-1.restheart.com',
+      url: 'https://c0ffee.ulabase.app',
+      node: 'c0ffee.ulabase.app',
     }));
     const service = createServiceClient(admin, 'ea820b');
 

@@ -24,7 +24,7 @@ and idempotent.
 
 Two hosts. **This is the fact everything else follows from.**
 
-### The admin node — `cloud-api.restheart.com`
+### The admin node — `api.ulabase.com`
 
 Authenticated as the **Ulabase (SaaS) account**. It runs `restheart-accounts`
 (`etc/prod-admin.yml`: `/accountsService/enabled: true`), so **the kit's existing `login()` already
@@ -45,7 +45,7 @@ works against it** — same `/token`, same flows, nothing new to write.
 Access control is `hasServiceAccess(userId, roles, srvId)` — the `srvId` must be in the user's
 `orgs`.
 
-### The service node — `{srvId}.{region}-{tier}-{n}.restheart.com`
+### The service node — `{srvId}.ulabase.app`
 
 Authenticated with the JWT the admin node just minted. Role `srv-admin`, or `root` for a dedicated
 service. From here everything is plain RESTHeart: `PUT /{coll}`, `PUT /{coll}/_indexes/{id}`,
@@ -71,7 +71,7 @@ on expiry without the caller knowing it happened.
 # etc/prod-admin.yml:170
 /originVetoer:
   enabled: true
-  whitelist: [https://cloud.restheart.com, cloud.restheart.com]
+  whitelist: [https://ulabase.com, ulabase.com]
   allow-missing-origin: true
 ```
 
@@ -128,7 +128,7 @@ built-ins) so it can be unit-tested without a live service; only the CLI is Node
 **File:** `packages/cli/src/admin.ts`
 
 `createAdminClient(config)` over the admin node, taking the same `AuthConfig` the core already
-understands — `apiBaseUrl` pointing at `cloud-api.restheart.com`.
+understands — `apiBaseUrl` pointing at `api.ulabase.com`.
 
 `AuthConfig`'s token store defaults to `localStorage`, which does not exist in Node: `login()`
 would throw on `persistToken`, and `apiFetch` would read nothing back. The admin client therefore
@@ -371,9 +371,9 @@ secret. Installing an already-installed plugin answers `409`, which is exactly w
 on the server says otherwise and is stale; `handleUpdateConfig` reads `request.getContent()`
 directly.
 
-**The service URL is not always `*.restheart.com`.** `SrvJwtService` returns
+**The service URL is not always `*.ulabase.app`.** `SrvJwtService` returns
 `http://{srvId}.{node}.cloud.local:8081` in a local integration environment, which the core's
-`apiFetch` would reject — its `*.restheart.com` guard is a browser-safety check, and the service
+`apiFetch` would reject — its `*.ulabase.app` guard is a browser-safety check, and the service
 URL is server-issued rather than caller-chosen. The admin client uses `apiFetch` (where the guard
 is free and real); the service client uses a small internal `request()` that produces the same
 `ApiError` shape.

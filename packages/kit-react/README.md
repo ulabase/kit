@@ -2,7 +2,7 @@
 
 Wraps [`@ulabase/kit`](https://www.npmjs.com/package/@ulabase/kit) in a React context with hooks and route guards — `useAuth()` for authentication, [`usePayments()`](#usepayments) for subscriptions and orders. A [`/next`](#nextjs-subpath) subpath adds server-side rendering support for Next.js.
 
-Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://ulabase.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
@@ -37,7 +37,7 @@ Same two modes as the core kit:
 - **Bearer token** (default) — stored in `localStorage`, sent as `Authorization: Bearer <token>`.
 - **Cookie** — JWT managed by the backend as an HttpOnly cookie, **same-origin only**.
 
-Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. A Ulabase service lives on `*.restheart.com` while your app lives on your own domain, so that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
+Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. A Ulabase service lives on `*.ulabase.app` while your app lives on your own domain, so that cookie is third-party and blocked by default in Safari and Firefox. **Cross-origin apps, the normal case, should stay on the default `'bearer'` mode.**
 
 `login()` stores the token and schedules a proactive refresh at 80% of its TTL. Every authenticated request sends the Bearer token automatically. If the token expires, the next API call gets a 401 and the session is cleared.
 
@@ -144,7 +144,7 @@ the `stripe` plugin on the service, and an explicit opt-in — without `payments
 
 ```tsx
 const config = {
-  apiBaseUrl: 'https://my-service.restheart.com',
+  apiBaseUrl: 'https://my-service.ulabase.app',
   payments: true,
   ownershipRole: 'owner',   // default; set it if your deployment overrides the role
 };
@@ -280,6 +280,6 @@ export async function switchTeam(teamId: { $oid: string }) {
 
 ## Quickstart
 
-1. Create a service on [Ulabase](https://cloud.restheart.com)
+1. Create a service on [Ulabase](https://ulabase.com)
 2. Set `apiBaseUrl` to your service URL
 3. Wrap your app in `<RhAuthProvider>` and use `useAuth()`

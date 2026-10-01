@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path';
  * verified against.
  *
  * The admin node is stored with the token because they belong together. A token
- * issued by `cloud-api.restheart.com` means nothing to any other node, so a
+ * issued by `api.ulabase.com` means nothing to any other node, so a
  * session that remembered only the token would happily send a production
  * credential at whatever `--api` came next.
  */

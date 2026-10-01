@@ -37,15 +37,15 @@ describe('sessionPath', () => {
 
 describe('writeSession', () => {
   it('round-trips', () => {
-    writeSession({ token: 'ula_live_abc', api: 'https://cloud-api.restheart.com' }, env);
+    writeSession({ token: 'ula_live_abc', api: 'https://api.ulabase.com' }, env);
     expect(readSession(env)).toEqual({
       token: 'ula_live_abc',
-      api: 'https://cloud-api.restheart.com',
+      api: 'https://api.ulabase.com',
     });
   });
 
   it('is readable only by its owner', () => {
-    const path = writeSession({ token: 'ula_live_abc', api: 'https://x.restheart.com' }, env);
+    const path = writeSession({ token: 'ula_live_abc', api: 'https://x.ulabase.com' }, env);
     expect(statSync(path).mode & 0o777).toBe(0o600);
   });
 
@@ -56,7 +56,7 @@ describe('writeSession', () => {
     mkdirSync(join(home, 'ulabase'), { recursive: true });
     writeFileSync(path, '{}', { mode: 0o644 });
 
-    writeSession({ token: 't', api: 'https://x.restheart.com' }, env);
+    writeSession({ token: 't', api: 'https://x.ulabase.com' }, env);
     expect(statSync(path).mode & 0o777).toBe(0o600);
   });
 });
@@ -87,25 +87,25 @@ describe('resolveToken', () => {
   });
 
   it('reads the stored session', () => {
-    writeSession({ token: 'ula_live_stored', api: 'https://cloud-api.restheart.com' }, env);
+    writeSession({ token: 'ula_live_stored', api: 'https://api.ulabase.com' }, env);
     expect(resolveToken(env)).toEqual({
       token: 'ula_live_stored',
       source: 'file',
-      api: 'https://cloud-api.restheart.com',
+      api: 'https://api.ulabase.com',
     });
   });
 
   it('lets the environment win over the stored session, always', () => {
     // The property that matters: a CI run must never silently fall back to a
     // session left on a shared runner, nor the reverse.
-    writeSession({ token: 'ula_live_stored', api: 'https://cloud-api.restheart.com' }, env);
+    writeSession({ token: 'ula_live_stored', api: 'https://api.ulabase.com' }, env);
     const resolved = resolveToken({ ...env, [TOKEN_VAR]: 'ula_live_from_ci' });
 
     expect(resolved).toEqual({ token: 'ula_live_from_ci', source: 'env' });
   });
 
   it('ignores an empty variable, which is how an unset CI secret arrives', () => {
-    writeSession({ token: 'ula_live_stored', api: 'https://cloud-api.restheart.com' }, env);
+    writeSession({ token: 'ula_live_stored', api: 'https://api.ulabase.com' }, env);
     expect(resolveToken({ ...env, [TOKEN_VAR]: '  ' })?.source).toBe('file');
   });
 
@@ -116,7 +116,7 @@ describe('resolveToken', () => {
 
 describe('clearSession', () => {
   it('removes the file and says it did', () => {
-    const path = writeSession({ token: 't', api: 'https://x.restheart.com' }, env);
+    const path = writeSession({ token: 't', api: 'https://x.ulabase.com' }, env);
     expect(clearSession(env)).toBe(true);
     expect(() => readFileSync(path)).toThrow();
     expect(readSession(env)).toBeNull();

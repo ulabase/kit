@@ -1,6 +1,6 @@
 # Ulabase Kit
 
-[Ulabase](https://cloud.restheart.com) gives you a production-ready backend — MongoDB, REST API, authentication, multi-tenancy, all managed.
+[Ulabase](https://ulabase.com) gives you a production-ready backend — MongoDB, REST API, authentication, multi-tenancy, all managed.
 
 This kit gives you the same speed on the frontend.
 
@@ -52,7 +52,7 @@ as your Ulabase account rather than as a tenant. [Why](./docs/ADAPTERS.md#6-what
 
 The fastest path to a working Angular app:
 
-1. Create a service on [Ulabase](https://cloud.restheart.com)
+1. Create a service on [Ulabase](https://ulabase.com)
 2. Fork [`ulabase/starter-ng`](https://github.com/ulabase/starter-ng)
 3. Set `apiBaseUrl` in `environment.ts`
 4. `ng serve`

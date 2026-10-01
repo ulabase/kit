@@ -15,6 +15,7 @@ import {
   type ResolvedToken,
 } from './session.js';
 
+// the admin node in production today; https://api.ulabase.com from the switch to the Ulabase domains
 const DEFAULT_API = 'https://cloud-api.restheart.com';
 
 /** The environment variable that names the admin node, instead of --api. */

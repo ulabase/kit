@@ -80,7 +80,7 @@ silently.
 
 ## Node only, and not by accident
 
-The admin node's `originVetoer` whitelists `cloud.restheart.com` and allows a *missing* `Origin`
+The admin node's `originVetoer` whitelists `ulabase.com` and allows a *missing* `Origin`
 header. A page served from your own origin sends one and is vetoed; Node, curl and anything that
 is not a browser pass. So this is a CLI and a library for Node, and designing it as a browser page
 would have produced an API that cannot work.
@@ -177,7 +177,7 @@ runs.
 ## Logging in
 
 The credential is a **personal access token**. Issue one at
-[cloud.restheart.com](https://cloud.restheart.com), under your profile.
+[ulabase.com](https://ulabase.com), under your profile.
 
 ```bash
 ulabase login                     # prompts, stores 0600 under ~/.config/ulabase
@@ -275,7 +275,7 @@ earlier wants `npx tsx`.
 
 ### `createAdminClient(config)`
 
-Over `cloud-api.restheart.com`, taking the core's `AuthConfig` plus an optional `env`.
+Over `api.ulabase.com`, taking the core's `AuthConfig` plus an optional `env`.
 
 `login`, `featureCatalog`, `listFeatures`, `isFeatureInstalled`, `configSchema`, `getFeatureConfig`,
 `updateFeatureConfig`, `installFeature`, `uninstallFeature`, `enableFeature`, `disableFeature`,

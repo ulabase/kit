@@ -74,7 +74,7 @@ unhelpful for anyone upgrading.
 **This task was specified as email and password, and that was wrong.** A user who signed up with
 Google has no password, so `ulabase login` would simply not work for them — and there is no client-side
 fix, because the OAuth callback returns no token at all: it sets an httpOnly cookie on
-`cloud-api.restheart.com`, and `frontend-success-url` is fixed server configuration. Telling an SSO
+`api.ulabase.com`, and `frontend-success-url` is fixed server configuration. Telling an SSO
 user to invent a password through the reset flow undoes the reason they chose SSO and makes an
 account password-attackable that was not.
 
@@ -148,7 +148,7 @@ Same command, a different path, because the service does not exist when the call
 4. Print the id, the URL, and the next command.
 
 The polling is where this command is most likely to be wrong, so: a timeout that says *"payment may
-still be processing — check cloud.restheart.com"* rather than "failed", because at that point money
+still be processing — check ulabase.com"* rather than "failed", because at that point money
 may well have moved and telling the user it failed is worse than telling them nothing. And no
 prompt to retry the payment, ever.
 

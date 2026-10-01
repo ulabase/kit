@@ -144,11 +144,11 @@ export interface AdminClient {
 }
 
 /**
- * A client over the admin node, `cloud-api.restheart.com`.
+ * A client over the admin node, `api.ulabase.com`.
  *
  * Runs in Node, not in a browser, and not by accident: the admin node's
  * `originVetoer` allows a missing `Origin` header and whitelists only
- * `cloud.restheart.com`, so a page served from a developer's own origin is
+ * `ulabase.com`, so a page served from a developer's own origin is
  * vetoed. See `docs/ADAPTERS.md`.
  */
 export function createAdminClient(config: AdminClientConfig): AdminClient {

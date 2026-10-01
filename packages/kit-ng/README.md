@@ -2,7 +2,7 @@
 
 Wraps [`@ulabase/kit`](https://www.npmjs.com/package/@ulabase/kit) in Angular services with signals, route guards, and an HTTP interceptor — authentication in `RhAuthService`, and [payments](#rhpaymentsservice) in `RhPaymentsService`.
 
-Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://ulabase.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
@@ -35,7 +35,7 @@ The kit supports **two authentication modes**:
 - **Bearer token** (default) — stored in `localStorage`, sent as `Authorization: Bearer <token>`
 - **Cookie** — JWT managed by the backend as an HttpOnly cookie, **same-origin only**
 
-Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a Ulabase service lives on `*.restheart.com` while your app lives on your own domain, that cookie is third-party and is blocked by default in Safari and Firefox — regardless of the server's CORS configuration. **Cross-origin apps, which is the normal case, should stay on the default `'bearer'` mode.**
+Pass `mode: 'cookie'` to `login()`, `activate()`, `resetPassword()`, or `switchTeam()` only when the app is served from the same origin as the service. Since a Ulabase service lives on `*.ulabase.app` while your app lives on your own domain, that cookie is third-party and is blocked by default in Safari and Firefox — regardless of the server's CORS configuration. **Cross-origin apps, which is the normal case, should stay on the default `'bearer'` mode.**
 
 Each of these calls a matching auto-login endpoint with `delivery=body` (bearer) or `delivery=cookie`, and in bearer mode gets the fresh token back in the same response — no extra login round-trip.
 
@@ -167,7 +167,7 @@ Payments live in their own service, because a subscription is not a session. It 
 
 ```typescript
 provideRhAuth({
-  apiBaseUrl: 'https://my-service.restheart.com',
+  apiBaseUrl: 'https://my-service.ulabase.app',
   payments: true,
   ownershipRole: 'owner',   // default; set it if your deployment overrides the role
 })
@@ -230,7 +230,7 @@ full reasoning.
 
 The fastest path to a working app:
 
-1. Create a service on [Ulabase](https://cloud.restheart.com)
+1. Create a service on [Ulabase](https://ulabase.com)
 2. Fork [`ulabase/starter-ng`](https://github.com/ulabase/starter-ng)
 3. Set `apiBaseUrl` in `environment.ts`
 4. `ng serve`

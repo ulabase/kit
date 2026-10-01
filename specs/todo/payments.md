@@ -282,7 +282,7 @@ configured. The environment variables are the same as the other tests (`ULABASE_
 
 | Variable | Required | Description |
 |---|---|---|
-| `ULABASE_TEST_API_URL` | yes | Base URL of the service (e.g. `https://xxx.restheart.com`) |
+| `ULABASE_TEST_API_URL` | yes | Base URL of the service (e.g. `https://xxx.ulabase.app`) |
 | `ULABASE_TEST_ADMIN_PASSWORD` | yes | Password of the `root` user for admin calls |
 | `ULABASE_TEST_STRIPE` | no | If absent or empty, the payment tests are **skipped** (not failed). Set to `true` only when the service has the `stripe` plugin active. |
 
@@ -393,7 +393,7 @@ import { provideRhAuth } from '@ulabase/kit-ng';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRhAuth({
-      apiBaseUrl: 'https://my-service.restheart.com',
+      apiBaseUrl: 'https://my-service.ulabase.app',
       payments: true,                // explicit opt-in
       ownershipRole: 'owner',        // default, overridable if the tenant has a different role
     }),

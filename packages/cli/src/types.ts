@@ -80,7 +80,7 @@ export type ServicePlugins = ServiceFeatures;
 export interface ServiceToken {
   /** A service-admin JWT. Valid fifteen minutes, or 480 for a dedicated service. */
   token: string;
-  /** The service's base URL — `https://{srvId}.{region}-{tier}-{n}.restheart.com`. */
+  /** The service's base URL — `https://{srvId}.ulabase.app`. */
   url: string;
   /** The bare hostname of the node the service runs on. */
   node: string;

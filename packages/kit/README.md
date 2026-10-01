@@ -6,7 +6,7 @@ Covers every [`restheart-accounts`](https://restheart.org/docs/accounts) flow: s
 
 For apps that sell something, it also covers [`restheart-stripe`](#payments): subscription plans, Stripe Checkout and Customer Portal, seat licences, and a product/order flow with guest checkout. No Stripe.js, no publishable key — the whole flow is hosted pages, so the kit hands you a URL and you navigate to it.
 
-Pairs with [Ulabase](https://cloud.restheart.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
+Pairs with [Ulabase](https://ulabase.com), which gives you a production-ready backend — MongoDB, REST API, authentication, signup/signin, all managed.
 
 ## Installation
 
@@ -50,7 +50,7 @@ Authentication is handled via a Bearer token stored in `localStorage` — every 
 
 Cookie authentication (`mode: 'cookie'`) is also supported, but **only for same-origin setups**: the backend manages an HttpOnly JWT cookie and no token ever touches `localStorage` or JavaScript.
 
-Because a Ulabase service lives on `*.restheart.com` while your app lives on your own domain, that cookie is *third-party* on every request your page makes — blocked by default in Safari and Firefox, and left to the user in Chrome. A permissive CORS configuration does not change this: the browser drops the cookie before CORS is even consulted. **Use bearer mode unless the app is served from the same origin as the service.**
+Because a Ulabase service lives on `*.ulabase.app` while your app lives on your own domain, that cookie is *third-party* on every request your page makes — blocked by default in Safari and Firefox, and left to the user in Chrome. A permissive CORS configuration does not change this: the browser drops the cookie before CORS is even consulted. **Use bearer mode unless the app is served from the same origin as the service.**
 
 If you are building on Next.js or Nuxt, note that this is a different cookie from the one those frameworks use — theirs is a first-party cookie set by your own server, holding the same bearer token, and it needs no cookie support from RESTHeart at all. See [docs/ADAPTERS.md](../../docs/ADAPTERS.md#2-token-delivery--the-cookie-story).
 
@@ -171,7 +171,7 @@ Requires the [`stripe` plugin](#payments) on the service. See [Payments](#paymen
 
 ## Consents
 
-Blocking users who have not accepted the current terms is a server-side rule — a [Guards](https://restheart.org/docs/cloud/guards#_example_gating_on_consents) condition that refuses every request from a user whose document does not carry the current versions, plus an ACL permission that exempts the one request recording the acceptance. What the client contributes is small, and easy to get wrong in exactly one way.
+Blocking users who have not accepted the current terms is a server-side rule — a [Guards](https://ulabase.com/docs/guards#_example_gating_on_consents) condition that refuses every request from a user whose document does not carry the current versions, plus an ACL permission that exempts the one request recording the acceptance. What the client contributes is small, and easy to get wrong in exactly one way.
 
 **At sign-up**, when your form shows the terms, send them with the credentials. The user is then never in the blocked state:
 
@@ -212,7 +212,7 @@ Requires the `stripe` plugin on the service. A service without it answers `404` 
 `/stripe/*` path, so the adapters only touch them when you opt in:
 
 ```typescript
-const config = { apiBaseUrl: 'https://my-service.restheart.com', payments: true };
+const config = { apiBaseUrl: 'https://my-service.ulabase.app', payments: true };
 ```
 
 The whole flow is hosted pages — Checkout and the Customer Portal both hand back a URL:

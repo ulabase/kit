@@ -33,7 +33,7 @@ function stub(routes: Record<string, unknown>) {
   return { calls, transport };
 }
 
-const base = 'https://cloud-api.restheart.com';
+const base = 'https://api.ulabase.com';
 
 describe('admin client', () => {
   it('speaks to the endpoints the admin node exposes', async () => {
