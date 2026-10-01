@@ -22,6 +22,8 @@ sources:
     resource: repo://packages/cli/vitest.unit.config.ts
   - id: openwiki-source-46339ee0e97e6859bc5ea428
     resource: repo://packages/kit/package.json
+  - id: openwiki-source-727dcf4a5cd42ca83867728a
+    resource: repo://packages/kit/src/__tests__/unit/api-base-url.test.ts
   - id: openwiki-source-7a045df7165360917a5c3615
     resource: repo://packages/kit/src/__tests__/unit/cart.test.ts
   - id: openwiki-source-bc8947c7b01ad0de9e4423b7
@@ -34,10 +36,10 @@ sources:
     resource: repo://packages/kit/src/__tests__/unit/payments.test.ts
   - id: openwiki-source-f5c174f35c5102ba81477e16
     resource: repo://packages/kit/vitest.unit.config.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
 verified:
   - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
+    at: 2026-10-01T13:26:36.210Z
 ---
 
 # Testing Guide
@@ -441,6 +443,15 @@ export default defineConfig({
 - No backend or secrets required
 
 ### Test Files
+
+#### api-base-url.test.ts
+
+**Purpose**: URL validation for the `isValidApiBaseUrl` function.
+
+**Tests**:
+- Accepts any https service URL, on every platform domain and on-prem
+- Accepts http only on local host names
+- Rejects what is not an http(s) URL
 
 #### payments.test.ts
 

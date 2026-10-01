@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:64e8f2b9dae7c52d698cc5e9c38ca39e78b99aabb898be05c6f8c61a07da13f4",
+  "pageVersion": "sha256:9572e5fc5d81dfc958142866f5f68b34fd3f93e629e70246c3647de2e13fbd0e",
   "claims": [
     {
       "id": "claim_fd943bf630554acdae1a70e2df68b8d5",
@@ -142,7 +142,7 @@
     },
     {
       "id": "claim_0df3966d420b4e79a91ade7d48621114",
-      "statement": "The SPA barrel (`src/index.ts`) re-exports all of `@restheart-cloud/kit`, so Vue apps only need `@restheart-cloud/kit-vue` to access both the adapter and core kit types/functions.",
+      "statement": "The SPA barrel (`src/index.ts`) re-exports all of `@ulabase/kit`, so Vue apps only need `@ulabase/kit-vue` to access both the adapter and core kit types/functions.",
       "evidence": [
         {
           "resource": "repo://packages/kit-vue/src/index.ts#L20-L22",
@@ -167,6 +167,6 @@
   ],
   "verification": {
     "by": "openwiki/0.6.1",
-    "at": "2026-10-01T10:51:10.399Z"
+    "at": "2026-10-01T13:26:36.210Z"
   }
 }

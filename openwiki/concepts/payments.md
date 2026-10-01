@@ -3,9 +3,6 @@ type: concept
 title: Payments & E-commerce
 description: The payments and e-commerce subsystem covering subscriptions, Stripe Checkout/Portal, seat licences, product catalog, orders, guest checkout, and the client-side cart.
 tags: [payments, stripe, subscriptions, orders, cart, e-commerce, checkout]
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
     resource: repo://docs/ADAPTER_CONTRACT.md
@@ -43,7 +40,10 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T13:26:36.210Z
 ---
 
 # Payments & E-commerce
@@ -108,7 +108,7 @@ The `email` parameter enables **guest checkout**: the deployment's ACL decides w
 
 ### Order reference from Checkout return URL
 
-Stripe substitutes only `{CHECKOUT_SESSION_ID}` in the success URL, so on its own the return page learns nothing about which order it is showing. RESTHeart's `stripe` plugin fills that gap: configure `products.success-url` with `{ORDER_ID}` and `{ORDER_SECRET}` and it interpolates them when it creates the session.
+Stripe substitutes only `{CHECKOUT_SESSION_ID}` in the success URL, so on its own the return page learns nothing about which order it is showing. Ulabase's `stripe` plugin fills that gap: configure `products.success-url` with `{ORDER_ID}` and `{ORDER_SECRET}` and it interpolates them when it creates the session.
 
 ```
 success-url: https://shop.example.com/order#order={ORDER_ID}&secret={ORDER_SECRET}

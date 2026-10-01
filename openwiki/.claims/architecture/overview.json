@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:0c448dc52b6c9df919a4710da08ffb74afcb7dcd4fa227a185baac6e6066ffcb",
+  "pageVersion": "sha256:a8ed2d0c94ae1ec55b418e71f5e6ea0e534b8baaacbf9bb55080ee7942944070",
   "claims": [
     {
       "id": "claim_6f93d57989544af49c8650048226eefb",
@@ -36,15 +36,15 @@
     },
     {
       "id": "claim_38249586080a411984b27433f956e7ff",
-      "statement": "The CLI's AdminClient authenticates against the admin node (cloud-api.restheart.com), manages features using feature-based primary method names (installFeature, getFeatureConfig, updateFeatureConfig, initFeature, testFeature, etc.) with deprecated plugin method aliases for backward compatibility, mints service tokens, and stores credentials in a closure rather than localStorage to support Node.js and avoid cross-client token collision.",
+      "statement": "The CLI's AdminClient authenticates against the admin node (api.ulabase.com), manages features using feature-based primary method names (installFeature, getFeatureConfig, updateFeatureConfig, initFeature, testFeature, etc.) with deprecated plugin method aliases for backward compatibility, mints service tokens, and stores credentials in a closure rather than localStorage to support Node.js and avoid cross-client token collision.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/admin.ts#L154-L288",
-          "version": "repo-lines-v1:sha256:ff808d2612186d5151bd3804c2fb74d50108cc4d8ce33a60344662d0824ac7e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4OTBlNDczZjkxMjU3MzkxYzBhNzBmZmIxZjFiMmIzMjhmOGY5MThkMmZkZDAwMjkyOGMxNTVkZjE5MGJkZDI5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIyYjM1YmQ1NWRiNTk0YTgzODVkODMxYjE5YjVmMTgwZWFiZThmMWY0ZGJjYmI5NTM4NGE3YjNiY2ZmMjZkNTgzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://packages/cli/src/admin.ts#L146-L288",
+          "version": "repo-lines-v1:sha256:c5256ab8e5981acdba97cdf1156d6c3d52768100005dd55aab95749ec5a16d82:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiNjU3Yzk3YzQzM2U5NGY2Njg0ODA1YzhjZjcwNjJiMDMzMzljNTYxMTZiOGY5NDUxOWUwYTAxMDIxZDRmNGZkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         },
         {
-          "resource": "repo://packages/cli/src/cli.ts#L19-L19",
-          "version": "repo-lines-v1:sha256:42bcb6ba35362a535bdedd09e759272c653a6f88f1f7b625b00ee8e2ca2f3b50:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiY2I2YmEzNTM2MmE1MzViZGVkZDA5ZTc1OTI3MmM2NTNhNmY4OGYxZjdiNjI1YjAwZWU4ZTJjYTJmM2I1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiY2I2YmEzNTM2MmE1MzViZGVkZDA5ZTc1OTI3MmM2NTNhNmY4OGYxZjdiNjI1YjAwZWU4ZTJjYTJmM2I1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmViNTU5YTMxMjIwYzQ0Y2UxYTZhMDA1MDg0MjhkMTQ0ZmRhYTkxYWNiMTEzMDFmYmRkNDE3ODE1YmUyMjA2ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGUyZWEwMzE0MTQ2YmE3N2RkZmJhZWY3YzI1M2Y5NzgyOTY1M2I5N2E5NTM5MjU4OWMwNWM3OWQwMjE3MDA2MiJ9"
+          "resource": "repo://packages/cli/src/cli.ts#L18-L19",
+          "version": "repo-lines-v1:sha256:026e8f37b5e11870f3469856ab207e86a35e9e9eb35aca2678d6902cda0ffb34:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmU3YjY1ZGI2MDhjNTIxNmUwYTQzNGM4YTcxNmU0MmYyODg3MGI1NzY4ODAzZDZmZjgxZjA4YzAwYTQ3YjU1ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiY2I2YmEzNTM2MmE1MzViZGVkZDA5ZTc1OTI3MmM2NTNhNmY4OGYxZjdiNjI1YjAwZWU4ZTJjYTJmM2I1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmViNTU5YTMxMjIwYzQ0Y2UxYTZhMDA1MDg0MjhkMTQ0ZmRhYTkxYWNiMTEzMDFmYmRkNDE3ODE1YmUyMjA2ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JkY2EwOTNkYzg0NWUwNjdjZmI4ZTg4YzJkZGY0YzY4NGFkYzliZTk4YmY2NmRmMTUyNTNlNzUwNjI2NjRmYyJ9"
         }
       ]
     },
@@ -82,7 +82,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/cli.ts",
-          "version": "repo-file-v1:sha256:197e73467a15e723338ed6b08680cd532d797637307203bfd9d1bcbfff35bb3b"
+          "version": "repo-file-v1:sha256:3d1c56f1368fd368b1d5be633cdb48e547cd34c2538e9d6469b3317289320f58"
         },
         {
           "resource": "repo://packages/cli/src/session.ts",
@@ -259,6 +259,6 @@
   ],
   "verification": {
     "by": "openwiki/0.6.1",
-    "at": "2026-10-01T10:51:10.399Z"
+    "at": "2026-10-01T13:26:36.210Z"
   }
 }

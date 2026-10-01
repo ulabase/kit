@@ -26,10 +26,10 @@ sources:
     resource: repo://packages/cli/src/setup.ts
   - id: openwiki-source-e5bdf5324e38ac0fd72f905f
     resource: repo://packages/cli/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
 verified:
   - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
+    at: 2026-10-01T13:26:36.210Z
 ---
 
 # @ulabase/cli
@@ -199,7 +199,7 @@ flowchart TD
 
 Credential resolution chain: `ULABASE_TOKEN` always wins over stored session.
 
-The credential is a **personal access token**. Issue one at [cloud.restheart.com](https://cloud.restheart.com), under your profile.
+The credential is a **personal access token**. Issue one at [ulabase.com](https://ulabase.com), under your profile.
 
 ```bash
 ulabase login                  # prompts, stores 0600 under ~/.config/ulabase
@@ -237,7 +237,7 @@ ulabase setup --srv <id> [options]
 --dry-run       Run every check, apply nothing, write nothing.
 --force <name>  Apply the steps whose name contains <name> without asking
                 their check first. Repeatable. Bare --force takes every step.
---api <url>     Admin node (default: ULABASE_API, else https://cloud-api.restheart.com).
+--api <url>     Admin node (default: ULABASE_API, else https://api.ulabase.com).
 --json          Emit the report as JSON instead of a step list.
 --version, -v   Print the version and exit.
 ```
@@ -250,7 +250,7 @@ Warns if the token does not look like a personal access token (they start with `
 
 ### `ulabase logout`
 
-Removes the stored session file. Does not revoke the token — revoking is a separate act done at cloud.restheart.com.
+Removes the stored session file. Does not revoke the token — revoking is a separate act done at ulabase.com.
 
 ### `ulabase setup`
 
@@ -274,7 +274,7 @@ The CLI provides two clients — one for the admin node, one for the service nod
 
 ### Admin Client
 
-`createAdminClient(config)` creates a client over the admin node (`cloud-api.restheart.com`), taking the core's `AuthConfig` plus an optional `env` source for `fromEnv` resolution.
+`createAdminClient(config)` creates a client over the admin node (`api.ulabase.com`), taking the core's `AuthConfig` plus an optional `env` source for `fromEnv` resolution.
 
 The client manages its own token in a closure (not `localStorage`, which does not exist in Node), so two clients in one process cannot overwrite each other's session. It silences the core's stderr error logging and reports failures itself, in sentences.
 

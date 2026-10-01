@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:a20d58dee7f57d03477c79e8b573e4364e70a3e55d9e0cbc984b10266178a01c",
+  "pageVersion": "sha256:913c6e43d946baa4b13dfd70977d6ed1687772e02301a26ab5f8ebc590c37223",
   "claims": [
     {
       "id": "claim_acd1c970ec6249f5854fc444f6b659e0",
@@ -90,7 +90,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/cli.ts",
-          "version": "repo-file-v1:sha256:197e73467a15e723338ed6b08680cd532d797637307203bfd9d1bcbfff35bb3b"
+          "version": "repo-file-v1:sha256:3d1c56f1368fd368b1d5be633cdb48e547cd34c2538e9d6469b3317289320f58"
         }
       ]
     },
@@ -100,7 +100,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/cli.ts",
-          "version": "repo-file-v1:sha256:197e73467a15e723338ed6b08680cd532d797637307203bfd9d1bcbfff35bb3b"
+          "version": "repo-file-v1:sha256:3d1c56f1368fd368b1d5be633cdb48e547cd34c2538e9d6469b3317289320f58"
         }
       ]
     },
@@ -185,7 +185,7 @@
       "statement": "Progress events emit only a step's name and state (never config values or secrets). The CLI renders progress with glyphs (· satisfied, + applied, ? missing, ✗ failed, — skipped) and a summary line. JSON output is available via --json.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/cli.ts#L433-L482",
+          "resource": "repo://packages/cli/src/cli.ts#L441-L490",
           "version": "repo-lines-v1:sha256:8c5106a95d800a1c8ec0237d51750596ea77bcbe2ba94778358a330c0cb9a1f4:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2YzkyZmY2Njg4NGNkZjE5NGRjODA5MmMyNDJiYWUzYTYwZThjNWQ5Mjg0M2M2ZWM4YTEwNDA3ZDE4NTY4MTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5ZWJiNzY1ZDFkYjVkNGE3OWU0ODRlNTdkMTEwNjY3MjZhMjYzNDZkZWI5YTNjNDEzODBkMGFmODZjZjgzMjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViNDBlMjA5Y2E2NWIzNTM3NjA0MmQwNWYyZjdlNWQwMDE2ZmUxOGE4NzQ2MDRhZDIyNDg5ZGVhZGY1YWM1MWIifQ"
         },
         {
@@ -203,7 +203,7 @@
           "version": "repo-lines-v1:sha256:cb063bbab9a685e0f69f4ef31e0a699652aa54b7778b529b1c085eb66e9fd1bc:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGYxOWNiMGM3MTg5OWFlNjhkZTM0YTQ4YzlkOWY5ZmMwMzhiYTc3MmVmZjg2ZTdkN2U4Njg0NzJhZDBmNWFjNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDllOTRkNGM4ZWM1YWY3NzM0OGQyYWZkMDAwNTMzYTljOTM2ZDFiZGQ2MDQ2ZTM3MDA5M2Y3Yjg0ZjU1YjdjNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzZhZmIyZmNjMDFiNzUyNmM5MTljZmY5N2FmZDVmZTkxZDI5ZGRlZmY2ZjBhNTJiZDNkZGM2M2NlZmUzOWE5YiJ9"
         },
         {
-          "resource": "repo://packages/cli/src/cli.ts#L535-L537",
+          "resource": "repo://packages/cli/src/cli.ts#L543-L545",
           "version": "repo-lines-v1:sha256:643bf9a5a398d6ff822e403980428dca7e62d09da2a6f7a01b461f4cbd6bf2bc:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWZiNjNjNzhjYjkyMWQ0ZDJiZDc4ZjNlODFlOGJhNGVkZDYwYzU0Yzg2ZmMzZGY5ODZmNTk2OTI0YWQ5ZWJjMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjk1OGJkMjZhNzU1ZmRkMzY0ZjFiMjE0Zjk5M2RhNjg5NzVlNjcwMzk4Mzk4MGUwMTRlNTMyMDBiMDNkNmNiYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWFlNWY5MjIzNDRlYjRlZjA2YTVjOGFhMTMwNDFkZjU5YzQ1OTRjY2IxZGI2MzhmZDljZTI0NThiNGMwMDJlNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmMxNDAwYTI5NDczMGEyMmNhMTkzMTVjMjczMmNlYjE4N2YyNzczMzNhOTI3YzU1ZTUyYTE3MGFjZjc2ZTc4OCJ9"
         }
       ]
@@ -245,6 +245,6 @@
   ],
   "verification": {
     "by": "openwiki/0.6.1",
-    "at": "2026-10-01T10:51:10.399Z"
+    "at": "2026-10-01T13:26:36.210Z"
   }
 }

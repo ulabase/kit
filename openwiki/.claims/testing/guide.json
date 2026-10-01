@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:ab61670bd361df7b4f0dc47a197f792140f7c7aa72f7865367ece63f5b999855",
+  "pageVersion": "sha256:c9273f1c08e20cdb9dbff45e182feb9380451ab8209d7e41df55c917fb9b8f2c",
   "claims": [
     {
       "id": "claim_e7ebb7e508804f9f92901818b0fa82a0",
-      "statement": "RESTHeart Cloud Kit has four test tiers: core integration tests (against live API), kit unit tests (mock transport, no backend), CLI unit tests (mock clients, no backend), and adapter unit tests (mock core, no backend).",
+      "statement": "Ulabase Kit has four test tiers: core integration tests (against live API), kit unit tests (mock transport, no backend), CLI unit tests (mock clients, no backend), and adapter unit tests (mock core, no backend).",
       "evidence": [
         {
           "resource": "repo://packages/cli/package.json#L34-L34",
@@ -54,8 +54,12 @@
     },
     {
       "id": "claim_024322923ef34a61afe20462349461d9",
-      "statement": "Kit unit tests cover five modules: payments (grantLicense, createCheckoutSession, openBillingPortal, waitForSubscription, getSubscription), orders (getCatalog, createOrder, getOrder, waitForOrder, readOrderRef), cart (addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems, storage), client (onError, console logging, getTokenClaims), and money (formatPrice).",
+      "statement": "Kit unit tests cover six modules: api-base-url (isValidApiBaseUrl validation), payments (grantLicense, createCheckoutSession, openBillingPortal, waitForSubscription, getSubscription), orders (getCatalog, createOrder, getOrder, waitForOrder, readOrderRef), cart (addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems, storage), client (onError, console logging, getTokenClaims), and money (formatPrice).",
       "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/unit/api-base-url.test.ts",
+          "version": "repo-file-v1:sha256:6e0fb0a83b1ee89ddc043e1884917046d981bc3e3f32858f0949cf6f5be70076"
+        },
         {
           "resource": "repo://packages/kit/src/__tests__/unit/cart.test.ts",
           "version": "repo-file-v1:sha256:b8885b9b267df21cf05ddc3d25fc95433387e559f93d9eeb8fa819fe1922519a"
@@ -219,6 +223,6 @@
   ],
   "verification": {
     "by": "openwiki/0.6.1",
-    "at": "2026-10-01T10:51:10.399Z"
+    "at": "2026-10-01T13:26:36.210Z"
   }
 }

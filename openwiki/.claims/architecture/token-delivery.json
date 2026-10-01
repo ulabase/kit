@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:ea8ee8935683b3f1bffd411a0e6839695ce9640948aa974eac01676e056de484",
+  "pageVersion": "sha256:dfaa6a7586200b742687456a046867ce8b231de0fd3833c708e109c28a683d62",
   "claims": [
     {
       "id": "claim_405e96080ae643619963331c7ec6afdc",
-      "statement": "Bearer mode stores JWT in localStorage (key: rh_access_token) and attaches it via Authorization: Bearer header, while cookie mode uses RESTHeart's HttpOnly JWT cookie that only works with same-origin deployments.",
+      "statement": "Bearer mode stores JWT in localStorage (key: rh_access_token) and attaches it via Authorization: Bearer header, while cookie mode uses Ulabase's HttpOnly JWT cookie that only works with same-origin deployments.",
       "evidence": [
         {
           "resource": "repo://packages/kit/src/auth.ts#L221-L258",
@@ -32,7 +32,7 @@
     },
     {
       "id": "claim_c1c4ce282b7f47779a095f3ba57197eb",
-      "statement": "SSR frameworks (Next.js, Nuxt) use first-party cookies (rh_session) on their own domain to store the same JWT that SPAs keep in localStorage, then send it as a Bearer token to RESTHeart's API server-to-server.",
+      "statement": "SSR frameworks (Next.js, Nuxt) use first-party cookies (rh_session) on their own domain to store the same JWT that SPAs keep in localStorage, then send it as a Bearer token to Ulabase's API server-to-server.",
       "evidence": [
         {
           "resource": "repo://docs/ADAPTERS.md#L74-L99",
@@ -92,7 +92,7 @@
     },
     {
       "id": "claim_aedc96338871402f9994e951e13e6bf9",
-      "statement": "The Angular interceptor (rhAuthInterceptor) handles 401 responses by clearing the token and session, and sets the No-Auth-Challenge header to suppress RESTHeart's WWW-Authenticate challenge that would trigger browser Basic Auth popups.",
+      "statement": "The Angular interceptor (rhAuthInterceptor) handles 401 responses by clearing the token and session, and sets the No-Auth-Challenge header to suppress Ulabase's WWW-Authenticate challenge that would trigger browser Basic Auth popups.",
       "evidence": [
         {
           "resource": "repo://packages/kit-ng/src/auth.interceptor.ts#L39-L89",
@@ -117,6 +117,6 @@
   ],
   "verification": {
     "by": "openwiki/0.6.1",
-    "at": "2026-10-01T10:51:10.399Z"
+    "at": "2026-10-01T13:26:36.210Z"
   }
 }

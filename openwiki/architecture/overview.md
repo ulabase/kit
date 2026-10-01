@@ -1,10 +1,12 @@
 ---
 type: "Reference"
 title: "Architecture Overview"
+description: "Comprehensive architecture reference covering monorepo structure, package layering, design principles, dependency graph, and payments architecture."
+tags: ["architecture", "monorepo", "packages", "design", "payments"]
 openwiki_generated: true
 verified:
   - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
+    at: 2026-10-01T13:26:36.210Z
 sources:
   - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
     resource: repo://docs/ADAPTER_CONTRACT.md
@@ -40,7 +42,7 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
 ---
 
 
@@ -221,7 +223,7 @@ The monorepo follows a strict layered architecture:
 - Not a framework adapter — it is a standalone operational tool
 
 **Key abstractions**:
-- `AdminClient` — authenticates against the admin node (`cloud-api.restheart.com`), manages features (install, configure, init, test), mints service tokens; deprecated plugin method aliases remain for backward compatibility
+- `AdminClient` — authenticates against the admin node (`api.ulabase.com`), manages features (install, configure, init, test), mints service tokens; deprecated plugin method aliases remain for backward compatibility
 - `ServiceClient` — authenticates against a service node, manages collections, indexes, permissions, users, and schemas; token is cached and renewed automatically
 - `Setup` / `Step` — declarative, idempotent configuration: each step has a `check` (is it already done?) and an `apply` (make it so); `runSetup` executes them sequentially, halting on failure
 
