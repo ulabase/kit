@@ -272,6 +272,15 @@ async function loadSetup(file: string): Promise<Setup> {
  * hidden**, in the question itself; a caller passing `silent` without saying so
  * is handing the reader a puzzle.
  */
+/** The console that issues tokens for an admin node: `api.ulabase.com` → `ulabase.com`, `cloud-api.restheart.com` → `cloud.restheart.com`. */
+function consoleOf(api: string): string {
+  try {
+    return new URL(api).hostname.replace(/^cloud-api\./, 'cloud.').replace(/^api\./, '');
+  } catch {
+    return 'cloud.restheart.com';
+  }
+}
+
 async function prompt(question: string, silent = false): Promise<string> {
   // Written here rather than passed to `rl.question`, and that is the whole
   // trick: `_writeToOutput` below silences *everything* readline emits, the
@@ -377,14 +386,13 @@ async function cmdLogin(args: Args): Promise<number> {
   }
 
   if (!fromEnv) {
-    // Where to get one, on its own line — so the prompt itself stays short
-    // enough that the note about the hidden input is the last thing read
-    // before the cursor.
-    process.stdout.write('Issue a personal access token at cloud.restheart.com, under your profile.\n');
+    // Where to get one, then what to do, each on its own line: written on the line readline then
+    // takes over, the instruction was erased, and the user was left in front of a silent cursor.
+    process.stdout.write(`Issue a personal access token at https://${consoleOf(args.api)}/me/tokens\n`);
   }
 
   const token =
-    fromEnv || (await prompt('Token (input is hidden — paste it and press enter): ', true)).trim();
+    fromEnv || (await prompt('Paste it here and press Enter (the input stays hidden):\n', true)).trim();
 
   if (!token) {
     process.stderr.write('No token given.\n');
