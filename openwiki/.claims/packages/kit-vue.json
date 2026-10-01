@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:77bcd40029feadb504d258c77f07e3ac7bc7d25f5e3bc0b7c49b0bcfe253fc99",
+  "pageVersion": "sha256:64e8f2b9dae7c52d698cc5e9c38ca39e78b99aabb898be05c6f8c61a07da13f4",
   "claims": [
     {
       "id": "claim_fd943bf630554acdae1a70e2df68b8d5",
@@ -8,7 +8,7 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-vue/src/index.ts",
-          "version": "repo-file-v1:sha256:e0faaa4d482f0cb81d76c9f7213debb92f2a58e5ed00a8db6028d19da30f2aa9"
+          "version": "repo-file-v1:sha256:808389bfc6ab6453f3fa0265eb688dd4093849472b2c70b3db2d1946b814a70e"
         }
       ]
     },
@@ -18,7 +18,7 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-vue/src/create.ts",
-          "version": "repo-file-v1:sha256:620c1cda81d048737186493172cfb195c470a42976f7e71d639bdcd42516e421"
+          "version": "repo-file-v1:sha256:49a85acd9b167656d40dd9e0e0de7e23eadb99c40b53ec5704e2243671176a40"
         },
         {
           "resource": "repo://packages/kit-vue/src/store.ts#L221-L228",
@@ -42,15 +42,15 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-vue/src/use-auth.ts",
-          "version": "repo-file-v1:sha256:b043b4ded926f248797f71b1d95e419c9ac5ae0a1a287ae8d4ec88f2708bfd25"
+          "version": "repo-file-v1:sha256:bbc5abc14e9e5540ad05f3fcdf281b9e654d668ffc613541cf6cfeb02ecd8b03"
         },
         {
           "resource": "repo://packages/kit-vue/src/use-cart.ts",
-          "version": "repo-file-v1:sha256:4aaf63b9987c7db47534e0e299f9840cdb57b557fd5deb8912a387fde0c58c7b"
+          "version": "repo-file-v1:sha256:b70e5a7068ac551f5976a5979393c882a4ed8d4b2b85d121f096cee0ec86662e"
         },
         {
           "resource": "repo://packages/kit-vue/src/use-payments.ts",
-          "version": "repo-file-v1:sha256:8c4dca9a0c7fd1ff02ea6f8033faf140c2365aa5104d9df56fe608e04e5cdd18"
+          "version": "repo-file-v1:sha256:331de01d6ae5d149a76d554f7735ee7a4d380b488effbf63ce35911eea6a8937"
         }
       ]
     },
@@ -146,7 +146,7 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-vue/src/index.ts#L20-L22",
-          "version": "repo-lines-v1:sha256:ab65390fb35d402750876190dead56c8cfaff05fcdbade7726a19dfc3103dfd7:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGY4ZjhjMGYzMGY5ZWIwY2JhZDE0NmIyODBjYTg0NWZkNjZkZWU3MmMxNmNiOWFmNzFmZDljNzE2MGQ3Y2I2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGNlNjM0YTYwYTU3MDU5Y2E3YzVlOTFlNmMwN2VkMWYxODkxNDE2MDE0ZWY3N2FmMmJiMThmZTc4OTk2YmMxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTdiMzE2YWJiM2MwMWM0ZjM5OTJmZjQ0YWIxNTg3MzNkNGM0ZTQzMWZhYTEwYmM2MGQ2ZDQyMmZmMGViMGFmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+          "version": "repo-lines-v1:sha256:31d8ddd6f57e46f041ee131624c19a63e9dd5930b787170b9f0ab3e107529662:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDc5ZGM4MTNhYmI0OTBjZTQ0ZmI3OWM4MTNhMTUxZGI4ZDM2NjZlY2Q2MjQ3MTIzMGFhZTA4NWU2ZmJhNWNmYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWMyZDA3NWZhNDZhNzg3M2MwYzEzYTA4MzEyZjhiNjZkZTFkYzFiNjQxZjRlNTc4NTE5Zjk0MmI5MmU4OWFhMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTdiMzE2YWJiM2MwMWM0ZjM5OTJmZjQ0YWIxNTg3MzNkNGM0ZTQzMWZhYTEwYmM2MGQ2ZDQyMmZmMGViMGFmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
         }
       ]
     },
@@ -166,7 +166,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.0",
-    "at": "2026-09-07T09:33:56.593Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

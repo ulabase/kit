@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:6ea09118c9c6afbbdbb0e23f929230b58b1f2531ae1a780df582001139e79bdc",
+  "pageVersion": "sha256:7626f5f628b26800125fe56eb6a52a99a6b5b8d6701f7384941842147561636c",
   "claims": [
     {
       "id": "claim_a7ad67a4c30f41539466368125d8fe2d",
@@ -77,7 +77,7 @@
       "statement": "The apiFetch function attaches Bearer tokens, sets Content-Type headers, suppresses browser Basic Auth popups, and throws ApiError on non-2xx responses",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/client.ts#L141-L222",
+          "resource": "repo://packages/kit/src/client.ts#L156-L237",
           "version": "repo-lines-v1:sha256:70ee4a6d10333b5153b34aecf18980a76ba20be9177cf5b87a5c5ec9ce17e617:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTlmNDA0MGJhZGE5M2JjMzcwMjRhZDQ0YTIxOGZhYTNhNjE5ODUzYWQ5MGUyYzg3YjM0Y2Q1OWJiZmE0YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0M2I0NzI4ODZhMTMzMTZiOGNjY2IwYjhlNjFiZTAxODM5ODIwYmJkYjI5NDMyMjM5ZDIzNTg4Y2JkMGNlYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
@@ -182,17 +182,17 @@
     },
     {
       "id": "claim_2e15a3b2a25f4691a37283345be1f0a7",
-      "statement": "The apiBaseUrl validation requires URLs to end with .restheart.com",
+      "statement": "The apiBaseUrl validation accepts any valid https:// URL and http:// only on localhost/.localhost/.local/.test hosts, no longer requiring .restheart.com",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/client.ts#L101-L117",
-          "version": "repo-lines-v1:sha256:f844f265a1dda2687ba02d6d338234a0544c98b7b0355c7a55c7ccd6b8578d52:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3MzIxOWFlY2U4ZWFmMjEwZjNkNjQyZTdhYzI4YTIzNjgyOTZkYTBmOTc1MzQxNzgxN2U3Yjg3MTVlYzU5YTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZTUxMmY5MzRkY2M1MzJlZmNlNzU1ZmY5N2QxYWYzYzIyNmEwNGE0M2M3YTkyOGM4NzE4NjY0NDcwOTQwYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0YzAyMjg3MDYxZmVjYjc4YzBmY2FhNDg3ZTRlYWZiN2RiOGFiNTc4NDY3ZjAwMzA2NzExYWNmNmRlMWQ4NDAifQ"
+          "resource": "repo://packages/kit/src/client.ts#L101-L123",
+          "version": "repo-lines-v1:sha256:c161a45874ec357f8c90dc989c3345d67e6012cf02ed31b9435a33412aaf9f15:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5ZWY2YmI0MGE1ZmE5MjFjMDNjNWQ3ZGU2YjQxYjNhMTZhN2RlYzAyOGU0MmRjYjEzYWRmNDIxNWIwYzEzMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZTUxMmY5MzRkY2M1MzJlZmNlNzU1ZmY5N2QxYWYzYzIyNmEwNGE0M2M3YTkyOGM4NzE4NjY0NDcwOTQwYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0NzE1ZjVjOTc0MmMwODE3MjViZWI2YzJlNjkyN2U2NjY5MTAyOWY4M2EzZmRlNTJiYjIzMWFjYmNkOGIzYmYifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.0",
-    "at": "2026-09-07T09:33:56.593Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

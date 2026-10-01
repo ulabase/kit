@@ -1,11 +1,11 @@
 ---
 type: Package
-title: "@restheart-cloud/kit"
+title: "@ulabase/kit"
 description: Core framework-agnostic package with zero dependencies. Provides authentication, token management, team operations, consents gating, password reset, payments, orders, cart, and money formatting.
 tags: [package, core, authentication, payments, orders, cart, typescript]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-07T09:33:56.593Z
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-d846911884642122d8dd6179
     resource: repo://packages/kit/src/auth.ts
@@ -29,25 +29,25 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.5.0", at: "2026-09-07T09:33:56.593Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 ---
 
-# @restheart-cloud/kit
+# @ulabase/kit
 
-The core framework-agnostic package for RESTHeart Cloud. Zero dependencies, Promise-based API. Provides authentication, token management, team operations, consents gating, password reset, payments, orders, cart, and money formatting.
+The core framework-agnostic package for Ulabase. Zero dependencies, Promise-based API. Provides authentication, token management, team operations, consents gating, password reset, payments, orders, cart, and money formatting.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit
+npm install @ulabase/kit
 ```
 
-**Requirements**: RESTHeart 9.6.0+ (for `delivery=body` support in bearer mode)
+**Requirements**: Ulabase service 9.6.0+ (for `delivery=body` support in bearer mode)
 
 ## Quick Start
 
 ```typescript
-import { checkSession, login, logout, getUserInfo, renewToken, applyBearerDelivery } from '@restheart-cloud/kit';
+import { checkSession, login, logout, getUserInfo, renewToken, applyBearerDelivery } from '@ulabase/kit';
 
 const config = { apiBaseUrl: 'https://api.example.com' };
 
@@ -73,7 +73,7 @@ All functions accept an `AuthConfig` object:
 
 ```typescript
 interface AuthConfig {
-  apiBaseUrl: string;                              // Must be *.restheart.com
+  apiBaseUrl: string;                              // Must be a valid https:// URL
   getToken?: () => string | null | Promise<string | null>;  // SSR token source
   setToken?: (token: string) => void;              // SSR token sink
   transport?: (url: string, init?: RequestInit) => Promise<Response>;  // Custom fetch (e.g., Angular HttpClient)
@@ -89,7 +89,7 @@ The optional `getToken`/`setToken` callbacks support SSR runtimes (Next.js, Nuxt
 
 **`onError`**: Observes every failure, including session-restoration calls no caller is waiting on. It cannot swallow errors — the error is thrown either way. Use it for cross-cutting concerns like offline banners or consent gates.
 
-**Validation**: `apiBaseUrl` must be a RESTHeart Cloud service URL (`*.restheart.com`). Invalid URLs throw an `ApiError`.
+**Validation**: `apiBaseUrl` must be a valid `https://` URL. The `http://` protocol is only allowed on local host names (`localhost`, `.localhost`, `.local`, `.test`). Invalid URLs throw an `ApiError`.
 
 **`payments`**: When `true`, adapters load the team's subscription on `checkSession`, `login` and `switchTeam`, and expose subscription-related reactive state. When `false` or absent (the default), no call to `/stripe/*` is ever made — a service without the `stripe` plugin would respond `404` on those paths, and this flag prevents that from happening on every app startup.
 
@@ -100,7 +100,7 @@ The optional `getToken`/`setToken` callbacks support SSR runtimes (Next.js, Nuxt
 ### Registration
 
 ```typescript
-import { register, verify, buildVerifyUrl } from '@restheart-cloud/kit';
+import { register, verify, buildVerifyUrl } from '@ulabase/kit';
 
 // Step 1: Register
 await register(config, {
@@ -122,7 +122,7 @@ const verifyUrl = buildVerifyUrl(config, email, token, 'fragment');
 ### Email Verification
 
 ```typescript
-import { verify, buildVerifyUrl } from '@restheart-cloud/kit';
+import { verify, buildVerifyUrl } from '@ulabase/kit';
 
 // Build URL for browser redirect
 const url = await verify(config, email, token, 'fragment');
@@ -142,7 +142,7 @@ if (accessToken) {
 ### Login
 
 ```typescript
-import { login } from '@restheart-cloud/kit';
+import { login } from '@ulabase/kit';
 
 // Bearer mode (default)
 const user = await login(config, email, password);
@@ -158,7 +158,7 @@ const user = await login(config, email, password, 'cookie');
 ### Session Check
 
 ```typescript
-import { checkSession } from '@restheart-cloud/kit';
+import { checkSession } from '@ulabase/kit';
 
 // Returns UserInfo if valid token exists, null otherwise
 const user = await checkSession(config);
@@ -172,7 +172,7 @@ if (user) {
 ### Get User Info
 
 ```typescript
-import { getUserInfo } from '@restheart-cloud/kit';
+import { getUserInfo } from '@ulabase/kit';
 
 // Read the authenticated user from GET /users/me
 const user = await getUserInfo(config);
@@ -184,7 +184,7 @@ const user = await getUserInfo(config);
 ### Logout
 
 ```typescript
-import { logout } from '@restheart-cloud/kit';
+import { logout } from '@ulabase/kit';
 
 // Clears token, cancels pending refresh
 await logout(config);
@@ -195,7 +195,7 @@ await logout(config);
 ### Manual Token Operations
 
 ```typescript
-import { setToken, getToken, clearToken, getTokenExpiry, getTokenClaims, isValidApiBaseUrl } from '@restheart-cloud/kit';
+import { setToken, getToken, clearToken, getTokenExpiry, getTokenClaims, isValidApiBaseUrl } from '@ulabase/kit';
 
 // Store token (e.g., after OAuth redirect)
 setToken(token);
@@ -215,14 +215,14 @@ if (claims) {
   console.log(claims.sub); // User id
 }
 
-// Validate API base URL
-const isValid = isValidApiBaseUrl('https://api.example.com.restheart.com');
+// Validate API base URL (any https:// URL; http:// only on localhost/.localhost/.local/.test)
+const isValid = isValidApiBaseUrl('https://api.example.com');
 ```
 
 ### Proactive Refresh
 
 ```typescript
-import { scheduleRefresh, cancelRefresh, renewToken } from '@restheart-cloud/kit';
+import { scheduleRefresh, cancelRefresh, renewToken } from '@ulabase/kit';
 
 // Schedule refresh at 80% of TTL (called automatically by login)
 scheduleRefresh(config);
@@ -243,7 +243,7 @@ const newToken = await renewToken(config);
 ### Token Renewal
 
 ```typescript
-import { renewToken, applyBearerDelivery } from '@restheart-cloud/kit';
+import { renewToken, applyBearerDelivery } from '@ulabase/kit';
 
 // Renew token (bearer mode - default)
 const token = await renewToken(config);
@@ -265,7 +265,7 @@ const extractedToken = await applyBearerDelivery(config, response);
 ### List Teams
 
 ```typescript
-import { getTeams } from '@restheart-cloud/kit';
+import { getTeams } from '@ulabase/kit';
 
 const teams = await getTeams(config);
 // Returns: TeamMembership[]
@@ -275,7 +275,7 @@ const teams = await getTeams(config);
 ### Switch Team
 
 ```typescript
-import { switchTeam } from '@restheart-cloud/kit';
+import { switchTeam } from '@ulabase/kit';
 
 // Bearer mode (default)
 await switchTeam(config, { $oid: teamId });
@@ -296,7 +296,7 @@ import {
   createTeam,
   updateTeam,
   deleteTeam
-} from '@restheart-cloud/kit';
+} from '@ulabase/kit';
 
 // List members of active team
 const members = await listTeamMembers(config);
@@ -322,7 +322,7 @@ await deleteTeam(config);
 ### Send Invitation
 
 ```typescript
-import { invite } from '@restheart-cloud/kit';
+import { invite } from '@ulabase/kit';
 
 await invite(config, 'newuser@example.com', 'member');
 // Sends invitation email with token
@@ -331,7 +331,7 @@ await invite(config, 'newuser@example.com', 'member');
 ### Get Invitation Details
 
 ```typescript
-import { getInvitation } from '@restheart-cloud/kit';
+import { getInvitation } from '@ulabase/kit';
 
 const invitation = await getInvitation(config, email, token);
 // Returns: { email, teamName, role, isNewUser, expiresAt }
@@ -340,7 +340,7 @@ const invitation = await getInvitation(config, email, token);
 ### Activate Account (New User)
 
 ```typescript
-import { activate } from '@restheart-cloud/kit';
+import { activate } from '@ulabase/kit';
 
 // Bearer mode (default)
 const token = await activate(config, {
@@ -362,7 +362,7 @@ const nullResult = await activate(config, {
 ### Accept Invitation (Existing User)
 
 ```typescript
-import { acceptInvite } from '@restheart-cloud/kit';
+import { acceptInvite } from '@ulabase/kit';
 
 await acceptInvite(config, invitationToken);
 // Adds user to team
@@ -371,7 +371,7 @@ await acceptInvite(config, invitationToken);
 ### Resend Invitation
 
 ```typescript
-import { resendInvite } from '@restheart-cloud/kit';
+import { resendInvite } from '@ulabase/kit';
 
 await resendInvite(config, 'user@example.com');
 ```
@@ -379,7 +379,7 @@ await resendInvite(config, 'user@example.com');
 ### List Pending Invitations
 
 ```typescript
-import { listInvitations } from '@restheart-cloud/kit';
+import { listInvitations } from '@ulabase/kit';
 
 const invitations = await listInvitations(config);
 // Returns: PendingInvitation[]
@@ -392,7 +392,7 @@ const invitations = await listInvitations(config);
 ### Forgot Password
 
 ```typescript
-import { forgotPassword } from '@restheart-cloud/kit';
+import { forgotPassword } from '@ulabase/kit';
 
 await forgotPassword(config, 'user@example.com');
 // Sends password reset email
@@ -401,7 +401,7 @@ await forgotPassword(config, 'user@example.com');
 ### Reset Password
 
 ```typescript
-import { resetPassword } from '@restheart-cloud/kit';
+import { resetPassword } from '@ulabase/kit';
 
 // Bearer mode (default)
 const token = await resetPassword(config, {
@@ -423,7 +423,7 @@ const nullResult = await resetPassword(config, {
 ## Profile Management
 
 ```typescript
-import { updateProfile, updateUser, changePassword } from '@restheart-cloud/kit';
+import { updateProfile, updateUser, changePassword } from '@ulabase/kit';
 
 // Update profile fields (firstName, lastName only — goes through /auth/profile)
 await updateProfile(config, {
@@ -439,6 +439,18 @@ await updateUser(config, 'user@example.com', { preferences: { theme: 'dark' } })
 await changePassword(config, 'current-password', 'new-password');
 ```
 
+## Consents Gating
+
+```typescript
+import { acceptConsents } from '@ulabase/kit';
+
+// Record acceptance and get updated token
+const user = await acceptConsents(config, session.user._id);
+// user.latestConsents now carries the accepted versions
+```
+
+The consents pattern uses Guards rules to block requests from users who haven't accepted current consents. The server decides what is written — the permission's `mergeRequest` stamps the versions being accepted and the timestamp.
+
 ## Payments & Subscriptions
 
 The payments module handles Stripe subscriptions, checkout sessions, billing portal, and seat licences. Enable it by setting `payments: true` in `AuthConfig`.
@@ -450,7 +462,7 @@ The payments module handles Stripe subscriptions, checkout sessions, billing por
 ### Plans & Subscription
 
 ```typescript
-import { getPlans, getSubscription } from '@restheart-cloud/kit';
+import { getPlans, getSubscription } from '@ulabase/kit';
 
 // Get available plans (no session required - safe for public pricing pages)
 const { default_plan, plans } = await getPlans(config);
@@ -463,7 +475,7 @@ console.log(subscription.plan, subscription.active, subscription.seats);
 ### Checkout & Billing Portal
 
 ```typescript
-import { createCheckoutSession, openBillingPortal } from '@restheart-cloud/kit';
+import { createCheckoutSession, openBillingPortal } from '@ulabase/kit';
 
 // Start Stripe Checkout (requires canManageBilling)
 const { url } = await createCheckoutSession(config, 'gold', 'month');
@@ -481,7 +493,7 @@ window.location.href = portalUrl;
 ### Seat Licences
 
 ```typescript
-import { getLicenses, grantLicense, revokeLicense } from '@restheart-cloud/kit';
+import { getLicenses, grantLicense, revokeLicense } from '@ulabase/kit';
 
 // Get current licences (requires canManageBilling)
 const licenses = await getLicenses(config);
@@ -497,7 +509,7 @@ await revokeLicense(config, 'user@example.com');
 ### Waiting for Webhook
 
 ```typescript
-import { waitForSubscription, WaitTimeoutError } from '@restheart-cloud/kit';
+import { waitForSubscription, WaitTimeoutError } from '@ulabase/kit';
 
 try {
   // Poll until condition is met (e.g., on Checkout success page)
@@ -524,7 +536,7 @@ The orders module handles product catalogs, order creation, checkout, and order 
 ### Catalog
 
 ```typescript
-import { getCatalog } from '@restheart-cloud/kit';
+import { getCatalog } from '@ulabase/kit';
 
 // Get product catalog (access controlled by deployment's ACL)
 const products = await getCatalog(config);
@@ -541,7 +553,7 @@ const filtered = await getCatalog(config, {
 ### Orders
 
 ```typescript
-import { createOrder, getOrder } from '@restheart-cloud/kit';
+import { createOrder, getOrder } from '@ulabase/kit';
 
 // Create order and start checkout
 const { _id, checkout_url, secret } = await createOrder(config, [
@@ -557,7 +569,7 @@ const order = await getOrder(config, orderId, secret);
 ### Order Reference (Guest Checkout)
 
 ```typescript
-import { readOrderRef, clearOrderRef, waitForOrder } from '@restheart-cloud/kit';
+import { readOrderRef, clearOrderRef, waitForOrder } from '@ulabase/kit';
 
 // Read order reference from URL (after Checkout redirect)
 const ref = readOrderRef();
@@ -577,7 +589,7 @@ if (ref) {
 The cart module provides pure functions for managing a shopping cart. Nothing here talks to a server — a cart is a list the buyer is building, and it becomes an order in one call via `toOrderItems` → `createOrder`.
 
 ```typescript
-import { addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems } from '@restheart-cloud/kit';
+import { addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems } from '@ulabase/kit';
 
 // Add item to cart
 const cart = addToCart([], { productId: 'tee-classic', name: 'Classic T-shirt', unitAmount: 2500 });
@@ -600,7 +612,7 @@ await createOrder(config, orderItems);
 ### Cart Persistence
 
 ```typescript
-import { loadCart, saveCart, clearStoredCart, DEFAULT_CART_STORAGE_KEY } from '@restheart-cloud/kit';
+import { loadCart, saveCart, clearStoredCart, DEFAULT_CART_STORAGE_KEY } from '@ulabase/kit';
 
 // Save cart to localStorage
 saveCart(cart);
@@ -617,195 +629,7 @@ clearStoredCart();
 ## Money Formatting
 
 ```typescript
-import { formatPrice } from '@restheart-cloud/kit';
-
-// Format amount in minor units (cents for EUR/USD)
-formatPrice(1990, 'eur');        // "19,90 €" (browser default locale)
-formatPrice(500, 'jpy', 'ja-JP'); // "¥500"
-formatPrice(19900, 'bhd', 'en-BH'); // "BHD 19.900"
-```
-
-**Note**: Stripe amounts are always in the currency's *minor* unit. `amount / 100` is a bug for currencies like JPY (0 decimals) or BHD (3 decimals). This function uses `Intl.NumberFormat` to handle all currencies correctly.
-
-## Payments & Subscriptions
-
-The payments module handles Stripe subscriptions, checkout sessions, billing portal, and seat licences. Enable it by setting `payments: true` in `AuthConfig`.
-
-**Important**: Payments have a different relationship to the session than other kit modules. There is no token renewal — the `@subscription` ACL variable is resolved server-side from the database on every request. An upgrade is effective immediately with no re-login.
-
-**The redirect back from Checkout races the webhook.** Stripe sends the buyer back to `successUrl` over the browser; it reports the payment over a separate server-to-server webhook, with no ordering guarantee between the two. Use `waitForSubscription` on the success page instead of a bare `getSubscription`.
-
-### Plans & Subscription
-
-```typescript
-import { getPlans, getSubscription } from '@restheart-cloud/kit';
-
-// Get available plans (no session required - safe for public pricing pages)
-const { default_plan, plans } = await getPlans(config);
-
-// Get current team's subscription
-const subscription = await getSubscription(config);
-console.log(subscription.plan, subscription.active, subscription.seats);
-```
-
-### Checkout & Billing Portal
-
-```typescript
-import { createCheckoutSession, openBillingPortal } from '@restheart-cloud/kit';
-
-// Start Stripe Checkout (requires canManageBilling)
-const { url } = await createCheckoutSession(config, 'gold', 'month');
-window.location.href = url;
-
-// Open Stripe Customer Portal (requires canManageBilling)
-const { url: portalUrl } = await openBillingPortal(config);
-window.location.href = portalUrl;
-```
-
-**Error handling**:
-- `createCheckoutSession` rejects with `status: 409` when the team already has an active subscription
-- `openBillingPortal` rejects with `status: 402` for a team that has never checked out
-
-### Seat Licences
-
-```typescript
-import { getLicenses, grantLicense, revokeLicense } from '@restheart-cloud/kit';
-
-// Get current licences (requires canManageBilling)
-const licenses = await getLicenses(config);
-
-// Grant a seat licence (requires canManageBilling)
-const result = await grantLicense(config, 'user@example.com');
-// Returns: 'granted' | 'already-licensed'
-
-// Revoke a seat licence (requires canManageBilling)
-await revokeLicense(config, 'user@example.com');
-```
-
-### Waiting for Webhook
-
-```typescript
-import { waitForSubscription, WaitTimeoutError } from '@restheart-cloud/kit';
-
-try {
-  // Poll until condition is met (e.g., on Checkout success page)
-  const subscription = await waitForSubscription(
-    config,
-    s => s.plan === 'gold' && s.active,
-    { timeoutMs: 30000, intervalMs: 1000 }
-  );
-  // Subscription is active
-} catch (error) {
-  if (error instanceof WaitTimeoutError) {
-    // Payment may have succeeded; webhook may just be late
-    // Show a "please wait" message, not an error
-  }
-}
-```
-
-**Test**: `packages/kit/src/__tests__/integration/payments.test.ts`
-
-## Orders & Products
-
-The orders module handles product catalogs, order creation, checkout, and order tracking. Prices come from the service's own catalog at checkout time — a tampered line changes what the buyer *sees* and nothing about what they are charged.
-
-### Catalog
-
-```typescript
-import { getCatalog } from '@restheart-cloud/kit';
-
-// Get product catalog (access controlled by deployment's ACL)
-const products = await getCatalog(config);
-
-// With pagination and filtering
-const filtered = await getCatalog(config, {
-  pagesize: 10,
-  page: 1,
-  filter: { category: 'desk' },
-  sort: '-_id'
-});
-```
-
-### Orders
-
-```typescript
-import { createOrder, getOrder } from '@restheart-cloud/kit';
-
-// Create order and start checkout
-const { _id, checkout_url, secret } = await createOrder(config, [
-  { productId: 'tee-classic', quantity: 2 },
-  { productId: 'mug-logo', quantity: 1 }
-]);
-window.location.href = checkout_url;
-
-// Get order (authenticated or with secret for guest checkout)
-const order = await getOrder(config, orderId, secret);
-```
-
-### Order Reference (Guest Checkout)
-
-```typescript
-import { readOrderRef, clearOrderRef, waitForOrder } from '@restheart-cloud/kit';
-
-// Read order reference from URL (after Checkout redirect)
-const ref = readOrderRef();
-if (ref) {
-  clearOrderRef(); // Strip secret from address bar
-  const order = await waitForOrder(config, ref.id, ref.secret);
-  if (order.status === 'paid') {
-    // Show confirmation
-  }
-}
-```
-
-**Test**: `packages/kit/src/__tests__/integration/orders.test.ts`
-
-## Cart
-
-The cart module provides pure functions for managing a shopping cart. Nothing here talks to a server — a cart is a list the buyer is building, and it becomes an order in one call via `toOrderItems` → `createOrder`.
-
-```typescript
-import { addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems } from '@restheart-cloud/kit';
-
-// Add item to cart
-const cart = addToCart([], { productId: 'tee-classic', name: 'Classic T-shirt', unitAmount: 2500 });
-
-// Update quantity
-const updated = setCartQuantity(cart, 'tee-classic', 3);
-
-// Remove item
-const reduced = removeFromCart(updated, 'tee-classic');
-
-// Calculate totals
-const totals = cartTotals(cart);
-console.log(totals.totalItems, totals.subtotal, totals.currency);
-
-// Convert to order items for createOrder
-const orderItems = toOrderItems(cart);
-await createOrder(config, orderItems);
-```
-
-### Cart Persistence
-
-```typescript
-import { loadCart, saveCart, clearStoredCart, DEFAULT_CART_STORAGE_KEY } from '@restheart-cloud/kit';
-
-// Save cart to localStorage
-saveCart(cart);
-
-// Load cart from localStorage
-const savedCart = loadCart();
-
-// Clear saved cart
-clearStoredCart();
-```
-
-**Test**: `packages/kit/src/__tests__/integration/cart.test.ts`
-
-## Money Formatting
-
-```typescript
-import { formatPrice } from '@restheart-cloud/kit';
+import { formatPrice } from '@ulabase/kit';
 
 // Format amount in minor units (cents for EUR/USD)
 formatPrice(1990, 'eur');        // "19,90 €" (browser default locale)
@@ -817,10 +641,10 @@ formatPrice(19900, 'bhd', 'en-BH'); // "BHD 19.900"
 
 ## Authenticated Fetch (`apiFetch`)
 
-The kit exports `apiFetch`, an authenticated `fetch` against the service. Every internal call the kit makes goes through it. It is exported because an application querying its own RESTHeart collections needs exactly the same thing.
+The kit exports `apiFetch`, an authenticated `fetch` against the service. Every internal call the kit makes goes through it. It is exported because an application querying its own Ulabase collections needs exactly the same thing.
 
 ```typescript
-import { apiFetch } from '@restheart-cloud/kit';
+import { apiFetch } from '@ulabase/kit';
 
 // GET — pass a path, not a full URL
 const res = await apiFetch(config, '/my-collection?pagesize=10');

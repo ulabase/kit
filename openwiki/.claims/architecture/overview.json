@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:c8cb186a2dcccfa29261ddb0e84ea69957e627adbd185fa1c31bb32e23628477",
+  "pageVersion": "sha256:0c448dc52b6c9df919a4710da08ffb74afcb7dcd4fa227a185baac6e6066ffcb",
   "claims": [
     {
       "id": "claim_6f93d57989544af49c8650048226eefb",
-      "statement": "The monorepo contains five packages: kit (core), kit-ng (Angular adapter), kit-react (React adapter with /next subpath), kit-vue (Vue adapter with /nuxt subpath), and cli (rhc infrastructure-as-code tooling). All share the same version and are released together.",
+      "statement": "The monorepo contains five packages: kit (core), kit-ng (Angular adapter), kit-react (React adapter with /next subpath), kit-vue (Vue adapter with /nuxt subpath), and cli (ulabase/ula infrastructure-as-code tooling). All share the same version and are released together.",
       "evidence": [
         {
           "resource": "repo://packages/cli/package.json",
-          "version": "repo-file-v1:sha256:08bb2546a3b324bb438e7e95a8bf9acc237befc1688d2bf055e8d4dc6a109c85"
+          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
         },
         {
           "resource": "repo://packages/kit/src/index.ts",
@@ -18,15 +18,15 @@
     },
     {
       "id": "claim_ae678a31e16d483f9c22394edd045724",
-      "statement": "The monorepo follows a strict layered architecture: Layer 1 is @restheart-cloud/kit (core, zero dependencies, framework-agnostic), Layer 2 is the framework adapters (kit-ng, kit-react, kit-vue) that depend on kit and add reactive wrappers, and Layer 3 is @restheart-cloud/cli which depends on kit for apiFetch and token utilities but is not an adapter.",
+      "statement": "The monorepo follows a strict layered architecture: Layer 1 is @ulabase/kit (core, zero dependencies, framework-agnostic), Layer 2 is the framework adapters (kit-ng, kit-react, kit-vue) that depend on kit and add reactive wrappers, and Layer 3 is @ulabase/cli which depends on kit for apiFetch and token utilities but is not an adapter.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L35-L37",
-          "version": "repo-lines-v1:sha256:1224e1299300a630cadbb42da4929c1ede5f90a6fa9d82e62b74d829b72d7e34:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmQ1NDlmZjYyYWUzZWUxMzEyZGFiNWRjZTI3MTY1YzdhMTgwYWY4NmE2NzE3MzZmNTI2NTQ0YThiMTAxZTZhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNiN2IxYzNjOTBiMzg0ZDE1MWViNjhhNTE3ZjZkNmMzYTU0YmIwZjlhY2QyYjhhZmQwMWRlYzY0MjBjNzMyZiJ9"
+          "resource": "repo://packages/cli/package.json",
+          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
         },
         {
-          "resource": "repo://packages/cli/src/admin.ts#L1-L2",
-          "version": "repo-lines-v1:sha256:bd42a578b36eec44017c36029375a44d34e1289b209bb585a77dac7a9e3bcc9b:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ1MzI1YjA1OTEwNjU5MzZlNGJkMGQyNDBjMTRkNGZlODMzN2UyNWUyMWU4NzUyMjMwZGE1OTdmOWM3MzU4NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI1Yjk4ZDBkYTQyNDEwN2ZhNGYxYWY3NjEwMTNlMTg0NzcyMTM5ODA0NzM5MDIwMTdhMDQ2ODk3YjcxMGM1ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjE1Y2QxODYxMjQxYzg3MTY3NzIxMGQ5OTMzZTY5ZDJiNDViODE2OTEwMjk5YjRiMjk3Y2MzM2EyZWM4NmYzYiJ9"
+          "resource": "repo://packages/cli/src/admin.ts",
+          "version": "repo-file-v1:sha256:794410b6177ac1e704065fb6ce3b09f4218083763fbed021637f9d9fbfd0b226"
         },
         {
           "resource": "repo://packages/kit/src/index.ts",
@@ -39,11 +39,11 @@
       "statement": "The CLI's AdminClient authenticates against the admin node (cloud-api.restheart.com), manages features using feature-based primary method names (installFeature, getFeatureConfig, updateFeatureConfig, initFeature, testFeature, etc.) with deprecated plugin method aliases for backward compatibility, mints service tokens, and stores credentials in a closure rather than localStorage to support Node.js and avoid cross-client token collision.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/admin.ts#L131-L236",
+          "resource": "repo://packages/cli/src/admin.ts#L154-L288",
           "version": "repo-lines-v1:sha256:ff808d2612186d5151bd3804c2fb74d50108cc4d8ce33a60344662d0824ac7e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4OTBlNDczZjkxMjU3MzkxYzBhNzBmZmIxZjFiMmIzMjhmOGY5MThkMmZkZDAwMjkyOGMxNTVkZjE5MGJkZDI5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIyYjM1YmQ1NWRiNTk0YTgzODVkODMxYjE5YjVmMTgwZWFiZThmMWY0ZGJjYmI5NTM4NGE3YjNiY2ZmMjZkNTgzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         },
         {
-          "resource": "repo://packages/cli/src/cli.ts#L18-L18",
+          "resource": "repo://packages/cli/src/cli.ts#L19-L19",
           "version": "repo-lines-v1:sha256:42bcb6ba35362a535bdedd09e759272c653a6f88f1f7b625b00ee8e2ca2f3b50:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiY2I2YmEzNTM2MmE1MzViZGVkZDA5ZTc1OTI3MmM2NTNhNmY4OGYxZjdiNjI1YjAwZWU4ZTJjYTJmM2I1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiY2I2YmEzNTM2MmE1MzViZGVkZDA5ZTc1OTI3MmM2NTNhNmY4OGYxZjdiNjI1YjAwZWU4ZTJjYTJmM2I1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmViNTU5YTMxMjIwYzQ0Y2UxYTZhMDA1MDg0MjhkMTQ0ZmRhYTkxYWNiMTEzMDFmYmRkNDE3ODE1YmUyMjA2ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGUyZWEwMzE0MTQ2YmE3N2RkZmJhZWY3YzI1M2Y5NzgyOTY1M2I5N2E5NTM5MjU4OWMwNWM3OWQwMjE3MDA2MiJ9"
         }
       ]
@@ -78,15 +78,15 @@
     },
     {
       "id": "claim_f613d76a3f7247388da0b9973bc6768d",
-      "statement": "The CLI stores personal access tokens in ~/.config/restheart/session.json (or XDG_CONFIG_HOME) with 0600 permissions. The RH_CLOUD_TOKEN environment variable always takes precedence over the stored session, ensuring CI pipelines never silently use a stale credential.",
+      "statement": "The CLI stores personal access tokens in ~/.config/ulabase/session.json (or XDG_CONFIG_HOME) with 0600 permissions. The ULABASE_TOKEN environment variable always takes precedence over the stored session, ensuring CI pipelines never silently use a stale credential.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/cli.ts#L98-L98",
-          "version": "repo-lines-v1:sha256:33b92924ac11463bc659d75fddad096e998adf9c4b261480e647ccf06f41181c:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzNiOTI5MjRhYzExNDYzYmM2NTlkNzVmZGRhZDA5NmU5OThhZGY5YzRiMjYxNDgwZTY0N2NjZjA2ZjQxMTgxYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzNiOTI5MjRhYzExNDYzYmM2NTlkNzVmZGRhZDA5NmU5OThhZGY5YzRiMjYxNDgwZTY0N2NjZjA2ZjQxMTgxYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDhkNzAyNGIyNzdmODFlYTRkYzg5ODhmZTQ3NGU1NDEyNGMwNDZlM2FkODQxMmJkYzRhM2Y0MTRmZmZmNTc2NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDM0ZDQ0ZjJmNmQ1NWUzMWQwNGRlNGMwNmI5ZTZkNzA5YzBjMDZhMzY3ODQ1ZWMwN2M0OWY3OGExZWUyYTgwMSJ9"
+          "resource": "repo://packages/cli/src/cli.ts",
+          "version": "repo-file-v1:sha256:197e73467a15e723338ed6b08680cd532d797637307203bfd9d1bcbfff35bb3b"
         },
         {
-          "resource": "repo://packages/cli/src/session.ts#L36-L100",
-          "version": "repo-lines-v1:sha256:ebe1987c932c9b8108605a4557af2a751f223cb758b03e89478ebc9f597aaf93:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4YzUzNTcxOWNhZjYzMTRhMjE3YzEzOGY4MTI1Yzg5ODEwNjM3YzQzN2I4YTA0Mjk5Y2QwZTUyOThjZmM1NTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgyNjdiMTgzYTYwYjZhZDg5NDQ5YjJkN2U5ZTdjMWEyY2NjOWRhYjI5ZDMxNzgxYWQ0NWM4NmQ1NzQ3OWJhMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5MmJkOTE2ZDYyNDYxMjc4MTc1OTY5ZDdmNTVkMzEzZDM2OGVkNGNkYjFjMGRmNjBiZGRlNGNlMWQyYzNhMzUifQ"
+          "resource": "repo://packages/cli/src/session.ts",
+          "version": "repo-file-v1:sha256:cafa705e30773c6504b7fb4f3274f79daf4064494677458fe6352437b2b986cb"
         }
       ]
     },
@@ -192,11 +192,11 @@
         },
         {
           "resource": "repo://packages/kit-ng/src/cart.service.ts#L1-L95",
-          "version": "repo-lines-v1:sha256:3ccb9addbbf470cfc84e24a2d0b0f8e48724ea977667e414388d5a2c83e76c68:eyJzZWxlY3RlZExpbmVDb3VudCI6OTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhNmI5YWNmZGFiZDk0ZTRiMjkwNDkzY2FjMDA4Yjc1ZWFmNWI3MDk2ZTJkNzFmMDdhODQ5Y2M3NWE2ZjkwMDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:ce241665ff0d49a7861ffc8647b09460c2b27e7b21e2aac4245380d3df841378:eyJzZWxlY3RlZExpbmVDb3VudCI6OTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhNmI5YWNmZGFiZDk0ZTRiMjkwNDkzY2FjMDA4Yjc1ZWFmNWI3MDk2ZTJkNzFmMDdhODQ5Y2M3NWE2ZjkwMDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
           "resource": "repo://packages/kit-react/src/cart.tsx#L1-L100",
-          "version": "repo-lines-v1:sha256:b0596f80cf39e042d33a7c17c3e56f80ab87a8714ca39fe71e3be3a69b2d30ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlODIwMDk2NGE5Nzg2MzU1MjJiMmFiMDkwYzY1MDY1ZDhlZjhlODVjNDczMGJiMmViMDQ2MGQzNGM2NzdkZGJiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5NWVmMDFiYzA4ZGJjM2I2M2U0ZTc1ZWEzZDI2YTViOTQxODkxODc3ZTI3YWQ4OTEzMjljODQxMWQ3ZDhkYzRkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0NjM2MzU5YzM0YWJjMmViMWI1NGEzYjAzMGQxYTRjY2ZiNDdjYmFiMDgyNzI4Y2IzNTQ0ZWYyZjY2ZGI5NjY0In0"
+          "version": "repo-lines-v1:sha256:f1d71baae3695027a4fa1d59a6c5eca63c5dd8aeef47f6fce0bd6a49e4f9afb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlODIwMDk2NGE5Nzg2MzU1MjJiMmFiMDkwYzY1MDY1ZDhlZjhlODVjNDczMGJiMmViMDQ2MGQzNGM2NzdkZGJiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5NWVmMDFiYzA4ZGJjM2I2M2U0ZTc1ZWEzZDI2YTViOTQxODkxODc3ZTI3YWQ4OTEzMjljODQxMWQ3ZDhkYzRkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0NjM2MzU5YzM0YWJjMmViMWI1NGEzYjAzMGQxYTRjY2ZiNDdjYmFiMDgyNzI4Y2IzNTQ0ZWYyZjY2ZGI5NjY0In0"
         },
         {
           "resource": "repo://packages/kit-vue/src/create-cart.ts#L1-L38",
@@ -209,26 +209,26 @@
       "statement": "All adapters and the CLI depend on kit at exact version 0.0.0 in development. The release workflow rewrites this to the tag version before publishing. All five packages share the same version number.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L35-L37",
-          "version": "repo-lines-v1:sha256:1224e1299300a630cadbb42da4929c1ede5f90a6fa9d82e62b74d829b72d7e34:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmQ1NDlmZjYyYWUzZWUxMzEyZGFiNWRjZTI3MTY1YzdhMTgwYWY4NmE2NzE3MzZmNTI2NTQ0YThiMTAxZTZhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNiN2IxYzNjOTBiMzg0ZDE1MWViNjhhNTE3ZjZkNmMzYTU0YmIwZjlhY2QyYjhhZmQwMWRlYzY0MjBjNzMyZiJ9"
+          "resource": "repo://packages/cli/package.json#L36-L38",
+          "version": "repo-lines-v1:sha256:521732704858e9bfd6cfcb325a8b49a3eb11086383e542223f905de56c15cfa9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmQ1NDlmZjYyYWUzZWUxMzEyZGFiNWRjZTI3MTY1YzdhMTgwYWY4NmE2NzE3MzZmNTI2NTQ0YThiMTAxZTZhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNiN2IxYzNjOTBiMzg0ZDE1MWViNjhhNTE3ZjZkNmMzYTU0YmIwZjlhY2QyYjhhZmQwMWRlYzY0MjBjNzMyZiJ9"
         }
       ]
     },
     {
       "id": "claim_415ca7cb165f42b8b6c224634c21ad68",
-      "statement": "The CLI is not a framework adapter — it is a standalone operational tool that runs in Node.js. It depends on kit for apiFetch, login, and token utilities (getTokenExpiry) but does not wrap them in reactive state or framework-specific patterns.",
+      "statement": "The CLI is not a framework adapter — it is a standalone operational tool that runs in Node.js. It depends on @ulabase/kit for apiFetch, login, and token utilities (getTokenExpiry) but does not wrap them in reactive state or framework-specific patterns.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L35-L37",
-          "version": "repo-lines-v1:sha256:1224e1299300a630cadbb42da4929c1ede5f90a6fa9d82e62b74d829b72d7e34:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmQ1NDlmZjYyYWUzZWUxMzEyZGFiNWRjZTI3MTY1YzdhMTgwYWY4NmE2NzE3MzZmNTI2NTQ0YThiMTAxZTZhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNiN2IxYzNjOTBiMzg0ZDE1MWViNjhhNTE3ZjZkNmMzYTU0YmIwZjlhY2QyYjhhZmQwMWRlYzY0MjBjNzMyZiJ9"
+          "resource": "repo://packages/cli/package.json",
+          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
         },
         {
-          "resource": "repo://packages/cli/src/admin.ts#L1-L2",
-          "version": "repo-lines-v1:sha256:bd42a578b36eec44017c36029375a44d34e1289b209bb585a77dac7a9e3bcc9b:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ1MzI1YjA1OTEwNjU5MzZlNGJkMGQyNDBjMTRkNGZlODMzN2UyNWUyMWU4NzUyMjMwZGE1OTdmOWM3MzU4NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI1Yjk4ZDBkYTQyNDEwN2ZhNGYxYWY3NjEwMTNlMTg0NzcyMTM5ODA0NzM5MDIwMTdhMDQ2ODk3YjcxMGM1ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjE1Y2QxODYxMjQxYzg3MTY3NzIxMGQ5OTMzZTY5ZDJiNDViODE2OTEwMjk5YjRiMjk3Y2MzM2EyZWM4NmYzYiJ9"
+          "resource": "repo://packages/cli/src/admin.ts",
+          "version": "repo-file-v1:sha256:794410b6177ac1e704065fb6ce3b09f4218083763fbed021637f9d9fbfd0b226"
         },
         {
-          "resource": "repo://packages/cli/src/service.ts#L1-L1",
-          "version": "repo-lines-v1:sha256:8427fe80c80ba1ba33caf5ddc9714f4d8263b5e32de9769d8468050ab4d4e929:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODQyN2ZlODBjODBiYTFiYTMzY2FmNWRkYzk3MTRmNGQ4MjYzYjVlMzJkZTk3NjlkODQ2ODA1MGFiNGQ0ZTkyOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODQyN2ZlODBjODBiYTFiYTMzY2FmNWRkYzk3MTRmNGQ4MjYzYjVlMzJkZTk3NjlkODQ2ODA1MGFiNGQ0ZTkyOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzYzOGQ3ZDVlZWYyNWUzYjJlYzkyNDI5MTJkY2JlNGFjZmFjM2E4MWQ2YmE5YzgyMDcyODFhMDdmZjgyMTJmYiJ9"
+          "resource": "repo://packages/cli/src/service.ts",
+          "version": "repo-file-v1:sha256:abfcff7b8b6114c6ca040790ad7a936557af63cb6b8273342544af67bb0a2791"
         }
       ]
     },
@@ -258,7 +258,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.0",
-    "at": "2026-09-25T09:43:51.410Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

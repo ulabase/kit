@@ -1,11 +1,8 @@
 ---
 type: Guide
 title: Release Process
-description: Tag-driven release process for RESTHeart Cloud Kit. Covers version management, CI/CD pipeline, and npm publishing for all five packages.
+description: Tag-driven release pipeline for Ulabase. Covers version management, integration-test gating, OIDC publishing, and the ulabase meta-package.
 tags: [release, deployment, ci-cd, npm, github-actions]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-07T09:33:56.593Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -19,41 +16,57 @@ sources:
     resource: repo://packages/kit-vue/package.json
   - id: openwiki-source-46339ee0e97e6859bc5ea428
     resource: repo://packages/kit/package.json
-generated: { by: "openwiki/0.5.0", at: "2026-09-07T09:33:56.593Z" }
+  - id: openwiki-source-06c92acb1e58241d198db5aa
+    resource: repo://packages/ulabase/package.json
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 ---
 
 # Release Process
 
-This document describes the tag-driven release process for RESTHeart Cloud Kit, including version management, CI/CD pipeline, and npm publishing.
+This document describes the tag-driven release process for Ulabase, including version management, CI/CD pipeline, and npm publishing.
 
 ## Overview
 
-RESTHeart Cloud Kit uses a **tag-driven release process**:
+Ulabase uses a **tag-driven release process**:
 
 1. Create a version tag
 2. Push tag to GitHub
 3. CI runs integration tests
-4. If tests pass, all five packages published to npm
+4. If tests pass, all six packages are published to npm
 5. If tests fail, nothing is published
 
 **No manual versioning step needed** — the tag determines the version.
+
+## Packages
+
+| Package | npm name | Purpose |
+|---------|----------|---------|
+| `packages/kit` | `@ulabase/kit` | Core SDK — auth, teams, payments |
+| `packages/kit-ng` | `@ulabase/kit-ng` | Angular adapter (services, guards, interceptor) |
+| `packages/kit-react` | `@ulabase/kit-react` | React adapter (context, hooks, route guards) |
+| `packages/kit-vue` | `@ulabase/kit-vue` | Vue adapter (composables, navigation guards) |
+| `packages/cli` | `@ulabase/cli` | CLI for declarative Ulabase configuration (`ulabase` / `ula` commands) |
+| `packages/ulabase` | `ulabase` | Meta-package — thin `npx ulabase` entry point that pulls in `@ulabase/cli` |
 
 ## Version Management
 
 ### Version Strategy
 
-- All packages (`kit`, `kit-ng`, `kit-react`, `kit-vue`, `cli`) share the same version
+- All six packages share the same version
 - Versions follow [Semantic Versioning](https://semver.org/)
 - Current development version: `0.0.0` (in git)
 
 ### Workspace Configuration
 
-In development, every adapter depends on `kit` at exact version `0.0.0`:
+In development, each adapter depends on `@ulabase/kit` at exact version `0.0.0`, and the `ulabase` meta-package depends on `@ulabase/cli` at the same placeholder:
 
 ```json
 {
   "dependencies": {
-    "@restheart-cloud/kit": "0.0.0"
+    "@ulabase/kit": "0.0.0"
   }
 }
 ```
@@ -68,10 +81,11 @@ In development, every adapter depends on `kit` at exact version `0.0.0`:
 During release, the workflow updates:
 
 1. `packages/kit/package.json` — `version` field
-2. `packages/kit-ng/package.json` — `version` and `dependencies.@restheart-cloud/kit`
-3. `packages/kit-react/package.json` — `version` and `dependencies.@restheart-cloud/kit`
-4. `packages/kit-vue/package.json` — `version` and `dependencies.@restheart-cloud/kit`
-5. `packages/cli/package.json` — `version` and `dependencies.@restheart-cloud/kit`
+2. `packages/kit-ng/package.json` — `version` and `dependencies.@ulabase/kit`
+3. `packages/kit-react/package.json` — `version` and `dependencies.@ulabase/kit`
+4. `packages/kit-vue/package.json` — `version` and `dependencies.@ulabase/kit`
+5. `packages/cli/package.json` — `version` and `dependencies.@ulabase/kit`
+6. `packages/ulabase/package.json` — `version` and `dependencies.@ulabase/cli`
 
 All values move together to ensure consistency.
 
@@ -125,10 +139,12 @@ jobs:
           npm pkg set version=${{ github.ref_name }} -w packages/kit-react
           npm pkg set version=${{ github.ref_name }} -w packages/kit-vue
           npm pkg set version=${{ github.ref_name }} -w packages/cli
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/kit-ng
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/kit-react
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/kit-vue
-          npm pkg set dependencies.@restheart-cloud/kit=${{ github.ref_name }} -w packages/cli
+          npm pkg set version=${{ github.ref_name }} -w packages/ulabase
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-ng
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-react
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/kit-vue
+          npm pkg set dependencies.@ulabase/kit=${{ github.ref_name }} -w packages/cli
+          npm pkg set dependencies.@ulabase/cli=${{ github.ref_name }} -w packages/ulabase
       
       - run: npm install
       - run: npm run build
@@ -136,10 +152,10 @@ jobs:
       - run: mkdir -p packages/kit/test-results
 
       - name: Integration tests
-        run: npm test -w @restheart-cloud/kit
+        run: npm test -w @ulabase/kit
         env:
-          RH_TEST_API_URL: ${{ secrets.RH_TEST_API_URL }}
-          RH_TEST_ADMIN_PASSWORD: ${{ secrets.RH_TEST_ADMIN_PASSWORD }}
+          ULABASE_TEST_API_URL: ${{ secrets.ULABASE_TEST_API_URL }}
+          ULABASE_TEST_ADMIN_PASSWORD: ${{ secrets.ULABASE_TEST_ADMIN_PASSWORD }}
 
       - name: Upload test results
         if: always()
@@ -156,35 +172,46 @@ jobs:
           npm publish --access public -w packages/kit-react
           npm publish --access public -w packages/kit-vue
           npm publish --access public -w packages/cli
+          # after @ulabase/cli, which it depends on: `npx ulabase`
+          npm publish --access public -w packages/ulabase
 ```
 
 **Key details:**
 
 - The `Set version from tag` step uses `npm pkg set` (not `npm version`) to edit package.json files without reifying. A single `npm install` afterwards resolves the workspace in one shot.
 - `kit-ng` publishes from its `dist` directory directly (`packages/kit-ng/dist`) because it uses ng-packagr to build.
+- The `ulabase` meta-package is published **last** because it depends on `@ulabase/cli`; the comment in the workflow documents this ordering constraint.
 - Test results are uploaded as artifacts even on failure (`if: always()`), so you can inspect them from the Actions run.
-- The `Publish` step only runs on success (`if: success()`), gating all five publishes behind the integration test.
+- The `Publish` step only runs on success (`if: success()`), gating all six publishes behind the integration test.
 
-### Step 3: Pipeline Execution
+### Step 3: OIDC Provenance
+
+The release job declares `id-token: write` permission, enabling [npm provenance attestations](https://docs.npmjs.com/generating-provenance-statements) via GitHub's OIDC trusted publisher. This means:
+
+- No `NPM_TOKEN` secret is required for publishing — each package must have a trusted publisher configured on npmjs.com.
+- A package that has never been published cannot have a trusted publisher, so its **first version must be published by hand** using `npm publish --access public` with a classic token.
+
+### Step 4: Pipeline Execution
 
 1. **Checkout**: Clone repository at tag
 2. **Setup Node**: Install Node.js 22
 3. **Update npm**: Install latest npm
-4. **Set Versions**: Update all package.json files with tag version (kit + 4 adapters)
+4. **Set Versions**: Update all package.json files with tag version (kit + 5 dependents)
 5. **Install Dependencies**: `npm install` to reify workspace
 6. **Build**: Build all packages (`npm run build`)
-7. **Integration Tests**: Run core tests against RESTHeart Cloud
-8. **Publish**: Publish all five packages to npm (if tests pass)
+7. **Integration Tests**: Run core tests against Ulabase
+8. **Publish**: Publish all six packages to npm (if tests pass)
 
-### Step 4: Publication
+### Step 5: Publication
 
 If integration tests pass:
-- `@restheart-cloud/kit` published to npm
-- `@restheart-cloud/kit-ng` published to npm
-- `@restheart-cloud/kit-react` published to npm
-- `@restheart-cloud/kit-vue` published to npm
-- `@restheart-cloud/cli` published to npm
-- All packages have same version
+- `@ulabase/kit` published to npm
+- `@ulabase/kit-ng` published to npm
+- `@ulabase/kit-react` published to npm
+- `@ulabase/kit-vue` published to npm
+- `@ulabase/cli` published to npm
+- `ulabase` meta-package published to npm
+- All packages have the same version
 
 If integration tests fail:
 - No packages published
@@ -195,13 +222,12 @@ If integration tests fail:
 
 ### Required Secrets
 
-Configure in GitHub repository settings → Secrets → Actions:
+Configure in GitHub repository settings → Environments → `integration-test`:
 
 | Secret | Description |
 |--------|-------------|
-| `NPM_TOKEN` | npm access token with publish permissions |
-| `RH_TEST_API_URL` | RESTHeart Cloud test instance URL |
-| `RH_TEST_ADMIN_PASSWORD` | Admin password for test instance |
+| `ULABASE_TEST_API_URL` | Ulabase test instance URL |
+| `ULABASE_TEST_ADMIN_PASSWORD` | Admin password for test instance |
 
 ### Environment
 
@@ -216,8 +242,12 @@ The release workflow uses the `integration-test` environment:
 ```yaml
 permissions:
   contents: read    # Read repository
-  id-token: write   # npm provenance attestation
+  id-token: write   # npm provenance attestation (OIDC)
 ```
+
+### Integration Test Workflow
+
+A separate manual workflow (`integration-test.yml`) allows running integration tests on demand without publishing. It uses the same secrets and environment but can be triggered via `workflow_dispatch`.
 
 ## Manual Release Steps
 
@@ -255,16 +285,17 @@ git push origin 1.2.3
 
 ```bash
 # Check npm
-npm view @restheart-cloud/kit versions
-npm view @restheart-cloud/kit-ng versions
-npm view @restheart-cloud/kit-react versions
-npm view @restheart-cloud/kit-vue versions
-npm view @restheart-cloud/cli versions
+npm view @ulabase/kit versions
+npm view @ulabase/kit-ng versions
+npm view @ulabase/kit-react versions
+npm view @ulabase/kit-vue versions
+npm view @ulabase/cli versions
+npm view ulabase versions
 
 # Test installation
-npm install @restheart-cloud/kit@1.2.3
-npm install @restheart-cloud/kit-react@1.2.3
-npm install @restheart-cloud/cli@1.2.3
+npm install @ulabase/kit@1.2.3
+npm install @ulabase/kit-react@1.2.3
+npm install @ulabase/cli@1.2.3
 ```
 
 ## Hotfix Releases
@@ -318,9 +349,9 @@ If a release has critical issues:
 ### 1. Deprecate Version on npm
 
 ```bash
-npm deprecate @restheart-cloud/kit@1.2.3 "Critical bug, use 1.2.4"
-npm deprecate @restheart-cloud/kit-ng@1.2.3 "Critical bug, use 1.2.4"
-npm deprecate @restheart-cloud/cli@1.2.3 "Critical bug, use 1.2.4"
+npm deprecate @ulabase/kit@1.2.3 "Critical bug, use 1.2.4"
+npm deprecate @ulabase/kit-ng@1.2.3 "Critical bug, use 1.2.4"
+npm deprecate @ulabase/cli@1.2.3 "Critical bug, use 1.2.4"
 ```
 
 ### 2. Publish Fixed Version
@@ -337,57 +368,9 @@ git push origin 1.2.4
 ### 3. Un-deprecate Previous Version (Optional)
 
 ```bash
-npm deprecate @restheart-cloud/kit@1.2.3 ""
-npm deprecate @restheart-cloud/kit-ng@1.2.3 ""
+npm deprecate @ulabase/kit@1.2.3 ""
+npm deprecate @ulabase/kit-ng@1.2.3 ""
 ```
-
-## Changelog Management
-
-### Recommended Format
-
-```markdown
-# Changelog
-
-## [1.2.3] - 2024-01-15
-
-### Added
-- New feature X
-
-### Changed
-- Updated Y behavior
-
-### Fixed
-- Bug in Z
-
-### Breaking
-- Removed deprecated API W
-```
-
-### Automation Options
-
-- [standard-version](https://github.com/conventional-changelog/standard-version)
-- [release-please](https://github.com/googleapis/release-please)
-- [semantic-release](https://github.com/semantic-release/semantic-release)
-
-## Documentation Updates
-
-### Update README.md
-
-After release, update:
-- Version badges
-- Installation instructions
-- Breaking changes
-
-### Update Package READMEs
-
-- `packages/kit/README.md`
-- `packages/kit-ng/README.md`
-
-### Update Documentation
-
-- API changes
-- New features
-- Migration guides
 
 ## Troubleshooting
 
@@ -396,7 +379,7 @@ After release, update:
 **Symptoms**: Release workflow fails at test step
 
 **Possible Causes**:
-- RESTHeart Cloud test instance down
+- Ulabase test instance down
 - Test credentials expired
 - API changes breaking tests
 
@@ -410,12 +393,12 @@ After release, update:
 **Symptoms**: CI passes but packages not published
 
 **Possible Causes**:
-- Invalid npm token
+- Trusted publisher not configured on npmjs.com
 - Version already exists
 - Package name conflict
 
 **Solution**:
-1. Verify npm token has publish permissions
+1. Verify trusted publisher is configured for each package on npmjs.com
 2. Check if version already exists on npm
 3. Ensure package name is available
 
@@ -459,7 +442,7 @@ npm run build
 
 # Test in starter app (optional)
 cd /path/to/starter
-npm link @restheart-cloud/kit @restheart-cloud/kit-ng
+npm link @ulabase/kit @ulabase/kit-ng
 ng serve
 ```
 
@@ -469,22 +452,14 @@ ng serve
 - **Minor**: New features (backward compatible)
 - **Patch**: Bug fixes
 
-### 3. Write Changelog
+### 3. Coordinate with Dependencies
 
-Document all changes before releasing:
-- New features
-- Bug fixes
-- Breaking changes
-- Deprecations
-
-### 4. Coordinate with Dependencies
-
-If RESTHeart Cloud API changes:
+If the Ulabase API changes:
 - Update kit to match
 - Test against new API version
 - Document API version requirement
 
-### 5. Monitor Post-Release
+### 4. Monitor Post-Release
 
 After release:
 - Check npm download stats
@@ -501,6 +476,3 @@ After release:
 - [ ] Tag created with correct version
 - [ ] Tag pushed to GitHub
 - [ ] CI workflow completed successfully
-- [ ] All five packages published to npm
-- [ ] Installation tested
-- [ ] Starter app updated (if needed)

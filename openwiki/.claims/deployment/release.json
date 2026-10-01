@@ -1,54 +1,58 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:5833b9b1001a55f5217e100c478b872cb08678754fe03dabc44d1ef5ee885b3c",
+  "pageVersion": "sha256:ca1d54fbc84539eb63281e53c3f298db4173f6c4aa20d0fd82aa9a31fa2769aa",
   "claims": [
     {
       "id": "claim_7e6465a4d7e044a19092d2c45d4652d1",
-      "statement": "All five packages (kit, kit-ng, kit-react, kit-vue, cli) share the same version, managed via the `0.0.0` development placeholder that the release workflow rewrites to the tag version before publishing.",
+      "statement": "All six packages (kit, kit-ng, kit-react, kit-vue, cli, ulabase) share the same version, managed via the `0.0.0` development placeholder that the release workflow rewrites to the tag version before publishing.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yml#L36-L44",
-          "version": "repo-lines-v1:sha256:6a1a1fb41797beb78f9724e81fc21d04b3372900d36ea63d2657096ca968ca56:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTEzOTJiNDZmMTVjODIwYzg1ODVkNGVhMWI3MDBmZTc0M2VkMjA0MjAwZDYxNmIwZWIxMzQzOWNhNjE0ZjFmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWM1NmIzMDk1YzgyZmEyYTZmNjg1MWQyNjA4ODBlODBiZDg1NzQwMDc5MDc2ZTA0NDA4MWM4OTliNDVmMmJjNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmZkYjlmMWQ3N2IwNTdhNjc2OGUzZTIyMjEwMGY4ZmRkODlhZGRiZGU0YTkyNWQzM2MzYzNkOGZlNTZiNDMxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmE1OGEyZTQwYWVlN2MxMzBiNGVkMmVhY2FjODU1ZDhmYmM1NDQ3YmI5ZjYxMmNjMjI5M2UzODI2Nzc3MWY5YiJ9"
+          "resource": "repo://.github/workflows/release.yml#L36-L41",
+          "version": "repo-lines-v1:sha256:d5e8fcf66fed1b0b3793e10884f67ad3f5dc4f2415e2c93c214ab955ebe4ed0f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTEzOTJiNDZmMTVjODIwYzg1ODVkNGVhMWI3MDBmZTc0M2VkMjA0MjAwZDYxNmIwZWIxMzQzOWNhNjE0ZjFmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDFlYjAzZDcxNTg3M2E2NmIzMWY0YmFmZGU3MDYzZThhMWUxZDUzNTc2MjA0ZDQzODQ4ODdiNjExMmQ3MDE5NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmZkYjlmMWQ3N2IwNTdhNjc2OGUzZTIyMjEwMGY4ZmRkODlhZGRiZGU0YTkyNWQzM2MzYzNkOGZlNTZiNDMxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWY3Mjk5MDI0NmE0N2RlOWM1ODJkNWI3ZTM4YjA5MDg0MTU2MTgwYWVkY2Q4OGU2MzExNTNmYzQ5MGE3ZjAyZCJ9"
         },
         {
           "resource": "repo://packages/cli/package.json#L3-L3",
-          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTg0OTM1NGE1YzE5ZTdlOWMwNjIyMDZjMjJjNzIyMWY4OWExNzEyNTBmMjNhMWNhMjFlMmI5MTc3MjQ0MTJmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzVjMmZkNjQyNjI1NmE1NzYzNTZjMzE4YmY5ZDVlMzkzY2IyODkwNTcwMzgyODE2YzJiYmE4M2QzOTBjMDg2NyJ9"
+          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDAwNzhmODFjZGE1MDQ4NzVhNzg3OTAzNDhhY2RiYTM2YWE3NTI2ZGZhYTE1YjhhMmZiYTFiYjhiMTU2YzljYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjkzYTQ3M2Q5NTg3MzNkZDJiNzFiYjJjZjc0MDZjY2Y5YzYzN2MzZmY0NDEwZWEyZjhjNjdjZDRmNmQ4YTZiNiJ9"
         },
         {
           "resource": "repo://packages/kit-ng/package.json#L3-L3",
-          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTc0NzU0MWE5NGI0ODkyZjE4M2Y3YWQ4ZWYwZTYzOGMzZTIyYzQxOWVkMzE0ZGE1ZTliZmVkYWY2NzRkYmY5YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGQ4NzQyMGE0ZTZlNjZjYTRhNmNjNjA3YTMxZjkwMTk1NDZhNTA0YjFiY2RjZjNhNzIzNmFjZWE5N2MzNDFkMyJ9"
+          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2FiNzM1NTQyN2ViNDc4Mzg5ZjYxMzViZDA4NDc1ZjBiMDI4YmE0ZGYwZmQ4MDlkZjhiMzExZWMzODI3MTUzNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDlmYjFlZWUzY2E4NzYyNzcyMGM5YzVmOTM3YjE0ZTYyYzJiOGYzMDUyNWNkNjc1Mzk1YjJhOTU3NTFjMWMyMyJ9"
         },
         {
           "resource": "repo://packages/kit-react/package.json#L3-L3",
-          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjQxMmY5YTZiNTc1M2EwYmUzZTdjMDY0OTcyYzIyODRkZjM0YzQxMjE4YmNhOTE5OWNkODc5ZDJjODg2N2E3ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWY1MDhlNDBkMjRmYmY1ZjIzZTJjODlmZWJmYWRlYmU0OTcxMjc4MzM2MDhhYTNkN2U0MWY5M2JjMTBlZDUzOCJ9"
+          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGZmYzg0NTRiNGM1OWEyMWJjMDIyZmJjZTU1YWZkYTQzOGJlMmZiMTMwOTE5MDcxMWU5MjJlN2E0MjBjN2RlNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWQyN2U5MWU3OTFmYjUzMGQ3NGY2NzQ3YWM1YWMzYjEwMzU0N2JlNTFjYjJmNzcyMTc2YjY0MDQ5YzM5NmM2YyJ9"
         },
         {
           "resource": "repo://packages/kit-vue/package.json#L3-L3",
-          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWM4N2E1M2RlNzI4MjhiMzBlZDI0YjAzYmY3ZDc5YWI5ZWFhNDdlNzYxOWY4NDdjZGI3MWFmMDgzZGVhNDE1YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWM0ZDVjMGZjYWVjODc4YTRkYTgyODY1OTYwZWI4ZDVlZTA5YjY4M2NjZThmOTQ1YzcwYTZkNDdlODkyM2IwNSJ9"
+          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTU2YTkzOGY3Yzc5ODZmZmE5YmYwNTk0ZGE1MGRlNGNiZmYxY2ZhNWYyNTYwNTUyZjY5NWMxNDJmZTRjOTJlYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODMzZWZiNzc3YzAyZTE0MzQ2MWVjNjE1ZGM1ZWI2ODFiNTQyMDNkZDI1YzYzODc4YWJjOTBhZTlkNWRjYjRkZSJ9"
         },
         {
           "resource": "repo://packages/kit/package.json#L3-L3",
-          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmNkNzkwMTc3YzlhYTliMjc5ZmQ0YzhjY2RjMTNkMTBlNGNhMzU0M2E4YjQzMzYwZDE5MmRlODNmMDA4ZGZjMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWYwYmIxM2VjZjc1MTI1NTMyN2UxMDEwMGE2NTBmM2YyYWMzOGIwMzZiOWUwNTRmMjM0OGFjOWQ3OTU1ZjRhNSJ9"
+          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk2OWMwNWJiNjgyMWJjOTg4ZDJkOWQyZDYyYzM3MmE2MWIwODQxMDk5OTczYWNjMjI2YWYzYjYzMjAwNDMxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWYzMjg5N2NkZGY2ZWVmYzkxNzM2MWY1YTlhNmI1NzVmODQ2NTExNmM2OWMyNGQwZTc5NzFmYWI3MjUyZmMyNCJ9"
+        },
+        {
+          "resource": "repo://packages/ulabase/package.json#L3-L3",
+          "version": "repo-lines-v1:sha256:5ac1f904e22061b60e7c7582f08b7532916107e9dbbc286e817b6a73d3aebc35:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjMWY5MDRlMjIwNjFiNjBlN2M3NTgyZjA4Yjc1MzI5MTYxMDdlOWRiYmMyODZlODE3YjZhNzNkM2FlYmMzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmRjYjk2ZDdmODQ0NTcxOWVlZjhiMjhiOGI4YzMwODM0ZmU1ZTA0MTllODliODhhOTAyZmQxMTNlYjY2NjQyZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWM0ZDVmNDQ4M2JmZTY5NjExNzFkNDY1OTllMjkzYTJiZTU2ODQwMjE5YmFlZDFlYjZjNzQ0OGJlMmZkZmNhMSJ9"
         }
       ]
     },
     {
       "id": "claim_076c213593e74d70b7e705939a9ff101",
-      "statement": "The release workflow uses `npm pkg set` (not `npm version`) to update version fields and kit dependency pins across all five package.json files without reifying, followed by a single `npm install` to resolve the workspace.",
+      "statement": "The release workflow uses `npm pkg set` (not `npm version`) to update version fields and dependency pins across all six package.json files without reifying, followed by a single `npm install` to resolve the workspace.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yml#L25-L45",
-          "version": "repo-lines-v1:sha256:cd3d2631577d8c7bc94d5b0be59165762b6fb7733bfd0a7b45ec8a62489d8991:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNTk2OWIwOGUxNmYzMDNjZWU0YTcwNTI5N2NkNmU0MDQ2MGRmZWQ3Yzc5YmNiYjQxMTIwNDc5YTdlYzY5YjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiNWNjZTRiYmI4NzI0ZGM3NmEzY2RhYmJmOGFmNWEzZmM3MzY0OGViMzczMTY0NTY5YzAwMTVhOGVkNWY5YmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhZWFhZDFlMDdlYjYzZTZmZTIwZWI5MDE1ZmUwYjhkNTI2YTUwY2Y4MDg4NjcwOGQ1ZmUwYTQ0M2MxNDEwZjIifQ"
+          "resource": "repo://.github/workflows/release.yml#L25-L47",
+          "version": "repo-lines-v1:sha256:fc7fa021a1e91c865b0913b5bb83332484f0fdb1e5088396c4d7ac6479b4f13d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNTk2OWIwOGUxNmYzMDNjZWU0YTcwNTI5N2NkNmU0MDQ2MGRmZWQ3Yzc5YmNiYjQxMTIwNDc5YTdlYzY5YjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiNWNjZTRiYmI4NzI0ZGM3NmEzY2RhYmJmOGFmNWEzZmM3MzY0OGViMzczMTY0NTY5YzAwMTVhOGVkNWY5YmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhZWFhZDFlMDdlYjYzZTZmZTIwZWI5MDE1ZmUwYjhkNTI2YTUwY2Y4MDg4NjcwOGQ1ZmUwYTQ0M2MxNDEwZjIifQ"
         }
       ]
     },
     {
       "id": "claim_015db650f29a4d769e3bd947b8a6ebf6",
-      "statement": "The release workflow gates all five npm publishes behind integration test success using `if: success()` on the Publish step, and uploads test results as artifacts unconditionally via `if: always()`.",
+      "statement": "The release workflow gates all six npm publishes behind integration test success using `if: success()` on the Publish step, and uploads test results as artifacts unconditionally via `if: always()`.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yml#L58-L72",
-          "version": "repo-lines-v1:sha256:19073bb8c893ec8dd48b482a8078ea904a2b2a19429834da0685dda3854b095a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhMTAxYTFmNjVkMGNmODNiODRkMzRhMzFlMzZkYzY5YzI3OTEwMzdlZTcwMmJjNjAyMzBmYTg5ZTE4YzRmOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyMzg4ZWU5OGRkZTQ5MTQ0YzNkMWU0NDNjYjM1Njk1Y2UwOTgwYWQ5ZDYzZGU0MWI5Yjk2MjgxYjAyZDU2OTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjMWYxMWFkYmE3YmRmMjAzYzA3MTY5YzI0NDdjYmYyN2Q1NjlmY2EwYjRhZmZhOWEzOGQ4M2RkZWRiMjdhZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://.github/workflows/release.yml#L60-L79",
+          "version": "repo-lines-v1:sha256:cc195a497b652c1306796e26afd9db32fdf713de67b36c7e4900e9bb7f92b7ac:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhMTAxYTFmNjVkMGNmODNiODRkMzRhMzFlMzZkYzY5YzI3OTEwMzdlZTcwMmJjNjAyMzBmYTg5ZTE4YzRmOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4OTMzOGRmNTUyN2M0YWY0M2JiZTg5NDJiOWI1N2E1ODVmZjNiNjk1MzU5OGZmNWIwYTRhMzEzMjc3NzJjZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzYzljM2UzY2QzMTY0NWJhN2Q0ZmYyYWFmMmRkNThkNTQ5YzUxOWQwZWJhYmRiMmRhODIwMmRkNjVkYjFiNTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -57,7 +61,7 @@
       "statement": "The `kit-ng` package publishes from its `packages/kit-ng/dist` directory (not via workspace flag) because it uses ng-packagr to build an Angular library.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yml#L69-L69",
+          "resource": "repo://.github/workflows/release.yml#L74-L74",
           "version": "repo-lines-v1:sha256:edf23df2a89b3880ddcdf4dd736ab86b33ee138005dd34837ac9c4a6e2e4d7b9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRmMjNkZjJhODliMzg4MGRkY2RmNGRkNzM2YWI4NmIzM2VlMTM4MDA1ZGQzNDgzN2FjOWM0YTZlMmU0ZDdiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRmMjNkZjJhODliMzg4MGRkY2RmNGRkNzM2YWI4NmIzM2VlMTM4MDA1ZGQzNDgzN2FjOWM0YTZlMmU0ZDdiOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI1NzljOTc4NzE3NWVjOWQxYjIwZTE4YTZiZjY3OTYyODkzNzBiZDhmZmYxMTM4ZTA2NWEzNmIyZDcyMGE3NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjMxN2EzMWM2NGFiNGU0MjljODI2MzAwNThmODQ0NzQ2MWI0N2ZlYWMxZDNhOTYzOTQ2NDI1MjhiNDE2MWU3NyJ9"
         },
         {
@@ -68,33 +72,33 @@
     },
     {
       "id": "claim_758dbb24da004ff1b99239175f426090",
-      "statement": "The `cli` package depends on `@restheart-cloud/kit` at exact version `0.0.0` in development, mirroring the same workspace pinning strategy used by the framework adapters.",
+      "statement": "The `cli` package depends on `@ulabase/kit` at exact version `0.0.0` in development, mirroring the same workspace pinning strategy used by the framework adapters.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L36-L36",
-          "version": "repo-lines-v1:sha256:ef3339775d60bb367993af6dd05d56de270ee7eddab54c85081f7ee83c7f8161:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWQxYzI2ZjNhM2EwNWE0NjdkZWUwNzgxZjg5YmZjZThhNzNhNjM1MGM5MThiN2JjM2Y1ZWQxODc4YzZlMWZiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODA2ZGJmZGExYzAwZmU1ZGQ2N2ZmZjk2N2QzNGY5NDhjNDQ3MDBjYjllM2U1MjYwMTQ3MTQ2MTU4MTJhYjQyMSJ9"
+          "resource": "repo://packages/cli/package.json#L37-L37",
+          "version": "repo-lines-v1:sha256:9ccf990ea6e31133f4267b847ac964459c211129034a88d57dce4ba803d5c82a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWQxYzI2ZjNhM2EwNWE0NjdkZWUwNzgxZjg5YmZjZThhNzNhNjM1MGM5MThiN2JjM2Y1ZWQxODc4YzZlMWZiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODA2ZGJmZGExYzAwZmU1ZGQ2N2ZmZjk2N2QzNGY5NDhjNDQ3MDBjYjllM2U1MjYwMTQ3MTQ2MTU4MTJhYjQyMSJ9"
         },
         {
           "resource": "repo://packages/kit-ng/package.json#L18-L18",
-          "version": "repo-lines-v1:sha256:ef3339775d60bb367993af6dd05d56de270ee7eddab54c85081f7ee83c7f8161:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGViM2Y5NTU4NmM1NjU1ZThmNjY1YjE0ZDYyMmRmMjk5MTFmYjQ3YzE4ZDFjOTM5Nzc3YWNkODAzYjEwMWJhYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjgxZGVmN2EwYTA5NzAyYWExNGY4OWNhNjM4YTQyMWRjMjc4ZjQ1ZGNmODI4MDk1YzU4MzkyMjZiODdjNTRjMiJ9"
+          "version": "repo-lines-v1:sha256:9ccf990ea6e31133f4267b847ac964459c211129034a88d57dce4ba803d5c82a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGViM2Y5NTU4NmM1NjU1ZThmNjY1YjE0ZDYyMmRmMjk5MTFmYjQ3YzE4ZDFjOTM5Nzc3YWNkODAzYjEwMWJhYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjgxZGVmN2EwYTA5NzAyYWExNGY4OWNhNjM4YTQyMWRjMjc4ZjQ1ZGNmODI4MDk1YzU4MzkyMjZiODdjNTRjMiJ9"
         },
         {
           "resource": "repo://packages/kit-react/package.json#L46-L46",
-          "version": "repo-lines-v1:sha256:ef3339775d60bb367993af6dd05d56de270ee7eddab54c85081f7ee83c7f8161:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI3Yzg3NDRjNGIyZTJkNDc0YzdjMzM5ZjgwZDUzODgyMjlkMjg3MTU3MzYyNDkyOWM5MGY5ZDRkZTZlMjljNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGM4NjM2Mzg4OWNlODAzM2Q0YjQxMWFmNzRiMjdjZDhlZWMwZDRkYTM1ZmUzMTllMzFkMDNjMDAyZGNhMTFkMCJ9"
+          "version": "repo-lines-v1:sha256:9ccf990ea6e31133f4267b847ac964459c211129034a88d57dce4ba803d5c82a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI3Yzg3NDRjNGIyZTJkNDc0YzdjMzM5ZjgwZDUzODgyMjlkMjg3MTU3MzYyNDkyOWM5MGY5ZDRkZTZlMjljNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGM4NjM2Mzg4OWNlODAzM2Q0YjQxMWFmNzRiMjdjZDhlZWMwZDRkYTM1ZmUzMTllMzFkMDNjMDAyZGNhMTFkMCJ9"
         },
         {
           "resource": "repo://packages/kit-vue/package.json#L45-L45",
-          "version": "repo-lines-v1:sha256:ef3339775d60bb367993af6dd05d56de270ee7eddab54c85081f7ee83c7f8161:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzMzM5Nzc1ZDYwYmIzNjc5OTNhZjZkZDA1ZDU2ZGUyNzBlZTdlZGRhYjU0Yzg1MDgxZjdlZTgzYzdmODE2MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI3Yzg3NDRjNGIyZTJkNDc0YzdjMzM5ZjgwZDUzODgyMjlkMjg3MTU3MzYyNDkyOWM5MGY5ZDRkZTZlMjljNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTMzMGUwMzgzZTAyOTAxOWE2ZDhlZDJjN2QzNTNjNGVlM2MxYzllZDg0NzFiODJhMzI2ZGU1MWQzYTM3MDcyMyJ9"
+          "version": "repo-lines-v1:sha256:9ccf990ea6e31133f4267b847ac964459c211129034a88d57dce4ba803d5c82a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNjZjk5MGVhNmUzMTEzM2Y0MjY3Yjg0N2FjOTY0NDU5YzIxMTEyOTAzNGE4OGQ1N2RjZTRiYTgwM2Q1YzgyYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI3Yzg3NDRjNGIyZTJkNDc0YzdjMzM5ZjgwZDUzODgyMjlkMjg3MTU3MzYyNDkyOWM5MGY5ZDRkZTZlMjljNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTMzMGUwMzgzZTAyOTAxOWE2ZDhlZDJjN2QzNTNjNGVlM2MxYzllZDg0NzFiODJhMzI2ZGU1MWQzYTM3MDcyMyJ9"
         }
       ]
     },
     {
       "id": "claim_95cf775e3c7b41869dea96db761c2232",
-      "statement": "The release workflow requires three secrets: `NPM_TOKEN` for publishing, `RH_TEST_API_URL` for the test instance endpoint, and `RH_TEST_ADMIN_PASSWORD` for authentication, configured in the `integration-test` GitHub environment.",
+      "statement": "The release workflow requires two secrets for integration testing (`ULABASE_TEST_API_URL` and `ULABASE_TEST_ADMIN_PASSWORD`) configured in the `integration-test` GitHub environment, and uses OIDC (`id-token: write` permission) for npm provenance attestation so no NPM_TOKEN secret is needed for publishing.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yml#L55-L56",
-          "version": "repo-lines-v1:sha256:55c1d37d61e76fc87c9a6e5a9f104c6920dee9c13bcce9432d3ff473ddd60fa1:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDk0M2I5YjExODZkNWQ4YjZmOTIwZTYwM2ExM2U4MmJiYTRmMWE5N2E2YWMwYzI2NDRhNTQwMzU5ZGVjMjkxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmMwYzA0N2IwNDk3ZWMwY2M5ZmM5ZTUyYjZkY2E0NGE0ZmI1Njc5NzkwYjQxYWE4NzYxMDY1Y2ZiOTMzZTgxNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWI1ZjAxZDQ1MjhkZDllZjMxNjExMThkZDViN2Q1MzkxMTUzOGU0ZWZhYmRkY2JlNDk0ZDUwZWEwM2Q3NjFiYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTBkMTc1ZjRiMDE0NWU4YjQ1Yjc0NGQzMDQ0ZjA4NTFjNTBkYmQzMjRiMDU1MzIzMzdkODk5MWYwMTIyNGU4OSJ9"
+          "resource": "repo://.github/workflows/release.yml#L55-L58",
+          "version": "repo-lines-v1:sha256:93b36af2052e23ea4b49ba8137be43a02e0b4000a0f912cf49073cff87e2bbc6:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzEwNzA1NTY2MzQzZmE4MzBjZjExY2U5ZjNiMjI1MWFhMTQwYjE0ZDY4NzAwYzZjMzk3ODZkZGYwN2EzMThkNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGYxNzgyYjY0NjQ2MDMxYTIzOGY3NWE2ODUyNjhkNDQ2YTQxYzQyYzIxNWVmZmEzMDM0NWQ3ZWI1N2E2NDQ2YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDUwZDlkODcwZmQzNTdlNjE0NjE1ZmJkNTFhMmE2ZGY0NTc0OTdhN2NhZTBlNjQyNTc4NmI0OTQ3MmUzYjNmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTBkMTc1ZjRiMDE0NWU4YjQ1Yjc0NGQzMDQ0ZjA4NTFjNTBkYmQzMjRiMDU1MzIzMzdkODk5MWYwMTIyNGU4OSJ9"
         },
         {
           "resource": "repo://.github/workflows/release.yml#L8-L15",
@@ -104,7 +108,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.0",
-    "at": "2026-09-07T09:33:56.593Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

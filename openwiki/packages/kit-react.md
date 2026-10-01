@@ -1,11 +1,8 @@
 ---
 type: Package
-title: "@restheart-cloud/kit-react"
-description: React adapter for RESTHeart Cloud Kit. Provides context, hooks, and route guards for authentication, payments, and cart, plus a /next subpath for Next.js SSR support.
+title: "@ulabase/kit-react"
+description: React adapter for Ulabase Kit. Provides context, hooks, and route guards for authentication, payments, and cart, plus a /next subpath for Next.js SSR support.
 tags: [package, react, adapter, hooks, nextjs, payments, cart]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-07T09:33:56.593Z
 sources:
   - id: openwiki-source-54f8315d21086325777bcf77
     resource: repo://packages/kit-react/package.json
@@ -33,20 +30,23 @@ sources:
     resource: repo://packages/kit-react/src/next/sync.tsx
   - id: openwiki-source-cb4e00ba25df046ed879c14f
     resource: repo://packages/kit-react/src/payments.tsx
-generated: { by: "openwiki/0.5.0", at: "2026-09-07T09:33:56.593Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 ---
 
-# @restheart-cloud/kit-react
+# @ulabase/kit-react
 
-React adapter for `@restheart-cloud/kit`. Wraps core authentication, payments, and cart logic in React context with hooks and route guards. A `/next` subpath adds Next.js SSR support.
+React adapter for `@ulabase/kit`. Wraps core authentication, payments, and cart logic in React context with hooks and route guards. A `/next` subpath adds Next.js SSR support.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit-react
+npm install @ulabase/kit-react
 ```
 
-The core `@restheart-cloud/kit` is a regular dependency — pulled in automatically.
+The core `@ulabase/kit` is a regular dependency — pulled in automatically.
 
 `react-router-dom` (for guards) and `next` (for `/next` subpath) are **optional peer dependencies**.
 
@@ -55,7 +55,7 @@ The core `@restheart-cloud/kit` is a regular dependency — pulled in automatica
 ### 1. Wrap App with Provider
 
 ```tsx
-import { RhAuthProvider } from '@restheart-cloud/kit-react';
+import { RhAuthProvider } from '@ulabase/kit-react';
 
 createRoot(document.getElementById('root')!).render(
   <RhAuthProvider config={{ apiBaseUrl: import.meta.env.VITE_API_URL }}>
@@ -69,7 +69,7 @@ On mount the provider runs `checkSession()` once, restoring the session before t
 ### 2. Use `useAuth` Hook
 
 ```tsx
-import { useAuth } from '@restheart-cloud/kit-react';
+import { useAuth } from '@ulabase/kit-react';
 
 function Header() {
   const auth = useAuth();
@@ -86,7 +86,7 @@ function Header() {
 ### 3. Protect Routes
 
 ```tsx
-import { AuthGuard, PublicGuard } from '@restheart-cloud/kit-react';
+import { AuthGuard, PublicGuard } from '@ulabase/kit-react';
 
 <Route path="/dashboard" element={<AuthGuard><Dashboard /></AuthGuard>} />
 <Route path="/login" element={<PublicGuard><Login /></PublicGuard>} />
@@ -107,7 +107,7 @@ import { AuthGuard, PublicGuard } from '@restheart-cloud/kit-react';
 
 ## Auth Methods
 
-All methods are available on the `useAuth()` return value. These wrap `@restheart-cloud/kit` functions and update reactive state (`user`, `teams`) where applicable:
+All methods are available on the `useAuth()` return value. These wrap `@ulabase/kit` functions and update reactive state (`user`, `teams`) where applicable:
 
 ```ts
 const auth = useAuth();
@@ -189,7 +189,7 @@ The `RhPaymentsProvider` and `usePayments()` hook provide a complete payments su
 ### Setup
 
 ```tsx
-import { RhAuthProvider, RhPaymentsProvider } from '@restheart-cloud/kit-react';
+import { RhAuthProvider, RhPaymentsProvider } from '@ulabase/kit-react';
 
 <RhAuthProvider config={config}>
   <RhPaymentsProvider config={config}>
@@ -249,7 +249,7 @@ The `RhCartProvider` and `useCart()` hook provide a client-side shopping cart th
 ### Setup
 
 ```tsx
-import { RhCartProvider } from '@restheart-cloud/kit-react';
+import { RhCartProvider } from '@ulabase/kit-react';
 
 <RhCartProvider>
   <App />
@@ -328,7 +328,7 @@ import {
   resolveCookieOptions,
   type SessionCookieOptions,
   type ServerActionOptions,
-} from '@restheart-cloud/kit-react/next';
+} from '@ulabase/kit-react/next';
 ```
 
 The `/next` subpath provides:
@@ -360,7 +360,7 @@ Uses the core's [pluggable token source and sink](../architecture/overview.md#pl
 
 ## See Also
 
-- [Core Kit](kit.md) — API reference for `@restheart-cloud/kit`
+- [Core Kit](kit.md) — API reference for `@ulabase/kit`
 - [Payments](../concepts/payments.md) — Payments subsystem overview
 - [Adapter Contract](../testing/guide.md#adapter-unit-tests) — Shared test checklist
 - [Token Delivery](../architecture/token-delivery.md) — Bearer vs cookie modes

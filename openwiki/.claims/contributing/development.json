@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:47e910b6a7e9ec2c8ab897807dc941e1c2cc40fe5bea1bf38543565eef4b5783",
+  "pageVersion": "sha256:e6be57d4fb160f6889c58546cd6e608773a7da7cc81f27bbd5ccdfdfcea3f816",
   "claims": [
     {
       "id": "claim_5e4cb92e81ae4505af14b9e634ca1d2a",
-      "statement": "The monorepo uses npm workspaces (`packages/*`) with five packages: kit (core), kit-ng (Angular adapter), kit-react (React adapter), kit-vue (Vue adapter), and cli (CLI tool).",
+      "statement": "The monorepo uses npm workspaces (`packages/*`) with six packages: kit (core), kit-ng (Angular adapter), kit-react (React adapter), kit-vue (Vue adapter), cli (CLI tool), and ulabase (thin wrapper for `npx ulabase`).",
       "evidence": [
         {
           "resource": "repo://package.json#L1-L18",
-          "version": "repo-lines-v1:sha256:26d855cc1bac2c1b9b83ca514f24a06bae4d05307fd80f62de42f5a6bf625299:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:f817a5bd8a0f52c84390db9215f3f5a6e88ce516d58b33b69530bd169956702d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0NWMyOGY1NjIyYmEwMzNjZWFjYjAzZmUyNDU4MDdiZmQ4OWViNmJjMzMyMDIyZGUyMzBlMDMxNmE3ZWE4YzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmNzM5YTA2YzFjYmIxMjQ0ZTMzNjNkMzhiY2Y5ZmE1MGNlODRmZWQzOTljMjE5M2EzYzdmMDhkNTk5MThiMmEifQ"
         },
         {
-          "resource": "repo://packages/cli/package.json",
-          "version": "repo-file-v1:sha256:08bb2546a3b324bb438e7e95a8bf9acc237befc1688d2bf055e8d4dc6a109c85"
+          "resource": "repo://packages/ulabase/package.json",
+          "version": "repo-file-v1:sha256:9e6630305809be86dac9d5ece34c03e221fa5f75c63cc8008ff11ad94113d26c"
         }
       ]
     },
@@ -21,36 +21,36 @@
       "statement": "The root `npm run build` script builds packages sequentially — kit → kit-ng → kit-react → kit-vue → cli — because adapters and cli depend on kit being compiled first.",
       "evidence": [
         {
-          "resource": "repo://package.json#L8-L8",
-          "version": "repo-lines-v1:sha256:492c53d6a9b569d040b82ac9ed2179a3b8baabc77c471c9c3ca5438b38a5c229:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDkyYzUzZDZhOWI1NjlkMDQwYjgyYWM5ZWQyMTc5YTNiOGJhYWJjNzdjNDcxYzljM2NhNTQzOGIzOGE1YzIyOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDkyYzUzZDZhOWI1NjlkMDQwYjgyYWM5ZWQyMTc5YTNiOGJhYWJjNzdjNDcxYzljM2NhNTQzOGIzOGE1YzIyOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjI2OGExZmNlOTQzNGUxNGZlOGUxODE2Mzk3NGJiNTlhMTA4YzQ1MzA1ZjI5YWZiNzkxNmMxZTkzNjNiZjk2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJlYjE4NWUwYmMwNjUyNTdhODkxMzg4YWU1MjkzOGJiNjVlN2QxNWMwZTcxYzliYTEzMDViZTA5ZTk1OGVhOCJ9"
+          "resource": "repo://package.json#L8-L9",
+          "version": "repo-lines-v1:sha256:c822ad4f6cebbc4e320793d180f7b4f39771ec982ed61241329324c8253ca5f3:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTdhZGE1NzVlYWNmYjNkZWE4ZmQ0MmRjOGU3ZGZjYzU3Y2JhNGE3MDllYzA1MjMzZmQzYTNhYWE4MDNmNTFiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmQ2ODM5NTFmMzRlMDcyZjU5MmZmMDUxYTEwYWQ2NzEwYmQ0OGFlNzYwN2U2ODBkODFjZDkxNDYyZTkxMTkxYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjI2OGExZmNlOTQzNGUxNGZlOGUxODE2Mzk3NGJiNTlhMTA4YzQ1MzA1ZjI5YWZiNzkxNmMxZTkzNjNiZjk2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJlYjE4NWUwYmMwNjUyNTdhODkxMzg4YWU1MjkzOGJiNjVlN2QxNWMwZTcxYzliYTEzMDViZTA5ZTk1OGVhOCJ9"
         }
       ]
     },
     {
       "id": "claim_ece00a9d90ad4205ac30644b094d210c",
-      "statement": "All adapters and the CLI declare `@restheart-cloud/kit` at exact version `0.0.0`, which forces npm to resolve from the local workspace rather than the registry. The release workflow rewrites these pins to the tag version before publishing.",
+      "statement": "All adapters and the CLI declare `@ulabase/kit` at exact version `0.0.0`, which forces npm to resolve from the local workspace rather than the registry. The release workflow rewrites these pins to the tag version before publishing all six packages (kit, kit-ng, kit-react, kit-vue, cli, ulabase).",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yml#L36-L44",
-          "version": "repo-lines-v1:sha256:6a1a1fb41797beb78f9724e81fc21d04b3372900d36ea63d2657096ca968ca56:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTEzOTJiNDZmMTVjODIwYzg1ODVkNGVhMWI3MDBmZTc0M2VkMjA0MjAwZDYxNmIwZWIxMzQzOWNhNjE0ZjFmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWM1NmIzMDk1YzgyZmEyYTZmNjg1MWQyNjA4ODBlODBiZDg1NzQwMDc5MDc2ZTA0NDA4MWM4OTliNDVmMmJjNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmZkYjlmMWQ3N2IwNTdhNjc2OGUzZTIyMjEwMGY4ZmRkODlhZGRiZGU0YTkyNWQzM2MzYzNkOGZlNTZiNDMxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmE1OGEyZTQwYWVlN2MxMzBiNGVkMmVhY2FjODU1ZDhmYmM1NDQ3YmI5ZjYxMmNjMjI5M2UzODI2Nzc3MWY5YiJ9"
+          "resource": "repo://.github/workflows/release.yml#L36-L46",
+          "version": "repo-lines-v1:sha256:bc7296e6515fca9cb43ac85f9e55d50e239e3ccffdca36590931b4529fb5ee16:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExMzkyYjQ2ZjE1YzgyMGM4NTg1ZDRlYTFiNzAwZmU3NDNlZDIwNDIwMGQ2MTZiMGViMTM0MzljYTYxNGYxZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlODFmMDgwMDQ2MDkyN2YxYTIxOTNkNzhiNTMzYmU0OTQ4Mjg4NTljOWQ5NmY5ZGRkNDI0ZTljNDBhYWJmMmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmZGI5ZjFkNzdiMDU3YTY3NjhlM2UyMjIxMDBmOGZkZDg5YWRkYmRlNGE5MjVkMzNjM2MzZDhmZTU2YjQzMTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhNThhMmU0MGFlZTdjMTMwYjRlZDJlYWNhYzg1NWQ4ZmJjNTQ0N2JiOWY2MTJjYzIyOTNlMzgyNjc3NzFmOWIifQ"
         },
         {
-          "resource": "repo://packages/cli/package.json#L35-L37",
-          "version": "repo-lines-v1:sha256:1224e1299300a630cadbb42da4929c1ede5f90a6fa9d82e62b74d829b72d7e34:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmQ1NDlmZjYyYWUzZWUxMzEyZGFiNWRjZTI3MTY1YzdhMTgwYWY4NmE2NzE3MzZmNTI2NTQ0YThiMTAxZTZhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNiN2IxYzNjOTBiMzg0ZDE1MWViNjhhNTE3ZjZkNmMzYTU0YmIwZjlhY2QyYjhhZmQwMWRlYzY0MjBjNzMyZiJ9"
+          "resource": "repo://packages/cli/package.json#L36-L38",
+          "version": "repo-lines-v1:sha256:521732704858e9bfd6cfcb325a8b49a3eb11086383e542223f905de56c15cfa9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmQ1NDlmZjYyYWUzZWUxMzEyZGFiNWRjZTI3MTY1YzdhMTgwYWY4NmE2NzE3MzZmNTI2NTQ0YThiMTAxZTZhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNiN2IxYzNjOTBiMzg0ZDE1MWViNjhhNTE3ZjZkNmMzYTU0YmIwZjlhY2QyYjhhZmQwMWRlYzY0MjBjNzMyZiJ9"
         },
         {
           "resource": "repo://packages/kit-ng/package.json#L17-L19",
-          "version": "repo-lines-v1:sha256:1224e1299300a630cadbb42da4929c1ede5f90a6fa9d82e62b74d829b72d7e34:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzIzOTNkYzhhYzE0ODdiOTlmOGEwYjc3MTQxMzcyNzc3N2QxNDFkZDM4ZWIwYjhkZjYxNmVlMWYzZjM5MDE1MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjdiOTI3ZTZjNmIwZDc5NTMzMDcyYWZlNjE2NjVjMTI1OGUyNzUwYjRjNGZjZTZjNDRiMGE5OWVmOWQ5ODU2MSJ9"
+          "version": "repo-lines-v1:sha256:521732704858e9bfd6cfcb325a8b49a3eb11086383e542223f905de56c15cfa9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzIzOTNkYzhhYzE0ODdiOTlmOGEwYjc3MTQxMzcyNzc3N2QxNDFkZDM4ZWIwYjhkZjYxNmVlMWYzZjM5MDE1MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjdiOTI3ZTZjNmIwZDc5NTMzMDcyYWZlNjE2NjVjMTI1OGUyNzUwYjRjNGZjZTZjNDRiMGE5OWVmOWQ5ODU2MSJ9"
         }
       ]
     },
     {
       "id": "claim_1641509c51f441e391dad2665fabd600",
-      "statement": "The `rebuild-kit-ng.sh` script (a zsh script) builds only kit and kit-ng (not all packages), then links kit globally, links kit-ng from its dist directory, links both into the starter app path, and clears the Angular cache.",
+      "statement": "The `rebuild-kit-ng.sh` script (a zsh script) builds only kit and kit-ng (not all packages), then links kit globally, links kit-ng from its dist directory, links both into the starter app at `/Users/uji/development/ulabase/starter-ng`, and clears the Angular cache.",
       "evidence": [
         {
           "resource": "repo://rebuild-kit-ng.sh",
-          "version": "repo-file-v1:sha256:a96c4fd119c3ece5e58950ac6d8b41bfac989fdb18919eaf937c073088b6cd47"
+          "version": "repo-file-v1:sha256:94fa505e1ba33b02e53d3e8224cfc72f7fd9a04b48bb7d32e95096161dfd2392"
         }
       ]
     },
@@ -78,7 +78,7 @@
     },
     {
       "id": "claim_d13a105c30554a8b90a741a58ab008e7",
-      "statement": "kit-ng uses ng-packagr for building and the Angular CLI (`ng test kit-ng`) for testing with Vitest as the runner, configured via `angular.json`.",
+      "statement": "kit-ng uses ng-packagr for building and the Angular CLI (`ng test kit-ng`) for testing with Vitest as the runner, configured via `angular.json`. Its ng-package.json declares `@ulabase/kit` as an allowed non-peer dependency.",
       "evidence": [
         {
           "resource": "repo://packages/kit-ng/angular.json#L15-L28",
@@ -86,7 +86,7 @@
         },
         {
           "resource": "repo://packages/kit-ng/ng-package.json",
-          "version": "repo-file-v1:sha256:c71dc3e640f5f8d74f30c407b74c82289bf2c481547e21af90e174de7b23ef93"
+          "version": "repo-file-v1:sha256:c283a238bb598e8b29fe2f8834231ff7431e6eec5b44ea0bb5dda269d021be12"
         },
         {
           "resource": "repo://packages/kit-ng/package.json#L35-L38",
@@ -100,14 +100,18 @@
       "evidence": [
         {
           "resource": "repo://.github/workflows/unit-tests.yml#L30-L35",
-          "version": "repo-lines-v1:sha256:6dc13293eae3268b7dc3e4077147e46155433fd6ac0752209a1c40b7680df162:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2UzNjIxZTkwMGYzYzY1YjEwYWE5ZWM0MjdjMmE0YTM5NWUwYjU1YjZmYWI1NTYyNTg1ZGI0N2JmODE0NzEzYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzBmYzc4MDNkY2MxZTcxZTZmNjBmNGU4MjM2NTI5MmQzZTFkZmMxNzc1MmI3NjhmNzM1NWI3Zjk2ZGUwYjg4MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzlkNzI3OTNiZjVlZGMwNmVjYzdlMzUyMmE3MzFjY2VjZTVmMjA1MGYwMWExOTdjODE1NjRhMTM0YTkzNGUwMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+          "version": "repo-lines-v1:sha256:8d73e4437876f37dec8f55f28733caeee05d649a36fb521739a46e20294be60f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDRiOWI1MTVkOWI3MTAwYTEzNDg5MzNmNzBiZThmZDhmN2VlZDAzYzgyMjg1NjQwMDNhNGI4OGI2OWUyMjFhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzBmYzc4MDNkY2MxZTcxZTZmNjBmNGU4MjM2NTI5MmQzZTFkZmMxNzc1MmI3NjhmNzM1NWI3Zjk2ZGUwYjg4MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzlkNzI3OTNiZjVlZGMwNmVjYzdlMzUyMmE3MzFjY2VjZTVmMjA1MGYwMWExOTdjODE1NjRhMTM0YTkzNGUwMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
         }
       ]
     },
     {
       "id": "claim_46669cba37234373acf58e8ff19ddfde",
-      "statement": "kit integration tests require RH_TEST_API_URL and RH_TEST_ADMIN_PASSWORD environment variables, use Vitest with sequential execution, and produce junit and html reports.",
+      "statement": "kit integration tests require ULABASE_TEST_API_URL and ULABASE_TEST_ADMIN_PASSWORD environment variables, use Vitest with sequential execution, and produce junit and html reports.",
       "evidence": [
+        {
+          "resource": "repo://.github/workflows/release.yml#L56-L58",
+          "version": "repo-lines-v1:sha256:22ce1cee8fe5eac147b6b9bfe3b1921546b6e4a7d39036476c2cefd3af5f86ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2IwNzg0OGE0MzY2NjU2YjJiYTYxOTdiZTAyYjkyMDgxNDU0NmY5ZDlhZDBiNTMzOWU0YzI2YTJjOTQ2NTExNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGYxNzgyYjY0NjQ2MDMxYTIzOGY3NWE2ODUyNjhkNDQ2YTQxYzQyYzIxNWVmZmEzMDM0NWQ3ZWI1N2E2NDQ2YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmEyMzc3NGQ0ZTZiYzI3NzcyOTM1MjgyMDU0MjMzNTU5N2VkNTEzNTBmN2RhOTcwMmY0MmYxMWYyNjhkYTUwNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTBkMTc1ZjRiMDE0NWU4YjQ1Yjc0NGQzMDQ0ZjA4NTFjNTBkYmQzMjRiMDU1MzIzMzdkODk5MWYwMTIyNGU4OSJ9"
+        },
         {
           "resource": "repo://packages/kit/vitest.config.ts",
           "version": "repo-file-v1:sha256:10a065bbb26b2e42f99ed01de24a1025ada0f0aa2b622d1e6a0cb36d36a75c91"
@@ -129,18 +133,18 @@
       ]
     },
     {
-      "id": "claim_5c27237b23c541f59eecbf116443db9e",
-      "statement": "The CLI package exposes a `rhc` binary via its `bin` field, pointing to `./dist/cli.js`.",
+      "id": "claim_6f252a0ab2194fb087add7de720ec8c0",
+      "statement": "The CLI package exposes `ulabase` and `ula` binaries via its `bin` field, both pointing to `./dist/cli.js`.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L12-L14",
-          "version": "repo-lines-v1:sha256:1d5b49c5745eff45cf6276e142527a8fa658548741036baa11e7206f2e0b6168:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDBjOGRmZmU1ZGIxNWZlZWNkODZhOWIwOGYyYzcyYjIzZjFiODlhNDJkNGM2MjFhMDM2OGYyMTU0MTc3ZGFkZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzgwMTIzYzg1ZDJlYTBjZjIzMjlhMWE0ZmRiNjJjZjMxZWYzMDg1ZjAwNjQzNjZiZjYwZGUyZGMzMmRmZmYxMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWU0NDAyMjAzYzlkOGNlMjQ2MTZhZjBmZDk5YTlkNjU2NjRlODA5MDI1OWRmMjE2MzI0ZmYwZGUxYmZjN2ZjMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTEwODZmZjMzMjM2MmM1M2E0N2FjZjU0YmM0OTEwMGY0YWYyNDBkNjRjNTg5MWQ0ODZmNDdhODdlMmU4ZGE3MiJ9"
+          "resource": "repo://packages/cli/package.json#L12-L15",
+          "version": "repo-lines-v1:sha256:33e7c31a2c02a8e6bbd766388da611cfa5fd734f1f9cd2ec1d81c689c619bac9:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZjMTQ3NTdiOGUxZTlkNmE3ZGVlOTkwMmU5MDQwN2FkOGNmNjczYjNlOGQ3NjNlMjc5NTBkMTlkMDY3OGQ2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWZiN2Q4MGMxZmJlOTRjYjM1YTNlMWRlZWNhOGMwNTc2Yzk5Njc3MjRkYTQ1ZmM5MzU1ZDE2ZWFkNjUyYTAyYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjIyMGY2NzlmZGQzNWQ1MWFiZDQ1OWU4MWRlOWRiNTI0YTQ0ODQ1Y2U0YjE3MTdhNTkzMDA3YWI2N2Q5OGFkNyJ9"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.0",
-    "at": "2026-09-07T09:33:56.593Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

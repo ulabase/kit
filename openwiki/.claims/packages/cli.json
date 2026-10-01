@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:7167a8a08d8d668b9ecf54a7c74ac526c783e1e852e800419708a02e1f98db83",
+  "pageVersion": "sha256:a20d58dee7f57d03477c79e8b573e4364e70a3e55d9e0cbc984b10266178a01c",
   "claims": [
     {
       "id": "claim_acd1c970ec6249f5854fc444f6b659e0",
-      "statement": "The @restheart-cloud/cli package ships both a CLI binary (rhc) and a library for idempotent, file-driven configuration of RESTHeart Cloud services. The library exports include REDACTED, isRedacted, fromEnv, isEnvRef, resolveEnvRefs, defaultEnv, MissingEnvError, createAdminClient, createServiceClient, isApiError, TOKEN_VAR, sessionPath, readSession, writeSession, clearSession, resolveToken, step, defineSetup, runSetup, and all associated types.",
+      "statement": "The @ulabase/cli package ships both a CLI binary (ulabase, also installed as ula) and a library for idempotent, file-driven configuration of Ulabase services. The library exports include REDACTED, isRedacted, fromEnv, isEnvRef, resolveEnvRefs, defaultEnv, MissingEnvError, createAdminClient, createServiceClient, isApiError, TOKEN_VAR, sessionPath, readSession, writeSession, clearSession, resolveToken, step, defineSetup, runSetup, and all associated types.",
       "evidence": [
         {
           "resource": "repo://packages/cli/package.json",
-          "version": "repo-file-v1:sha256:08bb2546a3b324bb438e7e95a8bf9acc237befc1688d2bf055e8d4dc6a109c85"
+          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
         },
         {
           "resource": "repo://packages/cli/src/index.ts",
@@ -18,25 +18,25 @@
     },
     {
       "id": "claim_d98c78ed2f6942c78f31dcf987c2799a",
-      "statement": "The package has two install shapes: global (npm i -g) for the rhc command and devDependency (npm i -D) for the library imports in setup files. The two copies interoperate because Setup is plain data and fromEnv uses Symbol.for for cross-version marker identity.",
+      "statement": "The package has two install shapes: global (npm i -g ulabase) for the ulabase command and devDependency (npm i -D @ulabase/cli) for the library imports in setup files. The two copies interoperate because Setup is plain data and fromEnv uses Symbol.for for cross-version marker identity.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/README.md#L57-L79",
-          "version": "repo-lines-v1:sha256:4ba4ee0dc6db3733a00d4ab288897666e96f1b24111f7e1640fc92a3d35b9f85:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIzOTRkNjA0MzMzNzI2NTIzZGQzNTViYmE2YzIxMzI5MTdjN2ZkNjJhMjBjY2Q3NGQ0YTBiY2JmN2Y2ZjcxZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyNDEzZjdmMzQwZTUwNjUzOGMwYmJmNTVmNzI1Y2IwNTUyOGI0MjNmYzQyZDc3MjM4MWUxNDg1MTk5ZjI0NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3MDU5MGY2YTE2MDEwMDUyYzFjY2YzNzM1ZjFkMWQ1ZTM2ZDk1NDk2ZjQ3ZmNiMDYzOTgwOTAwMDJhNTQ0NmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1ZDUyNTgwOTc3OTI0MmE0MGVmMjEwOTBlNzI4NThjMDBlZWIyOTRhNzgyNzNjZmJhZjY4ZmQ1N2ViOWY2YjgifQ"
+          "resource": "repo://packages/cli/README.md",
+          "version": "repo-file-v1:sha256:1184947e801060f7e006cfb9093cc70d39480c5155c9be46818adf67274787ef"
         },
         {
-          "resource": "repo://packages/cli/src/env.ts#L21-L21",
-          "version": "repo-lines-v1:sha256:c5b5d232fe0b661f39ffa80304478faba7b3013ac08fe7bf3bf6acb18b7ed902:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzViNWQyMzJmZTBiNjYxZjM5ZmZhODAzMDQ0NzhmYWJhN2IzMDEzYWMwOGZlN2JmM2JmNmFjYjE4YjdlZDkwMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzViNWQyMzJmZTBiNjYxZjM5ZmZhODAzMDQ0NzhmYWJhN2IzMDEzYWMwOGZlN2JmM2JmNmFjYjE4YjdlZDkwMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzJhNTYzZjc5ZTVkOWVjOWE4YjMyZjNkZDEwNDUyYzVmOTE1M2YzODcxNWIyYzZiZWNhYTcwYmI5NjE4OGEzYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTc0MGQwNDcwZjFhMTcxYTY0MGUyOGMxYWJhOGQ3MzNlZmJlNzYzNWE0ODY1MjNjNWQ4NDlmYWIxZjdjZGVhZiJ9"
+          "resource": "repo://packages/cli/src/env.ts",
+          "version": "repo-file-v1:sha256:50ac160185438a210c5ac7eba5c6217ae45eed6aed67058505fd8956f29f2bf6"
         }
       ]
     },
     {
       "id": "claim_3f8d34ee5783498493fd066188180b6b",
-      "statement": "The fromEnv function returns a marker object (not a string) identified by Symbol.for('@restheart-cloud/cli:fromEnv'). The marker carries a toString that prints the variable name (never a value) and a toJSON that throws to prevent accidental serialization of unresolved markers.",
+      "statement": "The fromEnv function returns a marker object (not a string) identified by Symbol.for('@ulabase/cli:fromEnv'). The marker carries a toString that prints the variable name (never a value) and a toJSON that throws to prevent accidental serialization of unresolved markers.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/env.ts#L21-L63",
-          "version": "repo-lines-v1:sha256:641475f6dfeeab03e19180e37e8b489a3b10018d57f4e82b5ae619163c50df2f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1YjVkMjMyZmUwYjY2MWYzOWZmYTgwMzA0NDc4ZmFiYTdiMzAxM2FjMDhmZTdiZjNiZjZhY2IxOGI3ZWQ5MDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyYTU2M2Y3OWU1ZDllYzlhOGIzMmYzZGQxMDQ1MmM1ZjkxNTNmMzg3MTViMmM2YmVjYWE3MGJiOTYxODhhM2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1YWFjYTNkZjJlYTYwNDZlNjZmMjA5NWU2ZWFiZmE0ZTUwZDVmODg4NTE3MWM2ODg4NTBhMmQzZGY1MmEyNzQifQ"
+          "resource": "repo://packages/cli/src/env.ts",
+          "version": "repo-file-v1:sha256:50ac160185438a210c5ac7eba5c6217ae45eed6aed67058505fd8956f29f2bf6"
         }
       ]
     },
@@ -66,53 +66,41 @@
     },
     {
       "id": "claim_b7f69fc1d1554866ba30092f0b6566a0",
-      "statement": "Session management stores a personal access token and the admin node it was verified against at ~/.config/restheart/session.json (or under XDG_CONFIG_HOME) with mode 0600 on both directory and file. A corrupt file reads as absent rather than throwing.",
+      "statement": "Session management stores a personal access token and the admin node it was verified against at ~/.config/ulabase/session.json (or under XDG_CONFIG_HOME) with mode 0600 on both directory and file. A corrupt file reads as absent rather than throwing.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/session.ts#L37-L86",
-          "version": "repo-lines-v1:sha256:fd659e5dcaf19830e797ab2a9ed4777316fd1abf8cfc8f4d1a5153a46b5c8027:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2ZTQ2ZWI1ZmVhNjQ3NjFiMTI0ZjFjYjI4MTU1ZGQwMDUyMjYwOTJmZmE5OTNkN2ViYmY2MTc4OWU4ODVmYjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5ZWFjZTI0OWFkNGIxOGM5MThhNTYwNmUwYjVmZmI0NGU1ZTQwNGQyNGE4MjljOTRjNzc0MjNmOGYyNGQ1ZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhY2E4ZDQ3MTE4ODc1Njc1M2NmYmVkN2FiYzhmNTM0ODdlNjYwYTU0NWQ1MWI2M2Q1OWNlMGJlMjAyNzMyOWEifQ"
+          "resource": "repo://packages/cli/src/session.ts",
+          "version": "repo-file-v1:sha256:cafa705e30773c6504b7fb4f3274f79daf4064494677458fe6352437b2b986cb"
         }
       ]
     },
     {
       "id": "claim_17006ca23aad40aa92d982e3cc301554",
-      "statement": "resolveToken implements strict precedence: RH_CLOUD_TOKEN env var always wins over the stored session file, with no conditions attached. This prevents a CI run from silently falling back to a session left on a shared runner.",
+      "statement": "resolveToken implements strict precedence: ULABASE_TOKEN env var always wins over the stored session file, with no conditions attached. This prevents a CI run from silently falling back to a session left on a shared runner.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/session.ts#L88-L110",
-          "version": "repo-lines-v1:sha256:072f4df3d8f9af812037fa6c411f07a15618c8f49cbb6c5ccf31f2d3dea181d4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmMGQxMzk5Mjg4YmY2ODVhZTgzOWJkNzhmYjhhNGMyYWVmZWRiM2U5MmVjMjRkNDQ1MjE3MGUyODFjODg1OWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://packages/cli/src/session.ts",
+          "version": "repo-file-v1:sha256:cafa705e30773c6504b7fb4f3274f79daf4064494677458fe6352437b2b986cb"
         }
       ]
     },
     {
       "id": "claim_c123e72b7c3045df9492c1098f7641b9",
-      "statement": "The CLI commands are login, logout, and setup. login verifies a token against the admin node before storing it. setup loads a setup file (default ./rhc.setup.ts), resolves credentials, and runs steps. The rhc new command for provisioning is specified but not built.",
+      "statement": "The CLI commands are login, logout, and setup (invoked as ulabase login, ulabase logout, ulabase setup). login verifies a token against the admin node before storing it. setup loads a setup file (default ./ulabase.setup.ts), resolves credentials, and runs steps. The ulabase new command for provisioning is specified but not built.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/cli.ts#L111-L112",
-          "version": "repo-lines-v1:sha256:003338ea3e1fd582e844715562d498c14fa491b9c156e45792413b3b63048e59:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmE1OTY2YTM2Zjg0YTVmMjcwYjUwMWYxZGM2N2ZkMDgxYThjMTQ4YWU5YTE5YTk1MWUwZTMzMjhiZDdjZGNhNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFhZjg1ODAzNjljNGE4YWIzMjg2ZDQ5MzVlZDM3ZTMzNzg5Mjc1YjllMDczN2IxOTdhMGI3NWQ0ZmI2ZjQ1NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjE1NmUwNDJmMDQ0YTRlMDM5ZGQwZTZhNzc3MmJjZTE3MjMwY2JjMWU3ZjdmNWM3YmY4OTRjZmM1NTcwOTM0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmVlNmU2YzRkZjllZTU1MDc5MWMzNDI3MzIwMTdiYTNhMTRmNjNhZDdlZTFjZDZhMTI1ZWJhMTViZjlmZGJjNyJ9"
-        },
-        {
-          "resource": "repo://packages/cli/src/cli.ts#L368-L416",
-          "version": "repo-lines-v1:sha256:e64ea6ed94abf9608335a55c2883c5434b53d35ea8863bd125ca28acd40620f7:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyMjYwMTljZmY2Y2JlNTY4MTZmMjM4ZGVkYzgxNDM4N2I0MzE5NmMyZTlhZjlkN2M0ZDAwMDgzNjE1ZTExOTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlZWY3OGM1ZDE2YTkwZWQ5MjdhZjBlMDNlYjE2YzU4N2U3NjMzOTMwYTYxOTU1MWIyYzcyMWJiMjVjYzBkMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyNTk4NmFhYzZjNmZiNmZlMjIwZGUwZTAxOWNkZGE1ZmYzY2VlNzBkOGVlZTljYjIyYzBjYmYyOGFjZDI3ZGQifQ"
-        },
-        {
-          "resource": "repo://packages/cli/src/cli.ts#L484-L538",
-          "version": "repo-lines-v1:sha256:da952d45ac18835b0f9499f3f180b59d7cd3195ad5094d11a1cc873dccd57dca:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxYWU3YWVkNWRlMDdlZDVhYTg5YThjMjBjNmQwNzBkMTg3Y2Q3OTk0NmRiODlhZGEwYjhiYmVjNzcxNGI5NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyY2YxMjQ4MDg0MzhjYjY1ZWNmMDY0MDQ0YmU2YTg2NmU5ZDFlZjgxMDg3ZDA0MzlhZmZmMWE5YzFjMzMyMDYifQ"
+          "resource": "repo://packages/cli/src/cli.ts",
+          "version": "repo-file-v1:sha256:197e73467a15e723338ed6b08680cd532d797637307203bfd9d1bcbfff35bb3b"
         }
       ]
     },
     {
       "id": "claim_3c3b398a500f4064ab7ea1f6c94a4475",
-      "statement": "The setup file is resolved from --file or the first conventional name (rhc.setup.ts, .mts, .js, .mjs) in the working directory. It accepts a default export or named 'setup' export; a function export is called with no arguments.",
+      "statement": "The setup file is resolved from --file or the first conventional name (ulabase.setup.ts, .mts, .js, .mjs) in the working directory. It accepts a default export or named 'setup' export; a function export is called with no arguments.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/cli.ts#L177-L255",
-          "version": "repo-lines-v1:sha256:ad6f5c3041049d0f9865d167c7fd2c90a1a7f854191d2e0863f7ffe1a6d882ec:eyJzZWxlY3RlZExpbmVDb3VudCI6NzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmYmM0OTk4MWZiZWJlZmRjMmYyZTRjZTIyZDI2NDVmNTA3NDExZGY4ZTczYjM2N2I4OTBjZTUzOTYwN2JkN2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhYjE3M2RjNjI5ZWQ0NzcxNGUxOWNjYTNjZmJhNWQ1MDRlY2Y5MWI4NTVmNGYyNjhmYjNlMzM0YTgzZTgzYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0ZTEwZTU3NjUwODAwZGJmOWZiYjkxMzhmYzkyMDE4N2RlNmQzYzE4ZmFkMmVhZTdhN2QxNTZlNmM5ZDI3MTAifQ"
-        },
-        {
-          "resource": "repo://packages/cli/src/cli.ts#L48-L49",
-          "version": "repo-lines-v1:sha256:01702e2e192d9394d3cde9040dcf3621c0e2eb14cfce650213fcea459359947d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWUyYTQ5YzdlOGUyYjUxMTQ0NTc4MDUzMGE4ZjNlYzQ5NzM4NDlhZGFjYjYwYWE4ZGMwZTk1NjYyNDg1NDU5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWE5ZWMyNzcxNjA3MzE3ZDNjOTgwMGEwMmQzYzFhZDM2YmUxMDNmMWY3MDdjMGIxMGIwM2E4YjUyNTEzNjc2MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTY1NjI2ODkyNWM3ZjVlOWE2M2EyMDdmZjRjYTM1M2UyZGFhYTBjYWFhZmViMWU1YzBiZDFmNGY2NTU1NjAzZSJ9"
+          "resource": "repo://packages/cli/src/cli.ts",
+          "version": "repo-file-v1:sha256:197e73467a15e723338ed6b08680cd532d797637307203bfd9d1bcbfff35bb3b"
         }
       ]
     },
@@ -121,7 +109,7 @@
       "statement": "The admin client (createAdminClient) manages its own token in a closure rather than localStorage, silences the core's stderr logging, and provides methods for feature lifecycle (featureCatalog, listFeatures, isFeatureInstalled, configSchema, getFeatureConfig, updateFeatureConfig, installFeature, uninstallFeature, enableFeature, disableFeature, initFeature, testFeature), service token minting, and a generic fetch escape hatch. Deprecated aliases for the old plugin-based names are also exported.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/admin.ts#L131-L236",
+          "resource": "repo://packages/cli/src/admin.ts#L154-L288",
           "version": "repo-lines-v1:sha256:ff808d2612186d5151bd3804c2fb74d50108cc4d8ce33a60344662d0824ac7e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4OTBlNDczZjkxMjU3MzkxYzBhNzBmZmIxZjFiMmIzMjhmOGY5MThkMmZkZDAwMjkyOGMxNTVkZjE5MGJkZDI5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIyYjM1YmQ1NWRiNTk0YTgzODVkODMxYjE5YjVmMTgwZWFiZThmMWY0ZGJjYmI5NTM4NGE3YjNiY2ZmMjZkNTgzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
@@ -232,15 +220,15 @@
     },
     {
       "id": "claim_d8de3ebadeb74c8f87c52daecb68441c",
-      "statement": "The package is Node-only by design: the admin node's originVetoer rejects browser-origin requests. It is not a framework adapter — there is no reactive state, no session to restore, no signal to update.",
+      "statement": "The package is Node-only by design: the admin node's originVetoer rejects browser-origin requests (whitelisting ulabase.com, allowing a missing Origin header). It is not a framework adapter — there is no reactive state, no session to restore, no signal to update.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/README.md#L81-L93",
-          "version": "repo-lines-v1:sha256:6f163eddb6ac87b8271745214d9e472f989b5a9cff4f8a35810e8a0760969a79:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwNzNiZDRhZTM1ODY1M2RjMGIwYjExY2VlNjRhM2Q0NGNjYzMzY2Y5M2E3NWRhMTkxNGJlMjRjMGJmMjgyYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExZWM4YzdmMzZkNjcyM2Y2NDkyYTk1Nzc0OGNiMTJhZDdmYjk1ZWQ1MjJlYmQwOTQ0YjVjMjFhZDgzM2I4ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0YWJlNzgyMzMyODNlNmUyMTE1NDEyNzQ2MWU5OTAyMzU0YjRlYmFmMWJkZDU5Y2ZhOTIwZjkxOGQ2Y2Y1MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzNmZjZjViMjQwYjUwZjMzYjc3NmY2N2YzN2FkNDhmNzkwZTI4M2Q1YmQxZDFkZmJhNjhmYWMwMWM5MmViM2EifQ"
+          "resource": "repo://packages/cli/README.md",
+          "version": "repo-file-v1:sha256:1184947e801060f7e006cfb9093cc70d39480c5155c9be46818adf67274787ef"
         },
         {
-          "resource": "repo://packages/cli/src/admin.ts#L123-L130",
-          "version": "repo-lines-v1:sha256:6a1ed2416075a13ff6dc954545a196ea0ca888a0deef718468542c1b561fbef8:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjY1N2M5N2M0MzNlOTRmNjY4NDgwNWM4Y2Y3MDYyYjAzMzM5YzU2MTE2YjhmOTQ1MTllMGEwMTAyMWQ0ZjRmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDg3NmMyMDViOTc5MTM3MTJkZDU3MjhiZDIxZmIwYTIxYTI0NmI1YTExOTczMzI4OTY5YmQxMzAwYTlmMjYwOCJ9"
+          "resource": "repo://packages/cli/src/admin.ts",
+          "version": "repo-file-v1:sha256:794410b6177ac1e704065fb6ce3b09f4218083763fbed021637f9d9fbfd0b226"
         }
       ]
     },
@@ -256,7 +244,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.0",
-    "at": "2026-09-25T09:43:51.410Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

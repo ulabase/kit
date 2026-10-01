@@ -1,11 +1,11 @@
 ---
 type: Package
-title: "@restheart-cloud/kit-vue"
-description: Vue adapter for RESTHeart Cloud Kit. Provides composables and navigation guards for auth, payments, and cart, plus a /nuxt subpath for Nuxt SSR support.
+title: "@ulabase/kit-vue"
+description: Vue adapter for Ulabase Kit. Provides composables and navigation guards for auth, payments, and cart, plus a /nuxt subpath for Nuxt SSR support.
 tags: [package, vue, adapter, composables, nuxt, payments, cart]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-07T09:33:56.593Z
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-133d4dd0df065adff47b96b2
     resource: repo://packages/kit-vue/src/cart-store.ts
@@ -33,29 +33,55 @@ sources:
     resource: repo://packages/kit-vue/src/use-cart.ts
   - id: openwiki-source-2f025d008df98101db3a1cd4
     resource: repo://packages/kit-vue/src/use-payments.ts
-generated: { by: "openwiki/0.5.0", at: "2026-09-07T09:33:56.593Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 ---
 
-# @restheart-cloud/kit-vue
+# @ulabase/kit-vue
 
-Vue adapter for `@restheart-cloud/kit`. Wraps the core authentication, payments, and cart logic in Vue plugins with composables and navigation guards. A `/nuxt` subpath adds Nuxt SSR support.
+Vue adapter for `@ulabase/kit`. Wraps the core authentication, payments, and cart logic in Vue plugins with composables and navigation guards. A `/nuxt` subpath adds Nuxt SSR support.
 
 ## Installation
 
 ```bash
-npm install @restheart-cloud/kit-vue @restheart-cloud/kit
+npm install @ulabase/kit-vue @ulabase/kit
 ```
 
-The core `@restheart-cloud/kit` is a regular dependency — pulled in automatically.
+The core `@ulabase/kit` is a regular dependency — pulled in automatically.
 
 `vue-router` (for guards) and `h3` (for `/nuxt` subpath) are **optional peer dependencies**. `vue >= 3.4` is required.
+
+## Architecture
+
+The package exposes three independent plugin families, each following the same pattern: a `create*` factory returns a Vue plugin with an `install` method, and a `use*` composable retrieves the injected store at the component level.
+
+```mermaid
+flowchart TD
+  subgraph Creation["main.ts — plugin registration"]
+    A["createRhAuth(config)"] -->|provides| B["RH_AUTH_KEY"]
+    C["createRhPayments(config, rhAuth)"] -->|provides| D["RH_PAYMENTS_KEY"]
+    E["createRhCart(storageKey?)"] -->|provides| F["RH_CART_KEY"]
+  end
+  subgraph Components["Vue components"]
+    G["useAuth()"] -->|inject| B
+    H["usePayments()"] -->|inject| D
+    I["useCart()"] -->|inject| F
+  end
+  subgraph Routing["vue-router"]
+    J["authGuard"] --> B
+    K["publicGuard"] --> B
+  end
+  A --> J
+  A --> K
+```
+
+Each `use*` composable throws a descriptive error if the corresponding plugin was not registered. The injection keys (`RH_AUTH_KEY`, `RH_PAYMENTS_KEY`, `RH_CART_KEY`) are typed `InjectionKey` symbols exported for advanced wiring.
 
 ## Quick Start
 
 ### 1. Install Plugin
 
 ```ts
-import { createRhAuth } from '@restheart-cloud/kit-vue';
+import { createRhAuth } from '@ulabase/kit-vue';
 
 const rhAuth = createRhAuth({ apiBaseUrl: import.meta.env.VITE_API_URL });
 app.use(rhAuth);
@@ -73,7 +99,7 @@ At creation the store runs `checkSession()` once, restoring the session before t
 
 ```vue
 <script setup lang="ts">
-import { useAuth } from '@restheart-cloud/kit-vue';
+import { useAuth } from '@ulabase/kit-vue';
 const auth = useAuth();
 </script>
 
@@ -97,7 +123,7 @@ const auth = useAuth();
 
 ## Auth Methods
 
-All methods are available on the `useAuth()` return value. These wrap `@restheart-cloud/kit` functions and update reactive state (`user`, `teams`) where applicable:
+All methods are available on the `useAuth()` return value. These wrap `@ulabase/kit` functions and update reactive state (`user`, `teams`) where applicable:
 
 ```ts
 const auth = useAuth();
@@ -157,7 +183,7 @@ auth.api(path: string, init?: RequestInit): Promise<Response>
 
 ```vue
 <script setup lang="ts">
-import { useAuth } from '@restheart-cloud/kit-vue';
+import { useAuth } from '@ulabase/kit-vue';
 const auth = useAuth();
 
 async function loadItems() {
@@ -178,7 +204,7 @@ Methods that perform auto-login (`login`, `activate`, `resetPassword`, `switchTe
 The payments plugin is separate from auth because a subscription is not a session. See [Payments & E-commerce](../concepts/payments.md) for the underlying concepts.
 
 ```ts
-import { createRhAuth, createRhPayments } from '@restheart-cloud/kit-vue';
+import { createRhAuth, createRhPayments } from '@ulabase/kit-vue';
 
 const config = { apiBaseUrl: import.meta.env.VITE_API_URL, payments: true };
 const rhAuth = createRhAuth(config);
@@ -196,7 +222,7 @@ Without `config.payments === true` the store still exists, but no `/stripe/*` ca
 
 ```vue
 <script setup lang="ts">
-import { usePayments } from '@restheart-cloud/kit-vue';
+import { usePayments } from '@ulabase/kit-vue';
 const payments = usePayments();
 </script>
 
@@ -253,7 +279,7 @@ await payments.waitForOrder(id, secret?, opts?);           // → Order (rejects
 The cart is a browser-local construct, independent of authentication. A shop that forces sign-in before adding to a basket loses most of its visitors at that door. The cart becomes an order when `orderItems` is handed to `createOrder`.
 
 ```ts
-import { createRhCart } from '@restheart-cloud/kit-vue';
+import { createRhCart } from '@ulabase/kit-vue';
 
 const rhCart = createRhCart();       // optional: custom storageKey
 app.use(rhCart);
@@ -265,7 +291,7 @@ app.use(rhCart);
 
 ```vue
 <script setup lang="ts">
-import { useCart } from '@restheart-cloud/kit-vue';
+import { useCart } from '@ulabase/kit-vue';
 const cart = useCart();
 
 function buy(item: { productId: string; name: string; unitAmount: number }) {
@@ -329,7 +355,7 @@ Leave `/invitations/accept` outside both guards — it must work for signed-out 
 `buildGuards` is also exported directly if you manage the store yourself:
 
 ```ts
-import { buildGuards } from '@restheart-cloud/kit-vue';
+import { buildGuards } from '@ulabase/kit-vue';
 const { authGuard, publicGuard } = buildGuards(store, { loginPath: '/signin', appPath: '/dashboard' });
 ```
 
@@ -387,7 +413,7 @@ import {
   resolveCookieOptions,
   type SessionCookieOptions,
   type ServerActionOptions,
-} from '@restheart-cloud/kit-vue/nuxt';
+} from '@ulabase/kit-vue/nuxt';
 ```
 
 The `/nuxt` subpath provides:
@@ -417,7 +443,7 @@ The server actions use a `runCapturing` helper that overrides `getToken` and `se
 | `src/create-cart.ts` | `createRhCart` Vue plugin |
 | `src/cart-store.ts` | `createRhCartStore`, `RhCartStore` interface |
 | `src/use-cart.ts` | `useCart` composable |
-| `src/index.ts` | SPA barrel export (also re-exports `@restheart-cloud/kit`) |
+| `src/index.ts` | SPA barrel export (also re-exports `@ulabase/kit`) |
 | `src/nuxt/middleware.ts` | `rhAuthServerMiddleware` |
 | `src/nuxt/handler.ts` | `createSessionHandler` |
 | `src/nuxt/actions.ts` | `rhLogin`, `rhSwitchTeam`, `rhActivate`, `rhResetPassword`, `rhLogout` |
@@ -428,7 +454,7 @@ The server actions use a `runCapturing` helper that overrides `getToken` and `se
 
 ## See Also
 
-- [Core Kit](kit.md) — API reference for `@restheart-cloud/kit`
+- [Core Kit](kit.md) — API reference for `@ulabase/kit`
 - [Payments & E-commerce](../concepts/payments.md) — Subscriptions, catalog, orders, and cart concepts
 - [Adapter Contract](../testing/guide.md#adapter-unit-tests) — Shared test checklist
 - [Token Delivery](../architecture/token-delivery.md) — Bearer vs cookie modes

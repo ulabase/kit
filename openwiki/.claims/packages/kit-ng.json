@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:41ceefcc9d6b5c67d7c3247944f3df83fc2b50315727f23889262e1766fb372c",
+  "pageVersion": "sha256:3e13ca7ef6529d9e94010eb861fff1dbc1e1c2d03c989deb7445dc7eefd8ae9e",
   "claims": [
     {
       "id": "claim_a2cf71e33664494f972638cf9645b71e",
@@ -86,17 +86,17 @@
     },
     {
       "id": "claim_7f7b6125bac94eeeb1c1f439dfd08087",
-      "statement": "The package re-exports all types and functions from @restheart-cloud/kit so Angular consumers only need to import from @restheart-cloud/kit-ng.",
+      "statement": "The package re-exports all types and functions from @ulabase/kit so Angular consumers only need to import from @ulabase/kit-ng.",
       "evidence": [
         {
           "resource": "repo://packages/kit-ng/src/index.ts#L10-L12",
-          "version": "repo-lines-v1:sha256:e1074e07739af32ce12dfc4d6693d16e8719660fc5882d78ef5696558d18216c:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDM5MzM5NzdjNGRiYTM0NWI4ZDliYWMyYWMzZDdjM2MxNjBhZTMxYmM3MGVlNTVmMWVlYTFmZjZkMWQwODEyNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGNlNjM0YTYwYTU3MDU5Y2E3YzVlOTFlNmMwN2VkMWYxODkxNDE2MDE0ZWY3N2FmMmJiMThmZTc4OTk2YmMxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzE3M2Q2ODIwZmY1OTAwNjE3NmMyODg5ODViMzc2NWFkMjg1MjM2MWMwMjE3ZTY2OWY2ZmRjYmNiMDNlNDQ3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+          "version": "repo-lines-v1:sha256:1b6eb012c08a9865000664c0c8610c5a0a434da73c7acbcdaa6152c050da44cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzVmYTU2NjMwNmNmMDcwYjcxOWY5ZDVhNmI2NDU1ODI1MWQ2Y2RhMGZjNDgzODM4NDYwMjFlNGYyMzFlNzZjZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWMyZDA3NWZhNDZhNzg3M2MwYzEzYTA4MzEyZjhiNjZkZTFkYzFiNjQxZjRlNTc4NTE5Zjk0MmI5MmU4OWFhMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzE3M2Q2ODIwZmY1OTAwNjE3NmMyODg5ODViMzc2NWFkMjg1MjM2MWMwMjE3ZTY2OWY2ZmRjYmNiMDNlNDQ3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.0",
-    "at": "2026-09-07T09:33:56.593Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

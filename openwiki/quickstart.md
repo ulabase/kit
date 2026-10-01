@@ -1,8 +1,11 @@
 ---
 type: Documentation
-title: RESTHeart Cloud Kit - Quickstart
-description: Entry point for understanding the RESTHeart Cloud Kit monorepo, its architecture, packages, and how to get started with development.
+title: Ulabase Kit - Quickstart
+description: Entry point for understanding the Ulabase Kit monorepo, its architecture, packages, and how to get started with development.
 tags: [quickstart, overview, getting-started]
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-92450a7065eb85e0f30b5461
     resource: repo://packages/cli/package.json
@@ -12,6 +15,8 @@ sources:
     resource: repo://packages/cli/src/env.ts
   - id: openwiki-source-555af2af7c1b1286b2d4e451
     resource: repo://packages/cli/src/index.ts
+  - id: openwiki-source-7730d08fdb3c285db4f02c01
+    resource: repo://packages/cli/src/session.ts
   - id: openwiki-source-adaf11e7b024654cc8e44e29
     resource: repo://packages/cli/src/setup.ts
   - id: openwiki-source-46339ee0e97e6859bc5ea428
@@ -30,25 +35,22 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-25T09:43:51.410Z
-generated: { by: "openwiki/0.6.0", at: "2026-09-25T09:43:51.410Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
 ---
 
-# RESTHeart Cloud Kit
+# Ulabase Kit
 
-A TypeScript SDK for adding authentication to frontend applications that use [RESTHeart Cloud](https://cloud.restheart.com) as their backend.
+A TypeScript SDK for adding authentication to frontend applications that use [Ulabase](https://ulabase.com) as their backend.
 
-## What is RESTHeart Cloud Kit?
+## What is Ulabase Kit?
 
-RESTHeart Cloud Kit provides the same speed on the frontend that RESTHeart Cloud gives you on the backend. It's a monorepo containing:
+Ulabase Kit provides the same speed on the frontend that Ulabase gives you on the backend. It's a monorepo containing:
 
-- **`@restheart-cloud/kit`** — Framework-agnostic core with zero dependencies. Handles all authentication logic: signup, login, email verification, password reset, team management, and multi-team switching. Also provides payments (subscriptions, Checkout, Billing Portal, seat licences), e-commerce (product catalog, orders, guest checkout), a client-side cart, and price formatting.
-- **`@restheart-cloud/cli`** — The `rhc` command-line tool. Configures a RESTHeart Cloud service from a plan committed to git — collections, indexes, permissions and features, applied idempotently from a terminal or a CI pipeline.
-- **`@restheart-cloud/kit-ng`** — Angular adapter with signals, route guards, and HTTP interceptor. Wraps the core kit.
-- **`@restheart-cloud/kit-react`** — React adapter with context, hooks, and route guards. Includes a `/next` subpath for Next.js SSR support (middleware, route handlers, server actions).
-- **`@restheart-cloud/kit-vue`** — Vue adapter with composables and navigation guards. Includes a `/nuxt` subpath for Nuxt SSR support.
+- **`@ulabase/kit`** — Framework-agnostic core with zero dependencies. Handles all authentication logic: signup, login, email verification, password reset, team management, and multi-team switching. Also provides payments (subscriptions, Checkout, Billing Portal, seat licences), e-commerce (product catalog, orders, guest checkout), a client-side cart, and price formatting.
+- **`@ulabase/cli`** — The `ulabase` command-line tool (also installed as `ula`). Configures a Ulabase service from a plan committed to git — collections, indexes, permissions and features, applied idempotently from a terminal or a CI pipeline.
+- **`@ulabase/kit-ng`** — Angular adapter with signals, route guards, and HTTP interceptor. Wraps the core kit.
+- **`@ulabase/kit-react`** — React adapter with context, hooks, and route guards. Includes a `/next` subpath for Next.js SSR support (middleware, route handlers, server actions).
+- **`@ulabase/kit-vue`** — Vue adapter with composables and navigation guards. Includes a `/nuxt` subpath for Nuxt SSR support.
 
 ## Architecture Overview
 
@@ -61,19 +63,19 @@ graph TB
             kit-vue["kit-vue (Vue)"]
         end
         
-        kit["Core Kit (@restheart-cloud/kit)"]
+        kit["Core Kit (@ulabase/kit)"]
         
         kit-ng --> kit
         kit-react --> kit
         kit-vue --> kit
     end
     
-    subgraph "RESTHeart Cloud Backend"
+    subgraph "Ulabase Backend"
         backend["MongoDB + REST API + Auth + Stripe"]
     end
     
-    subgraph "CLI (rhc)"
-        cli["@restheart-cloud/cli"]
+    subgraph "CLI (ulabase)"
+        cli["@ulabase/cli"]
         setup["Setup Runner"]
         cli --> setup
     end
@@ -103,7 +105,7 @@ The architecture follows a layered pattern:
 
 ### Packages
 - **[Core Kit](packages/kit.md)** — API reference, configuration, authentication flows
-- **[CLI](packages/cli.md)** — `rhc` command, setup runner, admin/service clients, session management, env refs
+- **[CLI](packages/cli.md)** — `ulabase` command, setup runner, admin/service clients, session management, env refs
 - **[Angular Adapter](packages/kit-ng.md)** — RhAuthService, signals, guards, interceptor
 - **[React Adapter](packages/kit-react.md)** — Hooks, context, guards, Next.js `/next` subpath
 - **[Vue Adapter](packages/kit-vue.md)** — Composables, navigation guards, Nuxt `/nuxt` subpath
@@ -114,9 +116,9 @@ The architecture follows a layered pattern:
 - **[Contributing](contributing/development.md)** — Local setup, workspace configuration, debugging
 
 ### External Resources
-- **[RESTHeart Cloud Documentation](https://cloud.restheart.com)**
-- **[Adapter Contract & Roadmap](https://github.com/SoftInstigate/restheart-cloud-kit/blob/main/docs/ADAPTERS.md)** — Framework adapter specifications
-- **[Starter App](https://github.com/SoftInstigate/restheart-cloud-starter-ng)** — Angular starter template
+- **[Ulabase Documentation](https://ulabase.com)**
+- **[Adapter Contract & Roadmap](https://github.com/ulabase/kit/blob/main/docs/ADAPTERS.md)** — Framework adapter specifications
+- **[Starter App](https://github.com/ulabase/starter-ng)** — Angular starter template
 
 ## Task Routing
 
@@ -130,7 +132,6 @@ Use this table to find the right starting point for common change types:
 | Invitations | [Core Kit](packages/kit.md#invitation-flows) | `packages/kit/src/invite.ts` | `invite`, `activate`, `acceptInvite`, `listInvitations` | `packages/kit/src/__tests__/integration/invite.test.ts` | `npm test -w packages/kit` |
 | Password reset | [Core Kit](packages/kit.md#password-management) | `packages/kit/src/password.ts` | `forgotPassword`, `resetPassword` | `packages/kit/src/__tests__/integration/password.test.ts` | `npm test -w packages/kit` |
 | Profile updates | [Core Kit](packages/kit.md#profile-management) | `packages/kit/src/profile.ts` | `updateProfile`, `updateUser`, `changePassword` | `packages/kit/src/__tests__/integration/profile.test.ts` | `npm test -w packages/kit` |
-<!-- openwiki: broken internal link [packages/kit.md#consents-gating] heading anchor "consents-gating" does not exist in "packages/kit.md". Fix the href or restore the target, then delete this comment. -->
 | Consents gating | [Core Kit — Consents](packages/kit.md#consents-gating) | `packages/kit/src/consents.ts` | `acceptConsents` | `packages/kit/src/__tests__/integration/consents.test.ts` | `npm test -w packages/kit` |
 | Payments (subscriptions, Checkout, Portal, licences) | [Payments & E-commerce](concepts/payments.md#subscriptions) | `packages/kit/src/payments.ts` | `getPlans`, `getSubscription`, `createCheckoutSession`, `openBillingPortal`, `getLicenses`, `grantLicense`, `revokeLicense`, `waitForSubscription` | `packages/kit/src/__tests__/unit/payments.test.ts` | `npm test -w packages/kit` |
 <!-- openwiki: broken internal link [concepts/payments.md#e-commerce] heading anchor "e-commerce" does not exist in "concepts/payments.md". Fix the href or restore the target, then delete this comment. -->
@@ -139,7 +140,7 @@ Use this table to find the right starting point for common change types:
 | Cart (client-side, localStorage) | [Payments & E-commerce](concepts/payments.md#cart) | `packages/kit/src/cart.ts` | `addToCart`, `setCartQuantity`, `removeFromCart`, `cartTotals`, `toOrderItems`, `loadCart`, `saveCart`, `clearStoredCart` | `packages/kit/src/__tests__/unit/cart.test.ts` | `npm test -w packages/kit` |
 <!-- openwiki: broken internal link [concepts/payments.md#price-formatting] heading anchor "price-formatting" does not exist in "concepts/payments.md". Fix the href or restore the target, then delete this comment. -->
 | Price formatting | [Payments & E-commerce](concepts/payments.md#price-formatting) | `packages/kit/src/money.ts` | `formatPrice` | `packages/kit/src/__tests__/unit/money.test.ts` | `npm test -w packages/kit` |
-| CLI setup runner (rhc setup, defineSetup, step, fromEnv) | [CLI](packages/cli.md#setup-runner) | `packages/cli/src/setup.ts`, `packages/cli/src/cli.ts`, `packages/cli/src/env.ts` | `defineSetup`, `step`, `runSetup`, `fromEnv`, `resolveEnvRefs` | `packages/cli/src/__tests__/unit/setup.test.ts`, `env.test.ts` | `npm test -w packages/cli` |
+| CLI setup runner (ulabase setup, defineSetup, step, fromEnv) | [CLI](packages/cli.md#setup-runner) | `packages/cli/src/setup.ts`, `packages/cli/src/cli.ts`, `packages/cli/src/env.ts` | `defineSetup`, `step`, `runSetup`, `fromEnv`, `resolveEnvRefs` | `packages/cli/src/__tests__/unit/setup.test.ts`, `env.test.ts` | `npm test -w packages/cli` |
 | CLI session & credentials (login, logout, PAT) | [CLI](packages/cli.md#session-management) | `packages/cli/src/session.ts`, `packages/cli/src/cli.ts` | `resolveToken`, `writeSession`, `clearSession`, `TOKEN_VAR` | `packages/cli/src/__tests__/unit/session.test.ts` | `npm test -w packages/cli` |
 | CLI admin & service clients | [CLI](packages/cli.md#clients) | `packages/cli/src/admin.ts`, `packages/cli/src/service.ts` | `createAdminClient`, `createServiceClient` | `packages/cli/src/__tests__/unit/admin.test.ts`, `service.test.ts` | `npm test -w packages/cli` |
 | Angular adapter (signals, guards, interceptor) | [Angular Adapter](packages/kit-ng.md) | `packages/kit-ng/src/auth.service.ts`, `auth.guard.ts`, `auth.interceptor.ts` | `RhAuthService`, `authGuard`, `provideRhAuth` | `packages/kit-ng/src/*.spec.ts` | `npm test -w packages/kit-ng` |
@@ -158,14 +159,14 @@ Use this table to find the right starting point for common change types:
 
 - Node.js 22.22.3+ (required by Angular 22 CLI for `kit-ng` tests)
 - npm 9+ (workspaces support)
-- A RESTHeart Cloud service ([sign up](https://cloud.restheart.com))
+- A Ulabase service ([sign up](https://ulabase.com))
 
 ### 2. Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/SoftInstigate/restheart-cloud-kit.git
-cd restheart-cloud-kit
+git clone https://github.com/ulabase/kit.git
+cd kit
 
 # Install dependencies
 npm install
@@ -180,13 +181,13 @@ npm run build
 
 ### 4. Run Tests
 
-Integration tests require a RESTHeart Cloud instance:
+Integration tests require a Ulabase instance:
 
 ```bash
 # Create packages/kit/.env (not committed)
 cat > packages/kit/.env << EOF
-RH_TEST_API_URL=https://<your-instance>.restheart.com
-RH_TEST_ADMIN_PASSWORD=<root-password>
+ULABASE_TEST_API_URL=https://<your-instance>.ulabase.app
+ULABASE_TEST_ADMIN_PASSWORD=<root-password>
 EOF
 
 # Run integration tests
@@ -196,7 +197,7 @@ npm test -w packages/kit
 Adapter unit tests need no backend:
 
 ```bash
-npm run build   # adapters resolve @restheart-cloud/kit from its built dist
+npm run build   # adapters resolve @ulabase/kit from its built dist
 npm test -w packages/kit-react -w packages/kit-vue -w packages/kit-ng
 ```
 
@@ -216,23 +217,23 @@ npm link -w packages/kit
 cd packages/kit-ng/dist && npm link
 
 # In your Angular starter app
-npm link @restheart-cloud/kit @restheart-cloud/kit-ng
+npm link @ulabase/kit @ulabase/kit-ng
 ```
 
 ### 6. Using the CLI
 
 ```bash
 # Install globally (or use npx)
-npm i -g @restheart-cloud/cli
+npm i -g ulabase
 
-# Log in with a personal access token (issued at cloud.restheart.com)
-rhc login
+# Log in with a personal access token (issued at ulabase.com)
+ulabase login
 
 # Run a setup file against a service
-rhc setup --srv ea820b
+ulabase setup --srv ea820b
 
 # Dry-run: check what would change, apply nothing
-rhc setup --srv ea820b --dry-run
+ulabase setup --srv ea820b --dry-run
 ```
 
 See **[CLI](packages/cli.md)** for the full command reference, setup file format, and CI pipeline integration.
@@ -246,7 +247,7 @@ The kit supports two authentication modes:
 1. **Bearer Token** (default) — Token stored in `localStorage`, sent as `Authorization: Bearer <token>`. Works cross-origin.
 2. **Cookie** — JWT managed by backend as HttpOnly cookie. Only works same-origin (app and API on same domain).
 
-**Important**: RESTHeart Cloud services live on `*.restheart.com`, so cookie mode is not available for normal deployments. Use bearer mode unless you have a same-origin setup.
+**Important**: Ulabase services live on `*.ulabase.app`, so cookie mode is not available for normal deployments. Use bearer mode unless you have a same-origin setup.
 
 ### Token Lifecycle
 
@@ -271,7 +272,6 @@ Applications can gate access behind a user's acceptance of terms of service, pri
 2. An ACL permission on `PATCH /users/{userId}` — scoped with `bson-request-whitelist` — exempts the one call that records the acceptance.
 3. `acceptConsents()` calls `updateUser()` then `renewToken()` so the guard sees the updated claims.
 
-<!-- openwiki: broken internal link [packages/kit.md#consents-gating] heading anchor "consents-gating" does not exist in "packages/kit.md". Fix the href or restore the target, then delete this comment. -->
 **Key invariant**: the server decides which versions are stamped and when — the client body carries only the whitelisted key. See [Core Kit — Consents Gating](packages/kit.md#consents-gating) for the full API.
 
 ### Payments & Subscriptions
@@ -297,7 +297,7 @@ See [Payments & E-commerce](concepts/payments.md) for the full API.
 
 ### CLI & Declarative Service Configuration
 
-The `@restheart-cloud/cli` package provides the `rhc` command for configuring RESTHeart Cloud services from a plan committed to git. A setup file exports a `Setup` — a named list of `Step` objects, each with a `check` (is this already so?) and an `apply` (make it so). The runner executes steps sequentially; a failure halts the rest. A dry run runs every check and applies nothing.
+The `@ulabase/cli` package provides the `ulabase` command for configuring Ulabase services from a plan committed to git. A setup file exports a `Setup` — a named list of `Step` objects, each with a `check` (is this already so?) and an `apply` (make it so). The runner executes steps sequentially; a failure halts the rest. A dry run runs every check and applies nothing.
 
 **Key symbols**: `defineSetup` declares a setup, `step` declares a step, `runSetup` executes it, `fromEnv` references secrets without holding them (resolved at apply time, never printed or logged).
 
@@ -305,7 +305,7 @@ The `@restheart-cloud/cli` package provides the `rhc` command for configuring RE
 
 **Exit codes**: 0 = every step satisfied or applied, 1 = a step failed, 2 = a dry run found work outstanding (configuration drift, not an error).
 
-**Credentials**: personal access tokens (PATs) starting with `rhc_live_`, carrying the `cli` role. Stored 0600 under `~/.config/restheart` by `rhc login`, or set via `RH_CLOUD_TOKEN` in pipelines. The env var always wins over a stored session. See [CLI](packages/cli.md) for the full reference.
+**Credentials**: personal access tokens (PATs) starting with `ula_live_`, carrying the `cli` role. Stored 0600 under `~/.config/ulabase` by `ulabase login`, or set via `ULABASE_TOKEN` in pipelines. The env var always wins over a stored session. See [CLI](packages/cli.md) for the full reference.
 
 ### Framework Adapter Pattern
 
@@ -316,14 +316,14 @@ The architecture follows a layered pattern:
 - **CLI** (`cli`): Declarative service configuration, independent of the frontend kit
 - **Principle**: An adapter that reimplements an API call or token computation is a bug
 
-See **[docs/ADAPTERS.md](https://github.com/SoftInstigate/restheart-cloud-kit/blob/main/docs/ADAPTERS.md)** for the full adapter contract and **[docs/ADAPTER_CONTRACT.md](https://github.com/SoftInstigate/restheart-cloud-kit/blob/main/docs/ADAPTER_CONTRACT.md)** for the shared test checklist.
+See **[docs/ADAPTERS.md](https://github.com/ulabase/kit/blob/main/docs/ADAPTERS.md)** for the full adapter contract and **[docs/ADAPTER_CONTRACT.md](https://github.com/ulabase/kit/blob/main/docs/ADAPTER_CONTRACT.md)** for the shared test checklist.
 
 ## Common Workflows
 
 ### User Registration Flow
 
 ```typescript
-import { register, verify, buildVerifyUrl } from '@restheart-cloud/kit';
+import { register, verify, buildVerifyUrl } from '@ulabase/kit';
 
 // 1. Register
 await register(config, { email, password, teamName: 'My Team' });
@@ -339,7 +339,7 @@ setToken(token);
 ### Subscription Checkout Flow
 
 ```typescript
-import { getPlans, createCheckoutSession, waitForSubscription } from '@restheart-cloud/kit';
+import { getPlans, createCheckoutSession, waitForSubscription } from '@ulabase/kit';
 
 // 1. Show plans (public — no session required)
 const { plans } = await getPlans(config);
@@ -355,7 +355,7 @@ const sub = await waitForSubscription(config, s => s.plan === 'gold' && s.active
 ### E-commerce Checkout Flow
 
 ```typescript
-import { getCatalog, addToCart, toOrderItems, createOrder, waitForOrder, readOrderRef, clearOrderRef } from '@restheart-cloud/kit';
+import { getCatalog, addToCart, toOrderItems, createOrder, waitForOrder, readOrderRef, clearOrderRef } from '@ulabase/kit';
 
 // 1. Browse catalog
 const items = await getCatalog(config, { filter: { category: 'desk' } });
@@ -378,8 +378,8 @@ if (ref) {
 ### CLI Setup File
 
 ```typescript
-// rhc.setup.ts
-import { defineSetup, step, fromEnv } from '@restheart-cloud/cli';
+// ulabase.setup.ts
+import { defineSetup, step, fromEnv } from '@ulabase/cli';
 
 export default defineSetup('My Shop', [
   step('stripe feature installed', {
@@ -399,7 +399,7 @@ export default defineSetup('My Shop', [
 ### Angular Integration
 
 ```typescript
-import { provideRhAuth } from '@restheart-cloud/kit-ng';
+import { provideRhAuth } from '@ulabase/kit-ng';
 
 // In app.config.ts
 export const appConfig: ApplicationConfig = {
@@ -424,7 +424,7 @@ export class AppComponent {
 ### React Integration
 
 ```tsx
-import { RhAuthProvider, useAuth } from '@restheart-cloud/kit-react';
+import { RhAuthProvider, useAuth } from '@ulabase/kit-react';
 
 // Near app root
 createRoot(document.getElementById('root')!).render(
@@ -444,7 +444,7 @@ function Header() {
 ### Vue Integration
 
 ```ts
-import { createRhAuth, useAuth } from '@restheart-cloud/kit-vue';
+import { createRhAuth, useAuth } from '@ulabase/kit-vue';
 
 // main.ts
 const rhAuth = createRhAuth({ apiBaseUrl: import.meta.env.VITE_API_URL });
@@ -458,7 +458,7 @@ const auth = useAuth();
 ## Version Information
 
 - **Current version**: 0.0.0 (development, tag-driven releases)
-- **Required RESTHeart**: 9.6.0+ (for `delivery=body` support)
+- **Required Ulabase**: 9.6.0+ (for `delivery=body` support)
 - **Node**: 22.22.3+ (required by Angular 22 CLI for `kit-ng` tests)
 - **Angular**: 21+ (peer dependency for kit-ng)
 - **TypeScript**: 5+ (kit, kit-react, kit-vue, cli), 6+ (kit-ng, Angular 22 CLI requirement)
@@ -466,6 +466,6 @@ const auth = useAuth();
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/SoftInstigate/restheart-cloud-kit/issues)
-- **Documentation**: [RESTHeart Cloud Docs](https://cloud.restheart.com)
-- **Starter App**: [restheart-cloud-starter-ng](https://github.com/SoftInstigate/restheart-cloud-starter-ng)
+- **Issues**: [GitHub Issues](https://github.com/ulabase/kit/issues)
+- **Documentation**: [Ulabase Docs](https://ulabase.com)
+- **Starter App**: [starter-ng](https://github.com/ulabase/starter-ng)

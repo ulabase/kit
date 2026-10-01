@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:9ba2065ea206816fb15b8deb60de1b5af2c7e15d83c8f20006a8416fda945693",
+  "pageVersion": "sha256:2318c7eaa13fabdd1ce538f5c7d6c3118be97bb98c2f44f34bfe1688fdf3da22",
   "claims": [
     {
       "id": "claim_3973a271db7d44b6b55ce5452e57d993",
-      "statement": "The RESTHeart Cloud Kit monorepo contains five packages: @restheart-cloud/kit (framework-agnostic core), @restheart-cloud/cli (rhc command-line tool), @restheart-cloud/kit-ng (Angular adapter), @restheart-cloud/kit-react (React adapter with /next subpath), and @restheart-cloud/kit-vue (Vue adapter with /nuxt subpath).",
+      "statement": "The Ulabase Kit monorepo contains five packages: @ulabase/kit (framework-agnostic core), @ulabase/cli (ulabase command-line tool with ula alias), @ulabase/kit-ng (Angular adapter), @ulabase/kit-react (React adapter with /next subpath), and @ulabase/kit-vue (Vue adapter with /nuxt subpath).",
       "evidence": [
         {
           "resource": "repo://packages/cli/package.json",
-          "version": "repo-file-v1:sha256:08bb2546a3b324bb438e7e95a8bf9acc237befc1688d2bf055e8d4dc6a109c85"
+          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
         },
         {
           "resource": "repo://packages/kit/package.json",
-          "version": "repo-file-v1:sha256:918c666b70075d2e51d986917691eb07e2f45f4b807a73392f923eb0e1eb46e7"
+          "version": "repo-file-v1:sha256:caef787f30573c7e3f750920ada5b49fd4370d92519ad578350afc8910ce896c"
         },
         {
           "resource": "repo://packages/kit/src/index.ts",
@@ -122,15 +122,15 @@
     },
     {
       "id": "claim_df8ca19135774fe09841798e1f0a4da6",
-      "statement": "The @restheart-cloud/cli package provides the rhc binary with three commands: login (store a PAT), logout (forget the stored token), and setup (bring a service to the state a setup file describes). Every step is check-then-apply, so running it against an already-configured service writes nothing.",
+      "statement": "The @ulabase/cli package provides the ulabase binary (with ula alias) with three commands: login (store a PAT), logout (forget the stored token), and setup (bring a service to the state a setup file describes). Every step is check-then-apply, so running it against an already-configured service writes nothing.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/cli.ts#L110-L112",
+          "resource": "repo://packages/cli/src/cli.ts#L119-L121",
           "version": "repo-lines-v1:sha256:502d97c3d3836f8cf7c8e0c6a56b8b757f98b55eb6c530c0d22bbb8a23ca95bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWVhNzE5NThhOGJlNDVjODY3ZTg4NzlhMmVhZDkzNTA2NmI5NmYwYjU0MzNhOWZiM2U4ZGU5Yzk3OWZkY2YxMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFhZjg1ODAzNjljNGE4YWIzMjg2ZDQ5MzVlZDM3ZTMzNzg5Mjc1YjllMDczN2IxOTdhMGI3NWQ0ZmI2ZjQ1NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2M0ZDE2YWFhYjRlZDliZDUwYzNiNzVkZGY0ZmZmOTM1NDMyNTlkODFlMTI2NDdiN2M0MDE4N2E1NzcwYTNkNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmVlNmU2YzRkZjllZTU1MDc5MWMzNDI3MzIwMTdiYTNhMTRmNjNhZDdlZTFjZDZhMTI1ZWJhMTViZjlmZGJjNyJ9"
         },
         {
           "resource": "repo://packages/cli/src/cli.ts#L58-L108",
-          "version": "repo-lines-v1:sha256:89f7e5877f322376c174cbae58bd9ae5ca2c9c21bd3c15fc5dd21c06e0908285:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyZDBjYWNmNjJmN2M0MTFlMDg1MjYwMDNjOTlkZWZhNjU3NGYxYmFhNzU1NmJhMmI2ZGRjNjAxYzQxODgzYjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhZDI5NTI1MzZmYzYwMDBhZDkxNTY2YmQ5NTNmMjViYzk1OTYxMGU4MTFhNTI5YTliZWY4YjRmMDdjMWM4Y2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlhYWUyY2ZjY2UzYTgxNWZiYzk1NzhkMDZkMzEzN2Y1ODRiYmFmNThhMGFiYjQwZGNhMTQyN2E5M2UyMDczMTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFiNjVkOGIwNTc0M2RiMzlhZWU5YzgxNzc5M2M1ZmMwYjE2YTM3NzE1MmM5OWU5MDk4MmFmZGNiMDYyODYyZDgifQ"
+          "version": "repo-lines-v1:sha256:9800dcfbfedcbc41b3d04473b89ca0824eed541eec1427792108174f354a9b2b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2NTkwNGE1MGJmMjQwYWU2OTk5YmFlYTAyMGUyOTQ0ZmVhMzFkZjBlMWRlM2U3OWJhNmZhZjNlNzA0ZjZlYmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUxYjc4ODQ2YTg2ZTFlZDZiNTliMWY0ZjliNGIyMGMwM2RkYmU2NzRiNTk1YmM5NTc1ZDRlMGZlZGNjYWRlODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3ZDMzZDFiNjU5NmY0M2YwOTE0NTc2ZTliMDlkMGExNjQ0MDEyNzkzMWNhNDY0NGQ3MDNiOTg5Yzk5OThlYWEifQ"
         }
       ]
     },
@@ -150,25 +150,29 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/env.ts#L1-L63",
-          "version": "repo-lines-v1:sha256:8d802d8e82034f6c52a19257fe8ede21544bb1dcdfac42dfc0c2dafffd3493a0:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1YWFjYTNkZjJlYTYwNDZlNjZmMjA5NWU2ZWFiZmE0ZTUwZDVmODg4NTE3MWM2ODg4NTBhMmQzZGY1MmEyNzQifQ"
+          "version": "repo-lines-v1:sha256:d0667c06ec2d6bb94ef5c97b3ce8149225dbf5900e69ab7ca7c237e2413bf6d6:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1YWFjYTNkZjJlYTYwNDZlNjZmMjA5NWU2ZWFiZmE0ZTUwZDVmODg4NTE3MWM2ODg4NTBhMmQzZGY1MmEyNzQifQ"
         }
       ]
     },
     {
       "id": "claim_85feae8736624c7f8084401de6c3c578",
-      "statement": "CLI credentials are personal access tokens (PATs) starting with 'rhc_live_', carrying the 'cli' role. They are stored 0600 under ~/.config/restheart by rhc login, or set via RH_CLOUD_TOKEN env var in pipelines. The env var always wins over a stored session. A credential is never accepted as a flag (to avoid shell history exposure).",
+      "statement": "CLI credentials are personal access tokens (PATs) starting with 'ula_live_', carrying the 'cli' role. They are stored 0600 under ~/.config/ulabase by ulabase login, or set via ULABASE_TOKEN env var in pipelines. The env var always wins over a stored session. A credential is never accepted as a flag (to avoid shell history exposure).",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/cli.ts#L337-L356",
-          "version": "repo-lines-v1:sha256:89960f593d49180f1febad1d62503adf40708db71592912604948078281c6ce0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1OTc1NzdhMWExOWFhYjMzOWYwM2ZjNDQ5NDIzYzVmNzdkZjcyZTYxODRlYTc0ZWU0NzRkNjM0ZjAyNDlkNGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0Y2MxNjNkNWY3Njk4YTJiYTcxMTgzMGM2MzIyYTMxZDJkYjRmY2UwNTE2NDY1MzkyZGM0NmM3ZWI3ZjkwNGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3NGFhNmUyMzg4NzE4N2FhZmUzYzY4ZTA1Y2FmZjZhODNlN2ZjNzYzNDA0M2JjOTUzNmY5ODM3YmNiNTNhZGYifQ"
+          "resource": "repo://packages/cli/src/cli.ts#L101-L112",
+          "version": "repo-lines-v1:sha256:42baf8cb963683d327ee3a3ac2b79c64a9e7b447e5d5059b1ef06c78a1056f91:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkYmRhNDBlOTAyZDFjMTM2ODI0MDI2NjI5OTcxNjgyOTFjMGExMTBjNjYwZjhkZDMyOTU3ODM2ZjAwMTEwM2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU0NGQzODllNmI2Y2RhODQ2ODFhZjFiZjgzY2U1YzA5MzMxMDI5MjY5YzljNTJkMTVlMzgxY2I3ZThhNTY0MGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzMzM5YTc1YzIxZmNlYzUyYzJkMzQzMjVkNjE3ZmYxZDE1NTk3ZWJkOWRhY2Y0N2I4NmI0YTk0MTQ3YmNiMzIifQ"
         },
         {
-          "resource": "repo://packages/cli/src/cli.ts#L56-L57",
-          "version": "repo-lines-v1:sha256:0318b5c06417566da774a9ecfb6cfb76b797935bef5d3f79bddab9730226bbf7:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzFjNmNhMzc3YmZjNjRkOThkZGZlNmYxZWUzYWY3MjM1NTg3ZjU1ZDUzYjMwNTliOTBkMzhjZTZmMGZhYWQxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGY3ODRmMDg4YjkwZmRiYjViNzFkY2I4MzE0NzczZDIwYjRkMDgxMzQxZTc2ODJmMjk1MjQyZGMxMGFiNmJlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2YwYmQwYTE2ZDhhMzgxM2M3YzljMjM5NmFhMGNlMDYxMWUyZDIxY2RmOTIwMDE4Y2M3NGNmNzc5ZjY2NGYwYSJ9"
+          "resource": "repo://packages/cli/src/cli.ts#L65-L65",
+          "version": "repo-lines-v1:sha256:df9d32221e6b73ad03d14af6423dde96f17cd7441a10b4f5c92632ca03af4822:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGY5ZDMyMjIxZTZiNzNhZDAzZDE0YWY2NDIzZGRlOTZmMTdjZDc0NDFhMTBiNGY1YzkyNjMyY2EwM2FmNDgyMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGY5ZDMyMjIxZTZiNzNhZDAzZDE0YWY2NDIzZGRlOTZmMTdjZDc0NDFhMTBiNGY1YzkyNjMyY2EwM2FmNDgyMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGY3ODRmMDg4YjkwZmRiYjViNzFkY2I4MzE0NzczZDIwYjRkMDgxMzQxZTc2ODJmMjk1MjQyZGMxMGFiNmJlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWIzNGQ1Njg4ZDAyNjM3OWQxNmIyZjkyYzBhNDNlZDFkNjFlODc1ZDM2MmVkZGYwMTg5YWQyOTg0NTUyNGRmNiJ9"
         },
         {
-          "resource": "repo://packages/cli/src/cli.ts#L92-L108",
-          "version": "repo-lines-v1:sha256:664b2475e1341c64efd0b9ab02975d4ef98be4cc0a8235c7aa2b1b964d9105ec:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkYmRhNDBlOTAyZDFjMTM2ODI0MDI2NjI5OTcxNjgyOTFjMGExMTBjNjYwZjhkZDMyOTU3ODM2ZjAwMTEwM2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhZDI5NTI1MzZmYzYwMDBhZDkxNTY2YmQ5NTNmMjViYzk1OTYxMGU4MTFhNTI5YTliZWY4YjRmMDdjMWM4Y2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU0NGQzODllNmI2Y2RhODQ2ODFhZjFiZjgzY2U1YzA5MzMxMDI5MjY5YzljNTJkMTVlMzgxY2I3ZThhNTY0MGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFiNjVkOGIwNTc0M2RiMzlhZWU5YzgxNzc5M2M1ZmMwYjE2YTM3NzE1MmM5OWU5MDk4MmFmZGNiMDYyODYyZDgifQ"
+          "resource": "repo://packages/cli/src/session.ts#L29-L29",
+          "version": "repo-lines-v1:sha256:04d15e81fa90f8c59981c5d3e2c601b372113b376d1af9cae921a79c613294a5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDRkMTVlODFmYTkwZjhjNTk5ODFjNWQzZTJjNjAxYjM3MjExM2IzNzZkMWFmOWNhZTkyMWE3OWM2MTMyOTRhNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDRkMTVlODFmYTkwZjhjNTk5ODFjNWQzZTJjNjAxYjM3MjExM2IzNzZkMWFmOWNhZTkyMWE3OWM2MTMyOTRhNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2RjZjAzNWY3ZWFmODQyNmNlNTY5ZDNmNTBhOTc4ZmQ4NTQ4NWFhMTBkZTQ2NTg4M2ZlNDVlZGRiZDBjOGIwYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjMxMzgxMGFiM2IyNWZiNTc2ZWIxNGIxOGEwOGY3NWIyZWIyYmIwY2YyZTlmOGEyMzVhZGJlMDI1NmZhN2Q1NiJ9"
+        },
+        {
+          "resource": "repo://packages/cli/src/session.ts#L37-L40",
+          "version": "repo-lines-v1:sha256:085ed2b346185d31b869f7fb77c31016793c9b80a0f31f770ad1954509de9017:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDZlNDZlYjVmZWE2NDc2MWIxMjRmMWNiMjgxNTVkZDAwNTIyNjA5MmZmYTk5M2Q3ZWJiZjYxNzg5ZTg4NWZiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjllYWNlMjQ5YWQ0YjE4YzkxOGE1NjA2ZTBiNWZmYjQ0ZTVlNDA0ZDI0YTgyOWM5NGM3NzQyM2Y4ZjI0ZDVlMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2Y4YzIyZGU0YmI2MWQ1Y2ZlOGM3ZTc5MWE0MjI1ZWMwNjQzNmFlOGI0ZjdkM2MzODViNmY2YjQxNDY1ZjEzNiJ9"
         }
       ]
     },
@@ -177,7 +181,7 @@
       "statement": "The CLI setup runner emits ProgressEvent objects (step name, state, index, total) via an onProgress callback. The SetupReport includes per-step state (satisfied, applied, missing, failed, skipped), duration, and an ok flag. Exit code 0 means every step satisfied or applied, 1 means a step failed, 2 means a dry run found work outstanding.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/cli.ts#L104-L108",
+          "resource": "repo://packages/cli/src/cli.ts#L113-L117",
           "version": "repo-lines-v1:sha256:c17467a07bfc5d84c7fe7286e2ec82526934b599ae3766c805fe46b44fbb5b51:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTE1YTk0MzcyZTNhNDU2MTRhMjJjMDRlZjVlNDkyNTk4Y2FlNmRjZDQ3MGZiZjY3YTc5ZThmMzgzNmYyNTE3YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFkMjk1MjUzNmZjNjAwMGFkOTE1NjZiZDk1M2YyNWJjOTU5NjEwZTgxMWE1MjlhOWJlZjhiNGYwN2MxYzhjZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmM0YjVjYzA4NDMwNmI3YWU1MDUyNjM3ZGEzMDExZDA0N2Q4NzJjMjVmMWRiYjVlYjlmYWQ5YTI1ZDcxYjkxZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWI2NWQ4YjA1NzQzZGIzOWFlZTljODE3NzkzYzVmYzBiMTZhMzc3MTUyYzk5ZTkwOTgyYWZkY2IwNjI4NjJkOCJ9"
         },
         {
@@ -196,7 +200,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/package.json",
-          "version": "repo-file-v1:sha256:08bb2546a3b324bb438e7e95a8bf9acc237befc1688d2bf055e8d4dc6a109c85"
+          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
         },
         {
           "resource": "repo://packages/cli/src/index.ts",
@@ -224,21 +228,21 @@
     },
     {
       "id": "claim_9500b9f2c90d44aa82d7c9e9a386fca8",
-      "statement": "The CLI's loadSetup function resolves the setup file from the working directory (conventional names: rhc.setup.ts, .mts, .js, .mjs) or from --file. It provides targeted error messages for missing packages (bare specifier resolution), missing relative imports (extension required), and TypeScript files on older Node (needs tsx or Node 22.18+).",
+      "statement": "The CLI's loadSetup function resolves the setup file from the working directory (conventional names: ulabase.setup.ts, .mts, .js, .mjs) or from --file. It provides targeted error messages for missing packages (bare specifier resolution), missing relative imports (extension required), and TypeScript files on older Node (needs tsx or Node 22.18+).",
       "evidence": [
         {
           "resource": "repo://packages/cli/src/cli.ts#L177-L255",
-          "version": "repo-lines-v1:sha256:ad6f5c3041049d0f9865d167c7fd2c90a1a7f854191d2e0863f7ffe1a6d882ec:eyJzZWxlY3RlZExpbmVDb3VudCI6NzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmYmM0OTk4MWZiZWJlZmRjMmYyZTRjZTIyZDI2NDVmNTA3NDExZGY4ZTczYjM2N2I4OTBjZTUzOTYwN2JkN2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhYjE3M2RjNjI5ZWQ0NzcxNGUxOWNjYTNjZmJhNWQ1MDRlY2Y5MWI4NTVmNGYyNjhmYjNlMzM0YTgzZTgzYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0ZTEwZTU3NjUwODAwZGJmOWZiYjkxMzhmYzkyMDE4N2RlNmQzYzE4ZmFkMmVhZTdhN2QxNTZlNmM5ZDI3MTAifQ"
+          "version": "repo-lines-v1:sha256:881b8041e67729c08636a14eeab19adc166254daa44f19f4526ddc96dd06ebb1:eyJzZWxlY3RlZExpbmVDb3VudCI6NzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzNTljMzE4NDZmMWVjM2YxZjdmOGYzZjE3MTU0YzVmYWViYzY1NWM4NWU5OTZiZGMxNTljNmZjYTRjYjNkNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzODY2Yjk2Y2Y5NjZhZTAzYzI1ZGMzZGI0YTI2Mjc3Y2YwNjcwMTkyODBhOGFhMWJhZmI0OGZlNmRjM2M3YTQifQ"
         },
         {
-          "resource": "repo://packages/cli/src/cli.ts#L47-L48",
-          "version": "repo-lines-v1:sha256:76bc42e7ffc5892840b84d7892a93a2efb1c62e780f3f5740fbb26ef8e4952b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWUyYTQ5YzdlOGUyYjUxMTQ0NTc4MDUzMGE4ZjNlYzQ5NzM4NDlhZGFjYjYwYWE4ZGMwZTk1NjYyNDg1NDU5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODBiODA2MmI2Y2Q4ODI0OTc0ZWMyYjA1NGVhOWQ4ZjcxNDQ2NDEzODllZTRhMzljYmU4MzQ1NGRmMDU1NTAyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjU2MDVjMTQwZDE2OTgyMjVlMThmYTIxMzY3OTM3MzI2YjZjNWIxOGM5Nzc1NWJhOGQzZjU5ZTg5NjhiOWQyMyJ9"
+          "resource": "repo://packages/cli/src/cli.ts#L57-L57",
+          "version": "repo-lines-v1:sha256:1329b56c6abb8369380caa6e7d2718e011e0ca65de0e91d899222486542f6336:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTMyOWI1NmM2YWJiODM2OTM4MGNhYTZlN2QyNzE4ZTAxMWUwY2E2NWRlMGU5MWQ4OTkyMjI0ODY1NDJmNjMzNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTMyOWI1NmM2YWJiODM2OTM4MGNhYTZlN2QyNzE4ZTAxMWUwY2E2NWRlMGU5MWQ4OTkyMjI0ODY1NDJmNjMzNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWE5ZWMyNzcxNjA3MzE3ZDNjOTgwMGEwMmQzYzFhZDM2YmUxMDNmMWY3MDdjMGIxMGIwM2E4YjUyNTEzNjc2MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjU2MDVjMTQwZDE2OTgyMjVlMThmYTIxMzY3OTM3MzI2YjZjNWIxOGM5Nzc1NWJhOGQzZjU5ZTg5NjhiOWQyMyJ9"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.0",
-    "at": "2026-09-25T09:43:51.410Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }

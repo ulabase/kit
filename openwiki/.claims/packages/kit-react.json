@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:2bdb916869a26e0091be4d78c8940512424ad4285003db9dc8f2fd3910c54887",
+  "pageVersion": "sha256:42c0cadb61619b6153b7262a3e0328f15c9c5af01698f39b8e3a1f74a75fa3f9",
   "claims": [
     {
       "id": "claim_052e7c730f284d558f4f996e69cfb5d4",
-      "statement": "@restheart-cloud/kit-react is a React adapter for @restheart-cloud/kit that provides context, hooks, and route guards for authentication, payments, and cart functionality, plus a /next subpath for Next.js SSR support.",
+      "statement": "@ulabase/kit-react is a React adapter for @ulabase/kit that provides context, hooks, and route guards for authentication, payments, and cart functionality, plus a /next subpath for Next.js SSR support.",
       "evidence": [
         {
           "resource": "repo://packages/kit-react/package.json",
-          "version": "repo-file-v1:sha256:9ba739ae2c1e33db240646f65918f1b953833c94e01cbac46805e5236204e492"
+          "version": "repo-file-v1:sha256:3e5f43b33a5c67dd9a77624ab684a04f1f1e6ad14619ef77af0389f02ae303be"
         },
         {
           "resource": "repo://packages/kit-react/src/index.ts",
-          "version": "repo-file-v1:sha256:367716e8413bfbd2cde8b9c40b5863fb8cc16246ee809fb4c65fbec13c31e295"
+          "version": "repo-file-v1:sha256:974d09f5d2eb6622875e4bf1055287b9cc0d15cffc6ff3070f3a2e83c64f0748"
         }
       ]
     },
@@ -22,7 +22,7 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-react/src/context.tsx",
-          "version": "repo-file-v1:sha256:5b25ec2298a8ae6eafdd1688979580d672204c838b487a05f8a48b2cf5062f9d"
+          "version": "repo-file-v1:sha256:fe56f3891946e3dd895fdb720a8f44381ca40064632776c05d4b771a80cd13a4"
         },
         {
           "resource": "repo://packages/kit-react/src/context.tsx#L128-L394",
@@ -102,27 +102,27 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-react/src/next/actions.ts",
-          "version": "repo-file-v1:sha256:4fdf531c4fd6fcb2433b6135f99ab54ddd0ddd07252533a5e6571034f90883b3"
+          "version": "repo-file-v1:sha256:7b5d9ab741283868a7c4a15010e2523b6edb4e2684fcd8be95b1c8e3727634e3"
         },
         {
           "resource": "repo://packages/kit-react/src/next/cookies.ts",
-          "version": "repo-file-v1:sha256:22d8a76c44a172e4161a9fde24ecfb2bdbf5d92b2b84494245dcffe90761c071"
+          "version": "repo-file-v1:sha256:de5ecede607373ad0abfb593330c30f7668e29dd7ecc7790ffdeaee1d58c0fe4"
         },
         {
           "resource": "repo://packages/kit-react/src/next/index.ts",
-          "version": "repo-file-v1:sha256:b154d27946dd7f77ba569152e5839023777fd8f5f6495e8eb6da2f5d6a36f4ca"
+          "version": "repo-file-v1:sha256:af2713577e3d181c66e0399eb391af3756faf401bbd017d7579ea7600b4e4fb1"
         },
         {
           "resource": "repo://packages/kit-react/src/next/middleware.ts",
-          "version": "repo-file-v1:sha256:bf9d8ac0c370515c752a3c399c1ad712d2c1ec7dd2659ba6d8b936c9c654b1bd"
+          "version": "repo-file-v1:sha256:4c538964b8f1ebf074c769e0e8e3c346d88014b0511e57ff410d2415e2683b6e"
         },
         {
           "resource": "repo://packages/kit-react/src/next/route.ts",
-          "version": "repo-file-v1:sha256:f5569a116ff2fcec3dc945abceff9cacd2ee00522c1267df844040dcc8708ca0"
+          "version": "repo-file-v1:sha256:d182e9e913cfd4477e83b46d1e13bf763043b66495098720e11ec9ac4d676b54"
         },
         {
           "resource": "repo://packages/kit-react/src/next/session.ts",
-          "version": "repo-file-v1:sha256:ef98cf78214bf956319d2c644fdbc726d5309d27864504ac63489b77777507f6"
+          "version": "repo-file-v1:sha256:4d46e36be59ffab13ae32afe409069718799808bed97a81c6d9af77936b0898b"
         },
         {
           "resource": "repo://packages/kit-react/src/next/sync.tsx",
@@ -156,7 +156,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.0",
-    "at": "2026-09-07T09:33:56.593Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T10:51:10.399Z"
   }
 }
