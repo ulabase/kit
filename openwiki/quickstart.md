@@ -32,7 +32,10 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-02T09:21:14.211Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-02T09:21:14.211Z
 ---
 
 # Ulabase Kit
@@ -466,3 +469,13 @@ const auth = useAuth();
 - **Issues**: [GitHub Issues](https://github.com/ulabase/kit/issues)
 - **Documentation**: [Ulabase Docs](https://ulabase.com)
 - **Starter App**: [starter-ng](https://github.com/ulabase/starter-ng)
+
+## Related Pages
+
+- [Architecture Overview](architecture/overview.md) — Monorepo structure, package layering, design principles
+- [Payments & E-commerce](concepts/payments.md) — Subscriptions, Checkout, Portal, seat licences, catalog, orders, cart, and price formatting
+- [Core Kit](packages/kit.md) — API reference, configuration, authentication flows
+- [Token Delivery](architecture/token-delivery.md) — Bearer vs cookie modes, SSR considerations
+- [Testing Guide](testing/guide.md) — Core integration tests and adapter unit tests
+- [Contributing](contributing/development.md) — Local setup, workspace configuration, debugging
+- [Release Process](deployment/release.md) — Tag-driven releases, CI/CD pipeline
