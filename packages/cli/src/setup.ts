@@ -158,8 +158,8 @@ export async function runSetup(setup: Setup, opts: RunOptions): Promise<SetupRep
    * An apply and its check do not always speak to the same process. Installing
    * or initialising a feature runs on the **admin node**, which writes to the
    * tenant's database directly; the check then asks the **service node**, which
-   * caches collection metadata for one second by default
-   * (`local-cache-ttl`). So a step that genuinely worked can be observed as
+   * caches collection metadata for sixty seconds by default
+   * (`local-cache-ttl`); the Stripe initialisation clears that cache itself. So a step that genuinely worked can be observed as
    * not-yet-done, and the run halts on a service that is in fact correct — as
    * `stripe collections and indexes initialised` did.
    *

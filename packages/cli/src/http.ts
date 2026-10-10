@@ -31,16 +31,25 @@ export async function request(
   headers.set('No-Auth-Challenge', 'true');
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
-  let res: Response;
-  try {
-    res = await transport(`${baseUrl}${path}`, { ...rest, headers });
-  } catch (cause) {
-    // `status: 0` tells "never reached the service" from "the service said no",
-    // which is the distinction a half-configured run needs in its report.
-    throw {
-      status: 0,
-      message: cause instanceof Error ? cause.message : 'Network request failed',
-    } satisfies ApiError;
+  let res!: Response;
+  for (let attempt = 0; ; attempt++) {
+    try {
+      res = await transport(`${baseUrl}${path}`, { ...rest, headers });
+    } catch (cause) {
+      // `status: 0` tells "never reached the service" from "the service said no",
+      // which is the distinction a half-configured run needs in its report.
+      throw {
+        status: 0,
+        message: cause instanceof Error ? cause.message : 'Network request failed',
+      } satisfies ApiError;
+    }
+    // A plan's rate limit is a pause, not a failure: a setup on the Free plan can
+    // go past its requests per minute, and stopping there would leave the
+    // service half configured. Wait as long as the service asks, then go on.
+    if (res.status !== 429 || attempt >= RATE_LIMIT_RETRIES) break;
+    const seconds = retryAfterSeconds(res.headers.get('Retry-After'));
+    process.stderr.write(`  The plan's request limit is reached: waiting ${seconds} seconds, then going on.\n`);
+    await new Promise(r => setTimeout(r, seconds * 1000));
   }
 
   if (!res.ok) {
@@ -55,6 +64,15 @@ export async function request(
   }
 
   return res;
+}
+
+/** How many times a request refused with 429 is tried again. */
+const RATE_LIMIT_RETRIES = 3;
+
+/** The wait a 429 asks for, in seconds: its `Retry-After`, or a minute when absent or unreadable. */
+export function retryAfterSeconds(header: string | null): number {
+  const seconds = Number(header);
+  return Number.isFinite(seconds) && seconds > 0 ? Math.min(seconds, 120) : 60;
 }
 
 /** True when `err` is an `ApiError` carrying `status`. */
