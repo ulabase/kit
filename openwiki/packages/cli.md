@@ -26,10 +26,10 @@ sources:
     resource: repo://packages/cli/src/setup.ts
   - id: openwiki-source-e5bdf5324e38ac0fd72f905f
     resource: repo://packages/cli/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-11T09:40:27.252Z" }
 verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T13:26:36.210Z
+  - by: openwiki/0.7.2
+    at: 2026-10-11T09:40:27.252Z
 ---
 
 # @ulabase/cli
@@ -69,7 +69,7 @@ This is **not a fourth adapter**. There is no reactive state, no session to rest
 | `src/setup.ts` | Setup runner — `step`, `defineSetup`, `runSetup`; sequential execution with check/apply halves, recheck backoff, dry-run, force |
 | `src/session.ts` | Token persistence — `~/.config/ulabase/session.json` (mode 0600), `ULABASE_TOKEN` env var precedence |
 | `src/env.ts` | Secret handling — `fromEnv` markers, `resolveEnvRefs`, `MissingEnvError`; Symbol.for identity for cross-version interop |
-| `src/http.ts` | Low-level HTTP helpers — `request` (service-node fetch), `existsOr404`, `isApiError` |
+| `src/http.ts` | Low-level HTTP helpers — `request` (service-node fetch with rate-limit retry), `existsOr404`, `isApiError` |
 | `src/types.ts` | Shared types — `FeatureConfig`, `ConfigSchema`, `CatalogFeature`, `InstalledFeature`, `ServiceToken`, `REDACTED`, `isRedacted` |
 | `src/index.ts` | Library public API — re-exports from all modules |
 
@@ -268,6 +268,22 @@ A `.ts` setup needs a runtime that can load one — Node 22.18+ strips types on 
 
 `--dry-run` in a pull-request check and a full run on merge gives you a deploy **gate**: a misconfigured Stripe key fails the pipeline before it can report success.
 
+### Output and Progress
+
+The CLI subscribes to the setup runner's progress events and renders each step with a glyph:
+
+| Glyph | State | Meaning |
+|---|---|---|
+| `·` | satisfied | Already done; nothing was touched |
+| `+` | applied | Check failed, apply ran, recheck passed |
+| `?` | missing | Dry run found this undone |
+| `✗` | failed | Apply threw or left the check still failing |
+| `—` | skipped | An earlier step failed; this one was not attempted |
+
+Each line is prefixed with a `[n/total]` counter. When `--json` is given, no progress lines are emitted; instead the full `SetupReport` is written as JSON after the run completes.
+
+The `summarise()` function writes a one-line count summary (e.g. `Blog on ea820b: 4 applied, 2 satisfied`) and, when a dry run found missing steps, reminds the reader to re-run without `--dry-run`. It also collects any `MissingEnvError` messages from the report and repeats them at the end — because a step that fails on an unset variable may be step 15 out of 20, and the message naming the variable is the one that tells the reader what to do.
+
 ## Clients
 
 The CLI provides two clients — one for the admin node, one for the service node — because Ulabase separates management and data planes. The admin client handles feature lifecycle and credential minting; the service client handles collections, indexes, permissions, users, and schemas. A setup step receives both, since a real configuration crosses both planes.
@@ -328,6 +344,16 @@ A check answers `false` on `404` and throws on anything else — a `403` means t
 Document writes (permissions, users, schemas) use `?wm=upsert` because RESTHeart's default write mode is `update`, and updating a document that is not there answers `404` rather than creating it. Collections and indexes create on their own without upsert.
 
 The service client also resolves `fromEnv` markers in request bodies, just as the admin client does — a user document has a password, a permission can carry a token.
+
+### Low-level HTTP Helpers
+
+`src/http.ts` provides the transport layer used by the service client:
+
+- **`request(baseUrl, path, init?, transport?)`** — Fetches against a service node using native `fetch` rather than the core's `apiFetch`, because the service URL comes from the server (`GET /srvs-mgmt/{srvId}/jwt`) and re-validating it would break local integration environments whose host names the guard does not recognise.
+- **Rate-limit retry** — A plan's rate limit is a pause, not a failure. When `request()` receives a `429` response, it reads the `Retry-After` header (capped at 120 seconds, falling back to 60 seconds when absent or unreadable), writes a status message to stderr, and retries up to 3 times (`RATE_LIMIT_RETRIES`). This lets a setup on the Free plan continue past its requests-per-minute quota without leaving the service half-configured.
+- **`retryAfterSeconds(header)`** — Parses the `Retry-After` header, capping at 120s with a 60s fallback.
+- **`existsOr404(fn)`** — Runs `fn`, answering `false` on a `404` instead of throwing. Every `*Exists` check in the service client is this shape: absent is an answer, not a failure. Any other status still throws — a `403` means the token cannot see the thing, which is not the same as the thing not being there.
+- **`isApiError(err)`** — Type guard for the `{ status, message }` shape that all HTTP failures produce.
 
 ## From a Pipeline
 

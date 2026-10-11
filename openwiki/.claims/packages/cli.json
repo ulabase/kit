@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:913c6e43d946baa4b13dfd70977d6ed1687772e02301a26ab5f8ebc590c37223",
+  "pageVersion": "sha256:51c7dbc7dad14dd875c6ea7ab0b604d2613c92ae8bbb87345775897ea1265e0c",
   "claims": [
     {
       "id": "claim_acd1c970ec6249f5854fc444f6b659e0",
@@ -129,7 +129,7 @@
       "statement": "Service client checks answer false on 404 and throw on anything else (including 403), because a 403 means the token cannot see the thing, not that it is absent. Document writes (permissions, users, schemas) use ?wm=upsert; collections and indexes do not need it.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/http.ts#L66-L81",
+          "resource": "repo://packages/cli/src/http.ts#L84-L99",
           "version": "repo-lines-v1:sha256:3e28777794d85fcb0f601d585f0cdfb1aba7c6821403878d1450b4c87e65d13f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhN2Q4YjlkOTVjZDgzMDhhNTBhMGUzZjZjZGIwY2YwZTg0Y2JiNDczMzBlZjFlMzJhNzBhMTYyZGMwNmYwNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3OTI5ZTkxZTBmOTljM2U4MjVkZTY5YjQzNWZiNjQ4NGQxYjBhMWRmMmY0NjU2MWFiZjFhMjlmMDQxODhiODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
@@ -148,7 +148,7 @@
         },
         {
           "resource": "repo://packages/cli/src/setup.ts#L132-L246",
-          "version": "repo-lines-v1:sha256:b5d0a41acef56dbd8289842c75c7fbaa672daadcedf85b7922be139b94897b7c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjNGUzNzFiMWYzMmFmZGI1NDk4MDY2ODMwY2ZlYjllN2VlZDdjNGQ1OWU1MWE3ZjE3MzM5Yjg4NzAxMGUxOTE4IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwZDY0Y2E1YTRjYmFkNjc1Y2I1Y2NiMGI4NzI4ZTBmYTc2ZjUyZmIyZTIwYjNiNjgwYTI2OTA0MTJlY2JlNDJlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNGFmOTFmY2NlYzk5MWM0ZTEyYTFiYjA2NjQ0YjM3OTMzZDYwZDA5ZjhkMzg2NTJkNDBiNjlkYzI5Y2I4N2MxIn0"
+          "version": "repo-lines-v1:sha256:3cc5a9e18f0e3c21eab68a0eee6827610f59d86fdc95ada493939cf00be9e0db:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjNGUzNzFiMWYzMmFmZGI1NDk4MDY2ODMwY2ZlYjllN2VlZDdjNGQ1OWU1MWE3ZjE3MzM5Yjg4NzAxMGUxOTE4IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwZDY0Y2E1YTRjYmFkNjc1Y2I1Y2NiMGI4NzI4ZTBmYTc2ZjUyZmIyZTIwYjNiNjgwYTI2OTA0MTJlY2JlNDJlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNGFmOTFmY2NlYzk5MWM0ZTEyYTFiYjA2NjQ0YjM3OTMzZDYwZDA5ZjhkMzg2NTJkNDBiNjlkYzI5Y2I4N2MxIn0"
         },
         {
           "resource": "repo://packages/cli/src/setup.ts#L19-L30",
@@ -162,7 +162,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/setup.ts#L155-L189",
-          "version": "repo-lines-v1:sha256:68c2c0559fce01323f31ca3e1f68f9455169209a3709573d4ca32f8bb558f517:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwMjkwYWE4OGQ1MmQ1NzM5ZDkzMTQyNTJhNGFjYWNkMjFiYmYxYTdhZjc4ZTFjZDZiYWE1NDUzNTM3MTk2NmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2MWQzZmU2ZTM5NjZjMmY2OGI5ZDc1Mzg0OTQyYjYzY2YxZjU0NDI0OGI3M2ZlMzdmMmY4OTMxY2JlMDQ5MTQifQ"
+          "version": "repo-lines-v1:sha256:10f556ba79ebeaa297c6e55e8c367b1ad2224864813bc3a68ec9c96a52c6681a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwMjkwYWE4OGQ1MmQ1NzM5ZDkzMTQyNTJhNGFjYWNkMjFiYmYxYTdhZjc4ZTFjZDZiYWE1NDUzNTM3MTk2NmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2MWQzZmU2ZTM5NjZjMmY2OGI5ZDc1Mzg0OTQyYjYzY2YxZjU0NDI0OGI3M2ZlMzdmMmY4OTMxY2JlMDQ5MTQifQ"
         }
       ]
     },
@@ -234,17 +234,17 @@
     },
     {
       "id": "claim_43879ff5b3fc494baa1cdc4380f18875",
-      "statement": "The http.ts module provides request() for service-node fetch (using native fetch, not apiFetch, because the service URL comes from the server and should not be re-validated), existsOr404() for check operations, and isApiError() for error type discrimination.",
+      "statement": "The http.ts module provides request() for service-node fetch using native fetch (not apiFetch, because the service URL comes from the server and should not be re-validated), with rate-limit retry on 429 responses (up to 3 retries, reading the Retry-After header capped at 120s with 60s fallback, writing a status message to stderr), existsOr404() for check operations that answers false on 404 and throws on anything else, retryAfterSeconds() for header parsing, and isApiError() for error type discrimination.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/http.ts#L19-L81",
-          "version": "repo-lines-v1:sha256:e1ac3addd8290eb7d1186f4f8ab5a7c7aec1b0dd7b72342187bbc7fc2b601aef:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzN2Y0YmY5MzliM2NhYjU2NTU3YmZiZDhkZTFlMWFjMGE0YjNkMjViYjQ4Yzc5NGEzMjQzODM0OWUxM2Y0Y2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI5OTViOTcxZWFiNTA4M2ExYTQ0MjUxYjhlY2EzMmMwMmU3NTAyNTRiZmVjYmMzMWJmZTk0MGRlNzk2ZGYxMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://packages/cli/src/http.ts#L19-L99",
+          "version": "repo-lines-v1:sha256:0060f364f881a706991f4b38f71527f648f935bc4954d4aacc5d1656c31b91bb:eyJzZWxlY3RlZExpbmVDb3VudCI6ODEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzN2Y0YmY5MzliM2NhYjU2NTU3YmZiZDhkZTFlMWFjMGE0YjNkMjViYjQ4Yzc5NGEzMjQzODM0OWUxM2Y0Y2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI5OTViOTcxZWFiNTA4M2ExYTQ0MjUxYjhlY2EzMmMwMmU3NTAyNTRiZmVjYmMzMWJmZTk0MGRlNzk2ZGYxMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.1",
-    "at": "2026-10-01T13:26:36.210Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-11T09:40:27.252Z"
   }
 }
