@@ -1,12 +1,11 @@
 ---
-type: "Reference"
-title: "Architecture Overview"
-description: "Comprehensive architecture reference covering monorepo structure, package layering, design principles, dependency graph, and payments architecture."
-tags: ["architecture", "monorepo", "packages", "design", "payments"]
-openwiki_generated: true
+type: reference
+title: Architecture Overview
+description: Comprehensive architecture reference covering monorepo structure, package layering, design principles, dependency graph, and payments architecture.
+tags: [architecture, monorepo, packages, design, payments]
 verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T13:26:36.210Z
+  - by: openwiki/0.7.2
+    at: 2026-10-11T09:40:27.252Z
 sources:
   - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
     resource: repo://docs/ADAPTER_CONTRACT.md
@@ -42,7 +41,7 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-11T09:40:27.252Z" }
 ---
 
 
@@ -254,7 +253,7 @@ Both authentication modes (bearer and cookie) must be supported consistently:
 
 Every auto-login endpoint (`login`, `activate`, `resetPassword`, `switchTeam`) accepts a `mode` parameter that controls token delivery via the `delivery` query parameter (`body` for bearer, `cookie` for cookie mode).
 
-### Pluggable Token Source and Sink
+### 3. Pluggable Token Source and Sink
 
 The core `AuthConfig` accepts optional callbacks:
 

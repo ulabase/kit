@@ -34,8 +34,8 @@ sources:
     resource: repo://packages/kit/src/types.ts
 generated: { by: "openwiki/0.6.1", at: "2026-10-02T09:21:14.211Z" }
 verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-02T09:21:14.211Z
+  - by: openwiki/0.7.2
+    at: 2026-10-11T09:40:27.252Z
 ---
 
 # Ulabase Kit
