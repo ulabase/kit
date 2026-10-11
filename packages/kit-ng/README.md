@@ -231,8 +231,9 @@ full reasoning.
 The fastest path to a working app:
 
 1. Create a service on [Ulabase](https://ulabase.com)
-2. Fork [`ulabase/starter-ng`](https://github.com/ulabase/starter-ng)
-3. Set `apiBaseUrl` in `environment.ts`
-4. `ng serve`
+2. Clone [`ulabase/starter-ng`](https://github.com/ulabase/starter-ng) and run `npm install`
+3. `npx ulabase login`, then `npx ulabase setup --srv <srvId>`: it configures the service and writes
+   its URL into `src/environments/environment.dev.ts`
+4. `npm start`
 
 You get login, signup, email verification, invitations, password reset, and multi-team switching — all wired up.

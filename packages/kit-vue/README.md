@@ -249,3 +249,6 @@ export default defineEventHandler(async (event) => {
 1. Create a service on [Ulabase](https://ulabase.com)
 2. Set `apiBaseUrl` to your service URL
 3. `app.use(createRhAuth(config))` and use `useAuth()` in components
+
+Or start from the [Vue starter](https://github.com/ulabase/starter-vue): sign-up, login, email
+verification, password reset, teams and invitations, already built on this package.

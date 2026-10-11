@@ -50,12 +50,15 @@ as your Ulabase account rather than as a tenant. [Why](./docs/ADAPTERS.md#6-what
 
 ## Quickstart
 
-The fastest path to a working Angular app:
+The fastest path to a working app is a starter: [React](https://github.com/ulabase/starter-react),
+[Angular](https://github.com/ulabase/starter-ng), [Vue](https://github.com/ulabase/starter-vue) or
+[e-commerce](https://github.com/ulabase/starter-ecommerce).
 
 1. Create a service on [Ulabase](https://ulabase.com)
-2. Fork [`ulabase/starter-ng`](https://github.com/ulabase/starter-ng)
-3. Set `apiBaseUrl` in `environment.ts`
-4. `ng serve`
+2. Clone a starter and run `npm install`
+3. `npx ulabase login`, then `npx ulabase setup --srv <srvId>`: it configures the service and writes
+   its URL into the app's environment file
+4. `npm run dev` (`npm start` for Angular)
 
 ## Contributing
 

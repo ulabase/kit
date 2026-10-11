@@ -283,3 +283,6 @@ export async function switchTeam(teamId: { $oid: string }) {
 1. Create a service on [Ulabase](https://ulabase.com)
 2. Set `apiBaseUrl` to your service URL
 3. Wrap your app in `<RhAuthProvider>` and use `useAuth()`
+
+Or start from the [React starter](https://github.com/ulabase/starter-react): sign-up, login, email
+verification, password reset, teams and invitations, already built on this package.

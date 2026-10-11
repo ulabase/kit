@@ -50,5 +50,6 @@ nothing. In CI, set `ULABASE_TOKEN` from your secret store instead of logging in
   frontend, with adapters for Angular, React and Vue.
 - Starter apps: [Angular](https://github.com/ulabase/starter-ng),
   [React](https://github.com/ulabase/starter-react),
+  [Vue](https://github.com/ulabase/starter-vue),
   [e-commerce](https://github.com/ulabase/starter-ecommerce).
 - [ulabase.com](https://ulabase.com)
