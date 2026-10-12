@@ -233,8 +233,10 @@ export function RhAuthProvider({ config, children }: RhAuthProviderProps): React
       mode: LoginMode = 'bearer'
     ): Promise<void> => {
       await kit.resetPassword(configRef.current, payload, mode);
+      // the reset signs the user in: load them, or the guards see no session and send to the login
+      await checkSession().catch(() => null);
     },
-    []
+    [checkSession]
   );
   const changePassword = useCallback(
     (currentPassword: string, newPassword: string) =>
@@ -281,8 +283,10 @@ export function RhAuthProvider({ config, children }: RhAuthProviderProps): React
       mode: LoginMode = 'bearer'
     ): Promise<void> => {
       await kit.activate(configRef.current, payload, mode);
+      // activating signs the invited user in: load them, as after a login
+      await checkSession().catch(() => null);
     },
-    []
+    [checkSession]
   );
   const resendInvite = useCallback(
     (email: string) => kit.resendInvite(configRef.current, email),
