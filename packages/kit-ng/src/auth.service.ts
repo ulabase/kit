@@ -75,8 +75,8 @@ export class RhAuthService {
     );
   }
 
-  logout(): Observable<void> {
-    return from(kit.logout(this.config)).pipe(
+  logout(mode: LoginMode = 'bearer'): Observable<void> {
+    return from(kit.logout(this.config, mode)).pipe(
       tap(() => {
         this._user.set(null);
         this._teams.set([]);

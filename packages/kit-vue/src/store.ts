@@ -40,7 +40,7 @@ export interface RhAuthStore {
   }): Promise<void>;
   verify(email: string, token: string, delivery?: 'cookie' | 'fragment'): Promise<string>;
   login(email: string, password: string, mode?: LoginMode): Promise<UserInfo>;
-  logout(): Promise<void>;
+  logout(mode?: LoginMode): Promise<void>;
   forgotPassword(email: string): Promise<void>;
   resetPassword(
     payload: { email: string; token: string; password: string },
@@ -135,8 +135,8 @@ export function createRhAuthStore(config: AuthConfig): RhAuthStore {
     return u;
   }
 
-  async function logout(): Promise<void> {
-    await kit.logout(config);
+  async function logout(mode: LoginMode = 'bearer'): Promise<void> {
+    await kit.logout(config, mode);
     user.value = null;
     teams.value = [];
   }

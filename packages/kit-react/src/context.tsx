@@ -56,7 +56,7 @@ export interface RhAuth {
   }): Promise<void>;
   verify(email: string, token: string, delivery?: 'cookie' | 'fragment'): Promise<string>;
   login(email: string, password: string, mode?: LoginMode): Promise<UserInfo>;
-  logout(): Promise<void>;
+  logout(mode?: LoginMode): Promise<void>;
   forgotPassword(email: string): Promise<void>;
   resetPassword(
     payload: { email: string; token: string; password: string },
@@ -178,8 +178,8 @@ export function RhAuthProvider({ config, children }: RhAuthProviderProps): React
     []
   );
 
-  const logout = useCallback(async (): Promise<void> => {
-    await kit.logout(configRef.current);
+  const logout = useCallback(async (mode: LoginMode = 'bearer'): Promise<void> => {
+    await kit.logout(configRef.current, mode);
     setUser(null);
     setTeams([]);
   }, []);

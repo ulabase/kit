@@ -257,10 +257,12 @@ export async function login<E extends object = Record<never, never>>(
   return user;
 }
 
-export async function logout(config: AuthConfig): Promise<void> {
+export async function logout(config: AuthConfig, mode: LoginMode = 'bearer'): Promise<void> {
   cancelRefresh();
   try {
-    await apiFetch(config, '/logout', { method: 'POST' });
+    // Only a cookie session has something to undo on the server: /logout clears the auth cookie.
+    // A bearer session ends here, when the token is dropped; service nodes do not serve /logout.
+    if (mode === 'cookie') await apiFetch(config, '/logout', { method: 'POST' });
   } finally {
     clearToken();
   }
