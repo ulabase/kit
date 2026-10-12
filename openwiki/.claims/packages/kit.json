@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:64ff70bc81fce0bbb2fcb56eca7969d9233ba52b1e1452cadb2b7c6a393357ad",
+  "pageVersion": "sha256:91402ddba1a81f1588ef252a18557b5c19e818e50ec92bb46e9b9821ec524e62",
   "claims": [
     {
       "id": "claim_a7ad67a4c30f41539466368125d8fe2d",
@@ -74,21 +74,25 @@
     },
     {
       "id": "claim_c7128f2768194e469de8ccfc3b321904",
-      "statement": "The apiFetch function attaches Bearer tokens, sets Content-Type headers, suppresses browser Basic Auth popups, and throws ApiError on non-2xx responses",
+      "statement": "The apiFetch function attaches Bearer tokens, sets Content-Type headers, suppresses browser Basic Auth popups, throws ApiError on non-2xx responses, and extracts Retry-After from 429 responses into ApiError.retryAfter",
       "evidence": [
         {
           "resource": "repo://packages/kit/src/client.ts#L156-L237",
-          "version": "repo-lines-v1:sha256:70ee4a6d10333b5153b34aecf18980a76ba20be9177cf5b87a5c5ec9ce17e617:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTlmNDA0MGJhZGE5M2JjMzcwMjRhZDQ0YTIxOGZhYTNhNjE5ODUzYWQ5MGUyYzg3YjM0Y2Q1OWJiZmE0YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0M2I0NzI4ODZhMTMzMTZiOGNjY2IwYjhlNjFiZTAxODM5ODIwYmJkYjI5NDMyMjM5ZDIzNTg4Y2JkMGNlYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:a2510d513adb63df1b1f08a877b17069c7dc905a7045c97d88c133b97815aa0b:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTlmNDA0MGJhZGE5M2JjMzcwMjRhZDQ0YTIxOGZhYTNhNjE5ODUzYWQ5MGUyYzg3YjM0Y2Q1OWJiZmE0YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0M2I0NzI4ODZhMTMzMTZiOGNjY2IwYjhlNjFiZTAxODM5ODIwYmJkYjI5NDMyMjM5ZDIzNTg4Y2JkMGNlYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3YTdkYzJlMGQ1YWE1ZDYyZWQyZDA4MTVmYWFjMGY0MThmZTg0Mjg1ZWI5NTVlZGNlZTNhMzM3NzNmM2MzMzEifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/types.ts#L185-L190",
+          "version": "repo-lines-v1:sha256:3ea1415876025cb44bf160da1e9f45179c89f6de45f3876921caf35829d00de2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGE5ZTY0ZmJjYjY3Y2EwMGJmNGNmZjM0MWQ5NGY4MmMwNDdkMjA0Y2NkYWQwZGZlZDJlMTcyZDA0MzcwM2MxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjczNTM1YTkxZDUxZmI4MzYzNTIzODkxZTkyODQ2NWZjZWI5MmE4NmEyYmVmYzVhYTkxMzU0ZDk0ZjJhOTZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjUwNGZkYzRkZjI1NDg0MGYyZDgyYWFjNjAxNmM4NTUyZWRhZjY1ZDYwMDZlZTkyNjU4M2Y5MTNmMDVjMzZhNCJ9"
         }
       ]
     },
     {
       "id": "claim_c0e7271940e544598dbb0f899c719bbc",
-      "statement": "The checkSession function checks token expiry locally before calling the server and returns null for unverified accounts",
+      "statement": "The checkSession function checks token expiry locally before calling the server, uses withRetry to retry temporary failures (429, 5xx, network errors) up to 3 times, and returns null for unverified accounts or after 401/403 responses",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/auth.ts#L277-L309",
-          "version": "repo-lines-v1:sha256:60c715e8c17c6a80547dc8ee19a3f27dbcc21d37455e203e9e291b17ff894300:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZWUwMzI5Y2Q5NWIyMjJhZTY2MmVkMWRlNTE0MGFlODY2NzA2M2ZhNzgxMmMwNGNlOTFmODY1ZWY4NmE3ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxMGFiNmQyYjU1ZDYwYmI5NWY0MWQ0YzBkYjk2MzI0ZWIzMzVkNDU3YmNiZjY2MjJhNDRmNDkwNGFjYTZiMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://packages/kit/src/auth.ts#L277-L330",
+          "version": "repo-lines-v1:sha256:79bd40e59ca12ecb5834663bd4ce519286d9d07ead9a29d66eec6a4402423329:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxMGFiNmQyYjU1ZDYwYmI5NWY0MWQ0YzBkYjk2MzI0ZWIzMzVkNDU3YmNiZjY2MjJhNDRmNDkwNGFjYTZiMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -193,6 +197,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-12T17:21:34.616Z"
+    "at": "2026-10-12T22:47:19.205Z"
   }
 }

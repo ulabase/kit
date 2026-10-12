@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:dfaa6a7586200b742687456a046867ce8b231de0fd3833c708e109c28a683d62",
+  "pageVersion": "sha256:c7eef7b832241f349401e6ab95b1bf6b04d27c4019c0141da73dca2d8a665a43",
   "claims": [
     {
       "id": "claim_405e96080ae643619963331c7ec6afdc",
@@ -113,10 +113,58 @@
           "version": "repo-lines-v1:sha256:7c0ded650beb6d292a3f7041d21d13bfa7d11f2d1882b738febdf14e2665d5c3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTlmNDA0MGJhZGE5M2JjMzcwMjRhZDQ0YTIxOGZhYTNhNjE5ODUzYWQ5MGUyYzg3YjM0Y2Q1OWJiZmE0YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0M2I0NzI4ODZhMTMzMTZiOGNjY2IwYjhlNjFiZTAxODM5ODIwYmJkYjI5NDMyMjM5ZDIzNTg4Y2JkMGNlYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4MzVlYTFhY2QxYzI1ZjhiNzM2Y2IwZWU1MGRhMTU4Y2NiMjI1ZjBhZDk4YzY1NzVlOWI0MDUzMDUxYjUzNTYifQ"
         }
       ]
+    },
+    {
+      "id": "claim_1073a934178047dbb2f6465ed94b2df6",
+      "statement": "checkSession() uses withRetry() to handle temporary failures (429, 5xx, network errors) with up to 3 attempts before giving up, preserving the session during transient issues while immediately ending it on 401/403.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L282-L330",
+          "version": "repo-lines-v1:sha256:7e55fb081dbd013a39389ea9d28f2a8cf8c9bbf0072c53868d95eb5a1822ebb4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Mzg4OTY2YTlkMjg5YzFiZGY1ZjhlMGRmOTk4MGY4MmI1NDBhMzdiMzBlYjUzMDY3MDcyOWI3NTRkMTlhODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNDJhYzI1ZWJmNWFkYzNhYjg1M2FjYjRhMThmMzI1NGM1Y2JmZTczYzE2NmJmZWY1YmQ4MzkzM2ZlM2Y3ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5e48d58210914599b85892cd50a28f81",
+      "statement": "apiFetch() extracts the Retry-After header from 429 responses and attaches it to the ApiError object as retryAfter, enabling both internal retry logic and application-level rate-limit handling via onError.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/client.ts#L222-L223",
+          "version": "repo-lines-v1:sha256:ac05463ae852eb86d785f5efa38f5ad5a5e9a7dc9e6e410959ce0244f0e359fc:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2I3OWVhOTlhZGEyN2M5Mzk5MTI4OGYxY2NiYTAxYTU0ZjM2YzljYzhiNzg0YzgxODY2NjcwYmVkYzA1ODllMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2FhZThjZmY5OGE4MGMyYjBjOTVkMDBmM2E0ODIwODI0MmU1ZTI5ODFiOWE1ZTZmMGUxYmY2ODA1M2Y5MWU2NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTRkYjllNDAyYjc3NGI1MGZkZThhMzY0NGE2ZjQ1YTMxZTM0N2Y2MWM3OTI5NmI1ZDFiNzhhMjdkNmVjY2VmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTVmOTkxNWFhN2Q2OTY4NTM5YTQ3YTY4YmFjOTczOWE2ZTU1ZWFjNjE3NDg0MjY5YWZjMDMzYjA1ZDlmNDhhNiJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/types.ts#L185-L190",
+          "version": "repo-lines-v1:sha256:3ea1415876025cb44bf160da1e9f45179c89f6de45f3876921caf35829d00de2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGE5ZTY0ZmJjYjY3Y2EwMGJmNGNmZjM0MWQ5NGY4MmMwNDdkMjA0Y2NkYWQwZGZlZDJlMTcyZDA0MzcwM2MxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjczNTM1YTkxZDUxZmI4MzYzNTIzODkxZTkyODQ2NWZjZWI5MmE4NmEyYmVmYzVhYTkxMzU0ZDk0ZjJhOTZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjUwNGZkYzRkZjI1NDg0MGYyZDgyYWFjNjAxNmM4NTUyZWRhZjY1ZDYwMDZlZTkyNjU4M2Y5MTNmMDVjMzZhNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_904a061ff5be405f80c8d5629cd496c0",
+      "statement": "applyBearerDelivery() extracts the token from the JSON response body's access_token field first, then falls back to the Auth-Token header, supporting both delivery=body and header-based token delivery.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L95-L105",
+          "version": "repo-lines-v1:sha256:7d4242bb5c63eb13be1947277155231bbc1f8a3bcae5aba1c325246ff3577d0f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0OWFmMWVkZjI2YTRiZjNhYWVmOTcwZTc2NWUxNzI2MzUxY2U1ZTM5ZjQzYTI0M2Q5NzdjOGEyM2FlODdmMjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwYWQ1M2E5ODE5MTZlOWNlMjJkNDI2YWM1Y2ZiY2I4ODVhMDZlYmNlNTQ2Y2EzNDM1MDI0MjdkMzY3ZjFhMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZmM2U2Y2Y2ZDQ0NjI4N2VkNjdjODU0ZjhiMTliNWJlYjc0MjMxZjQ2NTE3MzMzOTNiZDBkYzY2MjBkZjEyMmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_14f428887fa64a73b66ebfa5fa2171b9",
+      "statement": "The onError callback in AuthConfig observes ApiError objects that include retryAfter for 429 responses, allowing applications to implement custom rate-limit handling.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/client.ts#L222-L234",
+          "version": "repo-lines-v1:sha256:c3f02e9945c7934ce705037f1b0aa36536c48bd5332d26581aa307a60b4e1eae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiNzllYTk5YWRhMjdjOTM5OTEyODhmMWNjYmEwMWE1NGYzNmM5Y2M4Yjc4NGM4MTg2NjY3MGJlZGMwNTg5ZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExMmMzMGRkNDQzMDY2ZDJlMWRkNjEyZjM2MzQzYzg5YjNkMWQwYjA0YjAyMjc3MmYwNzY5NWMyOWZhMGM5MWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE0ZGI5ZTQwMmI3NzRiNTBmZGU4YTM2NDRhNmY0NWEzMWUzNDdmNjFjNzkyOTZiNWQxYjc4YTI3ZDZlY2NlZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3OTY4YWFmNmM5ZmE4OTVkMGViNTNjNjNjZTFiMzk1OThmMWU0NTRhMDI2Yjk3OWRmODVhZjJjNmYxZTFmNzQifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/types.ts#L54-L79",
+          "version": "repo-lines-v1:sha256:a65822f4b01e2c3c353bdb065f0b7a547aa7864bf2016b118f0e15b26ecc1b03:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzZDUwNGExMzNmNzE3OTE0NDE2ZDJiMjhmYzk1NDE4OWMwMzYzNWQ5YjFlOWU1YmNhYWYzODk4NjNlYzU3YTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1YmMyZTU5NzE4MzIxYmMxYjJmOWY0NmFmNTg2OTA3M2EyODZkZjMyNTUxYmE0MWNlM2MzYzc5ZWU4NWY0ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmNTUxMjQxYTUyZmRiZjMxNTNmNjMzZTk4ZDczYmZkYThiMTQ2M2YzM2M1N2IzNzg4OTVhOTQ0NTUxZDAwOTMifQ"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.1",
-    "at": "2026-10-01T13:26:36.210Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-12T22:47:19.205Z"
   }
 }

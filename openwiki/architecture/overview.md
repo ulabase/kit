@@ -5,8 +5,10 @@ description: Comprehensive architecture reference covering monorepo structure, p
 tags: [architecture, monorepo, packages, design, payments]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-11T09:40:27.252Z
+    at: 2026-10-12T22:47:19.205Z
 sources:
+  - id: openwiki-source-4d1d392666be6dfdd7a91a2e
+    resource: repo://.github/workflows/release.yml
   - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
     resource: repo://docs/ADAPTER_CONTRACT.md
   - id: openwiki-source-f11db6d857f6461980bb57f5
@@ -41,7 +43,9 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-11T09:40:27.252Z" }
+  - id: openwiki-source-06c92acb1e58241d198db5aa
+    resource: repo://packages/ulabase/package.json
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
 ---
 
 
@@ -134,19 +138,24 @@ ulabase-kit/
 │   │   ├── vitest.config.ts
 │   │   └── package.json
 │   │
-│   └── cli/                    # @ulabase/cli (ulabase/ula)
-│       ├── src/
-│       │   ├── cli.ts          # CLI entrypoint (ulabase login, ulabase setup)
-│       │   ├── admin.ts        # Admin-node client (createAdminClient)
-│       │   ├── service.ts      # Service-node client (createServiceClient)
-│       │   ├── setup.ts        # Setup runner (step, defineSetup, runSetup)
-│       │   ├── session.ts      # Token persistence (~/.config/ulabase)
-│       │   ├── env.ts          # fromEnv secret resolution
-│       │   ├── http.ts         # Low-level HTTP helpers
-│       │   ├── types.ts        # Plugin, config, and mutation types
-│       │   ├── index.ts        # Library API exports
-│       │   └── __tests__/      # Unit tests
-│       └── package.json
+│   ├── cli/                    # @ulabase/cli (ulabase/ula)
+│   │   ├── src/
+│   │   │   ├── cli.ts          # CLI entrypoint (ulabase login, ulabase setup)
+│   │   │   ├── admin.ts        # Admin-node client (createAdminClient)
+│   │   │   ├── service.ts      # Service-node client (createServiceClient)
+│   │   │   ├── setup.ts        # Setup runner (step, defineSetup, runSetup)
+│   │   │   ├── session.ts      # Token persistence (~/.config/ulabase)
+│   │   │   ├── env.ts          # fromEnv secret resolution
+│   │   │   ├── http.ts         # Low-level HTTP helpers
+│   │   │   ├── types.ts        # Plugin, config, and mutation types
+│   │   │   ├── index.ts        # Library API exports
+│   │   │   └── __tests__/      # Unit tests
+│   │   └── package.json
+│   │
+│   └── ulabase/                # ulabase (wrapper package for npx ulabase)
+│       ├── cli.js              # Thin wrapper that delegates to @ulabase/cli
+│       ├── package.json        # Depends on @ulabase/cli
+│       └── README.md
 │
 ├── docs/
 │   ├── ADAPTERS.md             # Framework adapter contract & roadmap
@@ -190,6 +199,8 @@ The monorepo follows a strict layered architecture:
 - Utilities: `isValidApiBaseUrl`, `formatPrice`
 - Error handling: `WaitTimeoutError` (thrown by `waitForSubscription` and `waitForOrder` on timeout)
 
+**Retry behavior**: `checkSession` uses `withRetry` to handle temporary failures (429 rate limits, 5xx server errors, network errors). It extracts the `Retry-After` header from 429 responses (capped at 30 seconds, default 3 seconds) and retries up to 3 times with exponential backoff for other temporary errors.
+
 ### Layer 2: Framework Adapters
 
 **Purpose**: Reactive wrappers for specific frameworks
@@ -225,6 +236,15 @@ The monorepo follows a strict layered architecture:
 - `AdminClient` — authenticates against the admin node (`api.ulabase.com`), manages features (install, configure, init, test), mints service tokens; deprecated plugin method aliases remain for backward compatibility
 - `ServiceClient` — authenticates against a service node, manages collections, indexes, permissions, users, and schemas; token is cached and renewed automatically
 - `Setup` / `Step` — declarative, idempotent configuration: each step has a `check` (is it already done?) and an `apply` (make it so); `runSetup` executes them sequentially, halting on failure
+
+### Layer 4: CLI Wrapper (`ulabase`)
+
+**Purpose**: Provides the `npx ulabase` entry point
+
+**Characteristics**:
+- Thin wrapper package that depends on `@ulabase/cli`
+- Delegates all functionality to `@ulabase/cli`
+- Allows users to run `npx ulabase` without installing the CLI globally
 
 ## Design Principles
 
@@ -293,6 +313,8 @@ Tokens are refreshed transparently:
 
 All API errors are thrown as `{ status: number; message: string }` (ApiError type).
 
+**retryAfter extraction**: When `apiFetch` receives a 429 response, it extracts the `Retry-After` header and includes it as `err.retryAfter` in the thrown error. This allows callers (like `checkSession`'s `withRetry`) to respect the server's rate-limit guidance.
+
 Special handling:
 - 401 responses clear session automatically
 - 403 "Account not verified" thrown by `login()` when user has `$unauthenticated` role (registered but not email-verified); `checkSession()` returns `null` for the same case
@@ -315,9 +337,14 @@ Special handling:
                                │
                          @ulabase/cli
                           (ulabase/ula, Node.js)
+                               ▲
+                               │
+                               │
+                           ulabase
+                          (wrapper for npx)
 ```
 
-All adapters and the CLI depend on `kit` at exact version `0.0.0` in development to prevent npm from resolving from the registry. The release workflow rewrites this to the tag version before publishing.
+All adapters, the CLI, and the ulabase wrapper depend on `kit` at exact version `0.0.0` in development to prevent npm from resolving from the registry. The release workflow rewrites this to the tag version before publishing.
 
 ## Authentication Flow Architecture
 
@@ -648,18 +675,19 @@ git push origin 1.2.3
 │     • kit-react: version=1.2.3                          │
 │     • kit-vue: version=1.2.3                            │
 │     • cli: version=1.2.3                                │
+│     • ulabase: version=1.2.3                            │
 │     • each adapter dependency: kit=1.2.3                │
 │  3. npm install (reify workspace)                       │
 │  4. Build all packages                                  │
 │  5. Run integration tests                               │
-│  6. Publish to npm (all five packages)                  │
+│  6. Publish to npm (all six packages)                  │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ### Version Management
 
-- All packages (`kit`, `kit-ng`, `kit-react`, `kit-vue`, `cli`) share the same version
-- Each adapter and the CLI depend on `kit` at exact version
+- All packages (`kit`, `kit-ng`, `kit-react`, `kit-vue`, `cli`, `ulabase`) share the same version
+- Each adapter, the CLI, and the ulabase wrapper depend on `kit` at exact version
 - Workspace uses `0.0.0` in development
 - Release workflow rewrites versions before publishing
 - Single changelog for all packages
@@ -684,11 +712,14 @@ All framework adapters are implemented and unit-tested:
         │       ├── RhCartProvider      (cart: localStorage persistence)
         │       └── /next               (Next.js — middleware, route handlers, server actions)
         │
-        └── @ulabase/kit-vue    (Vue — composables, navigation guards)
-                ├── createRhAuth        (auth: composables, navigation guards)
-                ├── createRhPayments    (payments: subscription, billing)
-                ├── createRhCart        (cart: localStorage persistence)
-                └── /nuxt               (Nuxt — server middleware, handler, bridge)
+        ├── @ulabase/kit-vue    (Vue — composables, navigation guards)
+        │       ├── createRhAuth        (auth: composables, navigation guards)
+        │       ├── createRhPayments    (payments: subscription, billing)
+        │       ├── createRhCart        (cart: localStorage persistence)
+        │       └── /nuxt               (Nuxt — server middleware, handler, bridge)
+        │
+        └── ulabase             (CLI wrapper for npx ulabase)
+                └── @ulabase/cli        (Node.js CLI for service configuration)
 ```
 
 ### Payments & Cart Surfaces
