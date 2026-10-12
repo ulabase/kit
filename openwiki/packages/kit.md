@@ -26,10 +26,10 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-12T17:21:34.616Z
+    at: 2026-10-12T22:47:19.205Z
 ---
 
 # @ulabase/kit
@@ -169,6 +169,8 @@ if (user) {
 
 **Unverified accounts**: If the server returns a user whose roles include `$unauthenticated` (i.e., the account was registered but never email-verified), `checkSession()` clears the token and returns `null` rather than returning an unusable user object.
 
+**Retry logic**: `checkSession` uses `withRetry` to handle temporary failures. A 429 (rate limited), 5xx (server error), or status 0 (network failure) triggers up to 3 retry attempts before the session is cleared. Only 401 and 403 end the session immediately — those responses definitively say the token is invalid. For 429s, the wait time comes from the `Retry-After` header (capped at 30 seconds); for 5xx and network errors, the wait is a short backoff (1s, 2s, 3s). This prevents a single network hiccup from signing the user out.
+
 ### Get User Info
 
 ```typescript
@@ -180,6 +182,95 @@ const user = await getUserInfo(config);
 ```
 
 **Note**: Unlike `checkSession`, `getUserInfo` makes no local expiry check and does not clear the session on failure. Use this when you need the full user document after a write operation.
+
+### Login Flow
+
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant Kit as @ulabase/kit
+    participant Storage as Token Storage
+    participant Service as Ulabase Service
+
+    App->>Kit: login(config, email, password)
+    Kit->>Kit: Validate apiBaseUrl
+    Kit->>Service: POST /auth/login {email, password}
+    Service-->>Kit: 200 {access_token, expires_in, ...}
+    
+    alt Bearer mode (default)
+        Kit->>Storage: setToken(access_token)
+        Kit->>Kit: Schedule proactive refresh at 80% TTL
+    else Cookie mode
+        Note over Kit,Service: Service sets HttpOnly JWT cookie
+    end
+    
+    Kit->>Service: GET /users/me
+    Service-->>Kit: UserInfo
+    Kit->>Kit: Check for $unauthenticated role
+    
+    alt Account not verified
+        Kit->>Storage: clearToken()
+        Kit-->>App: throw ApiError {status: 403, message: "Account not verified"}
+    else Account verified
+        Kit-->>App: UserInfo (or null in cookie mode)
+    end
+```
+
+*Login flow showing bearer/cookie modes and unverified account rejection.*
+
+### Session Check with Retry Logic
+
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant Kit as @ulabase/kit
+    participant Storage as Token Storage
+    participant Service as Ulabase Service
+
+    App->>Kit: checkSession(config)
+    Kit->>Storage: getToken()
+    Storage-->>Kit: token (or null)
+    
+    alt No token
+        Kit-->>App: null
+    else Token exists
+        Kit->>Kit: Check token expiry locally
+        alt Token expired
+            Kit->>Storage: clearToken()
+            Kit-->>App: null
+        else Token not expired
+            loop withRetry (up to 3 attempts)
+                Kit->>Service: GET /users/me (Bearer token)
+                Service-->>Kit: Response
+                
+                alt 200 OK
+                    Kit->>Kit: Check $unauthenticated role
+                    alt Account not verified
+                        Kit->>Storage: clearToken()
+                        Kit-->>App: null
+                    else Account verified
+                        Kit-->>App: UserInfo
+                    end
+                else 401 or 403
+                    Kit->>Storage: clearToken()
+                    Kit-->>App: null
+                else 429 (Rate Limited)
+                    Kit->>Kit: Wait Retry-After (max 30s)
+                    Note over Kit: Retry attempt 2 or 3
+                else 5xx or Network Error
+                    Kit->>Kit: Wait backoff (attempt * 1s)
+                    Note over Kit: Retry attempt 2 or 3
+                end
+            end
+            
+            alt All retries exhausted
+                Kit-->>App: throw ApiError
+            end
+        end
+    end
+```
+
+*Session check with retry logic for temporary failures (429, 5xx, network errors).*
 
 ### Logout
 
@@ -662,7 +753,7 @@ const res = await apiFetch(config, '/my-collection', {
 - Sets `Content-Type: application/json` when a body is present and no header is set
 - Sets `No-Auth-Challenge: true` to suppress the browser's native Basic Auth popup on 401
 - Uses `credentials: 'include'` for cookie-mode compatibility
-- Throws `ApiError` (`{ status, message }`) on any non-2xx response
+- Throws `ApiError` (`{ status, message, retryAfter? }`) on any non-2xx response
 - Uses `status: 0` for network failures (DNS, offline, CORS, aborted)
 
 **When to use it directly**: Use `apiFetch` in framework-agnostic code or when writing custom services. Framework adapter users should prefer `auth.api()` which wraps this call — see the [Angular](kit-ng.md#authenticated-fetch), [React](kit-react.md#authenticated-fetch), and [Vue](kit-vue.md#authenticated-fetch) adapter pages.
@@ -675,6 +766,7 @@ All functions throw `ApiError` on failure:
 interface ApiError {
   status: number;   // HTTP status code
   message: string;  // Error message from server
+  retryAfter?: number;  // Seconds to wait before retrying (from 429's Retry-After header)
 }
 
 try {
@@ -684,6 +776,11 @@ try {
     console.error('Invalid credentials');
   } else if (error.status === 403) {
     console.error('Account not verified — check email');
+  } else if (error.status === 429) {
+    const waitMs = (error.retryAfter ?? 3) * 1000;
+    console.warn(`Rate limited — retry in ${error.retryAfter ?? 3}s`);
+    await new Promise(resolve => setTimeout(resolve, waitMs));
+    // Retry the call
   } else if (error.status === 400) {
     console.error('Validation error:', error.message);
   } else {
@@ -691,6 +788,8 @@ try {
   }
 }
 ```
+
+**`retryAfter`**: When a 429 response includes a `Retry-After` header that the browser can read, `apiFetch` extracts the value (in seconds) and attaches it to the `ApiError`. If the header is missing or unparseable, `retryAfter` is `undefined`. The `withRetry` helper in `checkSession` uses this value to decide how long to wait before retrying (capped at 30 seconds).
 
 ## Type Definitions
 
@@ -1024,11 +1123,18 @@ src/
 - Content-Type header management
 - No-Auth-Challenge header (suppresses browser Basic Auth popup)
 - Error parsing and ApiError throwing
+- Extracts `Retry-After` from 429 responses into `ApiError.retryAfter`
 
 **Proactive Refresh**: Module-scoped timer
 - Survives across calls
 - Cleared on logout or explicit session clear
 - 80% of TTL scheduling
+
+**Session Check with Retry**: `withRetry` helper
+- Retries temporary failures (429, 5xx, network errors) up to 3 times
+- Uses `Retry-After` header from 429 responses (capped at 30 seconds)
+- Uses exponential backoff for 5xx and network errors (1s, 2s, 3s)
+- Only 401 and 403 end the session immediately
 
 ## Building
 

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:f5f538719f63e404ef99e061434749a2dad99de4a0ae456fdded8db13cc3a6c5",
+  "pageVersion": "sha256:6740881fb56640e33a89f0367af8582573e0e9f7ca49d1720e64fe44f7daff49",
   "claims": [
     {
       "id": "claim_6f93d57989544af49c8650048226eefb",
-      "statement": "The monorepo contains five packages: kit (core), kit-ng (Angular adapter), kit-react (React adapter with /next subpath), kit-vue (Vue adapter with /nuxt subpath), and cli (ulabase/ula infrastructure-as-code tooling). All share the same version and are released together.",
+      "statement": "The monorepo contains six packages: kit (core), kit-ng (Angular adapter), kit-react (React adapter with /next subpath), kit-vue (Vue adapter with /nuxt subpath), cli (ulabase/ula infrastructure-as-code tooling), and ulabase (thin wrapper package for npx ulabase that delegates to @ulabase/cli). All share the same version and are released together.",
       "evidence": [
         {
           "resource": "repo://packages/cli/package.json",
@@ -13,6 +13,10 @@
         {
           "resource": "repo://packages/kit/src/index.ts",
           "version": "repo-file-v1:sha256:b39b338894832a31d917234a39afb2b950198b72952b55a3cd0efeb3495427e0"
+        },
+        {
+          "resource": "repo://packages/ulabase/package.json",
+          "version": "repo-file-v1:sha256:9e6630305809be86dac9d5ece34c03e221fa5f75c63cc8008ff11ad94113d26c"
         }
       ]
     },
@@ -103,7 +107,7 @@
           "version": "repo-lines-v1:sha256:5a0ff7c60fa08a2692cf1de5acd0e6708e3cbcdc4cbcb6147d12e721033da27d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5Y2Y5OTI0OTNiNTAxODNmYzM5YWQ2ZGIyNDAwYzkzZTE2Mzc4MTNhODU0NTc5MDg1NzdlM2FjYTA4NDNjZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczN2Q0YWZkOTI3Yzc0MDI3NDg2YzVlNTM2NjY2ZjdmZjAwOTI3MGZlN2IzOTBjZDk1NTYwMTQzNjFlMzE1NTEifQ"
         },
         {
-          "resource": "repo://packages/kit/src/types.ts#L190-L348",
+          "resource": "repo://packages/kit/src/types.ts#L192-L350",
           "version": "repo-lines-v1:sha256:6f82606d632dfc24b6b0b208b8ba93827c7d8d3e7139b62a5cd70a8782acc208:eyJzZWxlY3RlZExpbmVDb3VudCI6MTU5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5NjVhNDUyOTg0OGI1YzhlNGUwMWExNDNiNzU3NWQxZTAzNWNjOGY1NWU5NjA0ZTJlYjQzMzljYzg4M2U4MGRhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI2NjQwZjY3NGE1ODA1YjM3NDFkYjNmZmViYTg5ZjQxZDQ1ZWYzYTRmNGY5OTQxMTgzYzNjYTg4NjliMzJkNWZlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
@@ -206,11 +210,19 @@
     },
     {
       "id": "claim_459b45c77cc14f8fb8367bdfe962f832",
-      "statement": "All adapters and the CLI depend on kit at exact version 0.0.0 in development. The release workflow rewrites this to the tag version before publishing. All five packages share the same version number.",
+      "statement": "All adapters, the CLI, and the ulabase wrapper depend on kit at exact version 0.0.0 in development. The release workflow rewrites this to the tag version before publishing. All six packages share the same version number.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json#L36-L38",
-          "version": "repo-lines-v1:sha256:521732704858e9bfd6cfcb325a8b49a3eb11086383e542223f905de56c15cfa9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmQ1NDlmZjYyYWUzZWUxMzEyZGFiNWRjZTI3MTY1YzdhMTgwYWY4NmE2NzE3MzZmNTI2NTQ0YThiMTAxZTZhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNiN2IxYzNjOTBiMzg0ZDE1MWViNjhhNTE3ZjZkNmMzYTU0YmIwZjlhY2QyYjhhZmQwMWRlYzY0MjBjNzMyZiJ9"
+          "resource": "repo://.github/workflows/release.yml#L36-L46",
+          "version": "repo-lines-v1:sha256:bc7296e6515fca9cb43ac85f9e55d50e239e3ccffdca36590931b4529fb5ee16:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExMzkyYjQ2ZjE1YzgyMGM4NTg1ZDRlYTFiNzAwZmU3NDNlZDIwNDIwMGQ2MTZiMGViMTM0MzljYTYxNGYxZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlODFmMDgwMDQ2MDkyN2YxYTIxOTNkNzhiNTMzYmU0OTQ4Mjg4NTljOWQ5NmY5ZGRkNDI0ZTljNDBhYWJmMmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmZGI5ZjFkNzdiMDU3YTY3NjhlM2UyMjIxMDBmOGZkZDg5YWRkYmRlNGE5MjVkMzNjM2MzZDhmZTU2YjQzMTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhNThhMmU0MGFlZTdjMTMwYjRlZDJlYWNhYzg1NWQ4ZmJjNTQ0N2JiOWY2MTJjYzIyOTNlMzgyNjc3NzFmOWIifQ"
+        },
+        {
+          "resource": "repo://packages/cli/package.json",
+          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
+        },
+        {
+          "resource": "repo://packages/ulabase/package.json",
+          "version": "repo-file-v1:sha256:9e6630305809be86dac9d5ece34c03e221fa5f75c63cc8008ff11ad94113d26c"
         }
       ]
     },
@@ -259,6 +271,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-11T09:40:27.252Z"
+    "at": "2026-10-12T22:47:19.205Z"
   }
 }

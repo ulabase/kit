@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:3e13ca7ef6529d9e94010eb861fff1dbc1e1c2d03c989deb7445dc7eefd8ae9e",
+  "pageVersion": "sha256:c74fe594911c71d41e726dd3ee6b1c431bed856e7571dea559a234c2b9dd9138",
   "claims": [
     {
       "id": "claim_a2cf71e33664494f972638cf9645b71e",
@@ -93,10 +93,28 @@
           "version": "repo-lines-v1:sha256:1b6eb012c08a9865000664c0c8610c5a0a434da73c7acbcdaa6152c050da44cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzVmYTU2NjMwNmNmMDcwYjcxOWY5ZDVhNmI2NDU1ODI1MWQ2Y2RhMGZjNDgzODM4NDYwMjFlNGYyMzFlNzZjZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWMyZDA3NWZhNDZhNzg3M2MwYzEzYTA4MzEyZjhiNjZkZTFkYzFiNjQxZjRlNTc4NTE5Zjk0MmI5MmU4OWFhMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzE3M2Q2ODIwZmY1OTAwNjE3NmMyODg5ODViMzc2NWFkMjg1MjM2MWMwMjE3ZTY2OWY2ZmRjYmNiMDNlNDQ3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
         }
       ]
+    },
+    {
+      "id": "claim_f06dc40a6a9546ebaf00e3e19763dc49",
+      "statement": "RhAuthService.checkSession delegates to kit.checkSession which internally uses withRetry to retry temporary failures (429, 5xx, network errors) up to 3 times before giving up; this retry behavior is transparent to the Angular adapter.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit-ng/src/auth.service.ts#L25-L48",
+          "version": "repo-lines-v1:sha256:dc187bf66b2a058be8d72d7785c1bda6899ee7d398cd871fbb1d7f1c3b342dbd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlMTU5ZWMyYmFhODc4NGYxNzU5MzIwMzM3NjY3MWU0ZjQ1MTVhYWFlNTZmODU4OGNmY2NlMzc4MTczMTM1ZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1NTQxMjczNWJhNTNhMzExNWVhYmJmMmU2ZTNhNDM4M2MyZGM0YzcyOGViMWFjODdlMzQ2Mjk1ZDBkMDNmYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkMWUyNzc4MWMxNzg2ZmU2ZGQ3OGJjN2Y0MDdhMjNiMzY3Y2ZlMWY3M2RmMTUwYzVkZGFjMmY1NTQ3YTk1ZTgifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L282-L294",
+          "version": "repo-lines-v1:sha256:56d627d517a3f604e856f48a4d87a1e0b35cc0af654329fe53f02d2b17cae279:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Mzg4OTY2YTlkMjg5YzFiZGY1ZjhlMGRmOTk4MGY4MmI1NDBhMzdiMzBlYjUzMDY3MDcyOWI3NTRkMTlhODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNDJhYzI1ZWJmNWFkYzNhYjg1M2FjYjRhMThmMzI1NGM1Y2JmZTczYzE2NmJmZWY1YmQ4MzkzM2ZlM2Y3ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0MTU0NmYxYzQ0ZmY1OTViOWFjYjMxY2NmNDdkZTNlMDIxM2Y4MWUxMWMxZDk1MjQ1MjI2MWQ1MGEzOGZlMjAifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L296-L314",
+          "version": "repo-lines-v1:sha256:9ad32d6b45df0bed9cbc8cb07c4ba71464a08548a1fb2e66f4d8f59a553432c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZWUwMzI5Y2Q5NWIyMjJhZTY2MmVkMWRlNTE0MGFlODY2NzA2M2ZhNzgxMmMwNGNlOTFmODY1ZWY4NmE3ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5ZDliYzdkNGY2MDNlNjVhNzUwMDNmZGMxZjMwOGRlYjhkZThmNzQ1MmIxOWUyZGIwNTEyMGRmOGEwYTg2ZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmODc4ODcyMjdmN2E5ZWEyYjBjZmNmOWI4ODgwYjZmMWNhOTE2NTg3NDNlYjUwYjIzMGRhMWZiM2NiNGIxYWIifQ"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.1",
-    "at": "2026-10-01T10:51:10.399Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-12T22:47:19.205Z"
   }
 }

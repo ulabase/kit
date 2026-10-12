@@ -3,9 +3,6 @@ type: Package
 title: "@ulabase/kit-ng"
 description: Angular adapter for Ulabase Kit. Provides RhAuthService with signals, route guards, HTTP interceptor, payments service, and cart service for Angular applications.
 tags: [package, angular, adapter, signals, guards, payments, cart]
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-bea1cd7cd3ced08116a2cc29
     resource: repo://packages/kit-ng/src/auth.guard.ts
@@ -25,7 +22,12 @@ sources:
     resource: repo://packages/kit-ng/src/provide-rh-auth.ts
   - id: openwiki-source-66f30d931d913bd85948b8cd
     resource: repo://packages/kit-ng/src/tokens.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T10:51:10.399Z" }
+  - id: openwiki-source-d846911884642122d8dd6179
+    resource: repo://packages/kit/src/auth.ts
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-12T22:47:19.205Z
 ---
 
 # @ulabase/kit-ng
@@ -150,7 +152,11 @@ All methods return `Observable`:
 
 ```typescript
 // Check existing session (reads localStorage, no HTTP if no token)
+// Retries transient failures (429, 5xx, network errors) up to 3 times
 auth.checkSession(): Observable<UserInfo | null>
+// Note: The core kit's checkSession uses withRetry internally to handle
+// temporary server failures. The adapter delegates to kit.checkSession(),
+// so this retry behavior is transparent to Angular consumers.
 
 // Login with email/password
 auth.login(email: string, password: string, mode?: LoginMode): Observable<UserInfo>
@@ -628,6 +634,8 @@ sequenceDiagram
         S-->>A: Observable emits null
     end
 ```
+
+*Note: The core kit's `checkSession` (called at `kit.checkSession(config)` in the diagram) uses `withRetry` internally to retry temporary failures (429, 5xx, network errors) up to 3 times before giving up. This retry behavior is transparent to the Angular adapter.*
 
 ### 401 Handling Flow
 

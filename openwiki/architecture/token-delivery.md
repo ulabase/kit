@@ -1,8 +1,11 @@
 ---
 type: architecture
 title: Token Delivery
-description: Explains the two authentication modes (bearer and cookie), how tokens are delivered via different mechanisms, and how SSR frameworks use first-party cookies for server-side authentication.
+description: Explains bearer vs cookie auth modes, token delivery mechanisms, SSR first-party cookies, the pluggable token source/sink pattern, and retry/resilience semantics.
 tags: [architecture, authentication, tokens, bearer, cookie, ssr, nextjs, nuxt]
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-12T22:47:19.205Z
 sources:
   - id: openwiki-source-f11db6d857f6461980bb57f5
     resource: repo://docs/ADAPTERS.md
@@ -22,15 +25,12 @@ sources:
     resource: repo://packages/kit/src/client.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T13:26:36.210Z
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
 ---
 
 # Token Delivery
 
-This document explains the two authentication modes in Ulabase Kit: bearer token and cookie mode. It covers how tokens are delivered, stored, and refreshed, and how SSR frameworks (Next.js, Nuxt) handle token delivery through first-party cookies.
+This document explains the two authentication modes in Ulabase Kit: bearer token and cookie mode. It covers how tokens are delivered, stored, and refreshed, how SSR frameworks handle token delivery through first-party cookies, and the retry/resilience mechanisms that protect session checks and API calls.
 
 ## Overview
 
@@ -420,6 +420,81 @@ This header is set by:
 - `rhAuthInterceptor` in Angular
 - SSR middleware (Next.js, Nuxt)
 
+## Session Restoration and Retry Semantics
+
+The `checkSession()` function restores the user session on app startup and navigation. It implements resilience against transient failures:
+
+### checkSession Flow
+
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant Kit as Ulabase Kit
+    participant API as Ulabase API
+
+    App->>Kit: checkSession(config)
+    Kit->>Kit: Read token from localStorage/pluggable source
+    Kit->>Kit: Check token expiry locally
+    alt Token expired or missing
+        Kit-->>App: return null
+    else Token valid
+        Kit->>API: GET /users/me (with retry)
+        alt 429, 5xx, or network error
+            Kit->>Kit: Wait Retry-After or backoff
+            Kit->>API: GET /users/me (retry 2)
+            alt Still failing
+                Kit->>Kit: Wait backoff
+                Kit->>API: GET /users/me (retry 3)
+            end
+        end
+        alt 401 or 403
+            Kit->>Kit: Clear token and session
+            Kit-->>App: return null
+        else Success
+            API-->>Kit: User document
+            Kit-->>App: return UserInfo
+        end
+    end
+```
+
+### Retry Logic
+
+`checkSession()` uses `withRetry()` to handle temporary failures without ending the session:
+
+- **429 (Rate Limited)**: Waits for the `Retry-After` header value (capped at 30 seconds), then retries
+- **5xx (Server Error)**: Waits with exponential backoff (attempt number in seconds), then retries
+- **Network errors (status 0)**: Same backoff as 5xx
+- **401/403 (Auth failure)**: Immediately clears session and returns `null`
+- **Maximum attempts**: 3 total attempts before giving up
+
+This ensures that a temporary network glitch or rate limit doesn't sign the user out.
+
+### ApiError with retryAfter
+
+The `ApiError` type includes a `retryAfter` field when the server sends a `429` response with a `Retry-After` header:
+
+```typescript
+export interface ApiError {
+  status: number;
+  message: string;
+  /** Seconds to wait before trying again, from a 429's Retry-After when the browser can read it. */
+  retryAfter?: number;
+}
+```
+
+The `apiFetch()` function extracts this from the response header and attaches it to the error object. The `onError` callback in `AuthConfig` observes this value, allowing applications to implement their own rate-limit handling:
+
+```typescript
+const config: AuthConfig = {
+  apiBaseUrl: 'https://myapp.ulabase.app',
+  onError: (err) => {
+    if (err.status === 429 && err.retryAfter) {
+      showRateLimitMessage(err.retryAfter);
+    }
+  },
+};
+```
+
 ## Choosing the Right Mode
 
 | Scenario | Mode | Reason |
@@ -571,6 +646,13 @@ export async function loginAction(email: string, password: string) {
 - Check server logs
 - Verify middleware runs on the request
 - Check `refreshThreshold` configuration
+
+### Session check fails with network error
+
+- `checkSession()` retries temporary failures (429, 5xx, network errors) up to 3 times
+- Check if the service is rate-limiting (look for `Retry-After` header)
+- Verify network connectivity
+- Check for firewall or proxy issues
 
 ## Related Pages
 
