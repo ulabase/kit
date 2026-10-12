@@ -3,9 +3,6 @@ type: Package
 title: "@ulabase/kit"
 description: Core framework-agnostic package with zero dependencies. Provides authentication, token management, team operations, consents gating, password reset, payments, orders, cart, and money formatting.
 tags: [package, core, authentication, payments, orders, cart, typescript]
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T10:51:10.399Z
 sources:
   - id: openwiki-source-d846911884642122d8dd6179
     resource: repo://packages/kit/src/auth.ts
@@ -29,7 +26,10 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-11T09:40:27.252Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-12T17:21:34.616Z
 ---
 
 # @ulabase/kit
@@ -83,8 +83,7 @@ interface AuthConfig {
 }
 ```
 
-<!-- openwiki: broken internal link [../architecture/overview.md#pluggable-token-source-and-sink] heading anchor "pluggable-token-source-and-sink" does not exist in "../architecture/overview.md". Fix the href or restore the target, then delete this comment. -->
-The optional `getToken`/`setToken` callbacks support SSR runtimes (Next.js, Nuxt) where `localStorage` is unavailable. See [Architecture — Pluggable Token Source and Sink](../architecture/overview.md#pluggable-token-source-and-sink) for details.
+The optional `getToken`/`setToken` callbacks support SSR runtimes (Next.js, Nuxt) where `localStorage` is unavailable. See [Architecture — Pluggable Token Source and Sink](../architecture/overview.md#3-pluggable-token-source-and-sink) for details.
 
 **`transport`**: Replaces `fetch` with a framework's HTTP client. `kit-ng` uses [`httpClientTransport`](kit-ng.md#httpclienttransport) to route calls through Angular's `HttpClient` so the interceptor chain applies to kit-originated requests.
 

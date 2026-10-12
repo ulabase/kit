@@ -30,10 +30,10 @@ sources:
     resource: repo://packages/kit-vue/src/use-cart.ts
   - id: openwiki-source-2f025d008df98101db3a1cd4
     resource: repo://packages/kit-vue/src/use-payments.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-11T09:40:27.252Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
 verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T13:26:36.210Z
+  - by: openwiki/0.7.2
+    at: 2026-10-12T17:21:34.616Z
 ---
 
 # @ulabase/kit-vue
@@ -424,8 +424,7 @@ The `/nuxt` subpath provides:
 - **Session readers** (`getServerSession`, `getServerSessionWithTeams`): read the current user from the request cookie in server context
 - **Cookie utilities**: `RH_SESSION_COOKIE`, `DEFAULT_COOKIE_OPTIONS`, `rhServerConfig`, `cookieMaxAge`, `resolveCookieOptions`
 
-<!-- openwiki: broken internal link [../architecture/overview.md#pluggable-token-source-and-sink] heading anchor "pluggable-token-source-and-sink" does not exist in "../architecture/overview.md". Fix the href or restore the target, then delete this comment. -->
-Uses the core's [pluggable token source and sink](../architecture/overview.md#pluggable-token-source-and-sink) to read tokens from request cookies and capture tokens for cookie writes — no `localStorage` on the server.
+Uses the core's [pluggable token source and sink](../architecture/overview.md#3-pluggable-token-source-and-sink) to read tokens from request cookies and capture tokens for cookie writes — no `localStorage` on the server.
 
 The server actions use a `runCapturing` helper that overrides `getToken` and `setToken` on the config to capture the newly issued token into the response cookie instead of touching `localStorage`. The `getToken` source reads from the current cookie first, then falls back to the captured token — so `login` can fetch `/users/me` with the token it just obtained, and `switchTeam` authorises with the existing session.
 

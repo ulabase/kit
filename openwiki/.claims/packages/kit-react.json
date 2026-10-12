@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:f133b8f82d2e3182b63cc2ecf47cf48655add37672abb9ce7f9ab4374b63ad90",
+  "pageVersion": "sha256:1e5215675e354f25effd145f352bcf270c2593379588490ae1a5e709809d676b",
   "claims": [
     {
       "id": "claim_052e7c730f284d558f4f996e69cfb5d4",
@@ -22,11 +22,11 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-react/src/context.tsx",
-          "version": "repo-file-v1:sha256:fe56f3891946e3dd895fdb720a8f44381ca40064632776c05d4b771a80cd13a4"
+          "version": "repo-file-v1:sha256:456869f25dde746b0f4f5c3ad4e190f6a9023f77a705b7973a8a70a8966ea3ae"
         },
         {
-          "resource": "repo://packages/kit-react/src/context.tsx#L128-L394",
-          "version": "repo-lines-v1:sha256:56b27ce651429305c210c16d66a266639d611eb2427f8d5e0f8b5492cd87bfff:eyJzZWxlY3RlZExpbmVDb3VudCI6MjY3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2MGNjNGI3Yzc0ZDM3NjZiZmQzNmZkMDU4ZjkyMzc4ODFlNDE2YzQxM2I3OWY3ZWJhNDNlZTY3YjE2NzVmZTljIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4OGM0MjJmYzc3MGU3YmJlMGYxYzNiNDNjNjNiMDM4MGMxZGQ3N2UzMjAzZTkxYzIwZDVlMzA2NmJjYzYxZTJhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIyNTdjMWRjYjZkY2M1ZjcwZmM0Mzc1YTYxZGY4ZmEzNzYyMjVhYmVlZDkzNDU2OTEyZDFlYjgzZTBhMDFjMWVlIn0"
+          "resource": "repo://packages/kit-react/src/context.tsx#L128-L398",
+          "version": "repo-lines-v1:sha256:7bb1ac6c481575c3d0d1db4d481402c35db8cd01c9eebbc5095420281231fdee:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2MGNjNGI3Yzc0ZDM3NjZiZmQzNmZkMDU4ZjkyMzc4ODFlNDE2YzQxM2I3OWY3ZWJhNDNlZTY3YjE2NzVmZTljIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4OGM0MjJmYzc3MGU3YmJlMGYxYzNiNDNjNjNiMDM4MGMxZGQ3N2UzMjAzZTkxYzIwZDVlMzA2NmJjYzYxZTJhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIyNTdjMWRjYjZkY2M1ZjcwZmM0Mzc1YTYxZGY4ZmEzNzYyMjVhYmVlZDkzNDU2OTEyZDFlYjgzZTBhMDFjMWVlIn0"
         }
       ]
     },
@@ -36,10 +36,10 @@
       "evidence": [
         {
           "resource": "repo://packages/kit-react/src/context.tsx#L30-L107",
-          "version": "repo-lines-v1:sha256:018b2b91cdce9cc98fd2a51773d18853eafa5d9eb2b369caa8d3e402e526780f:eyJzZWxlY3RlZExpbmVDb3VudCI6NzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjZGNmOTRlMTY4NmJhYTVjNTA2Y2Y5MDIzMzNjZTAzNzllNjM5MTQ3ZjVjZjJiNGE3YTJmOGM0MTU4ZjJkZTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxZTE1NjA3NGYzYjg2YmU4ZGM3NmIxOTQ4MjhiMTJmMTkzMmUwMjA5MmRjYThkNDEzOGMxMjAyMGFlZGQwN2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwOTFjMDM0MWY1ZmZmMDFlNGJkMGYyYTQzMTY0ZWFiYmIyYTMxODFiZDM0YzdkZDFjY2YxYTViYjg1Nzk3N2YifQ"
+          "version": "repo-lines-v1:sha256:7765563c75fd55b8352ef2e71d9d777d1f89d19010c74edab619f895bd03e603:eyJzZWxlY3RlZExpbmVDb3VudCI6NzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjZGNmOTRlMTY4NmJhYTVjNTA2Y2Y5MDIzMzNjZTAzNzllNjM5MTQ3ZjVjZjJiNGE3YTJmOGM0MTU4ZjJkZTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxZTE1NjA3NGYzYjg2YmU4ZGM3NmIxOTQ4MjhiMTJmMTkzMmUwMjA5MmRjYThkNDEzOGMxMjAyMGFlZGQwN2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwOTFjMDM0MWY1ZmZmMDFlNGJkMGYyYTQzMTY0ZWFiYmIyYTMxODFiZDM0YzdkZDFjY2YxYTViYjg1Nzk3N2YifQ"
         },
         {
-          "resource": "repo://packages/kit-react/src/context.tsx#L396-L410",
+          "resource": "repo://packages/kit-react/src/context.tsx#L400-L414",
           "version": "repo-lines-v1:sha256:9a23fcc86c33fe0922dde590f4363c5ad73de575a86179777988e006633ed662:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyODdmY2M3ZTY3YjQyZGZlMzNhYmI1MTE0MjQ3YWE4ZTU4NzE1OGY0MWEzOTg2Y2JiMDliODRlOTA3NDM1OTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwOWY4NTMyMTE0NGJmZDllYjgzN2U0ZmU1YjNkMWY0NDg3NWQwNDAwYjFlM2FiZjYxZjM5OGNkZGU5OWQ2ZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
@@ -87,7 +87,7 @@
       "statement": "auth.api() provides an authenticated fetch method that automatically attaches the bearer token, serving as the React counterpart to Angular's rhAuthInterceptor for querying RESTHeart collections.",
       "evidence": [
         {
-          "resource": "repo://packages/kit-react/src/context.tsx#L249-L252",
+          "resource": "repo://packages/kit-react/src/context.tsx#L251-L254",
           "version": "repo-lines-v1:sha256:011c0f594966c02da6b59b6a217618f9e6acbdafb70485cde780be5b92810780:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2NkZjcwYWFhNjQyYzY0NTU3MzQ4ODhlNWNmOWExNTY4MTMwMTQ4OTk1OTIxMjE4Y2QyYTY3NTRiYWUzMTYwYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTVlZjAxYmMwOGRiYzNiNjNlNGU3NWVhM2QyNmE1Yjk0MTg5MTg3N2UyN2FkODkxMzI5Yzg0MTFkN2Q4ZGM0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk3NjIyM2Y0ODE4NDI1MmNmNTQzNjBjOGZhMGVlNjM0OThiYjdiNWRhYmQ3NGE0ZTMxYzBiZjA0NGRhYjJkMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzI4YjkxMjI4ZDgxMjRiYzgxNGQ4MjgxYWMyNTE4MzYxNTZiM2EwYTY2NTQxNDRmYjlhMTg4ZDc3NWUwNTkwYyJ9"
         },
         {
@@ -156,7 +156,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.1",
-    "at": "2026-10-01T13:26:36.210Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-12T17:21:34.616Z"
   }
 }
