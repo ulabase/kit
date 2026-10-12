@@ -219,6 +219,8 @@ export async function apiFetch(
       // ignore parse errors
     }
     const err: ApiError = { status: res.status, message };
+    const retryAfter = Number(res.headers.get('Retry-After'));
+    if (retryAfter > 0) err.retryAfter = retryAfter;
     // Logged only when nobody is listening. In a browser with no `onError` this
     // is often the only trace a failed call leaves, and it is worth having. When
     // a caller has registered a handler it has said it is watching, and a second

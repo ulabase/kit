@@ -274,6 +274,25 @@ export async function logout(config: AuthConfig, mode: LoginMode = 'bearer'): Pr
  * Reads the token from localStorage — if present and not expired,
  * returns user info from the server. Otherwise returns null.
  */
+/**
+ * Runs a call again on a temporary failure: a 429 after its Retry-After when readable (at most 30
+ * seconds, else 3), a 5xx or a network error (status 0) after a short pause; three attempts in
+ * all. Any other error, and the last one, are thrown as they came.
+ */
+async function withRetry<T>(call: () => Promise<T>): Promise<T> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await call();
+    } catch (err: unknown) {
+      const e = err as { status?: number; retryAfter?: number };
+      const temporary = e?.status === 429 || e?.status === 0 || (e?.status ?? 0) >= 500;
+      if (!temporary || attempt === 3) throw err;
+      const seconds = e?.status === 429 ? Math.min(e.retryAfter ?? 3, 30) : attempt;
+      await new Promise(resolve => setTimeout(resolve, seconds * 1000));
+    }
+  }
+}
+
 export async function checkSession<E extends object = Record<never, never>>(config: AuthConfig): Promise<UserInfo<E> | null> {
   // Resolve through the pluggable source: SPA adapters read localStorage, server
   // runtimes read the request cookie. Falls back to the localStorage default.
@@ -288,9 +307,11 @@ export async function checkSession<E extends object = Record<never, never>>(conf
     return null;
   }
 
-  // Token exists and is not expired — verify with server and get full user info
+  // Token exists and is not expired — verify with server and get full user info.
+  // Only 401 and 403 end the session: a 429, a 5xx or a dropped connection says nothing about
+  // the token, so the check waits and tries again before giving up.
   try {
-    const user = await getUserInfo<E>(config);
+    const user = await withRetry(() => getUserInfo<E>(config));
     if (user.roles.includes('$unauthenticated')) {
       clearToken();
       cancelRefresh();

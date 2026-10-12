@@ -185,6 +185,8 @@ export interface PendingInvitation {
 export interface ApiError {
   status: number;
   message: string;
+  /** Seconds to wait before trying again, from a 429's Retry-After when the browser can read it. */
+  retryAfter?: number;
 }
 
 // ── Payments — subscriptions ────────────────────────────────────────────────
