@@ -30,10 +30,10 @@ sources:
     resource: repo://packages/kit-react/src/next/sync.tsx
   - id: openwiki-source-cb4e00ba25df046ed879c14f
     resource: repo://packages/kit-react/src/payments.tsx
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
 verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T13:26:36.210Z
+  - by: openwiki/0.7.2
+    at: 2026-10-12T17:21:34.616Z
 ---
 
 # @ulabase/kit-react
@@ -122,7 +122,7 @@ await auth.verify(email, token, delivery?);  // delivery: 'cookie' | 'fragment'
 
 // Login / logout
 await auth.login(email, password, mode?);   // mode: 'bearer' (default) | 'cookie'
-await auth.logout();
+await auth.logout(mode?);                     // mode: 'bearer' (default) | 'cookie'
 
 // Password
 await auth.forgotPassword(email);
@@ -339,8 +339,8 @@ The `/next` subpath provides:
 - **Session readers** (`getServerSession`, `getServerSessionWithTeams`): read the current user from the request cookie in server components or middleware
 - **Cookie utilities**: `RH_SESSION_COOKIE`, `DEFAULT_COOKIE_OPTIONS`, `rhServerConfig`, `cookieMaxAge`, `resolveCookieOptions`
 
-<!-- openwiki: broken internal link [../architecture/token-delivery.md#pluggable-token-source-sink-pattern] heading anchor "pluggable-token-source-sink-pattern" does not exist in "../architecture/token-delivery.md". Fix the href or restore the target, then delete this comment. -->
-Uses the core's [pluggable token source and sink](../architecture/token-delivery.md#pluggable-token-source-sink-pattern) to read tokens from request cookies and capture tokens for cookie writes — no `localStorage` on the server.
+<!-- openwiki: broken internal link [../architecture/token-delivery.md#pluggable-token-source/sink-pattern] heading anchor "pluggable-token-source/sink-pattern" does not exist in "../architecture/token-delivery.md". Fix the href or restore the target, then delete this comment. -->
+Uses the core's [pluggable token source and sink](../architecture/token-delivery.md#pluggable-token-source/sink-pattern) to read tokens from request cookies and capture tokens for cookie writes — no `localStorage` on the server.
 
 ### Source Map
 

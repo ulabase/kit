@@ -32,10 +32,10 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-02T09:21:14.211Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-11T09:40:27.252Z
+    at: 2026-10-12T17:21:34.616Z
 ---
 
 # Ulabase Kit
@@ -134,12 +134,9 @@ Use this table to find the right starting point for common change types:
 | Profile updates | [Core Kit](packages/kit.md#profile-management) | `packages/kit/src/profile.ts` | `updateProfile`, `updateUser`, `changePassword` | `packages/kit/src/__tests__/integration/profile.test.ts` | `npm test -w packages/kit` |
 | Consents gating | [Core Kit — Consents](packages/kit.md#consents-gating) | `packages/kit/src/consents.ts` | `acceptConsents` | `packages/kit/src/__tests__/integration/consents.test.ts` | `npm test -w packages/kit` |
 | Payments (subscriptions, Checkout, Portal, licences) | [Payments & E-commerce](concepts/payments.md#subscriptions) | `packages/kit/src/payments.ts` | `getPlans`, `getSubscription`, `createCheckoutSession`, `openBillingPortal`, `getLicenses`, `grantLicense`, `revokeLicense`, `waitForSubscription` | `packages/kit/src/__tests__/unit/payments.test.ts` | `npm test -w packages/kit` |
-<!-- openwiki: broken internal link [concepts/payments.md#e-commerce] heading anchor "e-commerce" does not exist in "concepts/payments.md". Fix the href or restore the target, then delete this comment. -->
-| E-commerce (catalog, orders, guest checkout) | [Payments & E-commerce](concepts/payments.md#e-commerce) | `packages/kit/src/orders.ts` | `getCatalog`, `createOrder`, `getOrder`, `waitForOrder`, `readOrderRef`, `clearOrderRef` | `packages/kit/src/__tests__/unit/orders.test.ts` | `npm test -w packages/kit` |
-<!-- openwiki: broken internal link [concepts/payments.md#cart] heading anchor "cart" does not exist in "concepts/payments.md". Fix the href or restore the target, then delete this comment. -->
-| Cart (client-side, localStorage) | [Payments & E-commerce](concepts/payments.md#cart) | `packages/kit/src/cart.ts` | `addToCart`, `setCartQuantity`, `removeFromCart`, `cartTotals`, `toOrderItems`, `loadCart`, `saveCart`, `clearStoredCart` | `packages/kit/src/__tests__/unit/cart.test.ts` | `npm test -w packages/kit` |
-<!-- openwiki: broken internal link [concepts/payments.md#price-formatting] heading anchor "price-formatting" does not exist in "concepts/payments.md". Fix the href or restore the target, then delete this comment. -->
-| Price formatting | [Payments & E-commerce](concepts/payments.md#price-formatting) | `packages/kit/src/money.ts` | `formatPrice` | `packages/kit/src/__tests__/unit/money.test.ts` | `npm test -w packages/kit` |
+| E-commerce (catalog, orders, guest checkout) | [Payments & E-commerce](concepts/payments.md#products--orders) | `packages/kit/src/orders.ts` | `getCatalog`, `createOrder`, `getOrder`, `waitForOrder`, `readOrderRef`, `clearOrderRef` | `packages/kit/src/__tests__/unit/orders.test.ts` | `npm test -w packages/kit` |
+| Cart (client-side, localStorage) | [Payments & E-commerce](concepts/payments.md#the-cart) | `packages/kit/src/cart.ts` | `addToCart`, `setCartQuantity`, `removeFromCart`, `cartTotals`, `toOrderItems`, `loadCart`, `saveCart`, `clearStoredCart` | `packages/kit/src/__tests__/unit/cart.test.ts` | `npm test -w packages/kit` |
+| Price formatting | [Payments & E-commerce](concepts/payments.md#money-formatting) | `packages/kit/src/money.ts` | `formatPrice` | `packages/kit/src/__tests__/unit/money.test.ts` | `npm test -w packages/kit` |
 | CLI setup runner (ulabase setup, defineSetup, step, fromEnv) | [CLI](packages/cli.md#setup-runner) | `packages/cli/src/setup.ts`, `packages/cli/src/cli.ts`, `packages/cli/src/env.ts` | `defineSetup`, `step`, `runSetup`, `fromEnv`, `resolveEnvRefs` | `packages/cli/src/__tests__/unit/setup.test.ts`, `env.test.ts` | `npm test -w packages/cli` |
 | CLI session & credentials (login, logout, PAT) | [CLI](packages/cli.md#session-management) | `packages/cli/src/session.ts`, `packages/cli/src/cli.ts` | `resolveToken`, `writeSession`, `clearSession`, `TOKEN_VAR` | `packages/cli/src/__tests__/unit/session.test.ts` | `npm test -w packages/cli` |
 | CLI admin & service clients | [CLI](packages/cli.md#clients) | `packages/cli/src/admin.ts`, `packages/cli/src/service.ts` | `createAdminClient`, `createServiceClient` | `packages/cli/src/__tests__/unit/admin.test.ts`, `service.test.ts` | `npm test -w packages/cli` |

@@ -36,10 +36,10 @@ sources:
     resource: repo://packages/kit/src/__tests__/unit/payments.test.ts
   - id: openwiki-source-f5c174f35c5102ba81477e16
     resource: repo://packages/kit/vitest.unit.config.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
 verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T13:26:36.210Z
+  - by: openwiki/0.7.2
+    at: 2026-10-12T17:21:34.616Z
 ---
 
 # Testing Guide
@@ -862,8 +862,7 @@ npm test -w packages/kit-react -w packages/kit-vue -w packages/kit-ng
 
 **Important**: The `npm run build` step is required because adapter tests mock `@ulabase/kit`, which must be built first. This ensures adapters test against the actual compiled code, not the TypeScript sources.
 
-<!-- openwiki: broken internal link [/openwiki/contributing/development.md] link "/openwiki/contributing/development.md" is root-absolute, which no real consumer resolves against the repository root (not a coding agent reading the page, not GitHub's Markdown renderer, not a local viewer); use a path relative to this file instead. Fix the href or restore the target, then delete this comment. -->
-**Note**: `kit-ng` uses Angular's experimental Vitest runner (requires Node ≥ 22.22.3, as specified in the [development guide](/openwiki/contributing/development.md)). The others use Vitest directly.
+**Note**: `kit-ng` uses Angular's experimental Vitest runner (requires Node ≥ 22.22.3, as specified in the [development guide](../contributing/development.md)). The others use Vitest directly.
 
 ### Adapter Test Contract
 

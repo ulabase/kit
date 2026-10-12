@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:d9e571836bfa3d387bf0846f6af189fcd083a6455f38650265c484737ca0679b",
+  "pageVersion": "sha256:64ff70bc81fce0bbb2fcb56eca7969d9233ba52b1e1452cadb2b7c6a393357ad",
   "claims": [
     {
       "id": "claim_a7ad67a4c30f41539466368125d8fe2d",
@@ -87,7 +87,7 @@
       "statement": "The checkSession function checks token expiry locally before calling the server and returns null for unverified accounts",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/auth.ts#L275-L307",
+          "resource": "repo://packages/kit/src/auth.ts#L277-L309",
           "version": "repo-lines-v1:sha256:60c715e8c17c6a80547dc8ee19a3f27dbcc21d37455e203e9e291b17ff894300:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZWUwMzI5Y2Q5NWIyMjJhZTY2MmVkMWRlNTE0MGFlODY2NzA2M2ZhNzgxMmMwNGNlOTFmODY1ZWY4NmE3ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxMGFiNmQyYjU1ZDYwYmI5NWY0MWQ0YzBkYjk2MzI0ZWIzMzVkNDU3YmNiZjY2MjJhNDRmNDkwNGFjYTZiMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
@@ -192,7 +192,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.1",
-    "at": "2026-10-01T10:51:10.399Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-12T17:21:34.616Z"
   }
 }
