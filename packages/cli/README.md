@@ -251,7 +251,7 @@ ulabase setup --srv <id> [options]
                 Defaults to ./ulabase.setup.ts in the working directory.
 --srv <id>      The service to set up.
 --dry-run       Run every check, apply nothing, write nothing.
---api <url>     Admin node (default: ULABASE_API, else https://cloud-api.restheart.com).
+--api <url>     Admin node (default: ULABASE_API, else https://api.ulabase.com).
 --json          Emit the report as JSON instead of a step list.
 ```
 

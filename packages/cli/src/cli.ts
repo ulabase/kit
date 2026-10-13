@@ -15,8 +15,8 @@ import {
   type ResolvedToken,
 } from './session.js';
 
-// the admin node in production today; https://api.ulabase.com from the switch to the Ulabase domains
-const DEFAULT_API = 'https://cloud-api.restheart.com';
+/** The admin node of Ulabase. */
+const DEFAULT_API = 'https://api.ulabase.com';
 
 /** The environment variable that names the admin node, instead of --api. */
 const API_VAR = 'ULABASE_API';
@@ -76,7 +76,7 @@ ulabase — the Ulabase CLI, also installed as \`ula\`
 
 Commands
   login           Store a personal access token for later commands.
-                  Issue one at cloud.restheart.com, under your profile.
+                  Issue one at ulabase.com, under your profile.
   logout          Forget the stored token.
   setup           Bring a service to the state your setup file describes.
                   Every step is a check and an apply, so running it against a
@@ -277,7 +277,7 @@ function consoleOf(api: string): string {
   try {
     return new URL(api).hostname.replace(/^cloud-api\./, 'cloud.').replace(/^api\./, '');
   } catch {
-    return 'cloud.restheart.com';
+    return 'ulabase.com';
   }
 }
 
@@ -320,10 +320,10 @@ async function prompt(question: string, silent = false): Promise<string> {
  * user can debug from a status code. The cure differs by where the token came
  * from: a pipeline has no `ulabase login` to run.
  */
-function credentialError(source: ResolvedToken['source']): string {
+function credentialError(source: ResolvedToken['source'], api: string): string {
   return source === 'env'
     ? `The token in ${TOKEN_VAR} was revoked or has expired. Issue a new one at ` +
-        'cloud.restheart.com and update it in your secret store.'
+        `${consoleOf(api)} and update it in your secret store.`
     : 'Your session was revoked or has expired. Run `ulabase login`.';
 }
 
@@ -432,7 +432,7 @@ function cmdLogout(): number {
   // gone from this machine, not from the account.
   if (removed) {
     process.stdout.write(
-      'The token still exists — revoke it at cloud.restheart.com if it should stop working.\n'
+      `The token still exists — revoke it at ${consoleOf(defaultApi())} if it should stop working.\n`
     );
   }
   return 0;
@@ -515,7 +515,7 @@ async function cmdSetup(args: Args): Promise<number> {
     await admin.verifyToken();
   } catch (err) {
     if (isApiError(err) && (err.status === 401 || err.status === 403)) {
-      throw new Error(credentialError(credential.source));
+      throw new Error(credentialError(credential.source, args.api));
     }
     throw err;
   }
