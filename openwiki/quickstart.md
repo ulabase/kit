@@ -3,9 +3,6 @@ type: Documentation
 title: Ulabase Kit - Quickstart
 description: Entry point for understanding the Ulabase Kit monorepo, its architecture, packages, and how to get started with development.
 tags: [quickstart, overview, getting-started]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-12T22:47:19.205Z
 sources:
   - id: openwiki-source-92450a7065eb85e0f30b5461
     resource: repo://packages/cli/package.json
@@ -36,6 +33,9 @@ sources:
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
 generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-13T10:06:03.094Z
 ---
 
 # Ulabase Kit

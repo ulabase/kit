@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:6740881fb56640e33a89f0367af8582573e0e9f7ca49d1720e64fe44f7daff49",
+  "pageVersion": "sha256:57c1a6b606ce56ff7511e2caf21b36c2bf9ef7cc2469bb02cbf982a124e4b940",
   "claims": [
     {
       "id": "claim_6f93d57989544af49c8650048226eefb",
@@ -48,7 +48,7 @@
         },
         {
           "resource": "repo://packages/cli/src/cli.ts#L18-L19",
-          "version": "repo-lines-v1:sha256:026e8f37b5e11870f3469856ab207e86a35e9e9eb35aca2678d6902cda0ffb34:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmU3YjY1ZGI2MDhjNTIxNmUwYTQzNGM4YTcxNmU0MmYyODg3MGI1NzY4ODAzZDZmZjgxZjA4YzAwYTQ3YjU1ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiY2I2YmEzNTM2MmE1MzViZGVkZDA5ZTc1OTI3MmM2NTNhNmY4OGYxZjdiNjI1YjAwZWU4ZTJjYTJmM2I1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmViNTU5YTMxMjIwYzQ0Y2UxYTZhMDA1MDg0MjhkMTQ0ZmRhYTkxYWNiMTEzMDFmYmRkNDE3ODE1YmUyMjA2ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JkY2EwOTNkYzg0NWUwNjdjZmI4ZTg4YzJkZGY0YzY4NGFkYzliZTk4YmY2NmRmMTUyNTNlNzUwNjI2NjRmYyJ9"
+          "version": "repo-lines-v1:sha256:d2f62e38cdeb5f0e8fee02e52313899dccfc11536379994b2f66f675e8e50a25:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2MxMDVkZGU2OWY3MmRjZmIxOWQ2MmFlYzFiZDhkYWU3M2UzNzc4OTA4Njc4MDgxZDc3ZDExODhlZDJkNTc2YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGEzODFiY2I5ZTk3ODk1OGM4MWY2NDRiOWQwYmIwNmUxMWIzM2RiOWI5MmJmNmJjNTY4NTBhMjVlMmJmNjNhNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmViNTU5YTMxMjIwYzQ0Y2UxYTZhMDA1MDg0MjhkMTQ0ZmRhYTkxYWNiMTEzMDFmYmRkNDE3ODE1YmUyMjA2ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JkY2EwOTNkYzg0NWUwNjdjZmI4ZTg4YzJkZGY0YzY4NGFkYzliZTk4YmY2NmRmMTUyNTNlNzUwNjI2NjRmYyJ9"
         }
       ]
     },
@@ -86,7 +86,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/cli.ts",
-          "version": "repo-file-v1:sha256:3d1c56f1368fd368b1d5be633cdb48e547cd34c2538e9d6469b3317289320f58"
+          "version": "repo-file-v1:sha256:17a70109582d6b1cc302bb42183f08765b66adf84b1a0a19114b54535bdc0e66"
         },
         {
           "resource": "repo://packages/cli/src/session.ts",
@@ -271,6 +271,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-12T22:47:19.205Z"
+    "at": "2026-10-13T10:06:03.094Z"
   }
 }

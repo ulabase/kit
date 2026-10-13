@@ -5,7 +5,7 @@ description: Comprehensive architecture reference covering monorepo structure, p
 tags: [architecture, monorepo, packages, design, payments]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-12T22:47:19.205Z
+    at: 2026-10-13T10:06:03.094Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -45,10 +45,8 @@ sources:
     resource: repo://packages/kit/src/types.ts
   - id: openwiki-source-06c92acb1e58241d198db5aa
     resource: repo://packages/ulabase/package.json
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-13T10:06:03.094Z" }
 ---
-
-
 
 # Architecture Overview
 
