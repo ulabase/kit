@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:80f8f244b8381f2965225cccfa1c236ff8e52a5c3af11c3ce80e3463a80ffaad",
+  "pageVersion": "sha256:dc24a5892d4823536308adeeca4c71d332fed486d52a02eeaefd7e906e729d52",
   "claims": [
     {
       "id": "claim_acd1c970ec6249f5854fc444f6b659e0",
@@ -22,7 +22,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/README.md",
-          "version": "repo-file-v1:sha256:1184947e801060f7e006cfb9093cc70d39480c5155c9be46818adf67274787ef"
+          "version": "repo-file-v1:sha256:2673455ea2c064a6d84df3e85573956bfceffa4e729b1b2c96176d7dcd34d02a"
         },
         {
           "resource": "repo://packages/cli/src/env.ts",
@@ -90,7 +90,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/cli.ts",
-          "version": "repo-file-v1:sha256:3d1c56f1368fd368b1d5be633cdb48e547cd34c2538e9d6469b3317289320f58"
+          "version": "repo-file-v1:sha256:17a70109582d6b1cc302bb42183f08765b66adf84b1a0a19114b54535bdc0e66"
         }
       ]
     },
@@ -100,7 +100,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/src/cli.ts",
-          "version": "repo-file-v1:sha256:3d1c56f1368fd368b1d5be633cdb48e547cd34c2538e9d6469b3317289320f58"
+          "version": "repo-file-v1:sha256:17a70109582d6b1cc302bb42183f08765b66adf84b1a0a19114b54535bdc0e66"
         }
       ]
     },
@@ -224,7 +224,7 @@
       "evidence": [
         {
           "resource": "repo://packages/cli/README.md",
-          "version": "repo-file-v1:sha256:1184947e801060f7e006cfb9093cc70d39480c5155c9be46818adf67274787ef"
+          "version": "repo-file-v1:sha256:2673455ea2c064a6d84df3e85573956bfceffa4e729b1b2c96176d7dcd34d02a"
         },
         {
           "resource": "repo://packages/cli/src/admin.ts",
@@ -245,6 +245,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-12T22:47:19.205Z"
+    "at": "2026-10-13T10:06:03.094Z"
   }
 }
