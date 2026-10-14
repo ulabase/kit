@@ -307,6 +307,22 @@ half-configured.
 
 Plus `fetch(path, init?)` for what that table does not cover.
 
+A permission that restricts a caller to its own documents names the caller with an ACL variable,
+and which variable holds the identity depends on how the request authenticated. On RESTHeart Cloud
+the callers of a service are authenticated by a token, so that variable is **`@user.sub`** —
+`@user._id` is the mongo-realm one and is not bound on a token request. A permission written
+against an unbound variable does not fail open: from RESTHeart 9.8.2 the filter is rewritten so it
+matches nothing and the server logs a warning, so a permission that silently returned *everyone's*
+documents now returns none, which is the behaviour to expect if an old one suddenly looks empty.
+
+```ts
+service.putPermission('orders-own', {
+  predicate: "path(/orders) and method(GET)",
+  roles: ['user'],
+  mongo: { readFilter: { customer: '@user.sub' } },
+});
+```
+
 A check answers `false` on `404` and throws on anything else — a `403` means the token cannot see
 the thing, which is not the same as the thing not being there, and swallowing it would report
 "missing", apply, and fail again.

@@ -158,6 +158,51 @@ describe('runSetup', () => {
     expect(third).not.toHaveBeenCalled();
   });
 
+  it('an optional step that fails does not take the rest of the setup with it', async () => {
+    // The CORS origin a browser needs was configured after a social sign-in provider whose
+    // credentials nobody had set. The provider step failed, everything after it was skipped,
+    // and the missing origin surfaced much later as a browser error with nothing to connect it
+    // to. A step the rest does not depend on says so, and the run carries on.
+    let corsConfigured = false;
+    const later = vi.fn(() => corsConfigured);
+    const report = await run([
+      step('social provider', {
+        check: () => false,
+        apply: () => {
+          throw new Error('missing GOOGLE_CLIENT_SECRET');
+        },
+        optional: true,
+      }),
+      step('cors origin', {
+        check: later,
+        apply: () => {
+          corsConfigured = true;
+        },
+      }),
+    ]);
+
+    expect(states(report)).toEqual(['failed', 'applied']);
+    expect(later).toHaveBeenCalled();
+    // still not a green run: optional is about what follows, not about pretending
+    expect(report.ok).toBe(false);
+  });
+
+  it('a required step still stops the rest', async () => {
+    const later = vi.fn(() => true);
+    const report = await run([
+      step('collection', {
+        check: () => false,
+        apply: () => {
+          throw new Error('nope');
+        },
+      }),
+      step('index over it', { check: later, apply: () => undefined }),
+    ]);
+
+    expect(states(report)).toEqual(['failed', 'skipped']);
+    expect(later).not.toHaveBeenCalled();
+  });
+
   it('a dry run answers what is missing, all of it, and writes nothing', async () => {
     const applies = [vi.fn(), vi.fn(), vi.fn()];
     const report = await run(
