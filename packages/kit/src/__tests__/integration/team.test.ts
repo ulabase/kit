@@ -5,7 +5,6 @@ import { getTeams, switchTeam } from '../../team';
 import {
   getConfig, testEmail,
   verifyEmail, readInvitationToken, deleteUser,
-  installCookieJar, uninstallCookieJar,
 } from './helpers';
 
 const config      = getConfig();
@@ -88,7 +87,7 @@ describe('team', () => {
     fetchSpy.mockRestore();
   });
 
-  it('switchTeam in cookie mode does not expose a token', async () => {
+  it('switchTeam in cookie mode is refused by a service node, which reads no cookie', async () => {
     // Establish our own bearer session to look up a team to switch to —
     // independent of whatever auth state the previous test left behind.
     clearToken();
@@ -96,24 +95,7 @@ describe('team', () => {
     const teams = await getTeams(config);
     const other = teams.find((t: { active?: boolean }) => !t.active);
     expect(other).toBeDefined();
-    clearToken();
 
-    // Node's fetch has no browser-like cookie store, so login(..., 'cookie')
-    // followed by any further authenticated call (including the internal
-    // GET /users/me it makes, and the switchTeam call below) would otherwise
-    // fail with 401 — install a jar for the duration of this test only.
-    installCookieJar();
-    try {
-      // Login again in cookie mode to establish a cookie session
-      await login(config, memberEmail, password, 'cookie');
-      expect(getToken()).toBeNull(); // cookie mode — no bearer token stored
-
-      await switchTeam(config, other!.id, 'cookie');
-
-      // Still no bearer token after switch
-      expect(getToken()).toBeNull();
-    } finally {
-      uninstallCookieJar();
-    }
+    await expect(switchTeam(config, other!.id, 'cookie')).rejects.toMatchObject({ status: 400 });
   });
 });

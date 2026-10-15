@@ -50,23 +50,21 @@ describe('password reset', () => {
     fetchSpy.mockRestore();
   });
 
-  it('resetPassword in cookie mode does not expose a token', async () => {
-    // Trigger another password reset for cookie-mode test
+  it('resetPassword in cookie mode is refused by a service node, which reads no cookie', async () => {
     await forgotPassword(config, email);
     const token = await readPasswordResetToken(email);
     clearToken();
 
-    const cookieNewPassword = 'Cookie-Test-77!';
-    await resetPassword(config, { email, token, password: cookieNewPassword }, 'cookie');
-
-    // Cookie mode should NOT store a bearer token
+    await expect(
+      resetPassword(config, { email, token, password: 'Cookie-Test-77!' }, 'cookie')
+    ).rejects.toMatchObject({ status: 400 });
     expect(getToken()).toBeNull();
   });
 
   it('login works with the new password', async () => {
     clearToken();
-    // The last password set was by the cookie-mode test
-    const user = await login(config, email, 'Cookie-Test-77!');
+    // the refused cookie-mode reset changed nothing: the password is the bearer test's
+    const user = await login(config, email, newPassword);
     expect(user._id).toBeTruthy();
   });
 });

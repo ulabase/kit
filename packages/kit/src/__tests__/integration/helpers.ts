@@ -78,7 +78,8 @@ export async function readVerificationToken(email: string): Promise<string> {
 export async function verifyEmail(email: string): Promise<void> {
   const token = await readVerificationToken(email);
   const { apiBaseUrl } = getConfig();
-  const url = `${apiBaseUrl}/auth/verify?email=${encodeURIComponent(email)}&token=${token}&delivery=cookie`;
+  // fragment, the kit's own default: a service node reads no cookie and refuses delivery=cookie
+  const url = `${apiBaseUrl}/auth/verify?email=${encodeURIComponent(email)}&token=${token}&delivery=fragment`;
   const res = await fetch(url, { redirect: 'manual' });
   if (res.status >= 400) {
     throw new Error(`verification failed for ${email} → ${res.status}: ${await res.text()}`);

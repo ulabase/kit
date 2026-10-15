@@ -73,7 +73,7 @@ describe('invite — new user', () => {
     fetchSpy.mockRestore();
   });
 
-  it('activate in cookie mode does not expose a token', async () => {
+  it('activate in cookie mode is refused by a service node, which reads no cookie', async () => {
     // Need a fresh invite for the cookie-mode test
     clearToken();
     await login(config, ownerEmail, password);
@@ -82,9 +82,9 @@ describe('invite — new user', () => {
     const inviteToken = await readInvitationToken(cookieUserEmail);
     clearToken();
 
-    await activate(config, { email: cookieUserEmail, token: inviteToken, password }, 'cookie');
-
-    // Cookie mode should NOT store a bearer token
+    await expect(
+      activate(config, { email: cookieUserEmail, token: inviteToken, password }, 'cookie')
+    ).rejects.toMatchObject({ status: 400 });
     expect(getToken()).toBeNull();
 
     // Cleanup
