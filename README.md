@@ -1,5 +1,7 @@
 # Ulabase Kit
 
+[![CLA assistant](https://cla-assistant.io/readme/badge/ulabase/kit)](https://cla-assistant.io/ulabase/kit)
+
 [Ulabase](https://ulabase.com) gives you a production-ready backend — MongoDB, REST API, authentication, multi-tenancy, all managed.
 
 This kit gives you the same speed on the frontend.
