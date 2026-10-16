@@ -57,9 +57,23 @@ jobs:
         with:
           node-version: "22"
 
+      # A local install, not a global one, so that npm overrides apply: openwiki takes @langchain/core
+      # and langchain with a caret, and the 1.2.18 / 1.5.17 releases of 2026-10-15 stopped recognising
+      # the tool calls of the OpenRouter model ("worker exited without submit_plan"). Pinned to the last
+      # versions that worked; to drop once openwiki ships a release built against the new ones.
       - name: Install OpenWiki
         if: steps.changes.outputs.run == 'true'
-        run: npm install --global openwiki
+        run: |
+          mkdir -p "$HOME/openwiki" && cd "$HOME/openwiki"
+          cat > package.json <<'EOF'
+          {
+            "private": true,
+            "dependencies": { "openwiki": "0.7.2" },
+            "overrides": { "@langchain/core": "1.2.17", "langchain": "1.5.16" }
+          }
+          EOF
+          npm install
+          echo "$HOME/openwiki/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Run OpenWiki
         if: steps.changes.outputs.run == 'true'
