@@ -1,8 +1,8 @@
 ---
 type: Guide
 title: Testing Guide
-description: Testing guide for Ulabase Kit and CLI. Covers integration tests, kit unit tests, CLI unit tests, adapter unit tests, environment configuration, running tests, and writing new tests.
-tags: [testing, integration, unit, vitest, guide]
+description: Testing guide for Ulabase Kit and CLI. Covers integration tests, kit unit tests, CLI unit tests, adapter unit tests, environment configuration, running tests, writing new tests, and testing patterns for bearer and cookie auth modes.
+tags: [testing, integration, unit, vitest, guide, bearer, cookie, fetch-spy]
 sources:
   - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
     resource: repo://docs/ADAPTER_CONTRACT.md
@@ -36,10 +36,10 @@ sources:
     resource: repo://packages/kit/src/__tests__/unit/payments.test.ts
   - id: openwiki-source-f5c174f35c5102ba81477e16
     resource: repo://packages/kit/vitest.unit.config.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:31:38.486Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-12T17:21:34.616Z
+    at: 2026-10-17T07:31:38.486Z
 ---
 
 # Testing Guide
@@ -217,12 +217,32 @@ deleteUser(email: string): Promise<void>
 
 #### Cookie Jar (for cookie mode tests)
 
+Node's global `fetch` (undici) has no automatic cookie store — each `fetch()` call is independent. To exercise cookie-mode auth end-to-end (e.g. login via `/token/cookie` followed by an authenticated request) in the Node/vitest environment, the helper provides a tiny jar that wraps `globalThis.fetch` for the duration of a test.
+
 ```typescript
-// Install cookie jar for fetch
+// Install cookie jar for fetch — wraps globalThis.fetch to persist cookies
 installCookieJar(): void
 
-// Remove cookie jar
+// Remove cookie jar — restores original fetch, clears stored cookies
 uninstallCookieJar(): void
+```
+
+**How it works**: `installCookieJar()` captures the current `globalThis.fetch`, replaces it with a wrapper that automatically sends stored cookies on every request and persists `Set-Cookie` headers from responses. The wrapper uses `getSetCookie()` (available in Node 20+) to handle multiple cookies in a single response. Cookies are stored in memory for the test duration and cleared on `uninstallCookieJar()`.
+
+**Important**: `adminFetch` is unaffected by the cookie jar — it captured the original `fetch` at module load time (before any jar is installed), so admin requests always use the original fetch without cookies.
+
+**Usage pattern**:
+
+```typescript
+import { installCookieJar, uninstallCookieJar } from './helpers';
+
+beforeAll(() => installCookieJar());
+afterAll(() => uninstallCookieJar());
+
+it('works with cookies', async () => {
+  await login(config, email, password, 'cookie');
+  // Cookie jar handles cookie storage automatically
+});
 ```
 
 ## Test Files
@@ -248,7 +268,8 @@ uninstallCookieJar(): void
 - GetTeams returns all memberships
 - SwitchTeam changes active team
 - SwitchTeam updates token claims
-- Cookie mode team switching
+- SwitchTeam in bearer mode updates the stored token (single request) — uses `vi.spyOn(globalThis, 'fetch')` to verify no additional `/token` call is made, then verifies the new token differs from the old one and carries the correct team claim
+- SwitchTeam in cookie mode is refused by a service node, which reads no cookie — expects status 400 rejection
 
 ### team-management.test.ts
 
@@ -270,6 +291,8 @@ uninstallCookieJar(): void
 - Invite sends invitation
 - GetInvitation returns invitation details
 - Activate sets password for new user
+- Activate in bearer mode obtains token with a single request (no POST /token fallback) — uses `vi.spyOn(globalThis, 'fetch')` to count `/token` calls before and after activate, expecting zero additional calls
+- Activate in cookie mode is refused by a service node, which reads no cookie — expects status 400 rejection
 - AcceptInvite adds existing user to team
 - ResendInvite resends expired invitation
 - ListInvitations returns pending invitations
@@ -281,6 +304,8 @@ uninstallCookieJar(): void
 **Tests**:
 - ForgotPassword sends reset email
 - ResetPassword changes password and logs in
+- ResetPassword in bearer mode obtains token with a single request (no POST /token fallback) — uses `vi.spyOn(globalThis, 'fetch')` to count `/token` calls before and after resetPassword, expecting zero additional calls
+- ResetPassword in cookie mode is refused by a service node, which reads no cookie — expects status 400 rejection
 
 ### consents.test.ts
 
@@ -402,6 +427,58 @@ it('works with cookies', async () => {
   // Cookie jar handles cookie storage
 });
 ```
+
+### Testing Bearer Mode Single-Request Assertions
+
+Integration tests verify that bearer-mode operations (activate, resetPassword, switchTeam) obtain tokens with a single request and do not fall back to `POST /token`. This is tested using a fetch spy pattern:
+
+```typescript
+it('obtains token with a single request (no POST /token fallback)', async () => {
+  // Count /token calls before the operation
+  const fetchSpy = vi.spyOn(globalThis, 'fetch');
+  const tokenCallsBefore = fetchSpy.mock.calls.filter(
+    ([url]) => typeof url === 'string' && url.includes('/token') && !url.includes('/token/cookie')
+  ).length;
+
+  await someOperation(config, payload, 'bearer');
+
+  const tokenCallsAfter = fetchSpy.mock.calls.filter(
+    ([url]) => typeof url === 'string' && url.includes('/token') && !url.includes('/token/cookie')
+  ).length;
+
+  // No additional /token call should have been made
+  expect(tokenCallsAfter - tokenCallsBefore).toBe(0);
+
+  // A token should now be stored
+  expect(getToken()).toBeTruthy();
+
+  fetchSpy.mockRestore();
+});
+```
+
+**Key points**:
+- The spy captures all `fetch` calls and filters for `/token` requests (excluding `/token/cookie`)
+- The operation should deliver the token in the response body (`delivery=body`) or `Auth-Token` header
+- No additional `POST /token` request should be made after the operation
+- The spy is restored after the test to avoid affecting other tests
+
+### Testing Cookie Mode Refusal
+
+Integration tests verify that cookie-mode operations are refused by service nodes when no cookie is present:
+
+```typescript
+it('is refused by a service node, which reads no cookie', async () => {
+  await expect(
+    someOperation(config, payload, 'cookie')
+  ).rejects.toMatchObject({ status: 400 });
+  expect(getToken()).toBeNull();
+});
+```
+
+**Key points**:
+- Service nodes refuse cookie-mode requests when no authentication cookie is present
+- The rejection should have status 400 (Bad Request)
+- No token should be stored after the rejection
 
 ## Kit Unit Tests
 

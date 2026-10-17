@@ -32,10 +32,10 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:31:38.486Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-13T10:06:03.094Z
+    at: 2026-10-17T07:31:38.486Z
 ---
 
 # Ulabase Kit
@@ -128,9 +128,9 @@ Use this table to find the right starting point for common change types:
 |------------|-----------|--------------------|--------------------|--------------|------------|
 | Auth flow (register, login, verify, logout) | [Core Kit](packages/kit.md#authentication-flows) | `packages/kit/src/auth.ts` | `register`, `login`, `verify`, `checkSession`, `applyBearerDelivery` | `packages/kit/src/__tests__/integration/auth.test.ts` | `npm test -w packages/kit` |
 | Token management & refresh | [Core Kit](packages/kit.md#token-management) | `packages/kit/src/client.ts`, `packages/kit/src/auth.ts` | `setToken`, `getToken`, `clearToken`, `scheduleRefresh`, `cancelRefresh` | `packages/kit/src/__tests__/integration/auth.test.ts` | `npm test -w packages/kit` |
-| Team operations | [Core Kit](packages/kit.md#team-operations) | `packages/kit/src/team.ts` | `getTeams`, `switchTeam`, `createTeam`, `listTeamMembers` | `packages/kit/src/__tests__/integration/team.test.ts`, `team-management.test.ts` | `npm test -w packages/kit` |
-| Invitations | [Core Kit](packages/kit.md#invitation-flows) | `packages/kit/src/invite.ts` | `invite`, `activate`, `acceptInvite`, `listInvitations` | `packages/kit/src/__tests__/integration/invite.test.ts` | `npm test -w packages/kit` |
-| Password reset | [Core Kit](packages/kit.md#password-management) | `packages/kit/src/password.ts` | `forgotPassword`, `resetPassword` | `packages/kit/src/__tests__/integration/password.test.ts` | `npm test -w packages/kit` |
+| Team operations | [Core Kit](packages/kit.md#team-operations) | `packages/kit/src/team.ts` | `getTeams`, `switchTeam`, `createTeam`, `listTeamMembers` | `packages/kit/src/__tests__/integration/team.test.ts` (bearer single-request fetch spy, cookie refusal), `team-management.test.ts` | `npm test -w packages/kit` |
+| Invitations | [Core Kit](packages/kit.md#invitation-flows) | `packages/kit/src/invite.ts` | `invite`, `activate`, `acceptInvite`, `listInvitations` | `packages/kit/src/__tests__/integration/invite.test.ts` (bearer single-request fetch spy, cookie refusal) | `npm test -w packages/kit` |
+| Password reset | [Core Kit](packages/kit.md#password-management) | `packages/kit/src/password.ts` | `forgotPassword`, `resetPassword` | `packages/kit/src/__tests__/integration/password.test.ts` (bearer single-request fetch spy, cookie refusal) | `npm test -w packages/kit` |
 | Profile updates | [Core Kit](packages/kit.md#profile-management) | `packages/kit/src/profile.ts` | `updateProfile`, `updateUser`, `changePassword` | `packages/kit/src/__tests__/integration/profile.test.ts` | `npm test -w packages/kit` |
 | Consents gating | [Core Kit — Consents](packages/kit.md#consents-gating) | `packages/kit/src/consents.ts` | `acceptConsents` | `packages/kit/src/__tests__/integration/consents.test.ts` | `npm test -w packages/kit` |
 | Payments (subscriptions, Checkout, Portal, licences) | [Payments & E-commerce](concepts/payments.md#subscriptions) | `packages/kit/src/payments.ts` | `getPlans`, `getSubscription`, `createCheckoutSession`, `openBillingPortal`, `getLicenses`, `grantLicense`, `revokeLicense`, `waitForSubscription` | `packages/kit/src/__tests__/unit/payments.test.ts` | `npm test -w packages/kit` |
