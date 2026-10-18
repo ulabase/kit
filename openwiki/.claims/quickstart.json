@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:772bef1b405c7a4f6298a20be611a4a4e67dd97a0f4549f8a19e3dd822c9f9cb",
+  "pageVersion": "sha256:06e69caffa2a0f7eb6008a81e566f1b2855dc684cd55e57061736d0ff8b255b5",
   "claims": [
     {
       "id": "claim_3973a271db7d44b6b55ce5452e57d993",
@@ -239,10 +239,28 @@
           "version": "repo-lines-v1:sha256:1329b56c6abb8369380caa6e7d2718e011e0ca65de0e91d899222486542f6336:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTMyOWI1NmM2YWJiODM2OTM4MGNhYTZlN2QyNzE4ZTAxMWUwY2E2NWRlMGU5MWQ4OTkyMjI0ODY1NDJmNjMzNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTMyOWI1NmM2YWJiODM2OTM4MGNhYTZlN2QyNzE4ZTAxMWUwY2E2NWRlMGU5MWQ4OTkyMjI0ODY1NDJmNjMzNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWE5ZWMyNzcxNjA3MzE3ZDNjOTgwMGEwMmQzYzFhZDM2YmUxMDNmMWY3MDdjMGIxMGIwM2E4YjUyNTEzNjc2MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjU2MDVjMTQwZDE2OTgyMjVlMThmYTIxMzY3OTM3MzI2YjZjNWIxOGM5Nzc1NWJhOGQzZjU5ZTg5NjhiOWQyMyJ9"
         }
       ]
+    },
+    {
+      "id": "claim_75941557cc4c415295fd4fb0ab9bd5cf",
+      "statement": "The active team is no longer carried in JWT tokens since RESTHeart 9.12.0. The team context is read from GET /users/me (user.team) instead. TokenInfo.team is deprecated and always undefined.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/integration/team.test.ts#L72-L75",
+          "version": "repo-lines-v1:sha256:0619d6bba56c911cb02a02ad13f3c41220e1d1b9a1a567042249beade790f33b:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2M4MzBiNmQ2YWMyMWUxNzE3NWUzNTAzMGY0MjMxNDM1ODg3MDAxMWYwYzI4Y2Q5MGQyMDNjNjY4MDcyNzBiNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTgxYWUzZmEwZTEwMGZkZWFlMzEwMDRiMTQ0YjUwMTk1MzdlZDU5YzUzM2Q0MGU4Nzk1NzNhYTM4MTEyNzdjOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWFhYjBhM2E1Mjc0YjQyOTUzM2JlZjA3ZjNjMWYwOTA0ZWM1ODA2NDhmNGU0MTQ4NThmNDY4MTY1MjJiODUwNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2VkZWIyNmJlNjg0ZDdhYWI4M2VjZDg0OWMxZDA3Yzc3NDc1ODEyNjQ3ODljNzA4OTdhMzYzYTZhMTc0MjhhNiJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/team.ts#L52-L53",
+          "version": "repo-lines-v1:sha256:f12b475686923bf0a81d446abe929ea16d0f4221f44891f443c00e1216f1a2a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGIxNTJkMzY3ODMyOGY5OWNlNTFlZmIwY2I3YTkwN2ZjNTdmODBhN2ZhZjFiODNlNGMyMWY5ZDhiMmMyMzAxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDVlZjJhNzcwMGE0NTUwYzFkNDQ4OTAzODgyNzE4ODE5MWYwMjI2NWQwYmEyNjM3NDQyMGJkYWJmYTk5NDliMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ2YzZlNDUxZDAyMDU5Y2JlYmRmY2JjODZlMzQxMTNkNDE1NzM1YTUxNzE1YzFjNzNlYjU2OTU4Yzg2YWQ4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTE4MGVmZjI0NDBiYWU5ZDg4OGVhNmJlZTAwNjNiN2E1MzdjZmQ1OWE4YTRlMzdmYTc0NmEwNGFlOWZlZGY4ZSJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/types.ts#L146-L147",
+          "version": "repo-lines-v1:sha256:d3199e9be7f0a1e52b442fe54115834a516a33ef24abf0fe6408506b8864c082:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzlmNDk5MjljNGZhMzgyMDUxYWRlYWMyNmE0NzJiNWJkNzViNmZkYTkxNTM4ZGM4MzRiY2I1YWQ2ODIwYmU2NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTg0MDI5ZDhlYzJjYjYxNTIwODg3YjEwNDIwYTFmMTQxMzUxNGRkNGE5YzY4MGNmOTllZjJkMDhiNTY3M2IyZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYThiZjRlNTVkMjA1ZDFhNTc3ZjlkN2QxMmRjOGFhYzU5Y2U2MWI4ZThlNzNkODhkOGYwNGE2ZGNjNGU4MDFjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzY0NTNkMTEzZDY0YmEzMDJkMGJlMWIzODkwMTkwMDJhYTYwYjE2ZjM4MGU0YjYwZTZmZDEyMWRkM2Y2YjY0MCJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-17T07:31:38.486Z"
+    "at": "2026-10-18T16:02:49.713Z"
   }
 }

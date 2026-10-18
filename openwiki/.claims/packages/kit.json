@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:91402ddba1a81f1588ef252a18557b5c19e818e50ec92bb46e9b9821ec524e62",
+  "pageVersion": "sha256:05283adbc6a6f034403a0f8c85683d86e7af13a62c7cea128e66b5e74e4b162f",
   "claims": [
     {
       "id": "claim_a7ad67a4c30f41539466368125d8fe2d",
@@ -81,7 +81,7 @@
           "version": "repo-lines-v1:sha256:a2510d513adb63df1b1f08a877b17069c7dc905a7045c97d88c133b97815aa0b:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTlmNDA0MGJhZGE5M2JjMzcwMjRhZDQ0YTIxOGZhYTNhNjE5ODUzYWQ5MGUyYzg3YjM0Y2Q1OWJiZmE0YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0M2I0NzI4ODZhMTMzMTZiOGNjY2IwYjhlNjFiZTAxODM5ODIwYmJkYjI5NDMyMjM5ZDIzNTg4Y2JkMGNlYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3YTdkYzJlMGQ1YWE1ZDYyZWQyZDA4MTVmYWFjMGY0MThmZTg0Mjg1ZWI5NTVlZGNlZTNhMzM3NzNmM2MzMzEifQ"
         },
         {
-          "resource": "repo://packages/kit/src/types.ts#L185-L190",
+          "resource": "repo://packages/kit/src/types.ts#L189-L194",
           "version": "repo-lines-v1:sha256:3ea1415876025cb44bf160da1e9f45179c89f6de45f3876921caf35829d00de2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGE5ZTY0ZmJjYjY3Y2EwMGJmNGNmZjM0MWQ5NGY4MmMwNDdkMjA0Y2NkYWQwZGZlZDJlMTcyZDA0MzcwM2MxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjczNTM1YTkxZDUxZmI4MzYzNTIzODkxZTkyODQ2NWZjZWI5MmE4NmEyYmVmYzVhYTkxMzU0ZDk0ZjJhOTZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjUwNGZkYzRkZjI1NDg0MGYyZDgyYWFjNjAxNmM4NTUyZWRhZjY1ZDYwMDZlZTkyNjU4M2Y5MTNmMDVjMzZhNCJ9"
         }
       ]
@@ -193,10 +193,34 @@
           "version": "repo-lines-v1:sha256:c161a45874ec357f8c90dc989c3345d67e6012cf02ed31b9435a33412aaf9f15:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5ZWY2YmI0MGE1ZmE5MjFjMDNjNWQ3ZGU2YjQxYjNhMTZhN2RlYzAyOGU0MmRjYjEzYWRmNDIxNWIwYzEzMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZTUxMmY5MzRkY2M1MzJlZmNlNzU1ZmY5N2QxYWYzYzIyNmEwNGE0M2M3YTkyOGM4NzE4NjY0NDcwOTQwYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0NzE1ZjVjOTc0MmMwODE3MjViZWI2YzJlNjkyN2U2NjY5MTAyOWY4M2EzZmRlNTJiYjIzMWFjYmNkOGIzYmYifQ"
         }
       ]
+    },
+    {
+      "id": "claim_5f8242fbeac64e13b5d4aca0f87fdfc7",
+      "statement": "The TokenInfo.team field is deprecated since RESTHeart 9.12.0 and is always undefined — the active team is no longer embedded in the JWT and must be read from user.team via GET /users/me (getUserInfo)",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/team.ts#L52-L53",
+          "version": "repo-lines-v1:sha256:f12b475686923bf0a81d446abe929ea16d0f4221f44891f443c00e1216f1a2a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGIxNTJkMzY3ODMyOGY5OWNlNTFlZmIwY2I3YTkwN2ZjNTdmODBhN2ZhZjFiODNlNGMyMWY5ZDhiMmMyMzAxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDVlZjJhNzcwMGE0NTUwYzFkNDQ4OTAzODgyNzE4ODE5MWYwMjI2NWQwYmEyNjM3NDQyMGJkYWJmYTk5NDliMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ2YzZlNDUxZDAyMDU5Y2JlYmRmY2JjODZlMzQxMTNkNDE1NzM1YTUxNzE1YzFjNzNlYjU2OTU4Yzg2YWQ4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTE4MGVmZjI0NDBiYWU5ZDg4OGVhNmJlZTAwNjNiN2E1MzdjZmQ1OWE4YTRlMzdmYTc0NmEwNGFlOWZlZGY4ZSJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/types.ts#L142-L153",
+          "version": "repo-lines-v1:sha256:c91dc1e752b2c37f43ecddd12e97881c152d1f7a475f9ca33b8c389272c545d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3NGZhZWNkOTU4YTg3MDExZDg1NGJkNGUxOTEyZjQ3YTUyZDYwNjQ1ODYyMTgxM2E5MTFhMDA0NTY2NjJlODciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmNTQ3MTgzZmE4ZDJhNWMwYzUwMDQ0OGQ4NDY4YzVhZWNmMWJhMmI5NmFhNGVjODdjNjAwYmQ4ZTJmMDg2OTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4OGI4YmRlMzE2ODA0MjExYjQ1OGYwODk0YzRiODlmYzVlNzU4OTk4ZDhlYmU0ZGYzY2UyZDg4MzczYzBlYWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_81d35d8a8c6149e89f24034a9001aa77",
+      "statement": "The switchTeam function returns a fresh bearer token in bearer mode or null in cookie mode; the token does not carry the team claim — the server reads the active team on every request",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/team.ts#L45-L77",
+          "version": "repo-lines-v1:sha256:58f34fd446e9642f74bb77c55d6e159b2def042b77c8cbb670623113d638b806:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlNmExNDgzYmQzMjU0NTljNTljYTFhYWZhYjgzNzE4Mzk5MzI4Y2YyYzc4ZWY0YTI2Njk5MDE4NzY3YzA2MzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-12T22:47:19.205Z"
+    "at": "2026-10-18T16:02:49.713Z"
   }
 }

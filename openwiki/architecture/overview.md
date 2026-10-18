@@ -5,7 +5,7 @@ description: Comprehensive architecture reference covering monorepo structure, p
 tags: [architecture, monorepo, packages, design, payments]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-13T10:06:03.094Z
+    at: 2026-10-18T16:02:49.713Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -41,11 +41,13 @@ sources:
     resource: repo://packages/kit/src/orders.ts
   - id: openwiki-source-9aeb2b476e021464e50a1e8f
     resource: repo://packages/kit/src/payments.ts
+  - id: openwiki-source-1df25d6106d7f55c213538a6
+    resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
   - id: openwiki-source-06c92acb1e58241d198db5aa
     resource: repo://packages/ulabase/package.json
-generated: { by: "openwiki/0.7.2", at: "2026-10-13T10:06:03.094Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
 ---
 
 # Architecture Overview
@@ -393,7 +395,7 @@ User ─── login() ───▶ POST /token (bearer) or POST /token/cookie (
 User ─── switchTeam() ───▶ POST /auth/switch-team?delivery=...
                                     │
                                     ▼
-                          New token with updated team claim
+                          Fresh token (team no longer in JWT)
                                     │
                                     ▼
                           Token replaced in localStorage
@@ -401,6 +403,8 @@ User ─── switchTeam() ───▶ POST /auth/switch-team?delivery=...
                                     ▼
                           Session refreshed (user info + teams)
 ```
+
+Since RESTHeart 9.12.0, the token no longer carries the team. The active team is read from `GET /users/me` (`user.team`) on every request.
 
 ## Payments Architecture
 

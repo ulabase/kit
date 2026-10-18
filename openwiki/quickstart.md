@@ -18,6 +18,8 @@ sources:
     resource: repo://packages/cli/src/setup.ts
   - id: openwiki-source-46339ee0e97e6859bc5ea428
     resource: repo://packages/kit/package.json
+  - id: openwiki-source-ad858c8c8d43dd531f462798
+    resource: repo://packages/kit/src/__tests__/integration/team.test.ts
   - id: openwiki-source-9f4235dd2715f5a55a0d1886
     resource: repo://packages/kit/src/__tests__/unit/money.test.ts
   - id: openwiki-source-7dbc4364bd37edb52c104a4d
@@ -30,12 +32,14 @@ sources:
     resource: repo://packages/kit/src/orders.ts
   - id: openwiki-source-9aeb2b476e021464e50a1e8f
     resource: repo://packages/kit/src/payments.ts
+  - id: openwiki-source-1df25d6106d7f55c213538a6
+    resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:31:38.486Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-17T07:31:38.486Z
+    at: 2026-10-18T16:02:49.713Z
 ---
 
 # Ulabase Kit
@@ -258,7 +262,7 @@ The kit supports two authentication modes:
 
 Users can belong to multiple teams:
 - Switch active team with `switchTeam()`
-- Team context included in JWT claims
+- Team context read from GET /users/me (user.team) — no longer carried in the JWT since RESTHeart 9.12.0
 - Team-scoped operations (members, invitations)
 
 ### Consents Gating
