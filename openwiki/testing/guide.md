@@ -266,8 +266,6 @@ it('works with cookies', async () => {
 
 **Tests**:
 - GetTeams returns all memberships
-- SwitchTeam changes active team
-- SwitchTeam updates active team (verified via GET /users/me)
 - SwitchTeam in bearer mode updates the stored token (single request) — uses `vi.spyOn(globalThis, 'fetch')` to verify no additional `/token` call is made, then verifies the new token differs from the old one and getUserInfo returns the correct user.team, NOT that the token carries a team claim
 - SwitchTeam in cookie mode is refused by a service node, which reads no cookie — expects status 400 rejection
 
