@@ -36,10 +36,10 @@ sources:
     resource: repo://packages/kit/src/__tests__/unit/payments.test.ts
   - id: openwiki-source-f5c174f35c5102ba81477e16
     resource: repo://packages/kit/vitest.unit.config.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:31:38.486Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-17T07:31:38.486Z
+    at: 2026-10-18T16:02:49.713Z
 ---
 
 # Testing Guide
@@ -267,8 +267,8 @@ it('works with cookies', async () => {
 **Tests**:
 - GetTeams returns all memberships
 - SwitchTeam changes active team
-- SwitchTeam updates token claims
-- SwitchTeam in bearer mode updates the stored token (single request) — uses `vi.spyOn(globalThis, 'fetch')` to verify no additional `/token` call is made, then verifies the new token differs from the old one and carries the correct team claim
+- SwitchTeam updates active team (verified via GET /users/me)
+- SwitchTeam in bearer mode updates the stored token (single request) — uses `vi.spyOn(globalThis, 'fetch')` to verify no additional `/token` call is made, then verifies the new token differs from the old one and getUserInfo returns the correct user.team, NOT that the token carries a team claim
 - SwitchTeam in cookie mode is refused by a service node, which reads no cookie — expects status 400 rejection
 
 ### team-management.test.ts
@@ -392,14 +392,14 @@ describe('login', () => {
 });
 ```
 
-#### 4. Verify Token Claims
+#### 4. Verify Active Team After Switch
 
 ```typescript
-it('switches team and updates token claims', async () => {
+it('switches team and updates active team', async () => {
   await switchTeam(config, teamId);
-  const token = getToken()!;
-  const payload = JSON.parse(atob(token.split('.')[1]));
-  expect(payload.team._id.$oid).toBe(teamId.$oid);
+  const user = await getUserInfo(config);
+  expect(user.team?._id).toEqual(teamId);
+  expect(user.team?.role).toBe(expectedRole);
 });
 ```
 

@@ -24,12 +24,14 @@ sources:
     resource: repo://packages/kit/src/password.ts
   - id: openwiki-source-9aeb2b476e021464e50a1e8f
     resource: repo://packages/kit/src/payments.ts
+  - id: openwiki-source-1df25d6106d7f55c213538a6
+    resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-12T22:47:19.205Z
+    at: 2026-10-18T16:02:49.713Z
 ---
 
 # @ulabase/kit
@@ -370,11 +372,11 @@ import { switchTeam } from '@ulabase/kit';
 
 // Bearer mode (default)
 await switchTeam(config, { $oid: teamId });
-// New token with updated team claim stored in localStorage
+// Fresh token stored in localStorage; active team is read from GET /users/me (user.team)
 
 // Cookie mode
 await switchTeam(config, { $oid: teamId }, 'cookie');
-// Backend updates cookie with new team claim
+// Backend sets cookie; active team is read from GET /users/me (user.team)
 ```
 
 ### Team Management
@@ -817,6 +819,22 @@ type MyUser = UserInfo<{
   latestConsents?: { tos: string; pp: string; acceptedAt?: { $date: number } };
 }>;
 ```
+
+### TokenInfo
+
+```typescript
+interface TokenInfo {
+  username: string;
+  roles: string[];
+  /** @deprecated Always undefined since RESTHeart 9.12.0 — read user.team from getUserInfo instead. */
+  team?: { _id: { $oid: string }; role: string };
+  expires_in: number;
+  access_token: string;
+  token_type: string;
+}
+```
+
+**Note**: `TokenInfo.team` is deprecated since RESTHeart 9.12.0 and is always undefined. The active team is no longer embedded in the JWT. Read `user.team` from `getUserInfo()` (`GET /users/me`) instead.
 
 ### TeamMembership
 
