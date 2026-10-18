@@ -73,7 +73,7 @@ export async function rhLogin(
   return runCapturing(config, opts, (cfg) => kitLogin(cfg, email, password, 'bearer'));
 }
 
-/** Server-action switch-team: rewrites the session cookie with the new team claim. */
+/** Server-action switch-team: rewrites the session cookie with the fresh token. */
 export async function rhSwitchTeam(
   config: AuthConfig,
   teamId: { $oid: string },

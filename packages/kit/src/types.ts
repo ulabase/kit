@@ -142,6 +142,10 @@ export type UserInfo<E extends object = Record<never, never>> = {
 export interface TokenInfo {
   username: string;
   roles: string[];
+  /**
+   * @deprecated No token carries the team since RESTHeart 9.12.0: always undefined.
+   * Read the active team from `user.team` (`GET /users/me`). Removed in the next major.
+   */
   team?: { _id: { $oid: string }; role: string };
   expires_in: number;
   access_token: string;

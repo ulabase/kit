@@ -135,7 +135,7 @@ Errors are thrown as `{ status: number; message: string }`.
 | Function | Description |
 |---|---|
 | `getTeams(config)` | List teams the authenticated user belongs to |
-| `switchTeam(config, teamId, mode?)` | Switch active team (`mode`: `'bearer'` (default) or `'cookie'`) — in bearer mode, the stored token is replaced with the freshly issued one carrying the new team claim |
+| `switchTeam(config, teamId, mode?)` | Switch active team (`mode`: `'bearer'` (default) or `'cookie'`) — in bearer mode, the stored token is replaced with the freshly issued one; `user.team` comes from `/users/me` |
 
 ### Subscriptions
 

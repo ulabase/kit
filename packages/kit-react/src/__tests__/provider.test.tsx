@@ -87,7 +87,7 @@ describe('methods update the shared state', () => {
     expect(result.current.teams).toHaveLength(0);
   });
 
-  it('switchTeam re-checks the session (fresh team claim)', async () => {
+  it('switchTeam re-checks the session (fresh user.team)', async () => {
     signedIn();
     vi.mocked(kit.switchTeam).mockResolvedValue('newtok');
 

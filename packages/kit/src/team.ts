@@ -46,8 +46,11 @@ export async function deleteTeam(config: AuthConfig): Promise<void> {
  * Switch the active team.
  *
  * Uses the `delivery` query parameter to control token delivery:
- * - bearer (default): delivery=body — new JWT (with updated team claim) returned in the response JSON body
- * - cookie: delivery=cookie — backend sets HttpOnly JWT cookie with updated team claim
+ * - bearer (default): delivery=body — new JWT returned in the response JSON body
+ * - cookie: delivery=cookie — backend sets HttpOnly JWT cookie
+ *
+ * No token carries the team: the server reads the active one at every request,
+ * and `GET /users/me` answers it as `user.team`.
  *
  * In bearer mode the stored token is replaced with the fresh one so that
  * subsequent requests carry the correct team context.

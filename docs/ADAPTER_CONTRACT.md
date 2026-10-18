@@ -26,7 +26,7 @@ state (signals / context / refs) and the framework glue (guards, middleware, coo
 | A2 | bootstrap, valid token | loads `user` **and** `teams` |
 | A3 | `login` | sets `user` **and** loads `teams` in the same flow |
 | A4 | `logout` | clears `user` and `teams` |
-| A5 | `switchTeam` | re-runs `checkSession` (fresh team claim) |
+| A5 | `switchTeam` | re-runs `checkSession` (fresh `user.team`) |
 | A6 | `updateProfile` | re-runs `checkSession` |
 | A7 | `acceptInvite` | reloads `teams` |
 | A8 | `clearSession` | wipes state, calls `clearToken` + `cancelRefresh` |
