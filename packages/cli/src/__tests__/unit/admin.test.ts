@@ -162,3 +162,40 @@ describe('admin client', () => {
     expect(seen).toEqual(['Bearer token-a', 'Bearer token-b']);
   });
 });
+
+describe('Cloudflare Access service token', () => {
+  const base = 'https://api.example.dev';
+
+  /** Records the headers of every request. */
+  function recorder() {
+    const seen: Headers[] = [];
+    const transport = async (_url: string, init?: RequestInit): Promise<Response> => {
+      seen.push(new Headers(init?.headers));
+      return new Response(JSON.stringify({ service_id: 'x', installed: [], available: [] }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    };
+    return { seen, transport };
+  }
+
+  it('sends both headers when both variables are set', async () => {
+    const { seen, transport } = recorder();
+    const admin = createAdminClient({
+      apiBaseUrl: base,
+      transport,
+      env: { CF_ACCESS_CLIENT_ID: 'id.access', CF_ACCESS_CLIENT_SECRET: 'not-a-secret' },
+    });
+    await admin.isFeatureInstalled('x', 'guards');
+    expect(seen[0].get('CF-Access-Client-Id')).toBe('id.access');
+    expect(seen[0].get('CF-Access-Client-Secret')).toBe('not-a-secret');
+  });
+
+  it('sends neither when one is missing', async () => {
+    const { seen, transport } = recorder();
+    const admin = createAdminClient({ apiBaseUrl: base, transport, env: { CF_ACCESS_CLIENT_ID: 'id.access' } });
+    await admin.isFeatureInstalled('x', 'guards');
+    expect(seen[0].has('CF-Access-Client-Id')).toBe(false);
+    expect(seen[0].has('CF-Access-Client-Secret')).toBe(false);
+  });
+});

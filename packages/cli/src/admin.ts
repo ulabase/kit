@@ -166,6 +166,22 @@ export function createAdminClient(config: AdminClientConfig): AdminClient {
   const { env: envSource, ...authConfig } = config;
   const env = envSource ?? defaultEnv();
 
+  // An admin API behind Cloudflare Access (dev, specs/todo/dev-chiuso.md in ulabase-nodes) lets a
+  // script through with a service token: two headers on every request. Read from the environment
+  // only when both are set; a caller's own transport is wrapped, not replaced.
+  const accessId = env['CF_ACCESS_CLIENT_ID'];
+  const accessSecret = env['CF_ACCESS_CLIENT_SECRET'];
+  const baseTransport = authConfig.transport ?? ((u: string, i?: RequestInit) => fetch(u, i));
+  const transport =
+    accessId && accessSecret
+      ? (u: string, i?: RequestInit) => {
+          const headers = new Headers(i?.headers);
+          headers.set('CF-Access-Client-Id', accessId);
+          headers.set('CF-Access-Client-Secret', accessSecret);
+          return baseTransport(u, { ...i, headers });
+        }
+      : authConfig.transport;
+
   const cfg: AuthConfig = {
     // Silences the core's `[apiFetch] … → 401` on stderr: this package reports
     // failures itself, in sentences, and a raw line immediately before one of
@@ -174,6 +190,7 @@ export function createAdminClient(config: AdminClientConfig): AdminClient {
     // swallows, so no error is lost by taking this seam.
     onError: () => {},
     ...authConfig,
+    ...(transport ? { transport } : {}),
     getToken: () => token,
     setToken: (t: string) => {
       token = t;
