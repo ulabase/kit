@@ -126,14 +126,17 @@ export interface AdminClient {
    * {@link ServiceClient.fetch} is, on the other side.
    *
    * The admin node has endpoints this client has no reason to wrap one at a
-   * time: `/auth-config/{srvId}`, for instance, which is what sets a service's
-   * JWT claims. Path is admin-node-relative, and the response is whatever the
-   * node returned — a non-2xx throws an `ApiError`, like everything else here.
+   * time. Path is admin-node-relative, and the response is whatever the node
+   * returned — a non-2xx throws an `ApiError`, like everything else here.
+   *
+   * Every feature of a service, the always-on ones included (`auth` for the
+   * JWT claims, `mcp` for the agents' sign-in, `branding`), is configured with
+   * `getFeatureConfig` and `updateFeatureConfig`: there is no other road.
    *
    * Note that not every admin endpoint is reachable with a personal access
    * token: most are gated on the `cli` role by an ACL document. The ones that
    * authorise on *owning the service* rather than on a role — `/srvs-mgmt/…/jwt`
-   * and `/auth-config/…` — are, which is what makes them usable from a setup.
+   * — are, which is what makes them usable from a setup.
    */
   fetch(path: string, init?: RequestInit): Promise<Response>;
 
