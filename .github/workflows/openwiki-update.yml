@@ -76,12 +76,13 @@ jobs:
           MESSAGE: ${{ inputs.message }}
           OPENWIKI_PROVIDER: openrouter
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENWIKI_MODEL_ID: ${{ inputs.model || 'xiaomi/mimo-v2.5-pro' }}
+          OPENWIKI_MODEL_ID: ${{ inputs.model || 'xiaomi/mimo-v2.6-pro' }}
           # Only the first-party endpoint: OpenRouter routes this model to six providers, and from
           # 2026-10-16 the one it picked returned tool calls whose arguments the runtime could not
           # parse, so the planner ended "without submit_plan". Xiaomi's endpoint supports tools and
           # the full 131072 output tokens the runtime asks for. Pinned only for the default model:
           # another one passed as input is left to OpenRouter's routing.
+          # From 2026-10-25 Xiaomi no longer serves mimo-v2.5-pro on OpenRouter: the default is 2.6.
           OPENWIKI_OPENROUTER_PROVIDER_ONLY: ${{ inputs.model == '' && 'Xiaomi' || '' }}
           LANGCHAIN_TRACING_V2: "false"
 
