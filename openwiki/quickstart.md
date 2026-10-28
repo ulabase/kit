@@ -36,10 +36,10 @@ sources:
     resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-28T14:04:09.857Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-18T16:02:49.713Z
+    at: 2026-10-28T14:04:09.857Z
 ---
 
 # Ulabase Kit
@@ -109,13 +109,13 @@ The architecture follows a layered pattern:
 
 ### Packages
 - **[Core Kit](packages/kit.md)** — API reference, configuration, authentication flows
-- **[CLI](packages/cli.md)** — `ulabase` command, setup runner, admin/service clients, session management, env refs
+- **[CLI](packages/cli.md)** — `ulabase` command, setup runner, admin/service clients (feature lifecycle, Cloudflare Access), session management, env refs
 - **[Angular Adapter](packages/kit-ng.md)** — RhAuthService, signals, guards, interceptor
 - **[React Adapter](packages/kit-react.md)** — Hooks, context, guards, Next.js `/next` subpath
 - **[Vue Adapter](packages/kit-vue.md)** — Composables, navigation guards, Nuxt `/nuxt` subpath
 
 ### Development
-- **[Testing Guide](testing/guide.md)** — Core integration tests and adapter unit tests
+- **[Testing Guide](testing/guide.md)** — Four tiers: kit integration tests (live instance), kit unit tests, CLI unit tests (admin/env/service/session/setup), adapter unit tests
 - **[Release Process](deployment/release.md)** — Tag-driven releases, CI/CD pipeline
 - **[Contributing](contributing/development.md)** — Local setup, workspace configuration, debugging
 
@@ -143,7 +143,7 @@ Use this table to find the right starting point for common change types:
 | Price formatting | [Payments & E-commerce](concepts/payments.md#money-formatting) | `packages/kit/src/money.ts` | `formatPrice` | `packages/kit/src/__tests__/unit/money.test.ts` | `npm test -w packages/kit` |
 | CLI setup runner (ulabase setup, defineSetup, step, fromEnv) | [CLI](packages/cli.md#setup-runner) | `packages/cli/src/setup.ts`, `packages/cli/src/cli.ts`, `packages/cli/src/env.ts` | `defineSetup`, `step`, `runSetup`, `fromEnv`, `resolveEnvRefs` | `packages/cli/src/__tests__/unit/setup.test.ts`, `env.test.ts` | `npm test -w packages/cli` |
 | CLI session & credentials (login, logout, PAT) | [CLI](packages/cli.md#session-management) | `packages/cli/src/session.ts`, `packages/cli/src/cli.ts` | `resolveToken`, `writeSession`, `clearSession`, `TOKEN_VAR` | `packages/cli/src/__tests__/unit/session.test.ts` | `npm test -w packages/cli` |
-| CLI admin & service clients | [CLI](packages/cli.md#clients) | `packages/cli/src/admin.ts`, `packages/cli/src/service.ts` | `createAdminClient`, `createServiceClient` | `packages/cli/src/__tests__/unit/admin.test.ts`, `service.test.ts` | `npm test -w packages/cli` |
+| CLI admin & service clients | [CLI](packages/cli.md#clients) | `packages/cli/src/admin.ts`, `packages/cli/src/service.ts` | `createAdminClient` (feature-lifecycle methods, deprecated plugin aliases, `useToken`, `verifyToken`, `serviceToken`, optional Cloudflare Access wrapping via `CF_ACCESS_CLIENT_ID`/`CF_ACCESS_CLIENT_SECRET`), `createServiceClient` | `packages/cli/src/__tests__/unit/admin.test.ts` (route-table stub, Cloudflare Access headers, `isFeatureInstalled`), `service.test.ts` | `npm test -w packages/cli` |
 | Angular adapter (signals, guards, interceptor) | [Angular Adapter](packages/kit-ng.md) | `packages/kit-ng/src/auth.service.ts`, `auth.guard.ts`, `auth.interceptor.ts` | `RhAuthService`, `authGuard`, `provideRhAuth` | `packages/kit-ng/src/*.spec.ts` | `npm test -w packages/kit-ng` |
 | React adapter (hooks, context, guards) | [React Adapter](packages/kit-react.md) | `packages/kit-react/src/context.tsx`, `guards.tsx` | `useAuth`, `RhAuthProvider`, `AuthGuard` | `packages/kit-react/src/__tests__/` | `npm test -w packages/kit-react` |
 | Next.js SSR (middleware, route handlers, server actions) | [React Adapter — /next](packages/kit-react.md#nextjs-subpath-next) | `packages/kit-react/src/next/` | `rhAuthMiddleware`, `createSessionRoute`, `rhLogin`, `SessionSync` | `packages/kit-react/src/next/__tests__/` | `npm test -w packages/kit-react` |
@@ -474,9 +474,13 @@ const auth = useAuth();
 ## Related Pages
 
 - [Architecture Overview](architecture/overview.md) — Monorepo structure, package layering, design principles
+- [Token Delivery](architecture/token-delivery.md) — Bearer vs cookie modes, SSR considerations
 - [Payments & E-commerce](concepts/payments.md) — Subscriptions, Checkout, Portal, seat licences, catalog, orders, cart, and price formatting
 - [Core Kit](packages/kit.md) — API reference, configuration, authentication flows
-- [Token Delivery](architecture/token-delivery.md) — Bearer vs cookie modes, SSR considerations
-- [Testing Guide](testing/guide.md) — Core integration tests and adapter unit tests
+- [CLI](packages/cli.md) — `ulabase` command, setup runner, admin/service clients, session management
+- [Angular Adapter](packages/kit-ng.md) — RhAuthService, signals, guards, interceptor
+- [React Adapter](packages/kit-react.md) — Hooks, context, guards, Next.js `/next` subpath
+- [Vue Adapter](packages/kit-vue.md) — Composables, navigation guards, Nuxt `/nuxt` subpath
+- [Testing Guide](testing/guide.md) — Kit integration tests, kit unit tests, CLI unit tests, adapter unit tests
 - [Contributing](contributing/development.md) — Local setup, workspace configuration, debugging
 - [Release Process](deployment/release.md) — Tag-driven releases, CI/CD pipeline

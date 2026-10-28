@@ -5,7 +5,7 @@ description: Comprehensive architecture reference covering monorepo structure, p
 tags: [architecture, monorepo, packages, design, payments]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-18T16:02:49.713Z
+    at: 2026-10-28T14:04:09.857Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -15,6 +15,8 @@ sources:
     resource: repo://docs/ADAPTERS.md
   - id: openwiki-source-92450a7065eb85e0f30b5461
     resource: repo://packages/cli/package.json
+  - id: openwiki-source-8bdaa310d96f188962daac0e
+    resource: repo://packages/cli/src/__tests__/unit/admin.test.ts
   - id: openwiki-source-00e0515d90d8146f27d18530
     resource: repo://packages/cli/src/admin.ts
   - id: openwiki-source-0f6c3b29b19e31f6c5db5771
@@ -47,7 +49,7 @@ sources:
     resource: repo://packages/kit/src/types.ts
   - id: openwiki-source-06c92acb1e58241d198db5aa
     resource: repo://packages/ulabase/package.json
-generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-28T14:04:09.857Z" }
 ---
 
 # Architecture Overview
@@ -233,7 +235,7 @@ The monorepo follows a strict layered architecture:
 - Not a framework adapter — it is a standalone operational tool
 
 **Key abstractions**:
-- `AdminClient` — authenticates against the admin node (`api.ulabase.com`), manages features (install, configure, init, test), mints service tokens; deprecated plugin method aliases remain for backward compatibility
+- `AdminClient` — a client over the admin node (`api.ulabase.com`). Authenticates with `login`, or with a personal access token via `useToken` and `verifyToken`. Manages features through feature-based primary names (`featureCatalog`, `listFeatures`, `isFeatureInstalled`, `configSchema`, `getFeatureConfig`, `updateFeatureConfig`, `installFeature`, `uninstallFeature`, `enableFeature`, `disableFeature`, `initFeature`, `testFeature`) with deprecated plugin-name aliases for backward compatibility. `serviceToken` mints a service-admin JWT; `fetch` is an escape hatch for admin endpoints the client does not wrap. Credentials live in a closure rather than `localStorage` to support Node.js and avoid cross-client token collision. When `CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET` are both set, `createAdminClient` wraps the caller's transport with Cloudflare Access headers (`CF-Access-Client-Id`, `CF-Access-Client-Secret`) — the caller's transport is wrapped, not replaced.
 - `ServiceClient` — authenticates against a service node, manages collections, indexes, permissions, users, and schemas; token is cached and renewed automatically
 - `Setup` / `Step` — declarative, idempotent configuration: each step has a `check` (is it already done?) and an `apply` (make it so); `runSetup` executes them sequentially, halting on failure
 

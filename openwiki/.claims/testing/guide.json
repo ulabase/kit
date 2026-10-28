@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:2b66c6f95b3875cd96ec3698755ed73ceae1ba71a8545b6e86de2ed6e8d12eb7",
+  "pageVersion": "sha256:2403df98f05da122df1c8e5b81bbdcbb2220b6467c78e883f059606d046198ff",
   "claims": [
     {
       "id": "claim_e7ebb7e508804f9f92901818b0fa82a0",
@@ -84,15 +84,19 @@
     },
     {
       "id": "claim_8459e17c3ef44c8e90d795e3a687bfab",
-      "statement": "CLI unit tests cover five modules: admin client (plugin management, configuration, env ref resolution), env (fromEnv resolution, validation), service client (token minting/reuse, renewal near expiry, shared mint, 404-as-false vs 403-as-throw, index existence via collection listing, write paths with wm=upsert, idempotent re-runs, fromEnv resolution in service client bodies), session (file storage, token resolution, session clearing), and setup runner (step execution, dry runs, force mode, progress reporting).",
+      "statement": "CLI unit tests cover six modules: admin client (endpoint routing via deprecated plugin-name aliases and feature names, plugin/feature configuration with redaction placeholder safety, env ref resolution, token isolation between clients, Cloudflare Access service-token headers sent when both CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET are set and omitted when one is missing), env (fromEnv resolution, validation), HTTP request layer (rate-limit retry with Retry-After, retryAfterSeconds parsing), service client (token minting/reuse, renewal near expiry, shared mint, 404-as-false vs 403-as-throw, index existence via collection listing, write paths with wm=upsert, idempotent re-runs, fromEnv resolution in service client bodies), session (file storage, token resolution, session clearing), and setup runner (step execution, dry runs, force mode, progress reporting, partial-target re-runs).",
       "evidence": [
         {
           "resource": "repo://packages/cli/src/__tests__/unit/admin.test.ts",
-          "version": "repo-file-v1:sha256:a043f11bf05084b0052182abf2ce0996fb3c942a0b0230b3ffe702875c077614"
+          "version": "repo-file-v1:sha256:56c9ff7f5a0fbd11060df8e676b9b4aca3bff24e1c1728a68cacc52229703ef1"
         },
         {
           "resource": "repo://packages/cli/src/__tests__/unit/env.test.ts",
           "version": "repo-file-v1:sha256:44c949c606d24e2f313e5d0d0c536910401193e7a64655dc184fc98910b1ddcd"
+        },
+        {
+          "resource": "repo://packages/cli/src/__tests__/unit/http.test.ts",
+          "version": "repo-file-v1:sha256:3af33fff10da5123ad09db37af86b2e8e1865c98ad886dd1dc7868b3ef0010cf"
         },
         {
           "resource": "repo://packages/cli/src/__tests__/unit/service.test.ts",
@@ -223,6 +227,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-18T16:02:49.713Z"
+    "at": "2026-10-28T14:04:09.857Z"
   }
 }
