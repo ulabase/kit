@@ -12,6 +12,8 @@ sources:
     resource: repo://packages/cli/src/__tests__/unit/admin.test.ts
   - id: openwiki-source-26c1f4520f822e9ae6ab9a1d
     resource: repo://packages/cli/src/__tests__/unit/env.test.ts
+  - id: openwiki-source-b0f19e14449f66037e4c3d87
+    resource: repo://packages/cli/src/__tests__/unit/http.test.ts
   - id: openwiki-source-342c2249f92e2ca7695bfc8a
     resource: repo://packages/cli/src/__tests__/unit/service.test.ts
   - id: openwiki-source-d8112324397071944e41ddcb
@@ -36,10 +38,10 @@ sources:
     resource: repo://packages/kit/src/__tests__/unit/payments.test.ts
   - id: openwiki-source-f5c174f35c5102ba81477e16
     resource: repo://packages/kit/vitest.unit.config.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-28T14:04:09.857Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-18T16:02:49.713Z
+    at: 2026-10-28T14:04:09.857Z
 ---
 
 # Testing Guide
@@ -54,7 +56,7 @@ Ulabase Kit has four test tiers:
 |------|---------------|----------------|---------|
 | **Core integration** (`packages/kit`) | Auth flows, token lifecycle, teams, invites against live API | Ulabase instance + secrets | Tags (release), manual trigger |
 | **Kit unit** (`packages/kit`) | Payments, orders, cart, client, money modules | None (mocks transport) | Every push and PR |
-| **CLI unit** (`packages/cli`) | Setup runner logic, env ref resolution, session management, admin client operations | None (mocks admin and service clients) | Every push and PR |
+| **CLI unit** (`packages/cli`) | Setup runner logic, env ref resolution, session management, admin client operations, HTTP request retry | None (mocks admin and service clients) | Every push and PR |
 | **Adapter unit** (`kit-react`, `kit-vue`, `kit-ng`) | Wiring: reactive state, guards, middleware, cookie bridge | None (mocks `@ulabase/kit`) | Every push and PR |
 
 **Test Framework**: Vitest 4
@@ -657,7 +659,7 @@ describe('someFunction', () => {
 
 ## CLI Unit Tests
 
-CLI unit tests mock the admin and service clients, testing setup runner logic, env ref resolution, session management, and admin client operations. They run without a backend or secrets.
+CLI unit tests mock HTTP transports and the admin and service clients, covering the admin client, env ref resolution, the low-level HTTP request layer, the service client, session management, and setup runner logic. They run without a backend or secrets. Client behavior (endpoints, deprecated plugin-name aliases, Cloudflare Access transport) is documented in the [CLI package](../packages/cli.md).
 
 ### Running CLI Unit Tests
 
@@ -699,15 +701,17 @@ export default defineConfig({
 
 #### admin.test.ts
 
-**Purpose**: Admin client operations including plugin management, configuration, and environment variable resolution.
+**Purpose**: Admin client operations — endpoint routing (including the deprecated plugin-name aliases), plugin/feature configuration, `fromEnv` resolution, token isolation between clients, and Cloudflare Access service-token headers.
 
 **Tests**:
-- Admin client speaks to the endpoints the admin node exposes
-- Admin client reads a plugin schema from `available`, so an uninstalled plugin still has one
-- Admin client writes the redaction placeholder back untouched
+- Admin client speaks to the endpoints the admin node exposes (via `pluginCatalog`/`installPlugin`/`initPlugin`/`uninstallPlugin`, the deprecated aliases bound to the feature methods)
+- Admin client reads a plugin schema from `available`, so an uninstalled plugin still has one (`isPluginInstalled`, `configSchema`)
+- Admin client writes the redaction placeholder back untouched (`getPluginConfig`/`updatePluginConfig`)
 - Admin client resolves a fromEnv marker into the request body and nowhere else
 - Admin client fails naming the variable rather than sending undefined
 - Admin client keeps its token out of localStorage and out of other clients
+- Cloudflare Access service token: sends both `CF-Access-Client-Id` and `CF-Access-Client-Secret` headers when both `CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET` are set
+- Cloudflare Access service token: sends neither header when one of the two variables is missing
 
 #### env.test.ts
 
@@ -720,6 +724,15 @@ export default defineConfig({
 - `fromEnv` names every missing variable at once, so a short pipeline learns all of them
 - `fromEnv` treats a declared-but-empty variable as missing
 - `fromEnv` refuses to be serialised unresolved
+
+#### http.test.ts
+
+**Purpose**: Low-level HTTP request layer — rate-limit retry behavior and `Retry-After` header parsing.
+
+**Tests**:
+- Waits the `Retry-After` seconds on a 429 and tries again (fake timers)
+- Gives up after three retries, surfacing the 429 as the error
+- `retryAfterSeconds` reads the header and falls back to a minute (caps at 120 seconds)
 
 #### service.test.ts
 
@@ -777,6 +790,7 @@ export default defineConfig({
 - `runSetup` hands each step both clients and the service id
 - A multi-step setup against a stateful target configures an empty target, then does nothing at all the second time
 - A multi-step setup against a stateful target a dry run reports every outstanding step, not just the first
+- A multi-step setup against a stateful target a partially configured target applies only what is left
 
 ### Writing CLI Unit Tests
 
@@ -842,6 +856,25 @@ describe('admin client', () => {
       'POST /plugins-mgmt/ea820b/stripe/init',
       'DELETE /plugins-mgmt/ea820b/stripe',
     ]);
+  });
+
+  it('sends both headers when both variables are set', async () => {
+    const seen: Headers[] = [];
+    const transport = async (_url: string, init?: RequestInit): Promise<Response> => {
+      seen.push(new Headers(init?.headers));
+      return new Response(JSON.stringify({ service_id: 'x', installed: [], available: [] }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    };
+    const admin = createAdminClient({
+      apiBaseUrl: base,
+      transport,
+      env: { CF_ACCESS_CLIENT_ID: 'id.access', CF_ACCESS_CLIENT_SECRET: 'not-a-secret' },
+    });
+    await admin.isFeatureInstalled('x', 'guards');
+    expect(seen[0].get('CF-Access-Client-Id')).toBe('id.access');
+    expect(seen[0].get('CF-Access-Client-Secret')).toBe('not-a-secret');
   });
 });
 ```
@@ -914,7 +947,8 @@ describe('service client', () => {
 ```
 
 **Key Patterns**:
-- Use a `stub` function (admin.test.ts) or `harness` function (service.test.ts) to mock HTTP responses and record calls
+- Use a `stub` function (admin.test.ts) or `harness` function (service.test.ts) to mock HTTP responses and record calls; for header assertions, a minimal `recorder` transport suffices (see the Cloudflare Access tests)
+- The admin tests exercise both the deprecated plugin-name aliases (`pluginCatalog`, `installPlugin`, `initPlugin`, `uninstallPlugin`, `getPluginConfig`, `updatePluginConfig`) and the newer feature names (`isFeatureInstalled`, `configSchema`) — they are bound to the same implementations (see the [CLI package](../packages/cli.md))
 - Test both success and error cases
 - Test edge cases (missing variables, corrupt data)
 - Use `vi.fn()` to track function calls

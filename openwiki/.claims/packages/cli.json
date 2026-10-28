@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:dc24a5892d4823536308adeeca4c71d332fed486d52a02eeaefd7e906e729d52",
+  "pageVersion": "sha256:fae7da4a870212c15592e20edf31cf82e3a64da19f0e1f4e724afc6c4a09ed68",
   "claims": [
     {
       "id": "claim_acd1c970ec6249f5854fc444f6b659e0",
@@ -55,7 +55,7 @@
       "statement": "Resolution of fromEnv markers happens at serialization time inside the admin client's updateFeatureConfig and the service client's body() helper — never before, and a dry run never calls apply so markers are never resolved. The updateFeatureConfig method is deliberately async so that resolveEnvRefs throws are caught by the caller's catch handler.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/admin.ts#L208-L215",
+          "resource": "repo://packages/cli/src/admin.ts#L228-L235",
           "version": "repo-lines-v1:sha256:3b29d235b853d4bc7f1ae47f05d156a18c3a2f8b863b84f1cc209b7a16da3034:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODZiNTJjNjljYzRlOGMzNmIyMDUyYTQ1NmU0NDk3YTI4ZGQxMWI1Y2M4N2U3ZDNkNjFkOGVkMzZmYTQxNThlYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGMzYTNjNTYxNjUzY2FiZjM0NDgyMGM3M2U2ZjA4ZmM5MjQ1ZGRhMzcyZDA3NTQ5ZDQzOTY1YWM2NTU4OTAzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzViZWRmNzAxMTZlZTVmNWU2NmQxYzIzNDE3YTZkNzExMjBkNWQ0NjU4YWIwZGYzOWYyNDZjYjExN2FhZTljOCJ9"
         },
         {
@@ -106,11 +106,19 @@
     },
     {
       "id": "claim_67d9bb3035f2444cbf485a9f62ec589d",
-      "statement": "The admin client (createAdminClient) manages its own token in a closure rather than localStorage, silences the core's stderr logging, and provides methods for feature lifecycle (featureCatalog, listFeatures, isFeatureInstalled, configSchema, getFeatureConfig, updateFeatureConfig, installFeature, uninstallFeature, enableFeature, disableFeature, initFeature, testFeature), service token minting, and a generic fetch escape hatch. Deprecated aliases for the old plugin-based names are also exported.",
+      "statement": "The admin client (createAdminClient) manages its own token in a closure rather than localStorage, silences the core's stderr logging (a caller-supplied onError still observes rather than swallows), and takes an injectable env source rather than reading process.env directly. It exposes a feature-lifecycle method table (featureCatalog, listFeatures, isFeatureInstalled, configSchema, getFeatureConfig, updateFeatureConfig, installFeature, uninstallFeature, enableFeature, disableFeature, initFeature, testFeature) plus useToken (sets a personal access token with no round trip), verifyToken (a cheap GET /plugins probe that clears both the authenticator and the ACL), serviceToken (service-admin JWT minting), and a generic fetch escape hatch. Deprecated plugin-based aliases are exported and bound to the same implementations.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/admin.ts#L154-L288",
-          "version": "repo-lines-v1:sha256:ff808d2612186d5151bd3804c2fb74d50108cc4d8ce33a60344662d0824ac7e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4OTBlNDczZjkxMjU3MzkxYzBhNzBmZmIxZjFiMmIzMjhmOGY5MThkMmZkZDAwMjkyOGMxNTVkZjE5MGJkZDI5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIyYjM1YmQ1NWRiNTk0YTgzODVkODMxYjE5YjVmMTgwZWFiZThmMWY0ZGJjYmI5NTM4NGE3YjNiY2ZmMjZkNTgzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://packages/cli/src/admin.ts",
+          "version": "repo-file-v1:sha256:db3c2774e133b33b997c0613e46c8b39cdc9758ea01e5ef603009c7f7157fe7b"
+        },
+        {
+          "resource": "repo://packages/cli/src/admin.ts#L23-L147",
+          "version": "repo-lines-v1:sha256:4c96503d6807c10f8cc5af64bc013a7dc8080b69e54f78805a4c5999a697e842:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1NDJkYjQzYzU4NzEwOTYyZWNhZDYwYTljMzM1NTA0YmJmYzk4YzM4OGU4YzZlZWFiZjVlNTRhMDkzY2M1N2I2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4NDZlM2JhZjg1NGRhNjA0YmZkYzhiOGJlNjJlOGZlNzJlMTk0ZmFhYWY4YmJhOTAyYzNjNmYzODAxM2M3MDYwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhNmNlMjEzNTFlZmRlNDZjNmM0MGQ2ZTgxYzlmOTI0ZjY0M2U2ZWJlM2M0MmIxODYzN2RmODMxNzU1NzM4NjhkIn0"
+        },
+        {
+          "resource": "repo://packages/cli/src/admin.ts#L258-L307",
+          "version": "repo-lines-v1:sha256:87977eb7e8653b59cc4524766cdf8105d4a48ae2f7d84ee588af664b01590564:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5NWZhMGYxMTE3YjVlYTQwNDM0MTQwZGRlMWEzNDBjNzIwZGRiZjMyNjIxMmUxOTE4MzhkNGIxNTZkMzE2YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2YjgyMDY4YWI2M2I1NGY1NGNlNWJjNWE1MDQ3MDI3NjkxMjg0YjY5MzU4ZDNiZThkNTVjOGQ1Y2IxOWFmZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
     },
@@ -228,7 +236,7 @@
         },
         {
           "resource": "repo://packages/cli/src/admin.ts",
-          "version": "repo-file-v1:sha256:794410b6177ac1e704065fb6ce3b09f4218083763fbed021637f9d9fbfd0b226"
+          "version": "repo-file-v1:sha256:db3c2774e133b33b997c0613e46c8b39cdc9758ea01e5ef603009c7f7157fe7b"
         }
       ]
     },
@@ -241,10 +249,24 @@
           "version": "repo-lines-v1:sha256:0060f364f881a706991f4b38f71527f648f935bc4954d4aacc5d1656c31b91bb:eyJzZWxlY3RlZExpbmVDb3VudCI6ODEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzN2Y0YmY5MzliM2NhYjU2NTU3YmZiZDhkZTFlMWFjMGE0YjNkMjViYjQ4Yzc5NGEzMjQzODM0OWUxM2Y0Y2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI5OTViOTcxZWFiNTA4M2ExYTQ0MjUxYjhlY2EzMmMwMmU3NTAyNTRiZmVjYmMzMWJmZTk0MGRlNzk2ZGYxMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
+    },
+    {
+      "id": "claim_5c09456e79b8446598711b9a68b70eeb",
+      "statement": "When both CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET are present in the injectable env source, createAdminClient wraps the transport so every request carries CF-Access-Client-Id and CF-Access-Client-Secret headers — a caller-supplied transport is wrapped, not replaced. When either variable is absent the transport is left untouched. The service client reuses admin.config.transport for its own service-node requests, so the Access headers follow through.",
+      "evidence": [
+        {
+          "resource": "repo://packages/cli/src/admin.ts#L169-L198",
+          "version": "repo-lines-v1:sha256:1ef7f57c2c4bed29228649206f47708f5554388b32171f6bc17ad5998b146943:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiZjMyZmQ2MTVmMjMzZDg0ZmRiNTMzZWJkYWUyYjY0MjhjODdhNTkzMTBkMGEwMGE2YjgwNDMyMmRkMWY4NGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwZmEwMDMzNmNiZWQwZWE0ZDhmNGRiNDUwZTU3YzAwZjhkYjU0ZDI3YWJlY2U0NDcxZjIwNzhiYjNhZTU1MGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3OGY5ZDQ5NjM5YzYwOWZjNDRlMzQ4ODJmODZiYTU1NjljZGNkYTE2ZWRhYzM1ODc0Y2VlNzQ3MmNhZmM3MzMifQ"
+        },
+        {
+          "resource": "repo://packages/cli/src/service.ts#L86-L89",
+          "version": "repo-lines-v1:sha256:5313c3ff8b7d74baa07acdcb92ba11cbe27c0834b0c73b077d7f403ceb2d0b68:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWEyZTU5MmU1YzhmYjM2ZWEzMjUzZmY1YTlkN2QwYTdjMDVjOWU5M2ZhNDRiMzQwYjNiZDM0MjkwYzU0YmZmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTI0ZWIzNTI0M2U4NWIyNjM3YjQ3Y2Y1MWMzYWI2ZDlmZjAwNWMwOWRiNWNlMmU4NzRhMzMxZDZiYzU1MGVlOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTliZTY0MDNiMTU5ZmE2NGQyNDAxYTMxOTllYjI0NDMzODJkMjU5ZmRhZGUyYTQ3MmQxNmNkZmVmNTk4OGJkMCJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-13T10:06:03.094Z"
+    "at": "2026-10-28T14:04:09.857Z"
   }
 }

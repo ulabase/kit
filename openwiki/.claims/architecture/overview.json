@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:2a42763b1dcd1287010b70815c67e1ba54dda605d56a4cff1771b2cd5eb6a8d8",
+  "pageVersion": "sha256:0ca06661391c67a84ae90285b1162a25502fbcfcacfd66afd4431b89926008eb",
   "claims": [
     {
       "id": "claim_6f93d57989544af49c8650048226eefb",
@@ -30,7 +30,7 @@
         },
         {
           "resource": "repo://packages/cli/src/admin.ts",
-          "version": "repo-file-v1:sha256:794410b6177ac1e704065fb6ce3b09f4218083763fbed021637f9d9fbfd0b226"
+          "version": "repo-file-v1:sha256:db3c2774e133b33b997c0613e46c8b39cdc9758ea01e5ef603009c7f7157fe7b"
         },
         {
           "resource": "repo://packages/kit/src/index.ts",
@@ -40,11 +40,15 @@
     },
     {
       "id": "claim_38249586080a411984b27433f956e7ff",
-      "statement": "The CLI's AdminClient authenticates against the admin node (api.ulabase.com), manages features using feature-based primary method names (installFeature, getFeatureConfig, updateFeatureConfig, initFeature, testFeature, etc.) with deprecated plugin method aliases for backward compatibility, mints service tokens, and stores credentials in a closure rather than localStorage to support Node.js and avoid cross-client token collision.",
+      "statement": "The CLI's AdminClient authenticates against the admin node (api.ulabase.com) via login or useToken (personal access token, verified with verifyToken), manages features using feature-based primary method names (featureCatalog, listFeatures, isFeatureInstalled, configSchema, getFeatureConfig, updateFeatureConfig, installFeature, uninstallFeature, enableFeature, disableFeature, initFeature, testFeature) with deprecated plugin-name aliases for backward compatibility, mints service tokens via serviceToken, and exposes a fetch escape hatch. It stores credentials in a closure rather than localStorage to support Node.js and avoid cross-client token collision.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/admin.ts#L146-L288",
-          "version": "repo-lines-v1:sha256:c5256ab8e5981acdba97cdf1156d6c3d52768100005dd55aab95749ec5a16d82:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiNjU3Yzk3YzQzM2U5NGY2Njg0ODA1YzhjZjcwNjJiMDMzMzljNTYxMTZiOGY5NDUxOWUwYTAxMDIxZDRmNGZkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://packages/cli/src/admin.ts#L23-L147",
+          "version": "repo-lines-v1:sha256:4c96503d6807c10f8cc5af64bc013a7dc8080b69e54f78805a4c5999a697e842:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1NDJkYjQzYzU4NzEwOTYyZWNhZDYwYTljMzM1NTA0YmJmYzk4YzM4OGU4YzZlZWFiZjVlNTRhMDkzY2M1N2I2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4NDZlM2JhZjg1NGRhNjA0YmZkYzhiOGJlNjJlOGZlNzJlMTk0ZmFhYWY4YmJhOTAyYzNjNmYzODAxM2M3MDYwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhNmNlMjEzNTFlZmRlNDZjNmM0MGQ2ZTgxYzlmOTI0ZjY0M2U2ZWJlM2M0MmIxODYzN2RmODMxNzU1NzM4NjhkIn0"
+        },
+        {
+          "resource": "repo://packages/cli/src/admin.ts#L258-L307",
+          "version": "repo-lines-v1:sha256:87977eb7e8653b59cc4524766cdf8105d4a48ae2f7d84ee588af664b01590564:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5NWZhMGYxMTE3YjVlYTQwNDM0MTQwZGRlMWEzNDBjNzIwZGRiZjMyNjIxMmUxOTE4MzhkNGIxNTZkMzE2YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2YjgyMDY4YWI2M2I1NGY1NGNlNWJjNWE1MDQ3MDI3NjkxMjg0YjY5MzU4ZDNiZThkNTVjOGQ1Y2IxOWFmZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         },
         {
           "resource": "repo://packages/cli/src/cli.ts#L18-L19",
@@ -236,7 +240,7 @@
         },
         {
           "resource": "repo://packages/cli/src/admin.ts",
-          "version": "repo-file-v1:sha256:794410b6177ac1e704065fb6ce3b09f4218083763fbed021637f9d9fbfd0b226"
+          "version": "repo-file-v1:sha256:db3c2774e133b33b997c0613e46c8b39cdc9758ea01e5ef603009c7f7157fe7b"
         },
         {
           "resource": "repo://packages/cli/src/service.ts",
@@ -249,7 +253,7 @@
       "statement": "The CLI resolves fromEnv markers (secrets referencing environment variables) at serialization time — in updateFeatureConfig and in ServiceClient's body helper — not earlier, so a marker never reaches JSON.stringify as a raw object.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/src/admin.ts#L205-L215",
+          "resource": "repo://packages/cli/src/admin.ts#L225-L235",
           "version": "repo-lines-v1:sha256:a44a98d096952ea3bd3ff459a2edcfcbaf4e63a0beaf3dbed6b5d721fa643fc2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmNzFiNjhhYjlhOTIyZTNmNWUxNWE4YjVkNjY3NThmNTEyOTZhZWQ4YzA1ZTdkMTZlZjA4YjlkZTc3YjgyMmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlZjA1ZTU2MWIzOGU0OTBmYWVjMDlhNmM1YzNhNzdhNmY2NWFiZThkYWYxYjAxZDIwMmJmOTRhMTZjN2Q2MzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1YmVkZjcwMTE2ZWU1ZjVlNjZkMWMyMzQxN2E2ZDcxMTIwZDVkNDY1OGFiMGRmMzlmMjQ2Y2IxMTdhYWU5YzgifQ"
         },
         {
@@ -281,10 +285,24 @@
           "version": "repo-lines-v1:sha256:c91dc1e752b2c37f43ecddd12e97881c152d1f7a475f9ca33b8c389272c545d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3NGZhZWNkOTU4YTg3MDExZDg1NGJkNGUxOTEyZjQ3YTUyZDYwNjQ1ODYyMTgxM2E5MTFhMDA0NTY2NjJlODciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmNTQ3MTgzZmE4ZDJhNWMwYzUwMDQ0OGQ4NDY4YzVhZWNmMWJhMmI5NmFhNGVjODdjNjAwYmQ4ZTJmMDg2OTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4OGI4YmRlMzE2ODA0MjExYjQ1OGYwODk0YzRiODlmYzVlNzU4OTk4ZDhlYmU0ZGYzY2UyZDg4MzczYzBlYWIifQ"
         }
       ]
+    },
+    {
+      "id": "claim_a2574059db354119bb25ea5ff026a843",
+      "statement": "createAdminClient wraps the caller's transport with Cloudflare Access headers (CF-Access-Client-Id and CF-Access-Client-Secret) when both CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET are set in the env source; a caller-supplied transport is wrapped, not replaced. When either variable is absent, no Access headers are added.",
+      "evidence": [
+        {
+          "resource": "repo://packages/cli/src/__tests__/unit/admin.test.ts#L166-L199",
+          "version": "repo-lines-v1:sha256:81ede70a3c69a87a14094033d085f8e51ee2ae2e0519431461c4cd0a9cc52af1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEyMWRkN2JlNTBhZGE4MGRmNjAwNmIzYzQ0YmJkM2JmNTkzZWZmZjQ3NTBkODM1MTc2ODZlYjczZGM2NjdkZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0MTgzY2QzNGMyYTAwMGNlNDkzMGQ1NjFhZTI4N2JjMjVkMmQxM2VhNTgyZDBjOWY4ZjAwMmQ5OGYyMTk0ZTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4MTdmYmI3M2M5MmIzNmQ1ZTQ4OTZmZjUxYzFiNThlZWMzMzBiYmU5NjFiYTA1ZmM2MjA1Zjg2N2VhMWJjZjYifQ"
+        },
+        {
+          "resource": "repo://packages/cli/src/admin.ts#L169-L183",
+          "version": "repo-lines-v1:sha256:dacf792c75cb214c984d425febc8a733a78b00b7467f338c6da738f1a12b48c0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiZjMyZmQ2MTVmMjMzZDg0ZmRiNTMzZWJkYWUyYjY0MjhjODdhNTkzMTBkMGEwMGE2YjgwNDMyMmRkMWY4NGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmZjk2YjM3NzgxOGEwYTVjYTY1NDE0NGEzNGQ5OWMxNWU1MTI3N2Y5MzY2OWVkZjk5ZGY0NTA4YmM1NmFiODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwZmEwMDMzNmNiZWQwZWE0ZDhmNGRiNDUwZTU3YzAwZjhkYjU0ZDI3YWJlY2U0NDcxZjIwNzhiYjNhZTU1MGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0N2I5NTllNDlhYTE3NDVkOWRkNjU1NmIxMGU5ODNjZDJmZWFhMTMxZmJkZTQwNGNlNjk0NjVlNDc1NjM4MmEifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-18T16:02:49.713Z"
+    "at": "2026-10-28T14:04:09.857Z"
   }
 }

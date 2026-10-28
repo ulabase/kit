@@ -26,10 +26,10 @@ sources:
     resource: repo://packages/cli/src/setup.ts
   - id: openwiki-source-e5bdf5324e38ac0fd72f905f
     resource: repo://packages/cli/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-11T09:40:27.252Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-28T14:04:09.857Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-13T10:06:03.094Z
+    at: 2026-10-28T14:04:09.857Z
 ---
 
 # @ulabase/cli
@@ -64,7 +64,7 @@ This is **not a fourth adapter**. There is no reactive state, no session to rest
 | File | Responsibility |
 |---|---|
 | `src/cli.ts` | CLI entrypoint — `ulabase login`, `ulabase logout`, `ulabase setup` commands, argument parsing, setup file loading, progress rendering |
-| `src/admin.ts` | Admin-node client (`createAdminClient`) — feature management, service token minting, `fromEnv` resolution during serialization |
+| `src/admin.ts` | Admin-node client (`createAdminClient`) — feature management, service token minting, `fromEnv` resolution during serialization, optional Cloudflare Access transport wrapping |
 | `src/service.ts` | Service-node client (`createServiceClient`) — collection, index, permission, user, and schema CRUD; lazy token minting with automatic renewal |
 | `src/setup.ts` | Setup runner — `step`, `defineSetup`, `runSetup`; sequential execution with check/apply halves, recheck backoff, dry-run, force |
 | `src/session.ts` | Token persistence — `~/.config/ulabase/session.json` (mode 0600), `ULABASE_TOKEN` env var precedence |
@@ -290,32 +290,40 @@ The CLI provides two clients — one for the admin node, one for the service nod
 
 ### Admin Client
 
-`createAdminClient(config)` creates a client over the admin node (`api.ulabase.com`), taking the core's `AuthConfig` plus an optional `env` source for `fromEnv` resolution.
+`createAdminClient(config)` creates a client over the admin node (`api.ulabase.com`), taking the core's `AuthConfig` plus an optional `env` source for `fromEnv` resolution. The `env` source is a plain record and is injectable — the client layer never reads `process.env` directly, which is what keeps it unit-testable and lets a test supply its own secrets.
 
-The client manages its own token in a closure (not `localStorage`, which does not exist in Node), so two clients in one process cannot overwrite each other's session. It silences the core's stderr error logging and reports failures itself, in sentences.
+The client manages its own token in a closure (not `localStorage`, which does not exist in Node), so two clients in one process cannot overwrite each other's session. It silences the core's stderr error logging and reports failures itself, in sentences; a caller-supplied `onError` is still called, so it observes rather than swallows.
+
+#### Cloudflare Access Transport
+
+An admin API sitting behind Cloudflare Access admits a script through a *service token*: two headers on every request. When both `CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET` are present in the `env` source, `createAdminClient` wraps the transport so every request carries `CF-Access-Client-Id` and `CF-Access-Client-Secret`. A caller-supplied `transport` is **wrapped, not replaced** — the caller's transport still performs the request, with the Access headers added. When either variable is absent the transport is left untouched.
 
 #### Methods
 
+Every method below exists on the `AdminClient` returned by `createAdminClient`.
+
 | Method | Purpose |
 |---|---|
-| `login(email, password)` | Authenticate as the Ulabase account |
-| `useToken(token)` | Set a personal access token (no round trip) |
-| `verifyToken()` | Cheap authenticated read (`GET /plugins`) to validate the credential |
+| `login(email, password)` | Authenticate as the Ulabase account (email and password) |
+| `useToken(token)` | Set a personal access token — no round trip, since a token *is* the credential; call `verifyToken()` to check it |
+| `verifyToken()` | Cheap authenticated read (`GET /plugins`) to validate the credential before anything that matters |
 | `featureCatalog()` | Marketplace catalog with `config_schema` for each feature |
-| `listFeatures(srvId)` | Installed and available features for a service |
-| `isFeatureInstalled(srvId, featureId)` | Whether a feature is installed (derived from `listFeatures`) |
-| `configSchema(srvId, featureId)` | A feature's schema from the `available` list (works for uninstalled features) |
+| `listFeatures(srvId)` | Installed **and** available features for a service (`GET /plugins-mgmt/{srvId}`) |
+| `isFeatureInstalled(srvId, featureId)` | Whether a feature is installed and not uninstalled (derived from `listFeatures`) |
+| `configSchema(srvId, featureId)` | A feature's schema read from the `available` list, so it works for uninstalled features too; `null` when the catalog carries none |
 | `getFeatureConfig(srvId, featureId)` | Stored config with secrets replaced by `REDACTED` |
-| `updateFeatureConfig(srvId, featureId, config)` | Replace config; resolves `fromEnv` markers during serialization. Deliberately async so that `resolveEnvRefs` throws are caught by the caller's catch handler. |
+| `updateFeatureConfig(srvId, featureId, config)` | Replace the whole config document; resolves `fromEnv` markers during serialization. Deliberately async so that `resolveEnvRefs` throws are caught by the caller's catch handler. |
 | `installFeature(srvId, featureId)` | Install a free feature (server builds initial config; no body accepted) |
 | `uninstallFeature(srvId, featureId)` | Remove a feature |
 | `enableFeature` / `disableFeature` | Toggle a feature |
 | `initFeature(srvId, featureId, mode?)` | Run a feature's own initialization |
 | `testFeature(srvId, featureId)` | Validate config against the real provider |
-| `serviceToken(srvId)` | Mint a service-admin JWT and get the service URL |
+| `serviceToken(srvId)` | Mint a service-admin JWT and get the service URL (`GET /srvs-mgmt/{srvId}/jwt`) |
 | `fetch(path, init?)` | Escape hatch for uncovered admin endpoints |
 
-> **Deprecated aliases**: The old plugin-based names (`pluginCatalog`, `listPlugins`, `isPluginInstalled`, `getPluginConfig`, `updatePluginConfig`, `installPlugin`, `uninstallPlugin`, `enablePlugin`, `disablePlugin`, `initPlugin`, `testPlugin`) are still exported as aliases for backward compatibility with existing setup files.
+The client also exposes `config` (the `AuthConfig` it speaks through, which the service client derives from) and `env` (where it resolves `fromEnv` markers from).
+
+> **Deprecated aliases**: The old plugin-based names (`pluginCatalog`, `listPlugins`, `isPluginInstalled`, `getPluginConfig`, `updatePluginConfig`, `installPlugin`, `uninstallPlugin`, `enablePlugin`, `disablePlugin`, `initPlugin`, `testPlugin`) are still exported as aliases for backward compatibility with existing setup files. They are bound to the same implementations as the feature-named methods above.
 
 `installFeature` takes no configuration — the server builds the initial document itself and ignores a body, so configuring is always a second step. Free features only; a paid one answers `400` and points at `/purchase`, which moves money and is deliberately out of reach.
 
