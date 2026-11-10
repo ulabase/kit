@@ -275,9 +275,16 @@ export async function logout(config: AuthConfig, mode: LoginMode = 'bearer'): Pr
  * returns user info from the server. Otherwise returns null.
  */
 /**
- * Runs a call again on a temporary failure: a 429 after its Retry-After when readable (at most 30
- * seconds, else 3), a 5xx or a network error (status 0) after a short pause; three attempts in
- * all. Any other error, and the last one, are thrown as they came.
+ * The wait after a 429 whose Retry-After cannot be read. A browser reads a cross-origin response
+ * header only when the server exposes it, and a service's rate limit counts the requests of the
+ * last minute: three of these waits outlast the window, a retry after a few seconds finds it full.
+ */
+const RATE_LIMITED_WAIT_SECONDS = 20;
+
+/**
+ * Runs a call again on a temporary failure: a 429 after its Retry-After when readable (at most 60
+ * seconds, else {@link RATE_LIMITED_WAIT_SECONDS}), a 5xx or a network error (status 0) after a
+ * short pause; four attempts in all. Any other error, and the last one, are thrown as they came.
  */
 async function withRetry<T>(call: () => Promise<T>): Promise<T> {
   for (let attempt = 1; ; attempt++) {
@@ -286,8 +293,8 @@ async function withRetry<T>(call: () => Promise<T>): Promise<T> {
     } catch (err: unknown) {
       const e = err as { status?: number; retryAfter?: number };
       const temporary = e?.status === 429 || e?.status === 0 || (e?.status ?? 0) >= 500;
-      if (!temporary || attempt === 3) throw err;
-      const seconds = e?.status === 429 ? Math.min(e.retryAfter ?? 3, 30) : attempt;
+      if (!temporary || attempt === 4) throw err;
+      const seconds = e?.status === 429 ? Math.min(e.retryAfter ?? RATE_LIMITED_WAIT_SECONDS, 60) : attempt;
       await new Promise(resolve => setTimeout(resolve, seconds * 1000));
     }
   }
