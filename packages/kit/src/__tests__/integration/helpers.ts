@@ -87,9 +87,10 @@ export async function verifyEmail(email: string): Promise<void> {
 }
 
 export async function readInvitationToken(email: string): Promise<string> {
-  const filter = encodeURIComponent(JSON.stringify({ email }));
-  const docs   = await adminGet<Array<Record<string, unknown>>>(`/auth_invitations?filter=${filter}&pagesize=1`);
-  const token  = docs[0]?.['token'];
+  // the list as a whole, picked here: since RESTHeart 9.16 a read with ?filter needs allowFilter,
+  // which the root permission of a service created before it does not carry
+  const docs  = await adminGet<Array<Record<string, unknown>>>(`/auth_invitations?pagesize=1000`);
+  const token = docs.find(d => d['email'] === email)?.['token'];
   if (!token) throw new Error(`invitation token not found for ${email}`);
   return token as string;
 }
