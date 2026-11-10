@@ -134,6 +134,11 @@ export class RhPaymentsService {
     return from(kit.getCatalog(this.config, opts));
   }
 
+  /** Read one product by id. */
+  getCatalogItem(id: string, collection?: string): Observable<CatalogItem> {
+    return from(kit.getCatalogItem(this.config, id, collection));
+  }
+
   /**
    * Create an order and start Checkout.
    *

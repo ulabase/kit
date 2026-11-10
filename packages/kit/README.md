@@ -156,7 +156,7 @@ Requires the [`stripe` plugin](#payments) on the service. See [Payments](#paymen
 
 | Function | Description |
 |---|---|
-| `getCatalog(config, opts?)` | Read the catalog collection (`opts.collection` defaults to `'catalog'`, `pagesize`, `page`) |
+| `getCatalog(config, opts?)` | Read the catalog collection (`opts.collection` defaults to `'catalog'`, `pagesize`, `page`), or one of its aggregations with `aggregation` and its `vars`: the service takes no `?filter=` |
 | `createOrder(config, items, email?, collection?)` | Create an order and start Checkout — returns `{_id, checkout_url, secret}`. Pass `email` for guest checkout |
 | `getOrder(config, id, secret?, collection?)` | Read an order back. `secret` is the guest path — no session needed |
 | `waitForOrder(config, id, secret?, opts?)` | Poll until the order leaves `'pending_payment'` — for the order return page |

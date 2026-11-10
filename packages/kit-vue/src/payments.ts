@@ -64,6 +64,8 @@ export interface RhPaymentsStore {
   revokeLicense(userId: string): Promise<void>;
   /** Read the product catalog. */
   getCatalog(opts?: CatalogQuery): Promise<CatalogItem[]>;
+  /** Read one product by id. */
+  getCatalogItem(id: string, collection?: string): Promise<CatalogItem>;
   /**
    * Create an order and start Checkout.
    *
@@ -165,6 +167,7 @@ export function createRhPaymentsStore(
     grantLicense: (userId) => kit.grantLicense(config, userId),
     revokeLicense: (userId) => kit.revokeLicense(config, userId),
     getCatalog: (opts) => kit.getCatalog(config, opts),
+    getCatalogItem: (id, collection) => kit.getCatalogItem(config, id, collection),
     createOrder: (items, email, collection) => kit.createOrder(config, items, email, collection),
     getOrder: (id, secret, collection) => kit.getOrder(config, id, secret, collection),
     waitForSubscription: async (predicate, opts) => {

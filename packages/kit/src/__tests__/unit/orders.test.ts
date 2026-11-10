@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { createOrder, getCatalog, getOrder, readOrderRef, waitForOrder } from '../../index';
+import { createOrder, getCatalog, getCatalogItem, getOrder, readOrderRef, waitForOrder } from '../../index';
 import type { AuthConfig, Order } from '../../types';
 
 const apiBaseUrl = 'https://x.restheart.com';
@@ -40,6 +40,35 @@ describe('getCatalog', () => {
     const transport = vi.fn(async () => new Response('[]', { status: 200 }));
     await getCatalog({ apiBaseUrl, transport }, { pagesize: 20, page: 2 });
     expect(transport).toHaveBeenCalledWith(`${apiBaseUrl}/catalog?pagesize=20&page=2`, expect.anything());
+  });
+
+  it('reads through the named aggregation, each variable a query parameter in JSON', async () => {
+    const transport = vi.fn(async () => new Response('[]', { status: 200 }));
+    await getCatalog({ apiBaseUrl, transport }, { aggregation: 'shop', vars: { category: 'desk', max: 4 } });
+    const url = new URL((transport.mock.calls[0] as unknown[])[0] as string);
+    expect(url.pathname).toBe('/catalog/_aggrs/shop');
+    expect(url.searchParams.get('category')).toBe('"desk"');
+    expect(url.searchParams.get('max')).toBe('4');
+  });
+
+  it('refuses a variable named like a RESTHeart query parameter, filter above all', async () => {
+    const transport = vi.fn(async () => new Response('[]', { status: 200 }));
+    await expect(getCatalog({ apiBaseUrl, transport }, { aggregation: 'shop', vars: { filter: 'x' } })).rejects.toThrow(/filter/);
+    expect(transport).not.toHaveBeenCalled();
+  });
+});
+
+describe('getCatalogItem', () => {
+  it('reads one product by id from the default collection, the id escaped', async () => {
+    const transport = vi.fn(async () => new Response('{"_id":"tee classic"}', { status: 200 }));
+    await getCatalogItem({ apiBaseUrl, transport }, 'tee classic');
+    expect(transport).toHaveBeenCalledWith(`${apiBaseUrl}/catalog/tee%20classic`, expect.anything());
+  });
+
+  it('reads from the configured collection when the service renamed it', async () => {
+    const transport = vi.fn(async () => new Response('{}', { status: 200 }));
+    await getCatalogItem({ apiBaseUrl, transport }, 'mug', 'products');
+    expect(transport).toHaveBeenCalledWith(`${apiBaseUrl}/products/mug`, expect.anything());
   });
 });
 

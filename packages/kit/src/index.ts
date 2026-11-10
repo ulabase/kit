@@ -19,7 +19,7 @@ export {
   WaitTimeoutError,
 } from './payments.js';
 export type { WaitOptions } from './payments.js';
-export { getCatalog, createOrder, getOrder, waitForOrder, readOrderRef, clearOrderRef } from './orders.js';
+export { getCatalog, getCatalogItem, createOrder, getOrder, waitForOrder, readOrderRef, clearOrderRef } from './orders.js';
 export type { OrderRef, CatalogQuery, OrderItem } from './orders.js';
 export {
   addToCart,

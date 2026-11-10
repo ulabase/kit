@@ -14,46 +14,60 @@ import { WaitTimeoutError, sleep, type WaitOptions } from './payments.js';
 const DEFAULT_ORDERS_COLLECTION = 'orders';
 const DEFAULT_CATALOG_COLLECTION = 'catalog';
 
+/** The query parameters RESTHeart keeps for itself: never bound as aggregation variables. */
+const RESERVED_QPARAMS = new Set([
+  'page', 'pagesize', 'count', 'sort_by', 'sort', 'filter', 'hint', 'avars', 'keys', 'cache', 'hal',
+  'id_type', 'checkEtag', 'shardkey', 'np', 'rep', 'sid', 'txn', 'jsonMode', 'nocache', 'writeMode',
+  'wm', 'writeConcern', 'readConcern', 'readPreference',
+]);
+
 // ── Catalog ──────────────────────────────────────────────────────────────────
 
-/**
- * Reads the product catalog — a plain MongoDB collection read, not a
- * dedicated endpoint, so what this returns and what access it requires are
- * entirely the deployment's own ACL (a `readFilter` restricting to
- * `purchasable: true`, pagination, projections — none of that is the kit's to
- * decide).
- *
- * @param collection Defaults to `'catalog'` — pass the configured
- *                    `products.catalog-collection` if the service renamed it.
- */
 /** What {@link getCatalog} accepts. Exported so the adapters state one shape. */
 export interface CatalogQuery {
-    collection?: string;
-    pagesize?: number;
-    page?: number;
     /**
-     * A MongoDB query, as an object. Serialised to the `filter` query
-     * parameter.
+     * Defaults to `'catalog'`: pass the configured `products.catalog-collection`
+     * if the service renamed it.
+     */
+    collection?: string;
+    /**
+     * An aggregation declared on the catalog collection: the catalog is then
+     * read through `GET /{collection}/_aggrs/{aggregation}`.
      *
-     * Here rather than in the caller because a paged list cannot be filtered
-     * afterwards: narrowing a page you already have searches the page, not the
-     * catalog, and answers "no results" for a product on the next one. A shop
-     * with categories or a search box needs the server to do it.
+     * The way to narrow the catalog. A paged list cannot be narrowed afterwards
+     * (that searches the page, not the catalog), and the service does not take a
+     * client's own query: `?filter=` is off on the service nodes unless a
+     * permission sets `mongo.allowFilter`, because a free query also questions
+     * the fields a permission hides. The aggregation is the query, written once
+     * on the service; the client only brings its values, in {@link vars}.
      *
      * ```ts
-     * getCatalog(config, { filter: { category: 'desk' } });
-     * getCatalog(config, { filter: { name: { $regex: 'mug', $options: 'i' } } });
+     * getCatalog(config, { aggregation: 'shop', vars: { category: 'desk' } });
      * ```
      *
-     * Whatever this asks for, the ACL still decides what comes back: a
-     * permission's `readFilter` is applied on top, so a filter cannot reach
-     * documents the caller was never allowed to see.
+     * A permission's `readFilter` does not apply to an aggregation: the
+     * pipeline has to state which documents it may return.
      */
-    filter?: Record<string, unknown>;
-    /** Sort spec, e.g. `'-_id'` for newest first. */
-    sort?: string;
+    aggregation?: string;
+    /**
+     * The values of the aggregation's variables, each sent as a query
+     * parameter in JSON: a string of digits stays a string, a number a number.
+     * A name RESTHeart reserves for itself (`filter`, `sort`, `page`...) is
+     * refused, since it would not reach the pipeline as a variable.
+     */
+    vars?: Record<string, unknown>;
+    pagesize?: number;
+    page?: number;
 }
 
+/**
+ * Reads the product catalog: a MongoDB collection read, or one of its
+ * aggregations, not a dedicated endpoint. Without an aggregation, the plain
+ * list in the collection's default order, paged with `page` and `pagesize`:
+ * what the permission's `readFilter` lets through, which needs no query. What this returns and what access it
+ * requires are the deployment's own ACL and pipeline (only what is for sale,
+ * pagination, projections: none of that is the kit's to decide).
+ */
 export async function getCatalog(
   config: AuthConfig,
   opts?: CatalogQuery
@@ -62,12 +76,34 @@ export async function getCatalog(
   const params = new URLSearchParams();
   if (opts?.pagesize !== undefined) params.set('pagesize', String(opts.pagesize));
   if (opts?.page !== undefined) params.set('page', String(opts.page));
-  if (opts?.filter !== undefined) params.set('filter', JSON.stringify(opts.filter));
-  if (opts?.sort !== undefined) params.set('sort', opts.sort);
+  for (const [name, value] of Object.entries(opts?.vars ?? {})) {
+    if (RESERVED_QPARAMS.has(name)) throw new Error(`getCatalog: "${name}" is a RESTHeart query parameter, not a variable name`);
+    if (value !== undefined) params.set(name, JSON.stringify(value));
+  }
   const qs = params.toString();
+  const path = opts?.aggregation
+    ? `/${collection}/_aggrs/${encodeURIComponent(opts.aggregation)}`
+    : `/${collection}`;
 
-  const res = await apiFetch(config, `/${collection}${qs ? `?${qs}` : ''}`);
+  const res = await apiFetch(config, `${path}${qs ? `?${qs}` : ''}`);
   return res.json() as Promise<CatalogItem[]>;
+}
+
+/**
+ * Reads one product by id: `GET /{collection}/{id}`, under the same permission
+ * as the list. A product the permission does not let through answers 404 or
+ * 403, as a withdrawn one does.
+ *
+ * @param collection Defaults to `'catalog'`: pass the configured
+ *                    `products.catalog-collection` if the service renamed it.
+ */
+export async function getCatalogItem(
+  config: AuthConfig,
+  id: string,
+  collection: string = DEFAULT_CATALOG_COLLECTION
+): Promise<CatalogItem> {
+  const res = await apiFetch(config, `/${collection}/${encodeURIComponent(id)}`);
+  return res.json() as Promise<CatalogItem>;
 }
 
 // ── Orders ───────────────────────────────────────────────────────────────────

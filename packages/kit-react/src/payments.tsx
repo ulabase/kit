@@ -74,6 +74,8 @@ export interface RhPayments {
   revokeLicense(userId: string): Promise<void>;
   /** Read the product catalog. */
   getCatalog(opts?: CatalogQuery): Promise<CatalogItem[]>;
+  /** Read one product by id. */
+  getCatalogItem(id: string, collection?: string): Promise<CatalogItem>;
   /**
    * Create an order and start Checkout.
    *
@@ -211,6 +213,10 @@ export function RhPaymentsProvider({ config, children }: RhPaymentsProviderProps
       kit.getCatalog(configRef.current, opts),
     []
   );
+  const getCatalogItem = useCallback(
+    (id: string, collection?: string) => kit.getCatalogItem(configRef.current, id, collection),
+    []
+  );
   const createOrder = useCallback(
     (items: { productId: string; quantity: number }[], email?: string, collection?: string) =>
       kit.createOrder(configRef.current, items, email, collection),
@@ -250,6 +256,7 @@ export function RhPaymentsProvider({ config, children }: RhPaymentsProviderProps
       grantLicense,
       revokeLicense,
       getCatalog,
+      getCatalogItem,
       createOrder,
       getOrder,
       waitForSubscription: waitForSubscriptionFn,
@@ -269,6 +276,7 @@ export function RhPaymentsProvider({ config, children }: RhPaymentsProviderProps
       grantLicense,
       revokeLicense,
       getCatalog,
+      getCatalogItem,
       createOrder,
       getOrder,
       waitForSubscriptionFn,
