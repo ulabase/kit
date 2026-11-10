@@ -191,6 +191,12 @@ export interface ApiError {
   message: string;
   /** Seconds to wait before trying again, from a 429's Retry-After when the browser can read it. */
   retryAfter?: number;
+  /**
+   * The reason as a stable string, when the service gives one (e.g. `resend-cap`,
+   * `unverified-cap`, `disposable-email`): an app branches or translates on it, never on the
+   * message, whose wording may change.
+   */
+  code?: string;
 }
 
 // ── Payments — subscriptions ────────────────────────────────────────────────

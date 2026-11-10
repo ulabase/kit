@@ -204,6 +204,7 @@ export async function apiFetch(
 
   if (!res.ok) {
     let message = res.statusText;
+    let code: string | undefined;
     let body: unknown;
     try {
       body = await res.json();
@@ -215,10 +216,13 @@ export async function apiFetch(
       // Dedicated plan", which is the difference between a fix and an
       // afternoon. The CLI's service-side client already read all three.
       message = (b['message'] ?? b['msg'] ?? b['error'] ?? message) as string;
+      // only a string: RESTHeart's own errors carry a numeric `code` that names nothing
+      if (typeof b['code'] === 'string') code = b['code'];
     } catch {
       // ignore parse errors
     }
     const err: ApiError = { status: res.status, message };
+    if (code) err.code = code;
     const retryAfter = Number(res.headers.get('Retry-After'));
     if (retryAfter > 0) err.retryAfter = retryAfter;
     // Logged only when nobody is listening. In a browser with no `onError` this

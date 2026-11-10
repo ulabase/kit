@@ -113,6 +113,34 @@ describe('console logging on failure', () => {
     expect(onError).toHaveBeenCalledTimes(1);
     spy.mockRestore();
   });
+
+  it('E6 carries a string code, so an app branches on it and not on the wording', async () => {
+    const config: AuthConfig = {
+      apiBaseUrl,
+      onError: () => {},
+      transport: async () =>
+        new Response(JSON.stringify({ code: 'resend-cap', message: 'This invitation has been sent the most times allowed.' }), { status: 403 }),
+    };
+
+    await expect(apiFetch(config, '/auth/resend-invite')).rejects.toMatchObject({
+      status: 403,
+      code: 'resend-cap',
+      message: 'This invitation has been sent the most times allowed.',
+    });
+  });
+
+  it('E7 leaves out a numeric code, which names nothing', async () => {
+    // RESTHeart's own errors say { message, code: 409 }: not a reason an app can branch on
+    const config: AuthConfig = {
+      apiBaseUrl,
+      onError: () => {},
+      transport: async () => new Response(JSON.stringify({ message: 'Email already registered', code: 409 }), { status: 409 }),
+    };
+
+    const err = await apiFetch(config, '/auth/register').catch((e: unknown) => e as Record<string, unknown>);
+    expect(err).toMatchObject({ status: 409, message: 'Email already registered' });
+    expect(err).not.toHaveProperty('code');
+  });
 });
 
 describe('getTokenClaims', () => {
