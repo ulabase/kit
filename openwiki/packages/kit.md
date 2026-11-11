@@ -1,7 +1,7 @@
 ---
 type: Package
 title: "@ulabase/kit"
-description: Core framework-agnostic package with zero dependencies. Provides authentication, token management, team operations, consents gating, password reset, payments, orders, cart, and money formatting.
+description: Core framework-agnostic package with zero dependencies. Provides authentication, token management, team operations, consents gating, password reset, profile management, payments, orders, cart, and money formatting.
 tags: [package, core, authentication, payments, orders, cart, typescript]
 sources:
   - id: openwiki-source-d846911884642122d8dd6179
@@ -28,15 +28,15 @@ sources:
     resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-18T16:02:49.713Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 ---
 
 # @ulabase/kit
 
-The core framework-agnostic package for Ulabase. Zero dependencies, Promise-based API. Provides authentication, token management, team operations, consents gating, password reset, payments, orders, cart, and money formatting.
+The core framework-agnostic package for Ulabase. Zero dependencies, Promise-based API. Provides authentication, token management, team operations, consents gating, password reset, profile management, payments, orders, cart, and money formatting.
 
 ## Installation
 
@@ -171,7 +171,7 @@ if (user) {
 
 **Unverified accounts**: If the server returns a user whose roles include `$unauthenticated` (i.e., the account was registered but never email-verified), `checkSession()` clears the token and returns `null` rather than returning an unusable user object.
 
-**Retry logic**: `checkSession` uses `withRetry` to handle temporary failures. A 429 (rate limited), 5xx (server error), or status 0 (network failure) triggers up to 3 retry attempts before the session is cleared. Only 401 and 403 end the session immediately — those responses definitively say the token is invalid. For 429s, the wait time comes from the `Retry-After` header (capped at 30 seconds); for 5xx and network errors, the wait is a short backoff (1s, 2s, 3s). This prevents a single network hiccup from signing the user out.
+**Retry logic**: `checkSession` uses `withRetry` to handle temporary failures. A 429 (rate limited), 5xx (server error), or status 0 (network failure) retries through four attempts before the error is thrown. Only 401 and 403 end the session immediately — those responses definitively say the token is invalid. For 429s, the wait time comes from the `Retry-After` header (capped at 60 seconds, defaulting to 20 seconds when the header is unreadable); for 5xx and network errors, the wait is a short pause (1s, 2s, 3s). This prevents a single network hiccup from signing the user out.
 
 ### Get User Info
 
@@ -241,7 +241,7 @@ sequenceDiagram
             Kit->>Storage: clearToken()
             Kit-->>App: null
         else Token not expired
-            loop withRetry (up to 3 attempts)
+            loop withRetry (four attempts)
                 Kit->>Service: GET /users/me (Bearer token)
                 Service-->>Kit: Response
                 
@@ -257,15 +257,15 @@ sequenceDiagram
                     Kit->>Storage: clearToken()
                     Kit-->>App: null
                 else 429 (Rate Limited)
-                    Kit->>Kit: Wait Retry-After (max 30s)
-                    Note over Kit: Retry attempt 2 or 3
+                    Kit->>Kit: Wait Retry-After (max 60s, default 20s)
+                    Note over Kit: Retry attempt 2, 3, or 4
                 else 5xx or Network Error
                     Kit->>Kit: Wait backoff (attempt * 1s)
-                    Note over Kit: Retry attempt 2 or 3
+                    Note over Kit: Retry attempt 2, 3, or 4
                 end
             end
             
-            alt All retries exhausted
+            alt All four attempts exhausted
                 Kit-->>App: throw ApiError
             end
         end
@@ -624,23 +624,33 @@ try {
 
 ## Orders & Products
 
-The orders module handles product catalogs, order creation, checkout, and order tracking. Prices come from the service's own catalog at checkout time — a tampered line changes what the buyer *sees* and nothing about what they are charged.
+The orders module handles product catalog reads (paginated collection reads or declared aggregations with variables, plus single-item lookup), order creation, checkout, and order tracking. Prices come from the service's own catalog at checkout time — a tampered line changes what the buyer *sees* and nothing about what they are charged.
 
 ### Catalog
 
 ```typescript
-import { getCatalog } from '@ulabase/kit';
+import { getCatalog, getCatalogItem } from '@ulabase/kit';
 
 // Get product catalog (access controlled by deployment's ACL)
 const products = await getCatalog(config);
 
-// With pagination and filtering
-const filtered = await getCatalog(config, {
+// With pagination
+const page = await getCatalog(config, {
   pagesize: 10,
-  page: 1,
-  filter: { category: 'desk' },
-  sort: '-_id'
+  page: 1
 });
+
+// Narrow via a declared aggregation — the way to filter.
+// The aggregation is read through GET /{collection}/_aggrs/{aggregation}.
+// A permission's readFilter does not apply to it: the pipeline must state
+// which documents it may return.
+const desks = await getCatalog(config, {
+  aggregation: 'shop',
+  vars: { category: 'desk' }
+});
+
+// Read a single product by id (same permission as the list)
+const item = await getCatalogItem(config, 'tee-classic');
 ```
 
 ### Orders
@@ -755,7 +765,7 @@ const res = await apiFetch(config, '/my-collection', {
 - Sets `Content-Type: application/json` when a body is present and no header is set
 - Sets `No-Auth-Challenge: true` to suppress the browser's native Basic Auth popup on 401
 - Uses `credentials: 'include'` for cookie-mode compatibility
-- Throws `ApiError` (`{ status, message, retryAfter? }`) on any non-2xx response
+- Throws `ApiError` (`{ status, message, retryAfter?, code? }`) on any non-2xx response
 - Uses `status: 0` for network failures (DNS, offline, CORS, aborted)
 
 **When to use it directly**: Use `apiFetch` in framework-agnostic code or when writing custom services. Framework adapter users should prefer `auth.api()` which wraps this call — see the [Angular](kit-ng.md#authenticated-fetch), [React](kit-react.md#authenticated-fetch), and [Vue](kit-vue.md#authenticated-fetch) adapter pages.
@@ -769,6 +779,7 @@ interface ApiError {
   status: number;   // HTTP status code
   message: string;  // Error message from server
   retryAfter?: number;  // Seconds to wait before retrying (from 429's Retry-After header)
+  code?: string;    // Stable string reason the service provides (e.g. 'resend-cap', 'disposable-email')
 }
 
 try {
@@ -791,7 +802,7 @@ try {
 }
 ```
 
-**`retryAfter`**: When a 429 response includes a `Retry-After` header that the browser can read, `apiFetch` extracts the value (in seconds) and attaches it to the `ApiError`. If the header is missing or unparseable, `retryAfter` is `undefined`. The `withRetry` helper in `checkSession` uses this value to decide how long to wait before retrying (capped at 30 seconds).
+**`retryAfter`**: When a 429 response includes a `Retry-After` header that the browser can read, `apiFetch` extracts the value (in seconds) and attaches it to the `ApiError`. If the header is missing or unparseable, `retryAfter` is `undefined`. The `withRetry` helper in `checkSession` uses this value to decide how long to wait before retrying (capped at 60 seconds, defaulting to 20 seconds when unreadable).
 
 ## Type Definitions
 
@@ -1065,11 +1076,11 @@ interface OrderRef {
 
 ```typescript
 interface CatalogQuery {
-  collection?: string;  // Default: 'catalog'
+  collection?: string;    // Default: 'catalog'
+  aggregation?: string;   // Declared aggregation to read through /{collection}/_aggrs/{aggregation}
+  vars?: Record<string, unknown>;  // Aggregation variable values (reserved RESTHeart query names throw)
   pagesize?: number;
   page?: number;
-  filter?: Record<string, unknown>;  // MongoDB query
-  sort?: string;  // e.g., '-_id' for newest first
 }
 ```
 
@@ -1149,9 +1160,9 @@ src/
 - 80% of TTL scheduling
 
 **Session Check with Retry**: `withRetry` helper
-- Retries temporary failures (429, 5xx, network errors) up to 3 times
-- Uses `Retry-After` header from 429 responses (capped at 30 seconds)
-- Uses exponential backoff for 5xx and network errors (1s, 2s, 3s)
+- Retries temporary failures (429, 5xx, network errors) through four attempts
+- Uses `Retry-After` header from 429 responses (capped at 60 seconds, defaulting to 20 seconds when unreadable)
+- Uses a short pause for 5xx and network errors (1s, 2s, 3s)
 - Only 401 and 403 end the session immediately
 
 ## Building

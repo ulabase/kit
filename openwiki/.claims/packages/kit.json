@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:05283adbc6a6f034403a0f8c85683d86e7af13a62c7cea128e66b5e74e4b162f",
+  "pageVersion": "sha256:c4cb3d582c61f84e8434d600b9ef9afc1bda144b8d5bdd549b5c99d0a67f509b",
   "claims": [
     {
       "id": "claim_a7ad67a4c30f41539466368125d8fe2d",
-      "statement": "The @restheart-cloud/kit package exports authentication, token management, team operations, consents gating, password reset, payments, orders, cart, and money formatting functions",
+      "statement": "The @ulabase/kit package exports authentication, token management, team operations, consents gating, password reset, profile management, payments, orders, cart, and money formatting functions",
       "evidence": [
         {
           "resource": "repo://packages/kit/src/index.ts",
-          "version": "repo-file-v1:sha256:b39b338894832a31d917234a39afb2b950198b72952b55a3cd0efeb3495427e0"
+          "version": "repo-file-v1:sha256:de0caf2c550339274b6b91f6d8b85f829e2fd6754739c5abf29718e3d1c7aeb6"
         }
       ]
     },
@@ -44,11 +44,11 @@
     },
     {
       "id": "claim_f02fa36b572a4646ac305a8b02701c58",
-      "statement": "The orders module handles product catalogs, order creation, checkout, and order tracking",
+      "statement": "The orders module handles product catalog reads (paginated collection reads or declared aggregations with variables, plus single-item lookup by id), order creation, checkout, and order tracking",
       "evidence": [
         {
           "resource": "repo://packages/kit/src/orders.ts",
-          "version": "repo-file-v1:sha256:c48a10897e7d79d2a8aaa9ae7dea7cd7a788e8a72c17b87ca2188659e8fb97ed"
+          "version": "repo-file-v1:sha256:e74cb26af29322b547c3f40780ba7d410b6c9efb9d1d559ad3aa512e0cb483db"
         }
       ]
     },
@@ -74,25 +74,25 @@
     },
     {
       "id": "claim_c7128f2768194e469de8ccfc3b321904",
-      "statement": "The apiFetch function attaches Bearer tokens, sets Content-Type headers, suppresses browser Basic Auth popups, throws ApiError on non-2xx responses, and extracts Retry-After from 429 responses into ApiError.retryAfter",
+      "statement": "The apiFetch function attaches Bearer tokens, sets Content-Type headers, suppresses browser Basic Auth popups, throws ApiError ({ status, message, retryAfter?, code? }) on non-2xx responses, extracts Retry-After from 429 responses into ApiError.retryAfter, and reports unreachable services as status 0 in the same shape",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/client.ts#L156-L237",
-          "version": "repo-lines-v1:sha256:a2510d513adb63df1b1f08a877b17069c7dc905a7045c97d88c133b97815aa0b:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTlmNDA0MGJhZGE5M2JjMzcwMjRhZDQ0YTIxOGZhYTNhNjE5ODUzYWQ5MGUyYzg3YjM0Y2Q1OWJiZmE0YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0M2I0NzI4ODZhMTMzMTZiOGNjY2IwYjhlNjFiZTAxODM5ODIwYmJkYjI5NDMyMjM5ZDIzNTg4Y2JkMGNlYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3YTdkYzJlMGQ1YWE1ZDYyZWQyZDA4MTVmYWFjMGY0MThmZTg0Mjg1ZWI5NTVlZGNlZTNhMzM3NzNmM2MzMzEifQ"
+          "resource": "repo://packages/kit/src/client.ts#L156-L243",
+          "version": "repo-lines-v1:sha256:ee3fe0b07fbe5400ad98c20554134bf27fd983e79c9f41ec4a01250b4fc01fdb:eyJzZWxlY3RlZExpbmVDb3VudCI6ODgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTlmNDA0MGJhZGE5M2JjMzcwMjRhZDQ0YTIxOGZhYTNhNjE5ODUzYWQ5MGUyYzg3YjM0Y2Q1OWJiZmE0YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0M2I0NzI4ODZhMTMzMTZiOGNjY2IwYjhlNjFiZTAxODM5ODIwYmJkYjI5NDMyMjM5ZDIzNTg4Y2JkMGNlYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://packages/kit/src/types.ts#L189-L194",
-          "version": "repo-lines-v1:sha256:3ea1415876025cb44bf160da1e9f45179c89f6de45f3876921caf35829d00de2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGE5ZTY0ZmJjYjY3Y2EwMGJmNGNmZjM0MWQ5NGY4MmMwNDdkMjA0Y2NkYWQwZGZlZDJlMTcyZDA0MzcwM2MxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjczNTM1YTkxZDUxZmI4MzYzNTIzODkxZTkyODQ2NWZjZWI5MmE4NmEyYmVmYzVhYTkxMzU0ZDk0ZjJhOTZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjUwNGZkYzRkZjI1NDg0MGYyZDgyYWFjNjAxNmM4NTUyZWRhZjY1ZDYwMDZlZTkyNjU4M2Y5MTNmMDVjMzZhNCJ9"
+          "resource": "repo://packages/kit/src/types.ts#L189-L201",
+          "version": "repo-lines-v1:sha256:f7486b65e6cc68bb7cf3f1ce24f2e7a4de27871deab5627e2f9fa1b1d686f8af:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhOWU2NGZiY2I2N2NhMDBiZjRjZmYzNDFkOTRmODJjMDQ3ZDIwNGNjZGFkMGRmZWQyZTE3MmQwNDM3MDNjMWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY3MzUzNWE5MWQ1MWZiODM2MzUyMzg5MWU5Mjg0NjVmY2ViOTJhODZhMmJlZmM1YWE5MTM1NGQ5NGYyYTk2ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiMDA0OTliYzg4M2I3YzVkNTg1NzYzYTg1NDY1OWYwMGQ0ZTlmOWZlMzY5ZWQyNjhiOGJjOTgyMGQ5ZmU1ODUifQ"
         }
       ]
     },
     {
       "id": "claim_c0e7271940e544598dbb0f899c719bbc",
-      "statement": "The checkSession function checks token expiry locally before calling the server, uses withRetry to retry temporary failures (429, 5xx, network errors) up to 3 times, and returns null for unverified accounts or after 401/403 responses",
+      "statement": "The checkSession function checks token expiry locally before calling the server, uses withRetry to retry temporary failures (429, 5xx, network errors) through four attempts (429 waits from a readable Retry-After capped at 60s or 20s default; 5xx/network short pauses), and returns null for unverified accounts or after 401/403 responses",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/auth.ts#L277-L330",
-          "version": "repo-lines-v1:sha256:79bd40e59ca12ecb5834663bd4ce519286d9d07ead9a29d66eec6a4402423329:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxMGFiNmQyYjU1ZDYwYmI5NWY0MWQ0YzBkYjk2MzI0ZWIzMzVkNDU3YmNiZjY2MjJhNDRmNDkwNGFjYTZiMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://packages/kit/src/auth.ts#L282-L337",
+          "version": "repo-lines-v1:sha256:fca3a6d7f686ceed2b5bda374bd748efa5fb8b2bf6fd7ab9a6e40af790d0c70d:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3ZmQzMDZhOGM1ODcxOWM2NDQzZjU3MjEzNTNkZTI1Y2FhZWExZjRkNjkxMjE0MDk3ZDQ5OGNkOWI2Mzg1ODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwMDFjZDg5ZmQ2OWMyMDI5YjEwOTUyMzAzOTQwODhkYTY5M2RlODNhMmRhZjBiMDk4YzkwMzE3NjYxZDY4MGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -145,7 +145,7 @@
       "statement": "The waitForSubscription and waitForOrder functions poll until conditions are met, throwing WaitTimeoutError on timeout",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L264-L285",
+          "resource": "repo://packages/kit/src/orders.ts#L300-L321",
           "version": "repo-lines-v1:sha256:6a8165f77ba681f146241babad29f2b0fd8333e8baeb0ff61fceb7afb82c084a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc1NTE1MTdlYjhlOWExYmQxMzQzNWIxMWM3Zjc5YjcyY2I3NDM1MjU4ZGM0YmRjMzk4NjczNzY1ZGY2MTQ1MmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwNGYwNmUyMmVmYTdmOTY4NGYxZWU2MGI1YmQyYWFhMmU3NWRhNTI5YTY1YmE3ZDhkZGM3MDQxNTM3NWYxMGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
@@ -169,7 +169,7 @@
       "statement": "The readOrderRef function reads order references from URL fragments first, then query strings, for security reasons",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L190-L214",
+          "resource": "repo://packages/kit/src/orders.ts#L226-L250",
           "version": "repo-lines-v1:sha256:b64d688304e0d52b78a64a0db779dfc76cc2cee6d8977f33b1377dfbfc9e4428:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwOWNkYmJmMGExNjg1Mjk5YTRkZjA2YzE3OThjZjdiZmU3Njc0NTI1YzI5OGYyZWVmZDU4MGJlYjJmMTMzMjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3MzVjOGZjNmUyOTk1ZmM0MTdkYzM0NGYwMzI4YTRhMTNkOWRkYzEwMmI1OGQ2YzI2M2MwZmM0ZDkyZTA0MWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwMWQwOTQ5NjAwYmM0YWUyNjFlNjM3YWMzMjc5ZGM3MDI3MzcyZjAxNjRiZjUzYmFmN2FiZjRhM2Y3MDkyOTUifQ"
         }
       ]
@@ -220,7 +220,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-18T16:02:49.713Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-11T07:47:18.578Z"
   }
 }

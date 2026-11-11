@@ -22,12 +22,14 @@ sources:
     resource: repo://packages/kit-ng/src/provide-rh-auth.ts
   - id: openwiki-source-66f30d931d913bd85948b8cd
     resource: repo://packages/kit-ng/src/tokens.ts
+  - id: openwiki-source-24a15932eb8e15a6594b587f
+    resource: repo://packages/kit/src/__tests__/unit/check-session.test.ts
   - id: openwiki-source-d846911884642122d8dd6179
     resource: repo://packages/kit/src/auth.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-12T22:47:19.205Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 ---
 
 # @ulabase/kit-ng
@@ -152,11 +154,13 @@ All methods return `Observable`:
 
 ```typescript
 // Check existing session (reads localStorage, no HTTP if no token)
-// Retries transient failures (429, 5xx, network errors) up to 3 times
+// Retries transient failures (429, 5xx, network errors) through four attempts
 auth.checkSession(): Observable<UserInfo | null>
-// Note: The core kit's checkSession uses withRetry internally to handle
-// temporary server failures. The adapter delegates to kit.checkSession(),
-// so this retry behavior is transparent to Angular consumers.
+// Note: The adapter delegates to the core kit's checkSession, which uses
+// withRetry internally to handle temporary failures and only clears the
+// session on 401/403 or a $unauthenticated role — a 429, 5xx, or network
+// error never signs the user out. The retry behavior is transparent to
+// Angular consumers.
 
 // Login with email/password
 auth.login(email: string, password: string, mode?: LoginMode): Observable<UserInfo>
@@ -635,7 +639,7 @@ sequenceDiagram
     end
 ```
 
-*Note: The core kit's `checkSession` (called at `kit.checkSession(config)` in the diagram) uses `withRetry` internally to retry temporary failures (429, 5xx, network errors) up to 3 times before giving up. This retry behavior is transparent to the Angular adapter.*
+*Note: The core kit's `checkSession` (called at `kit.checkSession(config)` in the diagram) uses `withRetry` internally to retry temporary failures (429, 5xx, network errors) through four attempts before giving up, and only clears the session on 401/403 or a `$unauthenticated` role. This retry behavior is transparent to the Angular adapter.*
 
 ### 401 Handling Flow
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:c74fe594911c71d41e726dd3ee6b1c431bed856e7571dea559a234c2b9dd9138",
+  "pageVersion": "sha256:14ca8bbce6c6aec96c888f6ab0034d1439bb1287495efc52fa227211a42f2478",
   "claims": [
     {
       "id": "claim_a2cf71e33664494f972638cf9645b71e",
@@ -96,25 +96,29 @@
     },
     {
       "id": "claim_f06dc40a6a9546ebaf00e3e19763dc49",
-      "statement": "RhAuthService.checkSession delegates to kit.checkSession which internally uses withRetry to retry temporary failures (429, 5xx, network errors) up to 3 times before giving up; this retry behavior is transparent to the Angular adapter.",
+      "statement": "RhAuthService.checkSession delegates to kit.checkSession, which internally uses withRetry to retry temporary failures (429, 5xx, network errors) up to 3 times before giving up (four attempts in all) and only clears the session on 401/403 or a $unauthenticated role; a 429, 5xx, or network error that exhausts the retries is rethrown with the session kept, and this retry behavior is transparent to the Angular adapter.",
       "evidence": [
         {
           "resource": "repo://packages/kit-ng/src/auth.service.ts#L25-L48",
           "version": "repo-lines-v1:sha256:dc187bf66b2a058be8d72d7785c1bda6899ee7d398cd871fbb1d7f1c3b342dbd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlMTU5ZWMyYmFhODc4NGYxNzU5MzIwMzM3NjY3MWU0ZjQ1MTVhYWFlNTZmODU4OGNmY2NlMzc4MTczMTM1ZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1NTQxMjczNWJhNTNhMzExNWVhYmJmMmU2ZTNhNDM4M2MyZGM0YzcyOGViMWFjODdlMzQ2Mjk1ZDBkMDNmYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkMWUyNzc4MWMxNzg2ZmU2ZGQ3OGJjN2Y0MDdhMjNiMzY3Y2ZlMWY3M2RmMTUwYzVkZGFjMmY1NTQ3YTk1ZTgifQ"
         },
         {
-          "resource": "repo://packages/kit/src/auth.ts#L282-L294",
-          "version": "repo-lines-v1:sha256:56d627d517a3f604e856f48a4d87a1e0b35cc0af654329fe53f02d2b17cae279:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Mzg4OTY2YTlkMjg5YzFiZGY1ZjhlMGRmOTk4MGY4MmI1NDBhMzdiMzBlYjUzMDY3MDcyOWI3NTRkMTlhODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNDJhYzI1ZWJmNWFkYzNhYjg1M2FjYjRhMThmMzI1NGM1Y2JmZTczYzE2NmJmZWY1YmQ4MzkzM2ZlM2Y3ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0MTU0NmYxYzQ0ZmY1OTViOWFjYjMxY2NmNDdkZTNlMDIxM2Y4MWUxMWMxZDk1MjQ1MjI2MWQ1MGEzOGZlMjAifQ"
+          "resource": "repo://packages/kit/src/__tests__/unit/check-session.test.ts#L33-L58",
+          "version": "repo-lines-v1:sha256:aec82a891a121b955c77dcf20fbd59aedd810fd4d5627165be5f132b6199075a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1YzhiZmZhMmE4YzIyNDUxMjgyYTc1YjBiYTQ0NjllM2Y3NTZmNWQ1MjAxZTY0ZmQ3YzU5NmIzMDJmZGFmMzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3NWUxNmI4NjFkYTY4NTgyOGU1ZjhkNGVlNDNhN2VlOGFlYjI2ZjUyY2M2NzJiNzY0Nzc3MThhOTA4M2Y5YTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2YTI0YzE0YTFhMTA2MjMxOTg1MDM0N2E3OTZiZTAyNzYzMjU0Y2MyNWNmMTg3YjRlNWQ3MDFiZmMwMmEzN2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4MTdmYmI3M2M5MmIzNmQ1ZTQ4OTZmZjUxYzFiNThlZWMzMzBiYmU5NjFiYTA1ZmM2MjA1Zjg2N2VhMWJjZjYifQ"
         },
         {
-          "resource": "repo://packages/kit/src/auth.ts#L296-L314",
-          "version": "repo-lines-v1:sha256:9ad32d6b45df0bed9cbc8cb07c4ba71464a08548a1fb2e66f4d8f59a553432c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZWUwMzI5Y2Q5NWIyMjJhZTY2MmVkMWRlNTE0MGFlODY2NzA2M2ZhNzgxMmMwNGNlOTFmODY1ZWY4NmE3ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5ZDliYzdkNGY2MDNlNjVhNzUwMDNmZGMxZjMwOGRlYjhkZThmNzQ1MmIxOWUyZGIwNTEyMGRmOGEwYTg2ZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmODc4ODcyMjdmN2E5ZWEyYjBjZmNmOWI4ODgwYjZmMWNhOTE2NTg3NDNlYjUwYjIzMGRhMWZiM2NiNGIxYWIifQ"
+          "resource": "repo://packages/kit/src/auth.ts#L284-L301",
+          "version": "repo-lines-v1:sha256:0b110b1256f111ffdde21fb791c116d8133eef6d72c1887c5a78de70ede6e34d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzYmJlNDMxNzZlOThhZGJiNmJmMTNlNzhmNTdiODRhZjA1NThkN2MwY2EwNjcyYmFlNjNhZDYwNDJiYTBmNmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0MTU0NmYxYzQ0ZmY1OTViOWFjYjMxY2NmNDdkZTNlMDIxM2Y4MWUxMWMxZDk1MjQ1MjI2MWQ1MGEzOGZlMjAifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L303-L337",
+          "version": "repo-lines-v1:sha256:8ba65a6dcfd0e7a0f3eeac2ca6851792a3db30849ba195d543da89f2f0999efd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZWUwMzI5Y2Q5NWIyMjJhZTY2MmVkMWRlNTE0MGFlODY2NzA2M2ZhNzgxMmMwNGNlOTFmODY1ZWY4NmE3ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-12T22:47:19.205Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-11T07:47:18.578Z"
   }
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:67b0bbf3ab2e8b6753fc0743d35e2a605b43e6cbc2d4eb3c4f0e390971397e25",
+  "pageVersion": "sha256:68140378981d9bab89574cd2af80cdea8f03680b23d0b18aa2739704fb41d898",
   "claims": [
     {
       "id": "claim_d504fad44d244e988125c62ee795bfd7",
@@ -11,11 +11,11 @@
           "version": "repo-lines-v1:sha256:ca3bc29bdff4bd4d54b8e96080d824ec7ba3f9b91eac9e401cdd2a32fb2ba6cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmQyMGY3MGUxZDIzN2FjZWZhYWVkYjcyMzBkZGQ4MWFiODczYWM1MDVlOGQyNGY0YjEwMTg5NmY1NDIwNWUzYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDE3NGI0ZWY3MTc0YzYzMjU2MmM3NzFiNGQ5MDljYzJmYTkxZjYwM2RkNTkzMWFmNTk4ZDM2NzE4YTJhZGZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTA3ZTM1NjIzM2Q2NDYzZjBhYTIxYjgxODVmZDUyN2NmYTNmZGYyZTk4ODVkNWI1Y2IxZTEyYzFkZDAxZDJkNiJ9"
         },
         {
-          "resource": "repo://packages/kit-react/src/payments.tsx#L142-L143",
+          "resource": "repo://packages/kit-react/src/payments.tsx#L144-L145",
           "version": "repo-lines-v1:sha256:7dabce94e84fd4a77f7ba48a3d58057ffb61d60c3b88d77f67539a5c43ce1637:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTk3NjYxNWNmY2Y0NGJkY2M1YWJlNmE1MTM4OTE2NzdkOGExZWEyMmM4YjQ2ZmRkNDUyNjJhMGY3ODFlZThkOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQwNmYxZDNiYTNlNGIxMmFmMWM0NWU3NDVlOTdiNmRlZDI2ZDI2NTBkMzdhZDdhODdjM2U2MTFmYjhhOWQ0NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzkzZjc5NGU4NWU2ZjBiODcxOTcyM2VjMjNjN2FkMzNmZmFiN2Q2MDNhMWVmOWJjZGZlYTYxOTU1ODM0ODM4YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWVmODhhMjRiMjRjNTZlMTBkOTQzMjA3M2QwMmE2MzMyZjM1ZWE2MmJmZmI2NjEyZTllMDU2ZTJlMDJlOGNjNCJ9"
         },
         {
-          "resource": "repo://packages/kit-vue/src/payments.ts#L113-L114",
+          "resource": "repo://packages/kit-vue/src/payments.ts#L115-L116",
           "version": "repo-lines-v1:sha256:1d00e59a9df87b8227c2629a67b122dfd361aa98ac2713c9451c7c52400ac0c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQwNmYxZDNiYTNlNGIxMmFmMWM0NWU3NDVlOTdiNmRlZDI2ZDI2NTBkMzdhZDdhODdjM2U2MTFmYjhhOWQ0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTk3NjYxNWNmY2Y0NGJkY2M1YWJlNmE1MTM4OTE2NzdkOGExZWEyMmM4YjQ2ZmRkNDUyNjJhMGY3ODFlZThkOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjI2MmE1MjJjOTk1MjE5YjE4Y2ZjZGQxN2FkZTA3ZDQyMTc5ZDNiNTFmYzBkODZkM2VkOThlMmMwZjlhZmU2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjg3NDMwZjYxMTI0ZDc1MDhmZTRiMGFkOTQ0YjJhNjNiYTcyNDkyZGI5NmFlN2JkOGUxZGMyMjM2MjgyYzRkMyJ9"
         },
         {
@@ -33,11 +33,11 @@
           "version": "repo-lines-v1:sha256:7498b1f34afab4be43cb303551bdb35d6354571e67b2522fc0b58c690af84fb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWRjNjg1NjA1MDkzNjAwY2FmYThmODUzMGE0ZDQ1YWNiMjY2MDdjN2FhZWYzMWVkNmQ4ZjAzNzFhY2JiMzQ1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTVlZjAxYmMwOGRiYzNiNjNlNGU3NWVhM2QyNmE1Yjk0MTg5MTg3N2UyN2FkODkxMzI5Yzg0MTFkN2Q4ZGM0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTRiNDllNjIzOGJhMDQxOWQzZDRhYTAxYmFhYWUwZjg0ZGUyZDc4YjU4OTkxMTI3ZGY3NWIwNTU3ODkxZTI5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjM0MTFhN2QwM2E0YzI0M2Y2Y2MzMzRmYzcyZmIyMWI1MGVhOWYyYWY4NDMwZjNmYjkwZmZlZjlhMjQyNmM0MiJ9"
         },
         {
-          "resource": "repo://packages/kit-react/src/payments.tsx#L143-L148",
+          "resource": "repo://packages/kit-react/src/payments.tsx#L145-L150",
           "version": "repo-lines-v1:sha256:b22965bcc1a3b7d1f33e2b795cee8cb8cb44b607f616c7c61e9b9fe6c2425114:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQwNmYxZDNiYTNlNGIxMmFmMWM0NWU3NDVlOTdiNmRlZDI2ZDI2NTBkMzdhZDdhODdjM2U2MTFmYjhhOWQ0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTNiOGMzMDEyMjk4NDU3YjgwNWQ2NjIyNmJkMGEzYmNmOTk5ZmQ2MTkzMzE4ODY4YTc2Y2EzMWM3YzQzYWVlYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzcyYTNlYmI5NjI1YzI3MGZmNjQ1ODY1MTYyOTE3NDRhNjkxYTVkZmY2Mzg1NjljNDcxM2NkMmQ0ZDJlMjAxNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzdkYzZlZGNlNTc3ZmQ1NjdjNGUxOTdmMGZhZmQyZTgzZDcxN2Q2MDdhZWRkNjZjNDMyZDAxYTI5ZDBjZTZhZCJ9"
         },
         {
-          "resource": "repo://packages/kit-vue/src/payments.ts#L113-L118",
+          "resource": "repo://packages/kit-vue/src/payments.ts#L115-L120",
           "version": "repo-lines-v1:sha256:705d7d0c22077bc47016eb9e35e30b5255847f9f58bca28a2107f2d2945e4a5d:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQwNmYxZDNiYTNlNGIxMmFmMWM0NWU3NDVlOTdiNmRlZDI2ZDI2NTBkMzdhZDdhODdjM2U2MTFmYjhhOWQ0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTcwMmFlYzY2NTk4OGFmYjYwMjg1MjY4NDI5NTg4Njk2NDc2NmNmNGQ5MWNhOWQwOThkYzk1MDZjMmUzNzIwZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjI2MmE1MjJjOTk1MjE5YjE4Y2ZjZGQxN2FkZTA3ZDQyMTc5ZDNiNTFmYzBkODZkM2VkOThlMmMwZjlhZmU2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWUxMGZkNDE5ODRlOTJkYTM4NmE2Y2M5NDc2MTg1ZDQ2ZTAwYzczODJlNDU0OGJkNGZjMGQ3OGQ5MzA1ZDhmMSJ9"
         },
         {
@@ -61,7 +61,7 @@
       "statement": "The redirect back from Checkout races the webhook: Stripe sends the buyer back over the browser while the payment confirmation arrives via a separate server-to-server webhook with no ordering guarantee. waitForSubscription and waitForOrder poll with immediate first check, configurable interval, and timeout to handle this.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L243-L285",
+          "resource": "repo://packages/kit/src/orders.ts#L279-L321",
           "version": "repo-lines-v1:sha256:5458109a38e68d24a3d1cfca5a24be6ac79737b70ff0e8563f627011937e73ed:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiODgwZWNiOGM5Yjc3YWYzZDc1ZWI3ODEwZDNhNzQ2ZjI4YmNlMzQ1MDQxMDhmYzc4MDc3OWNlMDY3MTc5NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
@@ -79,7 +79,7 @@
       "statement": "WaitTimeoutError is deliberately separate from ApiError so that 'you're not subscribed' (ApiError) and 'you are, we just haven't heard yet' (WaitTimeoutError) never collapse into the same error screen. Timing out is not a payment failure.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L253-L257",
+          "resource": "repo://packages/kit/src/orders.ts#L289-L293",
           "version": "repo-lines-v1:sha256:467e9f7a531ddd6e3dd51e911c244bbc733fc44eea2df5ae123d6bc431c4afcf:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFhMTYyNWEzNzEwMTkzODFiZGRjZGMxMzIxNGVmMzM0NTAyYTRiYjJhNDU2OTU0MjYwZTZjN2MxYzE2ZjcxNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjIzY2I0YzEzZDY3NzU5ZDU0Zjc2NzFkNDQwMzQ5NzJkMDkwM2EzOWQwOGFmYWU3M2JiOTgxZWI5YWIwZGNmMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2M2NTViMmZhYjM3Yjg4NTJjNTZjMjJjNmM1OTA2NjcyNjQ5NTZkMzdkMGJjNjE1NmNhYTI1NmI0MDc4MjU5NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjk4NTI0Njg4NmUxNzNiZDk5ZTc0ZDgxMmZmN2ZhZDJlNWJlY2FlNDBiNGI3OWE3MmFkYmMxYzBmZjBkYWIyYyJ9"
         },
         {
@@ -123,7 +123,7 @@
           "version": "repo-lines-v1:sha256:4acb8c8faf81757d22d795dcfe7ca475d82a02a255689835d08f59a77d097f06:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTkwNmM3NDdiZWRjNDNhMWZjNDBlNGU3MmQwOTBjYWZiMWY4ZmEyMmE2MTBjMWIzMjk0ZGU2NzI0YjkwYjNlNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzdhYWQzNWMzYThlZDNhOGQxZWMzYjY4MGZiYzA3NjQwN2ZkOGRjNTYxY2UwYzlhZDA1OGFhMGE5YzQ4ODgzYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzU3YTI3MTVhZTY0ZGQ5MzljYWE4YTEzNjRiMTBkNDVkM2RhY2M5OTAyZjE1MTNkMDgxMzA4ZWM1NmZiMjM3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGU3ZGM4OGRkMzA4NGUyOTg5MTc1ZTYyYzA1M2VmYmE0NGYzYmVkNTJjMWQxMDAzZTU2NDI1NWNkMmNkMmFmYiJ9"
         },
         {
-          "resource": "repo://packages/kit/src/orders.ts#L78-L82",
+          "resource": "repo://packages/kit/src/orders.ts#L114-L118",
           "version": "repo-lines-v1:sha256:69cd4e6f65ab6e2169e92453fc9135616cdd8389384f941c1f32c17733ffa5e1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjIzY2I0YzEzZDY3NzU5ZDU0Zjc2NzFkNDQwMzQ5NzJkMDkwM2EzOWQwOGFmYWU3M2JiOTgxZWI5YWIwZGNmMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjIzY2I0YzEzZDY3NzU5ZDU0Zjc2NzFkNDQwMzQ5NzJkMDkwM2EzOWQwOGFmYWU3M2JiOTgxZWI5YWIwZGNmMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWIyNjQ1MTc3MDBhYTRlYTdjM2NjNjM4MzEyZWI2NzdjNWI4YTgwMGY1NGI4OTRmMTMxZDE1NjJkZjc0MzNkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDA0YjFiOTM4M2U2NzFlYzZlNmRlNTk4ZTk3ODI0NzViZjU0M2UzMTEzMDRlZGVjZmQ0NmM1MDQ0MThhZDljMCJ9"
         }
       ]
@@ -245,11 +245,11 @@
           "version": "repo-lines-v1:sha256:aa0618c5759f8fcecfa4d526c179a0b39ed01ec6c0c366d039aaf421d3cf4879:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhNzI0ZWRkZDY4NTZkODFiMzVlNzI0NzVlZDQ0OTY0ZTUxM2EzN2ZmMzBmYWJhODQ2NTA3NzBmMGE1ZGRkMjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliNjBmMjQ4MmNiM2VjZmE4NzZkOGM3YmMxOGY0MDg3NGZjNmYxNjRlNjg3NTUwMzk3MTUyNGZiNjU1YTllMzAifQ"
         },
         {
-          "resource": "repo://packages/kit-react/src/payments.tsx#L164-L181",
+          "resource": "repo://packages/kit-react/src/payments.tsx#L166-L183",
           "version": "repo-lines-v1:sha256:e045ea0d4010e4e562ea09acccf96a2bca99edac942b32c1294ec91f114c8e64:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4NTQ2Y2Y2NjcxOTE1YTIzYjA1MDk2Zjg5NGE5N2RlMmQwNjllNmQ2NTExNWQ5NjJlZWZmZGY3ZGYyYzM4OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMzMzZWNhNzQ4OTljNmE3YzBjODUxMDI4NDljNTcwOGZjZTliODAzMmZiN2JhNzdkMWUyOGE1N2IzMDIxNzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2NjE3YzU5NWQxYzc0NjA2MDlmMGMyZGMxMDVlNDg1MmU0OWIwMWY4OWI2NTQzNDhhYWU1YWVmYjE0ODVmYzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljOGFmYzA4MGUzMjhmYWJmMzU0MTM1OWJkZTAzZGRhNDRlZjRlYTU0N2Q4ODMwYzAxNDQ2NDA4YWQ2MmVjYjAifQ"
         },
         {
-          "resource": "repo://packages/kit-vue/src/payments.ts#L132-L151",
+          "resource": "repo://packages/kit-vue/src/payments.ts#L134-L153",
           "version": "repo-lines-v1:sha256:166b6a78e65fd294ccd20f3f10f933ee0a1d6e27d7d5dcc4519e44a47ef93a49:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZmZjdkYWUxMWMyOTE5ODBhMmEyZWQ2OTVhODM0ZjMwNGY1YzFiMDBhNGNjMjMwYTYzMjkzMDUzOGEyNmUxNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlNTViNzM3OWJlYTk2Mjc2NzljM2RlMzI1ZTU3MThlY2UwOTM0N2EyZGViMDkzYjFlOTcxMGM5MzFmMDAxMzYifQ"
         }
       ]
@@ -277,11 +277,11 @@
       "statement": "readOrderRef reads the fragment first, then the query string. The fragment is the recommended placement because it never leaves the browser — absent from access logs, proxy logs, and Referer headers — which matters because the order secret is a bearer credential.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L156-L195",
+          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L185-L224",
           "version": "repo-lines-v1:sha256:1a131547909b83e888f26dfb2ba4f55b4ccae20a74513db605723281a2ac4389:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJmNmE4MjU5OTBjYmZiZmVmMzRjMmIzNjFjMjZlY2VmNDVlY2FiN2YzMDQ1ZGE3YjJhYTMxNGZmYThlM2M3MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
         },
         {
-          "resource": "repo://packages/kit/src/orders.ts#L154-L214",
+          "resource": "repo://packages/kit/src/orders.ts#L190-L250",
           "version": "repo-lines-v1:sha256:5fe88cd0ecaa147720010a9eebca2eeb511a34970630b92318692b97d66f4337:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNiNzIxYTY4YjNlNzIzYWEzNDc5OTY4ODY3ZmMwY2Q5M2I2YTIwZTE5NjlkZGI0NTNlYjZhMzk4MWRmODhhZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwMWQwOTQ5NjAwYmM0YWUyNjFlNjM3YWMzMjc5ZGM3MDI3MzcyZjAxNjRiZjUzYmFmN2FiZjRhM2Y3MDkyOTUifQ"
         }
       ]
@@ -291,22 +291,22 @@
       "statement": "The catalog and orders collection names are configured per service (stripeConfig.products.*-collection), not fixed. Every function takes the collection name as a parameter; the default matches what the service uses when it hasn't been renamed.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L26-L44",
-          "version": "repo-lines-v1:sha256:d7f8f4fed4d9f69b23f4d774670c4717dc30a169d9a70761d5c9c3da09a6a0df:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxYzUyMWMwMjI0MjE0MjhjZjE5ZGQ0NzNiNTk2OTE0YjdmZWM2MDI3NGFmYjM4NjgxOGUxODdmZTdlOWEyNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ODYyMTBjMzcyOThmNzhjMTMxNjY2NzI5YjJjYmRhODE2MWZhYTBhOTVkZDNkMTA4NzM3MzgwYjdiZDljMmYifQ"
+          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L26-L37",
+          "version": "repo-lines-v1:sha256:f922ff9668577b07c43e22ac02fa8fa727b60cf7846b3bcb81eef356acc69437:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxYzUyMWMwMjI0MjE0MjhjZjE5ZGQ0NzNiNTk2OTE0YjdmZWM2MDI3NGFmYjM4NjgxOGUxODdmZTdlOWEyNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBkMWM1YjlhN2Q3YjFmZThiNzdjMjRkNjlhZDFmMGY4MzYyM2YzNTZmNTQxZjE0ZmQ4NDZlYzA3ZmY1Njc2OTEifQ"
         },
         {
           "resource": "repo://packages/kit/src/orders.ts#L6-L16",
-          "version": "repo-lines-v1:sha256:5a55185790a46f682c706898317a7fd75bdc1234fb0604b3e07b251859b6b9cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmODc4ZDBkZDYyZTgwYzA0MTM1OTBjZTNkY2RhYTYwMjlkMTJmZWY1ZTI0YWEwZDMyMzY0MDI0MjhlMjcyN2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNmM2UwMmFkNjBiNzhjZTAwNGE5ZGIxOGY4ODAyMDI1MTIxZWI0NDNiNjM1NDhhZjcwZWU5ZGI3ZWZlODVhYTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkZTRkM2Q1MGVjZTA2MWI4NjZjZDUyYTk3OTYwZjhjOTJiNmY5NzFiNjY4NDhhYjMwYzc4MTE1ODliNGRmNzIifQ"
+          "version": "repo-lines-v1:sha256:5a55185790a46f682c706898317a7fd75bdc1234fb0604b3e07b251859b6b9cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmODc4ZDBkZDYyZTgwYzA0MTM1OTBjZTNkY2RhYTYwMjlkMTJmZWY1ZTI0YWEwZDMyMzY0MDI0MjhlMjcyN2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNmM2UwMmFkNjBiNzhjZTAwNGE5ZGIxOGY4ODAyMDI1MTIxZWI0NDNiNjM1NDhhZjcwZWU5ZGI3ZWZlODVhYTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2YzczYjBmODQ4MDBhMmM2ZmEyZmJlYjEyMWM2NWMwYzExNGE1OWVlZDA1Y2ZhNWFiMmVhNTI3MWU5YzczMTcifQ"
         }
       ]
     },
     {
       "id": "claim_039eac8322c84bf39c1463faa8295206",
-      "statement": "RhPaymentsService in Angular returns Observables for all methods, wrapping the core's Promises via RxJS from(). waitForSubscription and waitForOrder update the internal subscription signal when they resolve.",
+      "statement": "RhPaymentsService in Angular returns Observables for all methods, wrapping the core's Promises via RxJS from(). waitForSubscription updates the internal subscription signal when it resolves; waitForOrder returns the order without touching subscription state.",
       "evidence": [
         {
-          "resource": "repo://packages/kit-ng/src/payments.service.ts#L82-L190",
-          "version": "repo-lines-v1:sha256:832447faf87f46bd2ff1dd2bb9adf1a415082f4cc100813f275a81f9bc4ec268:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiMTQyZjQ5ZGMxZTM4MjY1MTBmYTM1ZjVmNDg0NzNhZGY4OGQ1OTEzNTAxMWE1ZWUwNGYyYzY5OWYwMDcyOGUzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIyN2U1Nzg4ZDVkOWQ3M2QyNGE4MWRiYzBhNWE3NGJmYTgyYzljM2IzYWY5OWU1MmFmNzk2ZTkwYjQ2OGE4YTNkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5N2Q4NjMyZTU0ZTkyOThhYmI5NTg3MjdlMmQ1MTQwOGFiYWYxMzY2MDM1Mzc5MTAxNDBhYmY2NWIzMGFiNjEzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+          "resource": "repo://packages/kit-ng/src/payments.service.ts#L82-L195",
+          "version": "repo-lines-v1:sha256:ac133dd6bea67d2296e21ea19846c068b5ac76113221ae49cf8cd6352036970f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiMTQyZjQ5ZGMxZTM4MjY1MTBmYTM1ZjVmNDg0NzNhZGY4OGQ1OTEzNTAxMWE1ZWUwNGYyYzY5OWYwMDcyOGUzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIyN2U1Nzg4ZDVkOWQ3M2QyNGE4MWRiYzBhNWE3NGJmYTgyYzljM2IzYWY5OWU1MmFmNzk2ZTkwYjQ2OGE4YTNkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5N2Q4NjMyZTU0ZTkyOThhYmI5NTg3MjdlMmQ1MTQwOGFiYWYxMzY2MDM1Mzc5MTAxNDBhYmY2NWIzMGFiNjEzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
         }
       ]
     },
@@ -333,8 +333,8 @@
           "version": "repo-lines-v1:sha256:ed51f8fa95c448319ede762f7f866bdf710333524efc7403ab0af570588350d4:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjljYjEzZjE5MTRmN2JhMGM2NjNhY2FiZGNkNmE5YzM4MDZjYWVmNmQzOTkyNWMwYzMzNGUxZjg0OWNhZTk4YWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmNzA0MTM3OWY0Njk4OWZiMmE1ODAxNDczNTc5OTg1NWE5NjUxMjA2ZDA2NzRiNzAyZmYyZTdkM2RiYTBkMzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://packages/kit-react/src/payments.tsx#L113-L297",
-          "version": "repo-lines-v1:sha256:0a7c0fb8dc2049aa655839eaeb1729d6231ef1de088d6953550ebe778a0ac969:eyJzZWxlY3RlZExpbmVDb3VudCI6MTg1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiZWVkOTk0YmU0MjBjODFhYzE0MDllY2Y0Yzc3ZDI2YjM4ZjBhYThiZmY0OTlmZDk5N2FlYzY3MTliNmRkY2Y5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzODBiMjBjY2JmZjRhMDc3MzVmMTc5ZTdhYjk2ODNmZjcwMjZiM2ZjYjdmMjQ2NGE5MjQxMTFhYTc1OTIxNmFjIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+          "resource": "repo://packages/kit-react/src/payments.tsx#L120-L305",
+          "version": "repo-lines-v1:sha256:4ea5a9e6fdc3da5cb543f03666ef60c335655ba0a58c60b58e82c996648c335e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTg2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkNDdmMjRmMzQ1MDQzMzZlNThlZjhjNDRjZDU1OTM3NDQwZmY0M2M5NjliOTYyOTU5MDdhNDEzM2UxZjY4MzczIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
     },
@@ -365,10 +365,38 @@
           "version": "repo-lines-v1:sha256:6420c50772a55e1fbd599a05e9332446a2b9bb499fa1fbbace722cc6b07fd9d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxNTUxMzQ0ZWI1NmM4ODY0NDE2ODkyMjA3N2NjZWFmZDJjZGMxZGJjYWNjN2ZjNzY3ZTY1OWRlZGNmNDUyODYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZDI2Mzg5NDQyZDQ3NjFiYTVlOGRjNzRlMGRhMmY5OGI4MjI2Y2UyY2M4YWFjYzEyOGYzZDlkOTQ4MDZiYTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlY2MyM2FiYTFjMzk3NmRmZmEyM2I5NzU2ZDVmNTcxNzI2Y2UzOTE0NjEzOGM3NWExNDJhMGE3NWUwMmFhM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhOWIxNTg5NTdkODkwZjUyYzdmNDJjZTI3ZjAwNjdkOGI3YzJiNGZmNTJlNjY0ZjZkY2ZlMzIwN2U0MjNmMWYifQ"
         }
       ]
+    },
+    {
+      "id": "claim_aefc2b4e48d340229c943b15e9bc68d2",
+      "statement": "Catalog narrowing goes through a service-declared aggregation (GET /{collection}/_aggrs/{aggregation}) with vars sent as JSON query parameters. RESTHeart-reserved parameter names (filter, sort, page...) are refused before the request is sent. A permission's readFilter does not apply to an aggregation — the pipeline must state which documents it may return. Plain reads are paged with page/pagesize.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L45-L58",
+          "version": "repo-lines-v1:sha256:3dd75878b7e214d5680b959cb2e665b19ee0b2d63a97f3db7ecc1a92a9ec4387:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjMjY5M2RiNjNjMzVmMTYxZTJjMGVjYzBmNzhjNWJjMjJmMDQ2MzY1NGE5MGRlYzNmNjNmZjI4ODhjYWEzZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjExZDUyNTQzNzhmM2FjZmViNDU4MmQ1MWIyOTAyNDBjODc2NTEwNWUwZTFhOTA4ZGZhOWUxMTIxZTgyZDk3NTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhZmZmZjc4ZWExOWI2NTExNDA4NjNmYzhjM2EyZGJiZWE4NzZmMGNiNjEyNTFmNmQxNWJjZDg3MjY3ZGY2ZTMifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/orders.ts#L28-L62",
+          "version": "repo-lines-v1:sha256:740f3542d6b0020f64d37cd7204eabbd7c4bc419c6647bb8b40dd62a87e5f90e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5Y2JiYzY1NDY5ZGIxY2EyODQyZWZkOTdkZjdlZTJjZTZjYzE1NzE0ODJkMDFhMThiNzkwYTEwYzdjNTEwZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1YjA2OTAzMDc5ZWE5NDUzOTRiNTkxMDdlM2QyYjgxMTk5OTI1ZmIzMzY0MDBiNDJkNGRiZGEyYjgyODNmNGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxM2YzODQ2NmJiMjdkNjg1MmRmNGU3NWM0MTZhZmZiZjRkODY3MjlkMDJlOWNjZTdhOTA2M2E1OWY0ZDA2MDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3a0f9755c0634f648faf0b38448b7249",
+      "statement": "getCatalogItem reads one product by id (GET /{collection}/{id}) under the same permission as the list. A product the permission does not let through answers 404 or 403.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L61-L73",
+          "version": "repo-lines-v1:sha256:16f01623d0bc9a5d1c5af913de8627fdb1020b710dad721a7dcbdd7262119936:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlYjRiODJiZjk5MDQwZTY5MjhjN2Y3MzQ0ZmUxZTI3ZGQ0NmUxZGY1YmU2MDMxMGM0OWJmOTM4MTA5Y2Y5OTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ODYyMTBjMzcyOThmNzhjMTMxNjY2NzI5YjJjYmRhODE2MWZhYTBhOTVkZDNkMTA4NzM3MzgwYjdiZDljMmYifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/orders.ts#L93-L108",
+          "version": "repo-lines-v1:sha256:2401125b94fbda64cf9521de76b651c349a398c576b50dd23e2a328e00d42f88:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5ZWE1YjdlNTM5ZjQ0ZTk3Nzk2Y2FmOWViZTRlM2JhMDU0ZTYyYWM3Nzg1NDI3M2NmY2VhODU0MjZjZTk2ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3OTI5ZTkxZTBmOTljM2U4MjVkZTY5YjQzNWZiNjQ4NGQxYjBhMWRmMmY0NjU2MWFiZjFhMjlmMDQxODhiODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyMzZkY2FkMmM1YjNmYWE4ZGVlNWY2NmYwNjA2NzRkZTRjOGRiNzk4ODE4M2U5MjM3YjA2NDQ5ZGYyZmRkZjkifQ"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.6.1",
-    "at": "2026-10-02T09:21:14.211Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-11T07:47:18.578Z"
   }
 }

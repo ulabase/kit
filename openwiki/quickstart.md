@@ -4,24 +4,36 @@ title: Ulabase Kit - Quickstart
 description: Entry point for understanding the Ulabase Kit monorepo, its architecture, packages, and how to get started with development.
 tags: [quickstart, overview, getting-started]
 sources:
+  - id: openwiki-source-f11db6d857f6461980bb57f5
+    resource: repo://docs/ADAPTERS.md
+  - id: openwiki-source-5b54a58d1b51cd490b0e7162
+    resource: repo://package.json
   - id: openwiki-source-92450a7065eb85e0f30b5461
     resource: repo://packages/cli/package.json
+  - id: openwiki-source-00e0515d90d8146f27d18530
+    resource: repo://packages/cli/src/admin.ts
   - id: openwiki-source-0f6c3b29b19e31f6c5db5771
     resource: repo://packages/cli/src/cli.ts
   - id: openwiki-source-7adabf0144b02cc09339ed22
     resource: repo://packages/cli/src/env.ts
-  - id: openwiki-source-555af2af7c1b1286b2d4e451
-    resource: repo://packages/cli/src/index.ts
   - id: openwiki-source-7730d08fdb3c285db4f02c01
     resource: repo://packages/cli/src/session.ts
   - id: openwiki-source-adaf11e7b024654cc8e44e29
     resource: repo://packages/cli/src/setup.ts
+  - id: openwiki-source-01685a6829395c2a4f8d6b98
+    resource: repo://packages/kit-ng/package.json
+  - id: openwiki-source-54f8315d21086325777bcf77
+    resource: repo://packages/kit-react/package.json
+  - id: openwiki-source-3b715d0672cc288b21ea6330
+    resource: repo://packages/kit-vue/package.json
   - id: openwiki-source-46339ee0e97e6859bc5ea428
     resource: repo://packages/kit/package.json
   - id: openwiki-source-ad858c8c8d43dd531f462798
     resource: repo://packages/kit/src/__tests__/integration/team.test.ts
   - id: openwiki-source-9f4235dd2715f5a55a0d1886
     resource: repo://packages/kit/src/__tests__/unit/money.test.ts
+  - id: openwiki-source-8e84ec6588e149b9332902b1
+    resource: repo://packages/kit/src/__tests__/unit/orders.test.ts
   - id: openwiki-source-7dbc4364bd37edb52c104a4d
     resource: repo://packages/kit/src/cart.ts
   - id: openwiki-source-dc6fb97d2a3901aa8aa09a70
@@ -36,10 +48,14 @@ sources:
     resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-28T14:04:09.857Z" }
+  - id: openwiki-source-5da8fd7754999f41cea1db48
+    resource: repo://packages/ulabase/cli.js
+  - id: openwiki-source-06c92acb1e58241d198db5aa
+    resource: repo://packages/ulabase/package.json
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-28T14:04:09.857Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 ---
 
 # Ulabase Kit
@@ -52,6 +68,7 @@ Ulabase Kit provides the same speed on the frontend that Ulabase gives you on th
 
 - **`@ulabase/kit`** — Framework-agnostic core with zero dependencies. Handles all authentication logic: signup, login, email verification, password reset, team management, and multi-team switching. Also provides payments (subscriptions, Checkout, Billing Portal, seat licences), e-commerce (product catalog, orders, guest checkout), a client-side cart, and price formatting.
 - **`@ulabase/cli`** — The `ulabase` command-line tool (also installed as `ula`). Configures a Ulabase service from a plan committed to git — collections, indexes, permissions and features, applied idempotently from a terminal or a CI pipeline.
+- **`ulabase`** — npm launcher package so `npx ulabase` works: it resolves the command name and runs `@ulabase/cli`, which it installs. The command itself lives in `@ulabase/cli`.
 - **`@ulabase/kit-ng`** — Angular adapter with signals, route guards, and HTTP interceptor. Wraps the core kit.
 - **`@ulabase/kit-react`** — React adapter with context, hooks, and route guards. Includes a `/next` subpath for Next.js SSR support (middleware, route handlers, server actions).
 - **`@ulabase/kit-vue`** — Vue adapter with composables and navigation guards. Includes a `/nuxt` subpath for Nuxt SSR support.
@@ -91,11 +108,13 @@ graph TB
     style cli fill:#fff3e0
 ```
 
+Package layering: the framework adapters wrap the core kit, which talks to the Ulabase backend; the CLI's setup runner configures that backend directly.
+
 The architecture follows a layered pattern:
 - **Core** (`kit`): All network calls, token operations, business rules
 - **Adapters** (`kit-ng`, `kit-react`, `kit-vue`): Reactive wrappers, framework-specific integration
 - **SSR subpaths** (`kit-react/next`, `kit-vue/nuxt`): Server-side token management via pluggable token source/sink
-- **CLI** (`cli`): Declarative service configuration, independent of the frontend kit
+- **CLI** (`cli`): Declarative service configuration on Node — a separate layer from the browser stack, reusing the core kit's `login`/`apiFetch`
 - **Principle**: An adapter that reimplements an API call or token computation is a bug
 
 ## Quick Navigation
@@ -138,7 +157,7 @@ Use this table to find the right starting point for common change types:
 | Profile updates | [Core Kit](packages/kit.md#profile-management) | `packages/kit/src/profile.ts` | `updateProfile`, `updateUser`, `changePassword` | `packages/kit/src/__tests__/integration/profile.test.ts` | `npm test -w packages/kit` |
 | Consents gating | [Core Kit — Consents](packages/kit.md#consents-gating) | `packages/kit/src/consents.ts` | `acceptConsents` | `packages/kit/src/__tests__/integration/consents.test.ts` | `npm test -w packages/kit` |
 | Payments (subscriptions, Checkout, Portal, licences) | [Payments & E-commerce](concepts/payments.md#subscriptions) | `packages/kit/src/payments.ts` | `getPlans`, `getSubscription`, `createCheckoutSession`, `openBillingPortal`, `getLicenses`, `grantLicense`, `revokeLicense`, `waitForSubscription` | `packages/kit/src/__tests__/unit/payments.test.ts` | `npm test -w packages/kit` |
-| E-commerce (catalog, orders, guest checkout) | [Payments & E-commerce](concepts/payments.md#products--orders) | `packages/kit/src/orders.ts` | `getCatalog`, `createOrder`, `getOrder`, `waitForOrder`, `readOrderRef`, `clearOrderRef` | `packages/kit/src/__tests__/unit/orders.test.ts` | `npm test -w packages/kit` |
+| E-commerce (catalog, orders, guest checkout) | [Payments & E-commerce](concepts/payments.md#products--orders) | `packages/kit/src/orders.ts` | `getCatalog`, `getCatalogItem`, `createOrder`, `getOrder`, `waitForOrder`, `readOrderRef`, `clearOrderRef` | `packages/kit/src/__tests__/unit/orders.test.ts` | `npm test -w packages/kit` |
 | Cart (client-side, localStorage) | [Payments & E-commerce](concepts/payments.md#the-cart) | `packages/kit/src/cart.ts` | `addToCart`, `setCartQuantity`, `removeFromCart`, `cartTotals`, `toOrderItems`, `loadCart`, `saveCart`, `clearStoredCart` | `packages/kit/src/__tests__/unit/cart.test.ts` | `npm test -w packages/kit` |
 | Price formatting | [Payments & E-commerce](concepts/payments.md#money-formatting) | `packages/kit/src/money.ts` | `formatPrice` | `packages/kit/src/__tests__/unit/money.test.ts` | `npm test -w packages/kit` |
 | CLI setup runner (ulabase setup, defineSetup, step, fromEnv) | [CLI](packages/cli.md#setup-runner) | `packages/cli/src/setup.ts`, `packages/cli/src/cli.ts`, `packages/cli/src/env.ts` | `defineSetup`, `step`, `runSetup`, `fromEnv`, `resolveEnvRefs` | `packages/cli/src/__tests__/unit/setup.test.ts`, `env.test.ts` | `npm test -w packages/cli` |
@@ -289,7 +308,7 @@ The kit integrates with Stripe for subscription billing and one-time product pur
 
 The kit provides a complete client-side e-commerce flow:
 
-- **Catalog** — `getCatalog` reads a MongoDB collection (configurable name) with pagination, filtering, and sorting. Access is controlled by the deployment's own ACL.
+- **Catalog** — `getCatalog` reads a MongoDB collection (configurable name): the plain list paged with `page`/`pagesize`, or a declared aggregation via `aggregation` + `vars` — the service-side way to narrow the catalog (RESTHeart-reserved names such as `filter` are refused as variable names). `getCatalogItem` reads one product by id (a hidden or withdrawn product answers 404 or 403). Access is controlled by the deployment's own ACL and pipeline.
 - **Orders** — `createOrder` creates an order and starts Stripe Checkout. Prices are resolved server-side from the catalog; nothing the client sends is trusted for pricing. Guest checkout is supported via an `email` parameter and a `secret` returned with the order.
 - **Cart** — Pure functions (`addToCart`, `setCartQuantity`, `removeFromCart`, `cartTotals`) that operate on arrays. Nothing here talks to a server. `toOrderItems` converts cart lines to the shape `createOrder` expects. `loadCart`/`saveCart` persist to `localStorage`.
 - **Price formatting** — `formatPrice` converts minor-unit amounts (cents) to locale-aware display strings using `Intl.NumberFormat`.
@@ -314,7 +333,7 @@ The architecture follows a layered pattern:
 - **Core** (`kit`): All network calls, token operations, business rules
 - **Adapters** (`kit-ng`, `kit-react`, `kit-vue`): Reactive wrappers, framework-specific integration
 - **SSR subpaths** (`kit-react/next`, `kit-vue/nuxt`): Server-side token management via pluggable token source/sink
-- **CLI** (`cli`): Declarative service configuration, independent of the frontend kit
+- **CLI** (`cli`): Declarative service configuration on Node — a separate layer from the browser stack, reusing the core kit's `login`/`apiFetch`
 - **Principle**: An adapter that reimplements an API call or token computation is a bug
 
 See **[docs/ADAPTERS.md](https://github.com/ulabase/kit/blob/main/docs/ADAPTERS.md)** for the full adapter contract and **[docs/ADAPTER_CONTRACT.md](https://github.com/ulabase/kit/blob/main/docs/ADAPTER_CONTRACT.md)** for the shared test checklist.
@@ -358,8 +377,8 @@ const sub = await waitForSubscription(config, s => s.plan === 'gold' && s.active
 ```typescript
 import { getCatalog, addToCart, toOrderItems, createOrder, waitForOrder, readOrderRef, clearOrderRef } from '@ulabase/kit';
 
-// 1. Browse catalog
-const items = await getCatalog(config, { filter: { category: 'desk' } });
+// 1. Browse catalog — 'shop' is an aggregation declared on the catalog collection; vars are its values
+const items = await getCatalog(config, { aggregation: 'shop', vars: { category: 'desk' } });
 
 // 2. Build cart (pure, client-side)
 let cart = addToCart([], { productId: 'tee-classic', name: 'Classic T-shirt', unitAmount: 2500, currency: 'eur' });

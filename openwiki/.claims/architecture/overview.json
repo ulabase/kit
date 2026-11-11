@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:0ca06661391c67a84ae90285b1162a25502fbcfcacfd66afd4431b89926008eb",
+  "pageVersion": "sha256:aedc4e73f588d07017279bb688eb369236da5a96fe1a3db6c43450226a05ce66",
   "claims": [
     {
       "id": "claim_6f93d57989544af49c8650048226eefb",
@@ -12,7 +12,7 @@
         },
         {
           "resource": "repo://packages/kit/src/index.ts",
-          "version": "repo-file-v1:sha256:b39b338894832a31d917234a39afb2b950198b72952b55a3cd0efeb3495427e0"
+          "version": "repo-file-v1:sha256:de0caf2c550339274b6b91f6d8b85f829e2fd6754739c5abf29718e3d1c7aeb6"
         },
         {
           "resource": "repo://packages/ulabase/package.json",
@@ -34,7 +34,7 @@
         },
         {
           "resource": "repo://packages/kit/src/index.ts",
-          "version": "repo-file-v1:sha256:b39b338894832a31d917234a39afb2b950198b72952b55a3cd0efeb3495427e0"
+          "version": "repo-file-v1:sha256:de0caf2c550339274b6b91f6d8b85f829e2fd6754739c5abf29718e3d1c7aeb6"
         }
       ]
     },
@@ -111,7 +111,7 @@
           "version": "repo-lines-v1:sha256:5a0ff7c60fa08a2692cf1de5acd0e6708e3cbcdc4cbcb6147d12e721033da27d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5Y2Y5OTI0OTNiNTAxODNmYzM5YWQ2ZGIyNDAwYzkzZTE2Mzc4MTNhODU0NTc5MDg1NzdlM2FjYTA4NDNjZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczN2Q0YWZkOTI3Yzc0MDI3NDg2YzVlNTM2NjY2ZjdmZjAwOTI3MGZlN2IzOTBjZDk1NTYwMTQzNjFlMzE1NTEifQ"
         },
         {
-          "resource": "repo://packages/kit/src/types.ts#L196-L354",
+          "resource": "repo://packages/kit/src/types.ts#L202-L360",
           "version": "repo-lines-v1:sha256:6f82606d632dfc24b6b0b208b8ba93827c7d8d3e7139b62a5cd70a8782acc208:eyJzZWxlY3RlZExpbmVDb3VudCI6MTU5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5NjVhNDUyOTg0OGI1YzhlNGUwMWExNDNiNzU3NWQxZTAzNWNjOGY1NWU5NjA0ZTJlYjQzMzljYzg4M2U4MGRhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI2NjQwZjY3NGE1ODA1YjM3NDFkYjNmZmViYTg5ZjQxZDQ1ZWYzYTRmNGY5OTQxMTgzYzNjYTg4NjliMzJkNWZlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
@@ -121,7 +121,7 @@
       "statement": "All Stripe interaction happens through Stripe-hosted pages — no Stripe.js is loaded client-side. createCheckoutSession, openBillingPortal, and createOrder each return a URL that the caller redirects to with window.location.href. Prices are resolved server-side from the service's own catalog.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L76-L124",
+          "resource": "repo://packages/kit/src/orders.ts#L112-L160",
           "version": "repo-lines-v1:sha256:5f37d1f40cdc8ed9316ac45fa921c26ec27d028d29c07bb07aaa2aa40c773807:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkMDgzNTgzMWJiM2NkNmQ1NGE4YWFkNTUzM2NhNWNiMmI4OGJiMWVmODY0MjE2MDNjMDNmOGQ2YWU5NmM5ODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIyMzZkY2FkMmM1YjNmYWE4ZGVlNWY2NmYwNjA2NzRkZTRjOGRiNzk4ODE4M2U5MjM3YjA2NDQ5ZGYyZmRkZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2Y2E0NGIzMTBlMGUxZDc5OGEwMDZmNGQyODU1MGY2M2FlNzE5NGYyMzZkMjgwY2ZlMGJjMDc4OTQ5MTA2ZDMifQ"
         },
         {
@@ -139,7 +139,7 @@
       "statement": "Stripe sends the buyer back to successUrl over the browser and reports the payment over a separate server-to-server webhook with no ordering guarantee. The fix is waitForSubscription/waitForOrder, which poll immediately (no initial delay), accept a caller-supplied predicate, throw WaitTimeoutError (not ApiError) on timeout, and support AbortSignal for cancellation.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L243-L285",
+          "resource": "repo://packages/kit/src/orders.ts#L279-L321",
           "version": "repo-lines-v1:sha256:5458109a38e68d24a3d1cfca5a24be6ac79737b70ff0e8563f627011937e73ed:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiODgwZWNiOGM5Yjc3YWYzZDc1ZWI3ODEwZDNhNzQ2ZjI4YmNlMzQ1MDQxMDhmYzc4MDc3OWNlMDY3MTc5NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
@@ -302,7 +302,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-28T14:04:09.857Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-11T07:47:18.578Z"
   }
 }

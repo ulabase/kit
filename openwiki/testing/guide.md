@@ -24,10 +24,16 @@ sources:
     resource: repo://packages/cli/vitest.unit.config.ts
   - id: openwiki-source-46339ee0e97e6859bc5ea428
     resource: repo://packages/kit/package.json
+  - id: openwiki-source-799cb91299a970c9d1f6c3b2
+    resource: repo://packages/kit/src/__tests__/integration/global-setup.ts
+  - id: openwiki-source-aedcf624e71fdb74a1606251
+    resource: repo://packages/kit/src/__tests__/integration/helpers.ts
   - id: openwiki-source-727dcf4a5cd42ca83867728a
     resource: repo://packages/kit/src/__tests__/unit/api-base-url.test.ts
   - id: openwiki-source-7a045df7165360917a5c3615
     resource: repo://packages/kit/src/__tests__/unit/cart.test.ts
+  - id: openwiki-source-24a15932eb8e15a6594b587f
+    resource: repo://packages/kit/src/__tests__/unit/check-session.test.ts
   - id: openwiki-source-bc8947c7b01ad0de9e4423b7
     resource: repo://packages/kit/src/__tests__/unit/client.test.ts
   - id: openwiki-source-9f4235dd2715f5a55a0d1886
@@ -38,10 +44,10 @@ sources:
     resource: repo://packages/kit/src/__tests__/unit/payments.test.ts
   - id: openwiki-source-f5c174f35c5102ba81477e16
     resource: repo://packages/kit/vitest.unit.config.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-28T14:04:09.857Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-28T14:04:09.857Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 ---
 
 # Testing Guide
@@ -55,7 +61,7 @@ Ulabase Kit has four test tiers:
 | Tier | What it tests | Backend needed | Runs on |
 |------|---------------|----------------|---------|
 | **Core integration** (`packages/kit`) | Auth flows, token lifecycle, teams, invites against live API | Ulabase instance + secrets | Tags (release), manual trigger |
-| **Kit unit** (`packages/kit`) | Payments, orders, cart, client, money modules | None (mocks transport) | Every push and PR |
+| **Kit unit** (`packages/kit`) | URL validation (api-base-url), payments, orders, cart, client, check-session, money modules | None (mocks transport) | Every push and PR |
 | **CLI unit** (`packages/cli`) | Setup runner logic, env ref resolution, session management, admin client operations, HTTP request retry | None (mocks admin and service clients) | Every push and PR |
 | **Adapter unit** (`kit-react`, `kit-vue`, `kit-ng`) | Wiring: reactive state, guards, middleware, cookie bridge | None (mocks `@ulabase/kit`) | Every push and PR |
 
@@ -136,16 +142,27 @@ npx vitest run -t "login"
 
 File: `packages/kit/src/__tests__/integration/global-setup.ts`
 
-**Purpose**: Clean all test data before and after test suite
+**Purpose**: Clean all test data before and after the test suite. Each collection is cleaned with a single bulk `DELETE` carrying a `?filter` query — one request per collection, not one per document.
 
-**What it cleans**:
-1. All test users (`*@test.ulabase.dev`)
-2. All test teams (created by test users)
-3. All test invitations
+**What it cleans** (the patterns are exactly what `testEmail` generates):
+1. All test users — `DELETE /users/*?filter=` with `_id` matching `^success\+test-.*@simulator\.amazonses\.com$`
+2. All test teams — `DELETE /teams/*?filter=` with `createdBy` matching `^success\+test-.*@simulator\.amazonses\.com$` or `.*@example\.com`
+3. All test invitations — `DELETE /auth_invitations/*?filter=` with `email` matching `^success\+test-.*@simulator\.amazonses\.com$`
 
 **When it runs**:
 - Before all test suites (setup)
 - After all test suites (teardown)
+
+```mermaid
+flowchart TD
+    A["setup runs cleanupAllTestData"] --> B["Bulk DELETE /users/* with the user filter"]
+    B --> C["Bulk DELETE /teams/* with the team filter"]
+    C --> D["Bulk DELETE /auth_invitations/* with the invitation filter"]
+    D --> E["Integration suites run sequentially"]
+    E --> F["teardown runs the same three bulk deletes"]
+```
+
+Integration run lifecycle: the three bulk deletes run once before all suites and once after.
 
 ### Test Isolation
 
@@ -155,9 +172,12 @@ Each test run uses unique identifiers:
 const runId = crypto.randomUUID().slice(0, 8);
 
 export function testEmail(label: string): string {
-  return `test-${runId}-${label}@test.ulabase.dev`;
+  // SES mailbox simulator: accepted and delivered, kept out of the bounce and complaint stats
+  return `success+test-${runId}-${label}@simulator.amazonses.com`;
 }
 ```
+
+Addresses go to the Amazon SES **mailbox simulator**: the service accepts and delivers the mail to them while the addresses stay out of the bounce and complaint statistics. The `success+test-…` shape is what the global-setup cleanup patterns match.
 
 **Benefits**:
 - Parallel test runs don't conflict
@@ -182,7 +202,7 @@ getAdminPassword(): string
 
 ```typescript
 // Generate unique test email
-testEmail('auth')  // Returns: test-<runId>-auth@test.ulabase.dev
+testEmail('auth')  // Returns: success+test-<runId>-auth@simulator.amazonses.com
 ```
 
 #### Admin Access
@@ -203,12 +223,28 @@ adminGet<T>(path: string): Promise<T>
 #### Token Reading
 
 ```typescript
-// Read verification token from invitation email
+// Read the email verification token off the user document
 readVerificationToken(email: string): Promise<string>
 
-// Read invitation token
+// Read the invitation token from the matching invitation document
 readInvitationToken(email: string): Promise<string>
+
+// Read the password reset token off the user document
+readPasswordResetToken(email: string): Promise<string>
 ```
+
+`readInvitationToken` queries the invitations collection rather than a mailbox:
+
+```typescript
+GET /auth_invitations?filter={"email":"<email>"}&pagesize=1
+```
+
+and returns the `token` of the first document. Two things make this work:
+
+- **The root role must set `mongo.allowFilter`** on `auth_invitations`, or the service rejects the free-form `?filter=` query. (`?filter=` is off on service nodes by default — see [orders.ts](../../packages/kit/src/orders.ts) for the same rule applied to catalog reads.)
+- **One invitation per email** — the helper asks for `pagesize=1` and reads `docs[0]`, so a second pending invitation for the same address would be silently ignored.
+
+The suite never reads the invitation out of an email body: the SES mailbox simulator delivers, but nothing in the test process keeps a mailbox to parse. The token is read from the service instead, the same way `readVerificationToken` and `readPasswordResetToken` read tokens off the user document.
 
 #### User Management
 
@@ -293,9 +329,8 @@ it('works with cookies', async () => {
 - Activate sets password for new user
 - Activate in bearer mode obtains token with a single request (no POST /token fallback) — uses `vi.spyOn(globalThis, 'fetch')` to count `/token` calls before and after activate, expecting zero additional calls
 - Activate in cookie mode is refused by a service node, which reads no cookie — expects status 400 rejection
+- Invite sends invitation to an existing user
 - AcceptInvite adds existing user to team
-- ResendInvite resends expired invitation
-- ListInvitations returns pending invitations
 
 ### password.test.ts
 
@@ -364,7 +399,7 @@ describe('my feature', () => {
 
 ```typescript
 const email = testEmail('my-feature');
-// Generates: test-<runId>-my-feature@test.ulabase.dev
+// Generates: success+test-<runId>-my-feature@simulator.amazonses.com
 ```
 
 #### 2. Clean Up After Tests
@@ -482,7 +517,7 @@ it('is refused by a service node, which reads no cookie', async () => {
 
 ## Kit Unit Tests
 
-Kit unit tests run without a backend, testing the core modules: payments, orders, cart, client, and money. They use a custom transport function to mock HTTP requests, making them fast and deterministic.
+Kit unit tests run without a backend, testing the core modules: URL validation (api-base-url), payments, orders, cart, client, check-session, and money. They use a custom transport function to mock HTTP requests, making them fast and deterministic.
 
 ### Running Kit Unit Tests
 
@@ -557,6 +592,10 @@ export default defineConfig({
 - `getCatalog` reads the default "catalog" collection when none is given
 - `getCatalog` reads the configured collection when the service renamed it
 - `getCatalog` forwards pagination as pagesize/page query params
+- `getCatalog` reads through the named aggregation, each variable a query parameter in JSON
+- `getCatalog` refuses a variable named like a RESTHeart query parameter (`filter` above all) before any request is made
+- `getCatalogItem` reads one product by id from the default collection, the id escaped
+- `getCatalogItem` reads from the configured collection when the service renamed it
 - `createOrder` posts to the default "orders" collection with items and no email for an authenticated buyer
 - `createOrder` includes email for a guest checkout
 - `createOrder` posts to the configured collection when the service renamed it
@@ -603,7 +642,7 @@ export default defineConfig({
 
 #### client.test.ts
 
-**Purpose**: Client operations including error handling, token claims, and API fetch behavior.
+**Purpose**: Client operations including error reporting through `onError`, the console fallback when no handler is registered, error `code` propagation, and JWT claim reading.
 
 **Tests**:
 - `onError` reports a non-2xx and still throws it to the caller
@@ -612,9 +651,19 @@ export default defineConfig({
 - `onError` is optional — a config without it behaves as before
 - Console logging on failure logs a non-2xx when nobody registered onError
 - Console logging on failure stays quiet when a handler is listening
+- Errors carry a string `code` when the body gives one, so an app branches on it and not on the wording
+- A numeric `code` is left out, which names nothing
 - `getTokenClaims` reads the subject, which is the user id
 - `getTokenClaims` returns null with no token
 - `getTokenClaims` returns null rather than throwing on a malformed token
+
+#### check-session.test.ts
+
+**Purpose**: `checkSession` behavior under service rate limiting — the retry loop that keeps a session instead of ending it.
+
+**Tests**:
+- Outlasts a minute of 429 without `Retry-After`, and keeps the session
+- Throws after four 429s, and still keeps the token (only 401 and 403 end a session)
 
 #### money.test.ts
 
@@ -1111,10 +1160,13 @@ Add to `.vscode/launch.json`:
 
 ```bash
 # List test users
-curl -u root:password https://your-instance.ulabase.com/users?filter='{"_id":{"$regex":"@test\\.ulabase\\.dev$"}}'
+curl -u root:password https://your-instance.ulabase.com/users?filter='{"_id":{"$regex":"^success\\+test-.*@simulator\\.amazonses\\.com$"}}'
 
 # List test teams
-curl -u root:password https://your-instance.ulabase.com/teams?filter='{"createdBy":{"$regex":"@test\\.ulabase\\.dev"}}'
+curl -u root:password https://your-instance.ulabase.com/teams?filter='{"$or":[{"createdBy":{"$regex":"^success\\+test-.*@simulator\\.amazonses\\.com$"}},{"createdBy":{"$regex":".*@example\\.com"}}]}'
+
+# List test invitations
+curl -u root:password https://your-instance.ulabase.com/auth_invitations?filter='{"email":{"$regex":"^success\\+test-.*@simulator\\.amazonses\\.com$"}}'
 ```
 
 ### Common Issues

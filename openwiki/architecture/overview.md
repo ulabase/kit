@@ -4,8 +4,8 @@ title: Architecture Overview
 description: Comprehensive architecture reference covering monorepo structure, package layering, design principles, dependency graph, and payments architecture.
 tags: [architecture, monorepo, packages, design, payments]
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-28T14:04:09.857Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -49,7 +49,7 @@ sources:
     resource: repo://packages/kit/src/types.ts
   - id: openwiki-source-06c92acb1e58241d198db5aa
     resource: repo://packages/ulabase/package.json
-generated: { by: "openwiki/0.7.2", at: "2026-10-28T14:04:09.857Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 ---
 
 # Architecture Overview
@@ -187,7 +187,7 @@ The monorepo follows a strict layered architecture:
 - Works with any framework or vanilla JavaScript
 
 **Exports**:
-- Auth flows: `register`, `login`, `logout`, `verify`, `checkSession`, `buildVerifyUrl`, `applyBearerDelivery`
+- Auth flows: `register`, `login`, `logout`, `verify`, `checkSession`, `getUserInfo`, `buildVerifyUrl`, `applyBearerDelivery`
 - Token management: `setToken`, `getToken`, `clearToken`, `getTokenExpiry`, `getTokenClaims`, `scheduleRefresh`, `cancelRefresh`, `renewToken`
 - Authenticated fetch: `apiFetch` — the single `fetch` wrapper all internal calls go through, also exported for application use
 - Team operations: `getTeams`, `switchTeam`, `listTeamMembers`, `createTeam`, `updateTeam`, `deleteTeam`, `removeMember`, `updateMemberRole`
@@ -196,12 +196,12 @@ The monorepo follows a strict layered architecture:
 - Profile updates: `updateProfile`, `updateUser`, `changePassword`
 - Consents: `acceptConsents`
 - Payments (subscriptions): `getPlans`, `getSubscription`, `createCheckoutSession`, `openBillingPortal`, `getLicenses`, `grantLicense`, `revokeLicense`, `waitForSubscription`
-- Payments (orders): `getCatalog`, `createOrder`, `getOrder`, `waitForOrder`, `readOrderRef`, `clearOrderRef`
-- Cart: `addToCart`, `setCartQuantity`, `removeFromCart`, `cartTotals`, `toOrderItems`, `loadCart`, `saveCart`, `clearStoredCart`
+- Payments (orders): `getCatalog`, `getCatalogItem`, `createOrder`, `getOrder`, `waitForOrder`, `readOrderRef`, `clearOrderRef` (plus the `CatalogQuery`, `OrderRef`, and `OrderItem` type exports)
+- Cart: `addToCart`, `setCartQuantity`, `removeFromCart`, `cartTotals`, `toOrderItems`, `loadCart`, `saveCart`, `clearStoredCart`, `DEFAULT_CART_STORAGE_KEY`
 - Utilities: `isValidApiBaseUrl`, `formatPrice`
 - Error handling: `WaitTimeoutError` (thrown by `waitForSubscription` and `waitForOrder` on timeout)
 
-**Retry behavior**: `checkSession` uses `withRetry` to handle temporary failures (429 rate limits, 5xx server errors, network errors). It extracts the `Retry-After` header from 429 responses (capped at 30 seconds, default 3 seconds) and retries up to 3 times with exponential backoff for other temporary errors.
+**Retry behavior**: `checkSession` uses `withRetry` to handle temporary failures (429 rate limits, 5xx server errors, network errors). It extracts the `Retry-After` header from 429 responses (capped at 60 seconds, 20 seconds when the browser cannot read it) and makes four attempts in all, with a short pause of attempt-number seconds for the other temporary errors.
 
 ### Layer 2: Framework Adapters
 

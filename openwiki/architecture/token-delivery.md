@@ -4,8 +4,8 @@ title: Token Delivery
 description: Explains bearer vs cookie auth modes, token delivery mechanisms, SSR first-party cookies, the pluggable token source/sink pattern, and retry/resilience semantics.
 tags: [architecture, authentication, tokens, bearer, cookie, ssr, nextjs, nuxt]
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-12T22:47:19.205Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 sources:
   - id: openwiki-source-f11db6d857f6461980bb57f5
     resource: repo://docs/ADAPTERS.md
@@ -23,9 +23,11 @@ sources:
     resource: repo://packages/kit/src/auth.ts
   - id: openwiki-source-e7bfea41ff94b3acb0b72ff3
     resource: repo://packages/kit/src/client.ts
+  - id: openwiki-source-1df25d6106d7f55c213538a6
+    resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T22:47:19.205Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 ---
 
 # Token Delivery
@@ -67,6 +69,8 @@ sequenceDiagram
     Kit-->>Browser: Return UserInfo
     Note over Browser: Token now in localStorage
 ```
+
+Bearer-mode login: the JWT arrives in the `Auth-Token` header, is stored client-side, and drives later `Authorization` headers.
 
 ### Token Delivery Mechanisms in Bearer Mode
 
@@ -115,6 +119,12 @@ POST /auth/switch-team?delivery=body
 
 The `applyBearerDelivery()` function extracts the token: it checks the body's `access_token` field first, then falls back to the `Auth-Token` header.
 
+### Token Contents
+
+What the token exchange delivers is described by `TokenInfo` in `@ulabase/kit`: the JWT itself (`access_token`), `token_type`, `expires_in`, and the user's `username` and `roles`. It also declares a `team` field, but no token carries the team since RESTHeart 9.12.0 — `TokenInfo.team` is deprecated and always `undefined`, and will be removed in the next major. The server reads the active team at every request, and `GET /users/me` answers it as `user.team`, which is what `switchTeam` updates.
+
+The client never verifies the JWT locally: `client.ts` decodes the payload without signature verification (`decodeJwtPayload`, `getTokenClaims`, `getTokenExpiry`) to read the `exp` and `iat` claims for local expiry checks and refresh scheduling. These decodes only tell the client what to do next — the server re-checks the signature on every request, which is what actually decides access.
+
 ## Cookie Mode
 
 Cookie mode uses Ulabase's HttpOnly JWT cookie, which is managed entirely by the backend. This mode only works when the app and API share the same origin.
@@ -139,6 +149,8 @@ sequenceDiagram
     Kit-->>Browser: Return UserInfo
     Note over Browser: Cookie managed by browser
 ```
+
+Cookie-mode login: `POST /token/cookie` sets the HttpOnly JWT cookie and no token is stored client-side.
 
 ### Cookie Delivery Parameter
 
@@ -193,6 +205,8 @@ sequenceDiagram
     SSR-->>Browser: Rendered page with user data
     Note over Browser, SSR: Cookie is first-party (same domain)
 ```
+
+SSR flow: the app server reads its own first-party cookie and forwards the JWT as a Bearer token server-to-server.
 
 ### Key Insight
 
@@ -266,6 +280,8 @@ sequenceDiagram
     Kit->>Timer: scheduleRefresh(config)
     Note over Timer, Kit: Cycle continues until logout
 ```
+
+Proactive refresh: at 80% of the token's TTL the kit renews via `GET /token?renew=true` and reschedules.
 
 ### Refresh Mechanism
 
@@ -433,21 +449,24 @@ sequenceDiagram
     participant API as Ulabase API
 
     App->>Kit: checkSession(config)
-    Kit->>Kit: Read token from localStorage/pluggable source
+    Kit->>Kit: Read token from pluggable source
     Kit->>Kit: Check token expiry locally
     alt Token expired or missing
         Kit-->>App: return null
     else Token valid
-        Kit->>API: GET /users/me (with retry)
+        Kit->>API: GET /users/me (attempt 1 of 4)
         alt 429, 5xx, or network error
-            Kit->>Kit: Wait Retry-After or backoff
-            Kit->>API: GET /users/me (retry 2)
+            Kit->>Kit: Wait Retry-After or short pause
+            Kit->>API: GET /users/me (attempt 2 of 4)
             alt Still failing
-                Kit->>Kit: Wait backoff
-                Kit->>API: GET /users/me (retry 3)
+                Kit->>Kit: Wait again
+                Kit->>API: GET /users/me (attempts 3 and 4)
             end
         end
         alt 401 or 403
+            Kit->>Kit: Clear token and session
+            Kit-->>App: return null
+        else Unauthenticated role
             Kit->>Kit: Clear token and session
             Kit-->>App: return null
         else Success
@@ -457,21 +476,23 @@ sequenceDiagram
     end
 ```
 
+checkSession retries transient failures across four attempts and ends the session only on 401/403 or an unauthenticated role.
+
 ### Retry Logic
 
-`checkSession()` uses `withRetry()` to handle temporary failures without ending the session:
+`checkSession()` uses `withRetry()` to handle temporary failures without ending the session. Four attempts in all — any other error, and the last one, are thrown as they came:
 
-- **429 (Rate Limited)**: Waits for the `Retry-After` header value (capped at 30 seconds), then retries
-- **5xx (Server Error)**: Waits with exponential backoff (attempt number in seconds), then retries
-- **Network errors (status 0)**: Same backoff as 5xx
-- **401/403 (Auth failure)**: Immediately clears session and returns `null`
-- **Maximum attempts**: 3 total attempts before giving up
+- **429 (Rate Limited)**: Waits for the `Retry-After` header value when the browser can read it, capped at 60 seconds; when it cannot, waits 20 seconds (a service's rate limit counts the last minute, so these waits outlast the window)
+- **5xx (Server Error)**: Waits a short pause of attempt-number seconds (1s, 2s, 3s), then retries
+- **Network errors (status 0)**: Same pause as 5xx
+- **401/403 (Auth failure)**: Immediately clears the session and returns `null` — as does a user document carrying the `$unauthenticated` role
+- **Maximum attempts**: 4 total attempts before giving up
 
 This ensures that a temporary network glitch or rate limit doesn't sign the user out.
 
 ### ApiError with retryAfter
 
-The `ApiError` type includes a `retryAfter` field when the server sends a `429` response with a `Retry-After` header:
+The `ApiError` type includes a `retryAfter` field when an error response carries a `Retry-After` header (in practice a `429`) and the browser can read it:
 
 ```typescript
 export interface ApiError {
@@ -649,7 +670,7 @@ export async function loginAction(email: string, password: string) {
 
 ### Session check fails with network error
 
-- `checkSession()` retries temporary failures (429, 5xx, network errors) up to 3 times
+- `checkSession()` retries temporary failures (429, 5xx, network errors) with up to four attempts
 - Check if the service is rate-limiting (look for `Retry-After` header)
 - Verify network connectivity
 - Check for firewall or proxy issues

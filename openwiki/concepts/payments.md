@@ -40,10 +40,10 @@ sources:
     resource: repo://packages/kit/src/payments.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.6.1", at: "2026-10-01T13:26:36.210Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-02T09:21:14.211Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 ---
 
 # Payments & E-commerce
@@ -96,7 +96,11 @@ Plans can declare seat modes: `capped` (fixed maximum), `per_seat` (billed per s
 
 `getCatalog(config, opts?)` reads the product catalog — a plain MongoDB collection read, not a dedicated endpoint. The collection name is configurable on the service side (default `catalog`), so it is parameterized, not hardcoded. Access control is entirely the deployment's own ACL (a `readFilter` restricting to `purchasable: true`, pagination, projections — none of that is the kit's to decide).
 
-The `CatalogQuery` options support pagination (`pagesize`, `page`), server-side filtering (`filter` as a MongoDB query object), and sorting (`sort`). Filtering happens server-side because a paged list cannot be filtered client-side without missing items on other pages.
+Without an aggregation, `getCatalog` returns the plain list in the collection's default order, paged with `page` and `pagesize` — what the permission's `readFilter` lets through, which needs no client query.
+
+To narrow the catalog, the `CatalogQuery` options route through a **service-declared aggregation** (`GET /{collection}/_aggrs/{aggregation}`) with `vars` sent as JSON query parameters. The service does not accept a client's own `filter` or `sort`: a free query would question the fields a permission hides. Variable names that clash with RESTHeart-reserved query parameters (`filter`, `sort`, `page`...) are refused before the request is sent. A permission's `readFilter` does not apply to an aggregation — the pipeline must state which documents it may return.
+
+`getCatalogItem(config, id, collection?)` reads one product by id (`GET /{collection}/{id}`) under the same permission as the list. A product the permission hides answers 404 or 403.
 
 ### Orders
 
@@ -304,7 +308,7 @@ sequenceDiagram
 
 ### Angular
 
-**Payments:** `RhPaymentsService` is an injectable service. Automatically loads the subscription via an `effect` watching `teamKey`. All methods return `Observable`.
+**Payments:** `RhPaymentsService` is an injectable service. Automatically loads the subscription via an `effect` watching `teamKey`. All methods return `Observable` (wrapping the core's Promises via RxJS `from()`). `waitForSubscription` updates the internal subscription signal when it resolves; `waitForOrder` returns the order without touching subscription state.
 
 ```ts
 @Injectable({ providedIn: 'root' })

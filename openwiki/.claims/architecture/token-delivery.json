@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:c7eef7b832241f349401e6ab95b1bf6b04d27c4019c0141da73dca2d8a665a43",
+  "pageVersion": "sha256:3fedab4806ef92ef7023ccb0121d851fc32343eadb133611a3859801f50d7e2a",
   "claims": [
     {
       "id": "claim_405e96080ae643619963331c7ec6afdc",
@@ -116,25 +116,33 @@
     },
     {
       "id": "claim_1073a934178047dbb2f6465ed94b2df6",
-      "statement": "checkSession() uses withRetry() to handle temporary failures (429, 5xx, network errors) with up to 3 attempts before giving up, preserving the session during transient issues while immediately ending it on 401/403.",
+      "statement": "checkSession() ends the session only on a 401/403 response or a user document carrying the $unauthenticated role; 429, 5xx and network failures (status 0) are retried through withRetry() — four attempts in all, waiting a readable Retry-After capped at 60 seconds (20 seconds when the header cannot be read) after a 429, and a short attempt-scaled pause after a 5xx or network failure.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/auth.ts#L282-L330",
-          "version": "repo-lines-v1:sha256:7e55fb081dbd013a39389ea9d28f2a8cf8c9bbf0072c53868d95eb5a1822ebb4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Mzg4OTY2YTlkMjg5YzFiZGY1ZjhlMGRmOTk4MGY4MmI1NDBhMzdiMzBlYjUzMDY3MDcyOWI3NTRkMTlhODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNDJhYzI1ZWJmNWFkYzNhYjg1M2FjYjRhMThmMzI1NGM1Y2JmZTczYzE2NmJmZWY1YmQ4MzkzM2ZlM2Y3ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://packages/kit/src/auth.ts#L277-L301",
+          "version": "repo-lines-v1:sha256:4449cc913701ae021b280b3bf244eaf9c5bc68e8b9a505811a5e5c547a88af5e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxMGFiNmQyYjU1ZDYwYmI5NWY0MWQ0YzBkYjk2MzI0ZWIzMzVkNDU3YmNiZjY2MjJhNDRmNDkwNGFjYTZiMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0MTU0NmYxYzQ0ZmY1OTViOWFjYjMxY2NmNDdkZTNlMDIxM2Y4MWUxMWMxZDk1MjQ1MjI2MWQ1MGEzOGZlMjAifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L303-L337",
+          "version": "repo-lines-v1:sha256:8ba65a6dcfd0e7a0f3eeac2ca6851792a3db30849ba195d543da89f2f0999efd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZWUwMzI5Y2Q5NWIyMjJhZTY2MmVkMWRlNTE0MGFlODY2NzA2M2ZhNzgxMmMwNGNlOTFmODY1ZWY4NmE3ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
     {
       "id": "claim_5e48d58210914599b85892cd50a28f81",
-      "statement": "apiFetch() extracts the Retry-After header from 429 responses and attaches it to the ApiError object as retryAfter, enabling both internal retry logic and application-level rate-limit handling via onError.",
+      "statement": "The TokenInfo type lists the delivered token's fields (access_token, token_type, expires_in, username, roles), but no token carries the team since RESTHeart 9.12.0: TokenInfo.team is deprecated and always undefined, and the active team is read from user.team on GET /users/me.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/client.ts#L222-L223",
-          "version": "repo-lines-v1:sha256:ac05463ae852eb86d785f5efa38f5ad5a5e9a7dc9e6e410959ce0244f0e359fc:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2I3OWVhOTlhZGEyN2M5Mzk5MTI4OGYxY2NiYTAxYTU0ZjM2YzljYzhiNzg0YzgxODY2NjcwYmVkYzA1ODllMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2FhZThjZmY5OGE4MGMyYjBjOTVkMDBmM2E0ODIwODI0MmU1ZTI5ODFiOWE1ZTZmMGUxYmY2ODA1M2Y5MWU2NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTRkYjllNDAyYjc3NGI1MGZkZThhMzY0NGE2ZjQ1YTMxZTM0N2Y2MWM3OTI5NmI1ZDFiNzhhMjdkNmVjY2VmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTVmOTkxNWFhN2Q2OTY4NTM5YTQ3YTY4YmFjOTczOWE2ZTU1ZWFjNjE3NDg0MjY5YWZjMDMzYjA1ZDlmNDhhNiJ9"
+          "resource": "repo://packages/kit/src/team.ts#L52-L53",
+          "version": "repo-lines-v1:sha256:f12b475686923bf0a81d446abe929ea16d0f4221f44891f443c00e1216f1a2a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGIxNTJkMzY3ODMyOGY5OWNlNTFlZmIwY2I3YTkwN2ZjNTdmODBhN2ZhZjFiODNlNGMyMWY5ZDhiMmMyMzAxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDVlZjJhNzcwMGE0NTUwYzFkNDQ4OTAzODgyNzE4ODE5MWYwMjI2NWQwYmEyNjM3NDQyMGJkYWJmYTk5NDliMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ2YzZlNDUxZDAyMDU5Y2JlYmRmY2JjODZlMzQxMTNkNDE1NzM1YTUxNzE1YzFjNzNlYjU2OTU4Yzg2YWQ4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTE4MGVmZjI0NDBiYWU5ZDg4OGVhNmJlZTAwNjNiN2E1MzdjZmQ1OWE4YTRlMzdmYTc0NmEwNGFlOWZlZGY4ZSJ9"
         },
         {
-          "resource": "repo://packages/kit/src/types.ts#L185-L190",
-          "version": "repo-lines-v1:sha256:3ea1415876025cb44bf160da1e9f45179c89f6de45f3876921caf35829d00de2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGE5ZTY0ZmJjYjY3Y2EwMGJmNGNmZjM0MWQ5NGY4MmMwNDdkMjA0Y2NkYWQwZGZlZDJlMTcyZDA0MzcwM2MxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjczNTM1YTkxZDUxZmI4MzYzNTIzODkxZTkyODQ2NWZjZWI5MmE4NmEyYmVmYzVhYTkxMzU0ZDk0ZjJhOTZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjUwNGZkYzRkZjI1NDg0MGYyZDgyYWFjNjAxNmM4NTUyZWRhZjY1ZDYwMDZlZTkyNjU4M2Y5MTNmMDVjMzZhNCJ9"
+          "resource": "repo://packages/kit/src/types.ts#L131-L140",
+          "version": "repo-lines-v1:sha256:b1fdde9c20924bab84514c4d64cc93bc5f2472fb1201b0c778891773346ac65b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiNmQ2YzhlMDcwMGZjYjUzY2Y3NWY1YzcyMDhjYzhlZjdlMmZmODNjNzNlMWJhY2FlNjRiZjg4NzQxZWY3NTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0YTFmZjM5YTQwYTg0NGVhMjkwODEwMDkyODBlYzZkMDMyMDAwNTIyOWNmMDk5NzYwYjlmYTdlZGE3MmY0NTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5ZTllYTliZmMxZWIwMTUzMzgxZWMyMzU4NzAzMDE1NzVmMWU5MTRjZTNhNWYxZmY4ZmZiYjc4ZjM3ZWExNDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjNjJkYmYzNzQwZjNlM2Y0MmQyNzU2NTI1YzI0YzE0OGFlMjk0ZGMyOWI3MzdkMTc5YzA0MTNmNjRkNDMzOWEifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/types.ts#L142-L153",
+          "version": "repo-lines-v1:sha256:c91dc1e752b2c37f43ecddd12e97881c152d1f7a475f9ca33b8c389272c545d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3NGZhZWNkOTU4YTg3MDExZDg1NGJkNGUxOTEyZjQ3YTUyZDYwNjQ1ODYyMTgxM2E5MTFhMDA0NTY2NjJlODciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmNTQ3MTgzZmE4ZDJhNWMwYzUwMDQ0OGQ4NDY4YzVhZWNmMWJhMmI5NmFhNGVjODdjNjAwYmQ4ZTJmMDg2OTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4OGI4YmRlMzE2ODA0MjExYjQ1OGYwODk0YzRiODlmYzVlNzU4OTk4ZDhlYmU0ZGYzY2UyZDg4MzczYzBlYWIifQ"
         }
       ]
     },
@@ -153,7 +161,7 @@
       "statement": "The onError callback in AuthConfig observes ApiError objects that include retryAfter for 429 responses, allowing applications to implement custom rate-limit handling.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/client.ts#L222-L234",
+          "resource": "repo://packages/kit/src/client.ts#L226-L238",
           "version": "repo-lines-v1:sha256:c3f02e9945c7934ce705037f1b0aa36536c48bd5332d26581aa307a60b4e1eae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiNzllYTk5YWRhMjdjOTM5OTEyODhmMWNjYmEwMWE1NGYzNmM5Y2M4Yjc4NGM4MTg2NjY3MGJlZGMwNTg5ZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExMmMzMGRkNDQzMDY2ZDJlMWRkNjEyZjM2MzQzYzg5YjNkMWQwYjA0YjAyMjc3MmYwNzY5NWMyOWZhMGM5MWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE0ZGI5ZTQwMmI3NzRiNTBmZGU4YTM2NDRhNmY0NWEzMWUzNDdmNjFjNzkyOTZiNWQxYjc4YTI3ZDZlY2NlZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3OTY4YWFmNmM5ZmE4OTVkMGViNTNjNjNjZTFiMzk1OThmMWU0NTRhMDI2Yjk3OWRmODVhZjJjNmYxZTFmNzQifQ"
         },
         {
@@ -161,10 +169,42 @@
           "version": "repo-lines-v1:sha256:a65822f4b01e2c3c353bdb065f0b7a547aa7864bf2016b118f0e15b26ecc1b03:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzZDUwNGExMzNmNzE3OTE0NDE2ZDJiMjhmYzk1NDE4OWMwMzYzNWQ5YjFlOWU1YmNhYWYzODk4NjNlYzU3YTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1YmMyZTU5NzE4MzIxYmMxYjJmOWY0NmFmNTg2OTA3M2EyODZkZjMyNTUxYmE0MWNlM2MzYzc5ZWU4NWY0ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmNTUxMjQxYTUyZmRiZjMxNTNmNjMzZTk4ZDczYmZkYThiMTQ2M2YzM2M1N2IzNzg4OTVhOTQ0NTUxZDAwOTMifQ"
         }
       ]
+    },
+    {
+      "id": "claim_e1145f98ae454ebbbb8495ffbb8fc47e",
+      "statement": "apiFetch() extracts the Retry-After header from error responses and exposes it on the thrown ApiError as retryAfter (seconds to wait), the value withRetry() consumes to pace 429 retries.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L294-L297",
+          "version": "repo-lines-v1:sha256:31e28bbc8741c02b3f33ff361cb8e24a33a51ddb953cb3ed9e5445bafb83a8c7:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjM4NzQ3NjlmODQ2OGNkODRmZmJmZmRkY2ZhZjM4OTgzNTQ3YzM5MjNlZGRiZjZiODQzYWE4ZGY1N2I4MmNlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWM0NGYxN2EwY2IxN2JlMDNjYWE4NGE4ZDliNzg5Mjg5Yjk0ZmZhNzEyOTQ2MmYzZTk3MzYyODg3Y2I1ZWI4MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmU5NTk5OGZhY2JkZTQ0NmQwNDI3MDJhYjBkZGY1MTgyNWYyYzlhYzYwMzViMmIwNTlhODdjYmQwZmU2MGQ2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2Y2NjFlODk3YjY4ZmVhNTEyZTM5ZTk4ZGY1YmQyM2M0ZDJiMjNiODVjNDlhNDJhNGFhMzYzYjA3Y2FjNmI1YyJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/client.ts#L224-L227",
+          "version": "repo-lines-v1:sha256:840654c7cae46dffdacc735364e25ea28ce6b4e56a7dd599013ce89500f50efc:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTVmZjU3ZjVkNmNjZGU5NzI3MTQwYzFhODRkOGJlYmQzMjg1YmYwYjYyZWVkNzJiYzNmMDJjNTcxMzk3ZDMyNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2FhZThjZmY5OGE4MGMyYjBjOTVkMDBmM2E0ODIwODI0MmU1ZTI5ODFiOWE1ZTZmMGUxYmY2ODA1M2Y5MWU2NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTY2M2IyM2I3ZjQxNDJlZDAwYzg5NjQyN2I4MmRlMjg0YzBkZDNiNWQzYjk4NjViYmE0ZmExMzQyYzQzZDk4ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTVmOTkxNWFhN2Q2OTY4NTM5YTQ3YTY4YmFjOTczOWE2ZTU1ZWFjNjE3NDg0MjY5YWZjMDMzYjA1ZDlmNDhhNiJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/types.ts#L189-L193",
+          "version": "repo-lines-v1:sha256:d6d3a2954bad28654f6fbb397ddc22e8ca66fca96e8d5cad2709d401bd60799a:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGE5ZTY0ZmJjYjY3Y2EwMGJmNGNmZjM0MWQ5NGY4MmMwNDdkMjA0Y2NkYWQwZGZlZDJlMTcyZDA0MzcwM2MxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDc1ODM4NDA3MGIyZDJmNjRlMmY0MGMxNmY3ZDg3NTRmZGM4ZTUwYmQyZWQyMDFjNDZlZmM3MmFjMmY1N2U5OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjczNTM1YTkxZDUxZmI4MzYzNTIzODkxZTkyODQ2NWZjZWI5MmE4NmEyYmVmYzVhYTkxMzU0ZDk0ZjJhOTZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmFlNGViMDhmMDc4N2Y2NmVhMmI3MmI0NGRkZDYzZmU4Mzg0ZTA0MjI3YTdmNmJkMzRlMzAyNGYyNWI4NWM4NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_54a619a7a7e84c5faea0d02957b9f58d",
+      "statement": "JWT claims are read client-side only by decoding the payload without signature verification (client.ts's decodeJwtPayload/getTokenClaims/getTokenExpiry surface exp, iat and the rest of the payload); the decode guides local expiry checks and refresh scheduling but never access decisions, since the server re-checks the signature on every request.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/client.ts#L64-L82",
+          "version": "repo-lines-v1:sha256:f05bcd784a2f5ee4c8235d4ed28ee4f8dc761a4df032c214353b9c719eaeaf45:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3ZTViZjBiMmZlMWMzM2Y5M2ViNWVmZjgzMjJmMGEwOTUyOTNhOTA3ZWFjZDk4YmZkOWM0ZDRiNGI4ZWRkN2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0MDRhYTViMjYwZjkwMmE4YWM2MGMwNGE3MzAyNzExNGJjYzdkMzAxMDNlNTI4OTMyMjE1MzNlNTU4NGJhMzgifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/client.ts#L7-L46",
+          "version": "repo-lines-v1:sha256:232bb8c95c5ad71821bf91a92b0258945336968f75cfe0d610be3479b772d15a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5OGFlZmRmNDQ0MTI4NTJjNzUwZDRmYTYxNTIxNzU4ODQ0ZTNmNzNjNDE0NjJlNjkxYzMxMWM5YTc4YmJhZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhMjRiYWM0M2Q4YTA4Yzg0YTA1MGE2MGUyOTYwMjBmZGYyNmNmM2FhOGNjMjJlNjJjMzgzYzYwYTViOTNhYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTI5ZTkxZTBmOTljM2U4MjVkZTY5YjQzNWZiNjQ4NGQxYjBhMWRmMmY0NjU2MWFiZjFhMjlmMDQxODhiODgifQ"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-12T22:47:19.205Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-11T07:47:18.578Z"
   }
 }

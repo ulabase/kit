@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:2403df98f05da122df1c8e5b81bbdcbb2220b6467c78e883f059606d046198ff",
+  "pageVersion": "sha256:3dde0692be3a2f0d9cafdf094183b28421da021aa9f342afe961a40eb9c5120d",
   "claims": [
     {
       "id": "claim_e7ebb7e508804f9f92901818b0fa82a0",
@@ -54,7 +54,7 @@
     },
     {
       "id": "claim_024322923ef34a61afe20462349461d9",
-      "statement": "Kit unit tests cover six modules: api-base-url (isValidApiBaseUrl validation), payments (grantLicense, createCheckoutSession, openBillingPortal, waitForSubscription, getSubscription), orders (getCatalog, createOrder, getOrder, waitForOrder, readOrderRef), cart (addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems, storage), client (onError, console logging, getTokenClaims), and money (formatPrice).",
+      "statement": "Kit unit tests cover seven modules: api-base-url (isValidApiBaseUrl validation), payments (grantLicense, createCheckoutSession, openBillingPortal, waitForSubscription, getSubscription), orders (getCatalog collection/pagination/aggregation+vars with reserved-name rejection, getCatalogItem, createOrder, getOrder, waitForOrder, readOrderRef), cart (addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems, storage), client (onError, console logging, error code propagation, getTokenClaims), check-session (checkSession 429 retry behavior), and money (formatPrice).",
       "evidence": [
         {
           "resource": "repo://packages/kit/src/__tests__/unit/api-base-url.test.ts",
@@ -65,8 +65,12 @@
           "version": "repo-file-v1:sha256:b8885b9b267df21cf05ddc3d25fc95433387e559f93d9eeb8fa819fe1922519a"
         },
         {
+          "resource": "repo://packages/kit/src/__tests__/unit/check-session.test.ts",
+          "version": "repo-file-v1:sha256:4b623a614fb6d72a8afe2a8a213f37d3f61c67b224f2f18a694f64016f023089"
+        },
+        {
           "resource": "repo://packages/kit/src/__tests__/unit/client.test.ts",
-          "version": "repo-file-v1:sha256:1dd659ddadb4b2f421b852392a49c6881cada9b657db7ab9b5ca6d08629e260c"
+          "version": "repo-file-v1:sha256:13a4f57dc83de88cb66fe6bf035cb207e78b18e6e9d3811c8026e779508016fe"
         },
         {
           "resource": "repo://packages/kit/src/__tests__/unit/money.test.ts",
@@ -74,7 +78,7 @@
         },
         {
           "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts",
-          "version": "repo-file-v1:sha256:b2d968e848c28420990a7329b8732566839c2c971f914d201a2d391ece57dc1d"
+          "version": "repo-file-v1:sha256:2cd416a8ab62af4fc1a8beb81776ab1b3125072b17eee712fe636896fb0c6db8"
         },
         {
           "resource": "repo://packages/kit/src/__tests__/unit/payments.test.ts",
@@ -223,10 +227,50 @@
           "version": "repo-lines-v1:sha256:67b9c0062ea4fa8994c8932f1cb992fc061f1fe41f8bd5aba2f383d49550b3be:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4MjAyNzY5M2EyZjVmMjgyMDBjZmRlMThjNTdlZGJmODExYWFjMDAyOGNmNjViNGJmM2QwNmEzNmNkZTUxNzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZDI2Mzg5NDQyZDQ3NjFiYTVlOGRjNzRlMGRhMmY5OGI4MjI2Y2UyY2M4YWFjYzEyOGYzZDlkOTQ4MDZiYTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwNWIxZGMzZmY0NzA2YzRmODljNzRiZDY3YzJkZTFiOGI3MTU0YTkwMWZiOWFjN2FiOTBjZmJlZDg4MjRlYzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhOWIxNTg5NTdkODkwZjUyYzdmNDJjZTI3ZjAwNjdkOGI3YzJiNGZmNTJlNjY0ZjZkY2ZlMzIwN2U0MjNmMWYifQ"
         }
       ]
+    },
+    {
+      "id": "claim_b6767a4453ee4f24bb6a4f29aaca45ab",
+      "statement": "The integration test global setup bulk-deletes test data before and after all suites using a single DELETE with a ?filter query per collection: /users/* with _id matching ^success\\+test-.*@simulator\\.amazonses\\.com$, /teams/* with createdBy matching that same pattern or .*@example\\.com, and /auth_invitations/* with email matching the SES pattern.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/integration/global-setup.ts#L8-L19",
+          "version": "repo-lines-v1:sha256:ca6d322689cfd6bcfb08727a412dd9ef0beaa4ae558a69fbc0b1e08d88fb6307:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkMzVmOTI0ZDYxNWRhN2ZkNDlhOWFlNGVkODcxMjMwMTEwYjc0NTg0MzVjYTk5OTYyOGFjNWRiMDZjZjdiZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE1MjZlYTQxYWE3NTBkYjI2NTZkZmY2YzgyMjA1YmVkYTllMTNiOTQ3ZDE3YzBmNjBhOGNhOTVmZjhhODUwYzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwNGJjYmU3OTRhZDQ1ZWJjM2M3MGRkNWMwMDllYjM0YmYyZTU4MzU2Y2FiNGJjYzY2Njc0ZTg4YWNiMGY0OTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhjYjg1N2RkZGNhMjRmYmNjNDdmNDJmNGE1OGFjZTg4MjQ3YzYzYTZjNDNmOTE4NWYzZTc5Y2JkYmIwOTQwNmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f77251a9191f485db9f6ee4a2385f9ae",
+      "statement": "testEmail in integration/helpers.ts returns SES mailbox-simulator addresses of the form success+test-<runId>-<label>@simulator.amazonses.com; SES accepts and delivers to these addresses while keeping them out of bounce and complaint statistics.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/integration/helpers.ts#L19-L23",
+          "version": "repo-lines-v1:sha256:6881b0be7e3a5368cadbe9fe635afee6404a1f372498c386b00625c2871eb834:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODBiZTdiZWU5YzFiMTIwNGI0NDg3N2ZjYjVkYjQzNDgxMzU2YjA3YjgxZDg5ZmU1MTM0NjJkYTg2N2Q1ZWEzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmEzYzFkNWJiZDIwMGZlNTA5NTFkOTQzOWMwYjRkYWNlMDMxMDM0ZTAwZTdkNmI0MzVjZGY2ZWE3OWM0YTUzOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTc4YzVmZDcwNGZmNjA3MjIxYTRlMjI5MzU1YjBlZDE5MGJjNmY2YzgyMDk0ZGFlYjE2NzY4ZGY5MDkzN2Y2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWFhYmMxOWYwZDIyZWYxYTdkOGQyYzIzYTFiNTY0ZjVjZjEwZTU0ZjIzOThjOTQ3MDAwNzg3ZDY0MzIzNDdlZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8c322c0bd77342ee9dcdf02ad7f53b1e",
+      "statement": "readInvitationToken queries GET /auth_invitations?filter={\"email\":\"<email>\"}&pagesize=1 and returns the token of the first document. This requires mongo.allowFilter on the root role for auth_invitations and assumes at most one invitation per email, since pagesize=1 reads docs[0] silently.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/integration/helpers.ts#L90-L95",
+          "version": "repo-lines-v1:sha256:1cda35161881e32f5ac47c25af7803ec25465d871db147a93144c9af1b56c112:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ3N2YzMjA2M2MxMmVkNjc2NTE2Y2RlNDljOTg4YWJhZmQ1MTllNDI3YTIxMzQ5YTEyYWY1YTUzM2E1MzMxYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU3MzMyYzlmYjRmYWIxZTZmYmY4ZGFjNzg2NzVhZWY4NDBkMjg1NjY3ZDk0OWE4ZTI2NTY3MDA4NTJlMWU3YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDZmZmE4ZDYxZmM3OGI3YzJiZTkwMWY0YTY0ZGZiYWJmOWYwNzI0N2U2MjhlZWQ4NWI1NWI1MjFjNDM2MGRlNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b0aec957d81b4a5b88729c4b4c12908d",
+      "statement": "Kit check-session unit tests verify that checkSession outlasts a minute of 429 responses without Retry-After while keeping the stored token, and that it throws after four consecutive 429s without clearing the token (only 401 and 403 end a session).",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/unit/check-session.test.ts",
+          "version": "repo-file-v1:sha256:4b623a614fb6d72a8afe2a8a213f37d3f61c67b224f2f18a694f64016f023089"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-28T14:04:09.857Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-11T07:47:18.578Z"
   }
 }

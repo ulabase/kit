@@ -1,32 +1,52 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:0c2e84960c9024acca65d9b964bdf9b5ad97b149449e9bc11284000f18fd265c",
+  "pageVersion": "sha256:cbb04db8fa58a579811cb6683d33149446b6f81d3049825b092092d6c9731409",
   "claims": [
     {
       "id": "claim_3973a271db7d44b6b55ce5452e57d993",
-      "statement": "The Ulabase Kit monorepo contains five packages: @ulabase/kit (framework-agnostic core), @ulabase/cli (ulabase command-line tool with ula alias), @ulabase/kit-ng (Angular adapter), @ulabase/kit-react (React adapter with /next subpath), and @ulabase/kit-vue (Vue adapter with /nuxt subpath).",
+      "statement": "The Ulabase Kit monorepo contains six workspace packages: @ulabase/kit (framework-agnostic core), @ulabase/cli (ulabase command-line tool with ula alias), ulabase (npm launcher package so `npx ulabase` works — it resolves the command name and runs @ulabase/cli, which it installs), @ulabase/kit-ng (Angular adapter), @ulabase/kit-react (React adapter with /next subpath), and @ulabase/kit-vue (Vue adapter with /nuxt subpath).",
       "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:ad802f2a848baa3ef126a282d177ba9be7cdc8fa4ebacff75a463d2c95fa06dd"
+        },
         {
           "resource": "repo://packages/cli/package.json",
           "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
+        },
+        {
+          "resource": "repo://packages/kit-ng/package.json",
+          "version": "repo-file-v1:sha256:6938ee6d33d441d9b831265a095240d474a5f49b0ee68da2a33e5ef3bbd349dc"
+        },
+        {
+          "resource": "repo://packages/kit-react/package.json",
+          "version": "repo-file-v1:sha256:3e5f43b33a5c67dd9a77624ab684a04f1f1e6ad14619ef77af0389f02ae303be"
+        },
+        {
+          "resource": "repo://packages/kit-vue/package.json",
+          "version": "repo-file-v1:sha256:8b3dc4cb3a60d9005dd9b5b720631cc032b42d1f183d7eee298e66200c1408e9"
         },
         {
           "resource": "repo://packages/kit/package.json",
           "version": "repo-file-v1:sha256:caef787f30573c7e3f750920ada5b49fd4370d92519ad578350afc8910ce896c"
         },
         {
-          "resource": "repo://packages/kit/src/index.ts",
-          "version": "repo-file-v1:sha256:b39b338894832a31d917234a39afb2b950198b72952b55a3cd0efeb3495427e0"
+          "resource": "repo://packages/ulabase/cli.js",
+          "version": "repo-file-v1:sha256:97b8b93f037d87bf4627870ec2061818f7162535410ed4d15be1996a69829306"
+        },
+        {
+          "resource": "repo://packages/ulabase/package.json",
+          "version": "repo-file-v1:sha256:9e6630305809be86dac9d5ece34c03e221fa5f75c63cc8008ff11ad94113d26c"
         }
       ]
     },
     {
       "id": "claim_e0bc55dc4ea84bdbb474c97a9cefd3b6",
-      "statement": "The core kit exports payments functions (getPlans, getSubscription, createCheckoutSession, openBillingPortal, getLicenses, grantLicense, revokeLicense, waitForSubscription), e-commerce functions (getCatalog, createOrder, getOrder, waitForOrder, readOrderRef, clearOrderRef), cart functions (addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems, loadCart, saveCart, clearStoredCart), and price formatting (formatPrice).",
+      "statement": "The core kit exports payments functions (getPlans, getSubscription, createCheckoutSession, openBillingPortal, getLicenses, grantLicense, revokeLicense, waitForSubscription), e-commerce functions (getCatalog, getCatalogItem, createOrder, getOrder, waitForOrder, readOrderRef, clearOrderRef), cart functions (addToCart, setCartQuantity, removeFromCart, cartTotals, toOrderItems, loadCart, saveCart, clearStoredCart), and price formatting (formatPrice).",
       "evidence": [
         {
           "resource": "repo://packages/kit/src/index.ts#L10-L36",
-          "version": "repo-lines-v1:sha256:aac4ea6a06fb2adaaae87340eb2d9745f9ccf5071eda715ffc77447b2c21f25d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExNzQ0MjkwOTg3MDNlNjM0Y2M2NjRlNDk3NWQxNGFjNDkxMjc0OWU1MTYyNGFiMWEzNTNiZTI0NzNmOWMxMGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlOGY0MDlhMjg0ZWU3MmUyNzA4MmZmN2VmNDJhZjNlNDg0M2YxZTgzZWU4NGM0MmYwYTI4MjRhMjk1MmUyMWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjN2NhM2NhNmJhZDhhMzczZGMwNDlkOGY3MWJmZDIwYzQzZDA0Y2U4MjY3ZGIwZTAxZTM1ZDhjMjc1YTI3NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:80290b41d60af4919d345a38554b532703a24e1d7cd5a8b3e366e58d2ea27a05:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExNzQ0MjkwOTg3MDNlNjM0Y2M2NjRlNDk3NWQxNGFjNDkxMjc0OWU1MTYyNGFiMWEzNTNiZTI0NzNmOWMxMGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlOGY0MDlhMjg0ZWU3MmUyNzA4MmZmN2VmNDJhZjNlNDg0M2YxZTgzZWU4NGM0MmYwYTI4MjRhMjk1MmUyMWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjN2NhM2NhNmJhZDhhMzczZGMwNDlkOGY3MWJmZDIwYzQzZDA0Y2U4MjY3ZGIwZTAxZTM1ZDhjMjc1YTI3NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -55,7 +75,7 @@
       "statement": "The redirect back from Stripe Checkout races the webhook — a success page that calls getSubscription immediately may read the old plan. waitForSubscription and waitForOrder poll with a predicate until the condition is met, with the first check running immediately before any delay.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L243-L285",
+          "resource": "repo://packages/kit/src/orders.ts#L279-L321",
           "version": "repo-lines-v1:sha256:5458109a38e68d24a3d1cfca5a24be6ac79737b70ff0e8563f627011937e73ed:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiODgwZWNiOGM5Yjc3YWYzZDc1ZWI3ODEwZDNhNzQ2ZjI4YmNlMzQ1MDQxMDhmYzc4MDc3OWNlMDY3MTc5NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
@@ -88,11 +108,15 @@
     },
     {
       "id": "claim_fba77367b0d742b5aa33cf8d61aee2d9",
-      "statement": "getCatalog reads a MongoDB collection (configurable name, default 'catalog') with pagination, filtering, and sorting. Access is controlled by the deployment's own ACL; the kit does not add readFilter restrictions.",
+      "statement": "getCatalog reads a MongoDB collection (configurable name, default 'catalog'): the plain list in the collection's default order, paged with `page`/`pagesize`, or a declared aggregation reached at `GET /{collection}/_aggrs/{aggregation}` with its variables sent as JSON query parameters. A RESTHeart-reserved name (`filter`, `sort`, `page`…) is refused as a variable name — narrowing the catalog is the aggregation's job, because the service does not take a client's own `?filter=` unless a permission sets `mongo.allowFilter`. Access is governed by the deployment's own ACL and pipeline: the kit adds no read restrictions, and a permission's `readFilter` does not apply to an aggregation.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L17-L71",
-          "version": "repo-lines-v1:sha256:5f6bbebb2e26c1cd440d268ba464c776736ce249c6034783c523c37d4be9aa0f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1MmNhZDdiNWNmMTBkNjhkZDBkOTE0Nzc0ZWI4YjhhMWJkZjE5YmRkMDE2NjMwNjFjNzM0NTY1YWViMjM0YjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYzEzYjc3YzZjZjJlNDc4ZWUyZDk0NDk4ZmYxZjM0OGI5ZmIwMDZkYWMxZjRkODhkMzM2YTI2NTk1ZTMxMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ4NmZjMTkyMjYwOWI2M2EwNjZhOTA5ZDFhMWJjOWY5NjliMTViMjRlYmQxNDllYmYwYmFjMTAzZGIyOWM2OTQifQ"
+          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L26-L58",
+          "version": "repo-lines-v1:sha256:4507e955a0bd7d9fc6696ed70ef9053043177e2c53f4660395fe3da052085a5e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxYzUyMWMwMjI0MjE0MjhjZjE5ZGQ0NzNiNTk2OTE0YjdmZWM2MDI3NGFmYjM4NjgxOGUxODdmZTdlOWEyNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhZmZmZjc4ZWExOWI2NTExNDA4NjNmYzhjM2EyZGJiZWE4NzZmMGNiNjEyNTFmNmQxNWJjZDg3MjY3ZGY2ZTMifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/orders.ts#L17-L90",
+          "version": "repo-lines-v1:sha256:dbe2ec73932535d59bec65b7caf7a5963d7adf40b10a26d1c5166bd882f80e14:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMzNjZTVjN2ZhNjY1NjUxYWI5YTVlNDU5MmVhN2JkM2YzNTljYWFkOGMxYjY2YWVmYTNlYzc4ZWVkYTNiNTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYzEzYjc3YzZjZjJlNDc4ZWUyZDk0NDk4ZmYxZjM0OGI5ZmIwMDZkYWMxZjRkODhkMzM2YTI2NTk1ZTMxMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU4ZDFlMWQwZjgxMWExNWU1ZWI1OTU1NTBiZGEwMjNlNjM3OThmYjUwZTdlMWJjNjczMmQ5OTUzNDk0Mjg4YjAifQ"
         }
       ]
     },
@@ -101,11 +125,11 @@
       "statement": "createOrder creates an order and starts Stripe Checkout. Prices are resolved server-side from catalogItem.unitAmount on the server — never from anything the client sends. Guest checkout is supported via an email parameter; the returned secret lets guests look up their order without a session.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L126-L145",
+          "resource": "repo://packages/kit/src/orders.ts#L162-L181",
           "version": "repo-lines-v1:sha256:a0a4a10c5ea7b3930ce1791259ef8039502e79033671dcf33189d5476afb2122:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYxNTI0OTE4ZmIyOGM3NDNiNTY3NDEzOWIxMTYyMjYxYmY2NWI2YTRkODE0MGE3MzA2NjFmOWU2Yjg0ZGNkZTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4NWRiMjEyNjczZDIxZjdkN2ZiYTc1YjlhODA2N2UzZTRkYjZhZWU1MjU5NTdmYzhjZmNmOGU0ZDE1NjRjMGQifQ"
         },
         {
-          "resource": "repo://packages/kit/src/orders.ts#L73-L124",
+          "resource": "repo://packages/kit/src/orders.ts#L109-L160",
           "version": "repo-lines-v1:sha256:2cf47af577c0e29c53b109043105a2e0d0d9e9a057a7b4e71f20988e9c778f65:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyNzJkOGQxM2RhMTQ1NjI0Y2I3ZDMxN2Y5NDdiYzM1NDNhNzQyOWY3ZDc1MjBlN2I0NGI0ZDBkOGY0NjdhNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY3Mzk1NDMzZDQwMzQxMDAxNzMwNzQyYjZmYWQyMDM3Y2JhNjQ2MDA3MzViNjIxMTEyM2M3ZDJlMjc2ZDE0MmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2Y2E0NGIzMTBlMGUxZDc5OGEwMDZmNGQyODU1MGY2M2FlNzE5NGYyMzZkMjgwY2ZlMGJjMDc4OTQ5MTA2ZDMifQ"
         }
       ]
@@ -115,7 +139,7 @@
       "statement": "readOrderRef reads the order reference from the Checkout return URL, checking the fragment first then the query string. The fragment is preferred because it never leaves the browser (absent from access logs, proxy logs, and Referer headers), which matters because the secret is a bearer credential.",
       "evidence": [
         {
-          "resource": "repo://packages/kit/src/orders.ts#L147-L214",
+          "resource": "repo://packages/kit/src/orders.ts#L183-L250",
           "version": "repo-lines-v1:sha256:27252b29845fda5d254d2f0187ef567acdfd66c657dfc77a342635a4a0e10023:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhMmFjNTBlNTExOTliYjllM2VjMTdjODNkNDE4MjNlYjBlZGRmODdiNTY1YWFmNDUyNjJiMDI2NmZjZTYyZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyOWY1ZTY2NmQ1ZGRjZmFmNDQ1OTJkMmQzYjc5MDdjZDRiZGMxY2EyMzhlZTVlMjhkYTVlMzhiMzQxNDBhNDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwMWQwOTQ5NjAwYmM0YWUyNjFlNjM3YWMzMjc5ZGM3MDI3MzcyZjAxNjRiZjUzYmFmN2FiZjRhM2Y3MDkyOTUifQ"
         }
       ]
@@ -196,19 +220,19 @@
     },
     {
       "id": "claim_be41b5045b1e4241b5e8d527d4615e35",
-      "statement": "The architecture follows a layered pattern: core kit (all network calls, token operations, business rules), framework adapters (reactive wrappers), SSR subpaths (server-side token management), and CLI (declarative service configuration, independent of the frontend kit). An adapter that reimplements an API call or token computation is a bug.",
+      "statement": "The architecture follows a layered pattern: core kit (all network calls, token operations, business rules), framework adapters (reactive wrappers), SSR subpaths (server-side token management), and CLI (declarative service configuration on Node — a separate layer from the browser stack, reusing the core kit's `login`/`apiFetch` for the admin node with its own token store). An adapter that reimplements an API call or token computation is a bug.",
       "evidence": [
         {
-          "resource": "repo://packages/cli/package.json",
-          "version": "repo-file-v1:sha256:8ec2a68ebaccf301d938e3f0e6de072356304d16851f4f597f7f7a13b5399b2e"
+          "resource": "repo://docs/ADAPTERS.md#L11-L26",
+          "version": "repo-lines-v1:sha256:65d429ca89157e9a18c75b3fd1860b3a765551691dc9a8b6ca01dcf02597945f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzYTQyY2YxZmU0MzY1OTc0NmViZWQ3MzExMjU5NTE3NGEyMmY1Y2FhMjg2MGY5NGVjZjU2YWUxNzRmMTZlNjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdlNTdmY2EwNzE5MGM1ZDY0NjIwMTY2ZTQ0OWU4NmNkZjlkMDc1MmY4ZGM5Yzg0MjAxNTI0NmM2YjJiMGJhNTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkwMjJkODIxZDkzYjA5NzhlYTI1YjQ5ZDIzZjg5NjE5MTRiYTUzMzczYmFlMWZjYjZlMmYwNTM1OTA2YjQxNmEifQ"
         },
         {
-          "resource": "repo://packages/cli/src/index.ts",
-          "version": "repo-file-v1:sha256:8a1bc0f4a8c19eb7447cb2cc0061b45932f1a152be1b6f6aec7cb1f4d92b77d1"
+          "resource": "repo://docs/ADAPTERS.md#L326-L340",
+          "version": "repo-lines-v1:sha256:e705003c56a7d369d920a1a08e643a74b061fbd8c171b425ba490bdace2689d2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZDc3YjFiNTNmNzVmNTU0YjZlNzEyMjdiYWY4MGMzNGJiYWNlZTJmYzlkOTIxOTE1ZDViYjZiYmUxMDJjY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzMzY5YTc1NmIwZDIzNmI3NjA3NGU1ZmU4ZmFjMGQzZTRkNTMxMWQ1ZjZhYmU1YjljZDBmMTMxMTE5OTBiMTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0OTUzYzAwYzVlMjE3Y2I0YmI4ZTg5ZGIwZGIyY2Y0YWU5ZDY4YzgyYjA3OWFiZDU5MDAyNDhiZjVmYzBlOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://packages/kit/src/index.ts",
-          "version": "repo-file-v1:sha256:b39b338894832a31d917234a39afb2b950198b72952b55a3cd0efeb3495427e0"
+          "resource": "repo://packages/cli/src/admin.ts#L1-L2",
+          "version": "repo-lines-v1:sha256:84f4835b168315ec9a8c3ee4a8a69bf83f2fccb3df48b5d581b8e2f812a23383:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjViZDI0NjE2N2U5NjdkOWQ3ZGI1OGUzNjdmZWZkOTMyYzM2ZTdjOGNjYjYyZWMyNzYxNmQ0ZmQ1MWMzMmY1ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU0MzQyMWQ3MDViNmM4MjBjNWZlZTRhOWUyMDVjMWY0MTY3MDg2OTVhM2ExNjk1NmVjN2UzODc4MTFmYzdhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2NjYjVkYzJlNDg5NmIyMjg3NjA5MmQ2YjUyYjM0Y2M1ZmJlNDYxMzdlZGJlYzQ5NjMwNDBlNGM2OGNjMGVjNiJ9"
         }
       ]
     },
@@ -257,10 +281,24 @@
           "version": "repo-lines-v1:sha256:d3199e9be7f0a1e52b442fe54115834a516a33ef24abf0fe6408506b8864c082:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzlmNDk5MjljNGZhMzgyMDUxYWRlYWMyNmE0NzJiNWJkNzViNmZkYTkxNTM4ZGM4MzRiY2I1YWQ2ODIwYmU2NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTg0MDI5ZDhlYzJjYjYxNTIwODg3YjEwNDIwYTFmMTQxMzUxNGRkNGE5YzY4MGNmOTllZjJkMDhiNTY3M2IyZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYThiZjRlNTVkMjA1ZDFhNTc3ZjlkN2QxMmRjOGFhYzU5Y2U2MWI4ZThlNzNkODhkOGYwNGE2ZGNjNGU4MDFjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzY0NTNkMTEzZDY0YmEzMDJkMGJlMWIzODkwMTkwMDJhYTYwYjE2ZjM4MGU0YjYwZTZmZDEyMWRkM2Y2YjY0MCJ9"
         }
       ]
+    },
+    {
+      "id": "claim_afbedb4878ae40f3830b39deca086b36",
+      "statement": "getCatalogItem reads one product by id (`GET /{collection}/{id}`, default 'catalog' collection) under the same permission as the catalog list; a product the permission does not let through, or a withdrawn one, answers 404 or 403.",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/unit/orders.test.ts#L61-L73",
+          "version": "repo-lines-v1:sha256:16f01623d0bc9a5d1c5af913de8627fdb1020b710dad721a7dcbdd7262119936:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlYjRiODJiZjk5MDQwZTY5MjhjN2Y3MzQ0ZmUxZTI3ZGQ0NmUxZGY1YmU2MDMxMGM0OWJmOTM4MTA5Y2Y5OTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ODYyMTBjMzcyOThmNzhjMTMxNjY2NzI5YjJjYmRhODE2MWZhYTBhOTVkZDNkMTA4NzM3MzgwYjdiZDljMmYifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/orders.ts#L92-L107",
+          "version": "repo-lines-v1:sha256:84abed7e600650a293e8f8121813d02a54daf5478c084c803d6850f9b0adf96a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY3Mzk1NDMzZDQwMzQxMDAxNzMwNzQyYjZmYWQyMDM3Y2JhNjQ2MDA3MzViNjIxMTEyM2M3ZDJlMjc2ZDE0MmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ4NmZjMTkyMjYwOWI2M2EwNjZhOTA5ZDFhMWJjOWY5NjliMTViMjRlYmQxNDllYmYwYmFjMTAzZGIyOWM2OTQifQ"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-28T14:04:09.857Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-11T07:47:18.578Z"
   }
 }

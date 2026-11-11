@@ -6,6 +6,8 @@ tags: [package, react, adapter, hooks, nextjs, payments, cart]
 sources:
   - id: openwiki-source-54f8315d21086325777bcf77
     resource: repo://packages/kit-react/package.json
+  - id: openwiki-source-55fe50166b2d54dba289eb90
+    resource: repo://packages/kit-react/src/__tests__/provider.test.tsx
   - id: openwiki-source-627a62714caeaf0818b017ca
     resource: repo://packages/kit-react/src/cart.tsx
   - id: openwiki-source-0edf9c48025b350dd4dc49de
@@ -30,10 +32,12 @@ sources:
     resource: repo://packages/kit-react/src/next/sync.tsx
   - id: openwiki-source-cb4e00ba25df046ed879c14f
     resource: repo://packages/kit-react/src/payments.tsx
-generated: { by: "openwiki/0.7.2", at: "2026-10-18T16:02:49.713Z" }
+  - id: openwiki-source-42dfd0defa8189243ef19509
+    resource: repo://packages/kit/src/types.ts
+generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-18T16:02:49.713Z
+  - by: openwiki/0.9.0
+    at: 2026-11-11T07:47:18.578Z
 ---
 
 # @ulabase/kit-react
@@ -198,7 +202,7 @@ import { RhAuthProvider, RhPaymentsProvider } from '@ulabase/kit-react';
 </RhAuthProvider>
 ```
 
-**Important**: `RhPaymentsProvider` must be placed inside `RhAuthProvider` — it reads the current user from `useAuth()` to derive `canManageBilling`.
+**Important**: `RhPaymentsProvider` must be placed inside `RhAuthProvider` — it reads the current user from `useAuth()` to derive `canManageBilling`. Set `config.payments` to `true` to opt in; when the flag is absent or `false` the provider never calls `/stripe/*` and subscription state stays `null`.
 
 ### Reactive State
 
@@ -211,6 +215,10 @@ payments.isSubscribed;      // boolean (has active subscription)
 payments.canManageBilling;  // boolean (user.team.role === ownershipRole)
 payments.seatsAvailable;    // number | null (available seats)
 ```
+
+`canManageBilling` is derived from the current user's team role against `config.ownershipRole` (default `'owner'`). It gates checkout, the billing portal, and license management — it must match the service's `accountsConfig.ownership-role`, or the billing UI is shown to the wrong people.
+
+`usePayments()` throws if called outside a `RhPaymentsProvider`.
 
 ### Methods
 
@@ -228,6 +236,7 @@ await payments.revokeLicense(userId);                       // revoke seat
 
 // Catalog & orders
 await payments.getCatalog(opts?);                           // read product catalog
+await payments.getCatalogItem(id, collection?);             // read one product
 await payments.createOrder(items, email?, collection?);     // create order & start Checkout
 await payments.getOrder(id, secret?, collection?);          // read order
 
@@ -236,11 +245,27 @@ await payments.waitForSubscription(predicate, opts?);       // poll until subscr
 await payments.waitForOrder(id, secret?, opts?);            // poll until order leaves 'pending_payment'
 ```
 
-### Automatic Behavior
+Failure semantics worth knowing:
 
-- **On sign-in/team switch**: loads the subscription automatically
-- **On sign-out**: clears subscription state
-- **`waitForSubscription`** and **`waitForOrder`** poll until the predicate is satisfied or timeout (useful for Checkout success pages where the redirect races the webhook)
+- `createCheckoutSession` **rejects with `status: 409`** when the team already has an active subscription — send those users to `openBillingPortal` instead. The rejection reaches the caller; provider state is left unchanged.
+- `grantLicense` **rejects with `status: 409`** when no seat is available.
+- `waitForSubscription` and `waitForOrder` reject with `WaitTimeoutError` when the webhook has not arrived yet. **Timing out is not a payment failure** — retry or show a pending state.
+
+### Subscription Lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Empty
+    Empty --> Loaded: sign-in or team switch with payments enabled
+    Loaded --> Loaded: team switch reloads for the new team
+    Loaded --> Empty: sign-out or clearSession
+    Loaded --> Loaded: waitForSubscription resolves
+    Loaded --> Loaded: profile edit or consent acceptance keeps state
+```
+
+Subscription loading is keyed on the current team id (`teamKey`), not on the `auth.user` object. `updateProfile` and `acceptConsents` re-run `checkSession` and replace the user with a freshly parsed document; because a subscription belongs to the team rather than the profile, those refreshes deliberately do **not** trigger a reload.
+
+All automatic loads are gated on `config.payments === true`. When the flag is absent or `false`, `loadSubscription` returns `null` without calling the API, and no `/stripe/*` request is ever made.
 
 ## Cart
 
