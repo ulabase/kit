@@ -19,7 +19,8 @@ export function getAdminPassword(): string {
 const runId = crypto.randomUUID().slice(0, 8);
 
 export function testEmail(label: string): string {
-  return `test-${runId}-${label}@test.ulabase.dev`;
+  // SES mailbox simulator: accepted and delivered, kept out of the bounce and complaint stats
+  return `success+test-${runId}-${label}@simulator.amazonses.com`;
 }
 
 // ── Admin fetch (Basic Auth, no cookie jar) ──────────────────────────────────

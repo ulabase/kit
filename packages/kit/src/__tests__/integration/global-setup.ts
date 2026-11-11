@@ -6,16 +6,16 @@ import { adminFetch } from './helpers';
  * Uses bulk DELETE with filter — single request per collection.
  */
 async function cleanupAllTestData() {
-  // 1. Bulk delete all test users (*@test.ulabase.dev)
-  const userFilter = encodeURIComponent(JSON.stringify({ _id: { $regex: '@test\\.ulabase\\.dev$' } }));
+  // 1. Bulk delete all test users (success+test-*@simulator.amazonses.com)
+  const userFilter = encodeURIComponent(JSON.stringify({ _id: { $regex: '^success\\+test-.*@simulator\\.amazonses\\.com$' } }));
   await adminFetch(`/users/*?filter=${userFilter}`, { method: 'DELETE' });
 
   // 2. Bulk delete all test teams (createdBy matching test emails)
-  const teamFilter = encodeURIComponent(JSON.stringify({ '$or': [{ createdBy: { '$regex': '.*@test\\.ulabase\\.dev' } }, { createdBy: { '$regex': '.*@example\\.com' } }] }));
+  const teamFilter = encodeURIComponent(JSON.stringify({ '$or': [{ createdBy: { '$regex': '^success\\+test-.*@simulator\\.amazonses\\.com$' } }, { createdBy: { '$regex': '.*@example\\.com' } }] }));
   await adminFetch(`/teams/*?filter=${teamFilter}`, { method: 'DELETE' });
 
   // 3. Bulk delete all test invitations
-  const inviteFilter = encodeURIComponent(JSON.stringify({ email: { $regex: '@test\\.ulabase\\.dev$' } }));
+  const inviteFilter = encodeURIComponent(JSON.stringify({ email: { $regex: '^success\\+test-.*@simulator\\.amazonses\\.com$' } }));
   await adminFetch(`/auth_invitations/*?filter=${inviteFilter}`, { method: 'DELETE' });
 }
 
