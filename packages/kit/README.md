@@ -88,12 +88,32 @@ Errors are thrown as `{ status: number; message: string }`.
 
 ## API
 
+
+### Language of the emails and of Stripe's pages
+
+`locale` is a language code of 2 to 5 letters, such as `'en'` or `'it'`. Every function that
+sends an email or opens a Stripe page takes it as an optional last argument (`register` takes
+it in its payload, `createOrder` in its options): pass the language of the page the user is on.
+
+| Where | What `locale` does |
+|---|---|
+| `register`, `invite` of a new email | Language of the email, and stored on the user |
+| `invite` of an existing user, `resendInvite`, `forgotPassword` | Language of the email, only when the user has no locale of their own |
+| `updateProfile` | Sets the user's own locale: from then on it wins over what a request says |
+| `createCheckoutSession`, `openBillingPortal` | Language of the Stripe page |
+| `createOrder` | Language of the Checkout page and of the emails about the order |
+
+Without it nothing changes: the service uses the user's locale, then its default. The service
+needs RESTHeart 9.17.1. An older one ignores `locale` everywhere but in two places: it refuses
+a `createOrder` that carries it, and an `updateProfile` with nothing but `locale`. Pass it to
+those two only on a service that knows it.
+
 ### Auth
 
 | Function | Description |
 |---|---|
 | `checkSession(config)` | Returns `UserInfo` if a valid token is held in memory, `null` otherwise |
-| `register(config, payload)` | Sign up — creates user and team. Accepts additional properties for app-specific JSON Schema fields (e.g. consents) |
+| `register(config, payload)` | Sign up — creates user and team. Accepts additional properties for app-specific JSON Schema fields (e.g. consents). An optional `locale` in the payload is the language of the user's emails |
 | `verify(config, email, token, delivery?)` | Verify email after signup — returns a URL for browser redirect (`delivery`: `'fragment'` (default) or `'cookie'`) |
 | `login(config, email, password, mode?)` | Email/password login (`mode`: `'bearer'` (default) or `'cookie'`) |
 | `logout(config)` | Clears the token and cancels pending refresh |
@@ -117,17 +137,17 @@ Errors are thrown as `{ status: number; message: string }`.
 
 | Function | Description |
 |---|---|
-| `invite(config, email, role)` | Invite a user to the current team |
+| `invite(config, email, role, locale?)` | Invite a user to the current team. `locale` is the language of the email |
 | `getInvitation(config, email, token)` | Invitation metadata (org name, role, isNewUser) |
 | `activate(config, payload, mode?)` | Activate account for a newly invited user (`mode`: `'bearer'` (default) or `'cookie'`) |
 | `acceptInvite(config, token)` | Accept invitation for an already registered user |
-| `resendInvite(config, email)` | Resend an expired invitation |
+| `resendInvite(config, email, locale?)` | Resend an expired invitation |
 
 ### Password
 
 | Function | Description |
 |---|---|
-| `forgotPassword(config, email)` | Request a reset link (always returns 202) |
+| `forgotPassword(config, email, locale?)` | Request a reset link (always returns 202) |
 | `resetPassword(config, payload, mode?)` | Apply the reset token (`mode`: `'bearer'` (default) or `'cookie'`) |
 
 ### Multi-team
@@ -145,8 +165,8 @@ Requires the [`stripe` plugin](#payments) on the service. See [Payments](#paymen
 |---|---|
 | `getPlans(config)` | The service's plan catalog — no session required, safe from a public pricing page |
 | `getSubscription(config)` | The caller's team's subscription. Any member may call it, not just the billing owner |
-| `createCheckoutSession(config, plan, interval)` | Start Checkout, returns `{url}` to navigate to. **Rejects `409`** when already subscribed — send those to the Portal instead |
-| `openBillingPortal(config)` | Start a Customer Portal session, returns `{url}`. **Rejects `402`** for a team that never checked out |
+| `createCheckoutSession(config, plan, interval, locale?)` | Start Checkout, returns `{url}` to navigate to. `locale` is the language of the page. **Rejects `409`** when already subscribed — send those to the Portal instead |
+| `openBillingPortal(config, locale?)` | Start a Customer Portal session, returns `{url}`. **Rejects `402`** for a team that never checked out |
 | `getLicenses(config)` | The team's seat licences |
 | `grantLicense(config, userId)` | Grant a seat — resolves `'granted'` (201) or `'already-licensed'` (200), rejects `409` when no seat is free |
 | `revokeLicense(config, userId)` | Revoke a seat |
@@ -157,7 +177,7 @@ Requires the [`stripe` plugin](#payments) on the service. See [Payments](#paymen
 | Function | Description |
 |---|---|
 | `getCatalog(config, opts?)` | Read the catalog collection (`opts.collection` defaults to `'catalog'`, `pagesize`, `page`), or one of its aggregations with `aggregation` and its `vars`: the service takes no `?filter=` |
-| `createOrder(config, items, email?, collection?)` | Create an order and start Checkout — returns `{_id, checkout_url, secret}`. Pass `email` for guest checkout |
+| `createOrder(config, items, options?)` | Create an order and start Checkout — returns `{_id, checkout_url, secret}`. `options` is `{ email?, collection?, locale? }`: `email` for guest checkout, `locale` for the language of the page and of the order's emails. The earlier `createOrder(config, items, email?, collection?)` still works |
 | `getOrder(config, id, secret?, collection?)` | Read an order back. `secret` is the guest path — no session needed |
 | `waitForOrder(config, id, secret?, opts?)` | Poll until the order leaves `'pending_payment'` — for the order return page |
 | `readOrderRef(url?)` | Read `{id, secret}` out of the Checkout return URL — see [below](#knowing-which-order-came-back) |

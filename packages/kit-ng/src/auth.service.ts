@@ -53,6 +53,7 @@ export class RhAuthService {
     teamName: string;
     firstName: string;
     lastName: string;
+    locale?: string;
     [key: string]: unknown;
   }): Observable<void> {
     return from(kit.register(this.config, payload));
@@ -84,8 +85,8 @@ export class RhAuthService {
     );
   }
 
-  invite(email: string, role: 'owner' | 'member'): Observable<void> {
-    return from(kit.invite(this.config, email, role));
+  invite(email: string, role: 'owner' | 'member', locale?: string): Observable<void> {
+    return from(kit.invite(this.config, email, role, locale));
   }
 
   getInvitation(email: string, token: string) {
@@ -108,8 +109,8 @@ export class RhAuthService {
     );
   }
 
-  resendInvite(email: string): Observable<void> {
-    return from(kit.resendInvite(this.config, email));
+  resendInvite(email: string, locale?: string): Observable<void> {
+    return from(kit.resendInvite(this.config, email, locale));
   }
 
   listInvitations(): Observable<PendingInvitation[]> {
@@ -136,8 +137,8 @@ export class RhAuthService {
     this._teams.set([]);
   }
 
-  forgotPassword(email: string): Observable<void> {
-    return from(kit.forgotPassword(this.config, email));
+  forgotPassword(email: string, locale?: string): Observable<void> {
+    return from(kit.forgotPassword(this.config, email, locale));
   }
 
   resetPassword(payload: { email: string; token: string; password: string }, mode: LoginMode = 'bearer'): Observable<void> {
@@ -174,7 +175,7 @@ export class RhAuthService {
 
   // ── Profile & password ──────────────────────────────────────────────────
 
-  updateProfile(updates: { firstName?: string; lastName?: string }): Observable<void> {
+  updateProfile(updates: { firstName?: string; lastName?: string; locale?: string }): Observable<void> {
     return from(kit.updateProfile(this.config, updates)).pipe(
       switchMap(() => this.checkSession()),
       map(() => undefined)

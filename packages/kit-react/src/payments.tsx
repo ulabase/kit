@@ -60,9 +60,9 @@ export interface RhPayments {
    * **Rejects with `status: 409`** when the team already has an active
    * subscription — send them to {@link openBillingPortal} instead.
    */
-  createCheckoutSession(plan: string, interval: 'month' | 'year'): Promise<{ url: string }>;
+  createCheckoutSession(plan: string, interval: 'month' | 'year', locale?: string): Promise<{ url: string }>;
   /** Open the Stripe Customer Portal for self-service plan changes. */
-  openBillingPortal(): Promise<{ url: string }>;
+  openBillingPortal(locale?: string): Promise<{ url: string }>;
   /** The team's seat licences. Requires `canManageBilling`. */
   getLicenses(): Promise<Licenses>;
   /**
@@ -81,6 +81,11 @@ export interface RhPayments {
    *
    * @param email Required for guest checkout.
    */
+  createOrder(
+    items: { productId: string; quantity: number }[],
+    options?: kit.CreateOrderOptions
+  ): Promise<{ _id: { $oid: string }; checkout_url: string; secret: string }>;
+  /** The signature before the options: `email` and `collection` as arguments, no `locale`. */
   createOrder(
     items: { productId: string; quantity: number }[],
     email?: string,
@@ -188,12 +193,12 @@ export function RhPaymentsProvider({ config, children }: RhPaymentsProviderProps
     []
   );
   const createCheckoutSession = useCallback(
-    (plan: string, interval: 'month' | 'year') =>
-      kit.createCheckoutSession(configRef.current, plan, interval),
+    (plan: string, interval: 'month' | 'year', locale?: string) =>
+      kit.createCheckoutSession(configRef.current, plan, interval, locale),
     []
   );
   const openBillingPortal = useCallback(
-    () => kit.openBillingPortal(configRef.current),
+    (locale?: string) => kit.openBillingPortal(configRef.current, locale),
     []
   );
   const getLicenses = useCallback(
@@ -218,8 +223,14 @@ export function RhPaymentsProvider({ config, children }: RhPaymentsProviderProps
     []
   );
   const createOrder = useCallback(
-    (items: { productId: string; quantity: number }[], email?: string, collection?: string) =>
-      kit.createOrder(configRef.current, items, email, collection),
+    (
+      items: { productId: string; quantity: number }[],
+      emailOrOptions?: string | kit.CreateOrderOptions,
+      collection?: string
+    ) =>
+      typeof emailOrOptions === 'object'
+        ? kit.createOrder(configRef.current, items, emailOrOptions)
+        : kit.createOrder(configRef.current, items, emailOrOptions, collection),
     []
   );
   const getOrder = useCallback(

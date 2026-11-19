@@ -2,14 +2,23 @@ import type { AuthConfig, Invitation, LoginMode, PendingInvitation } from './typ
 import { apiFetch } from './client.js';
 import { applyBearerDelivery } from './auth.js';
 
+/**
+ * Invites an email to the caller's team.
+ *
+ * @param locale Optional. The language of the invitation email, a code of 2 to 5 letters
+ *               such as `'it'`. For an email with no account it is also stored on the user
+ *               the invitation creates. For an existing user it counts only when they have
+ *               no locale of their own. Needs RESTHeart 9.17.1.
+ */
 export async function invite(
   config: AuthConfig,
   email: string,
-  role: 'owner' | 'member'
+  role: 'owner' | 'member',
+  locale?: string
 ): Promise<void> {
   await apiFetch(config, '/auth/invite', {
     method: 'POST',
-    body: JSON.stringify({ email, role }),
+    body: JSON.stringify(locale ? { email, role, locale } : { email, role }),
   });
 }
 
@@ -60,10 +69,17 @@ export async function acceptInvite(config: AuthConfig, token: string): Promise<v
   });
 }
 
-export async function resendInvite(config: AuthConfig, email: string): Promise<void> {
+/**
+ * Sends a pending invitation again, with a new token.
+ *
+ * @param locale Optional. The language of the email, a code of 2 to 5 letters such as
+ *               `'it'`. The service uses it only when the recipient has no locale of their
+ *               own, and falls back to its default without it. Needs RESTHeart 9.17.1.
+ */
+export async function resendInvite(config: AuthConfig, email: string, locale?: string): Promise<void> {
   await apiFetch(config, '/auth/resend-invite', {
     method: 'POST',
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(locale ? { email, locale } : { email }),
   });
 }
 

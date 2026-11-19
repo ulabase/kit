@@ -101,6 +101,31 @@ describe('createOrder', () => {
     await createOrder({ apiBaseUrl, transport }, [{ productId: 'SKU-1', quantity: 1 }], undefined, 'purchases');
     expect(transport).toHaveBeenCalledWith(`${apiBaseUrl}/purchases`, expect.anything());
   });
+
+  it('includes locale when given, for the Checkout page and the emails about the order', async () => {
+    const transport = vi.fn(async () => new Response(JSON.stringify(order()), { status: 201 }));
+    await createOrder({ apiBaseUrl, transport }, [{ productId: 'SKU-1', quantity: 1 }], {
+      email: 'buyer@example.com',
+      locale: 'it',
+    });
+
+    expect(transport).toHaveBeenCalledWith(`${apiBaseUrl}/orders`, expect.anything());
+    const [, init] = transport.mock.calls[0]!;
+    expect(JSON.parse((init as RequestInit).body as string)).toEqual({
+      items: [{ productId: 'SKU-1', quantity: 1 }],
+      email: 'buyer@example.com',
+      locale: 'it',
+    });
+  });
+
+  it('takes the collection from the options too', async () => {
+    const transport = vi.fn(async () => new Response(JSON.stringify(order()), { status: 201 }));
+    await createOrder({ apiBaseUrl, transport }, [{ productId: 'SKU-1', quantity: 1 }], { collection: 'purchases' });
+
+    expect(transport).toHaveBeenCalledWith(`${apiBaseUrl}/purchases`, expect.anything());
+    const [, init] = transport.mock.calls[0]!;
+    expect(JSON.parse((init as RequestInit).body as string)).toEqual({ items: [{ productId: 'SKU-1', quantity: 1 }] });
+  });
 });
 
 describe('getOrder', () => {

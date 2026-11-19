@@ -143,14 +143,59 @@ export interface OrderItem {
   metadata?: Record<string, string>;
 }
 
+/** What {@link createOrder} takes beyond the items. */
+export interface CreateOrderOptions {
+  /** Required for a guest checkout. Omit when the caller is authenticated. */
+  email?: string;
+  /** Defaults to `'orders'`: the configured `products.orders-collection`, if the service renamed it. */
+  collection?: string;
+  /**
+   * The language of the Checkout page and of the emails about the order, a code of 2 to 5
+   * letters such as `'it'`: pass the language of the page the buyer is on. A signed-in
+   * buyer's own locale wins over it. Needs RESTHeart 9.17.1: an older service refuses the
+   * order, since it accepts no field but `items` and `email`.
+   */
+  locale?: string;
+}
+
+/**
+ * Creates an order and starts its Checkout.
+ *
+ * ```ts
+ * await createOrder(config, items, { email: 'buyer@example.com', locale: 'it' });
+ * ```
+ */
+export async function createOrder(
+  config: AuthConfig,
+  items: OrderItem[],
+  options?: CreateOrderOptions
+): Promise<{ _id: { $oid: string }; checkout_url: string; secret: string }>;
+/**
+ * The same with `email` and `collection` as arguments: the signature before the options.
+ * It takes no `locale`.
+ */
 export async function createOrder(
   config: AuthConfig,
   items: OrderItem[],
   email?: string,
-  collection: string = DEFAULT_ORDERS_COLLECTION
+  collection?: string
+): Promise<{ _id: { $oid: string }; checkout_url: string; secret: string }>;
+export async function createOrder(
+  config: AuthConfig,
+  items: OrderItem[],
+  emailOrOptions?: string | CreateOrderOptions,
+  collectionArg?: string
 ): Promise<{ _id: { $oid: string }; checkout_url: string; secret: string }> {
+  const options: CreateOrderOptions =
+    typeof emailOrOptions === 'object' && emailOrOptions !== null
+      ? emailOrOptions
+      : { email: emailOrOptions, collection: collectionArg };
+  const { email, locale } = options;
+  const collection = options.collection ?? DEFAULT_ORDERS_COLLECTION;
+
   const body: Record<string, unknown> = { items };
   if (email) body['email'] = email;
+  if (locale) body['locale'] = locale;
 
   const res = await apiFetch(config, `/${collection}`, {
     method: 'POST',

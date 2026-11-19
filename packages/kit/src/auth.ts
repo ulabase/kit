@@ -151,6 +151,13 @@ export async function register<E extends object = Record<never, never>>(
     teamName: string;
     firstName: string;
     lastName: string;
+    /**
+     * Optional. The language of the verification email and of the later emails to this
+     * user, a code of 2 to 5 letters such as `'it'`. Stored on the user. Needs RESTHeart
+     * 9.17.1: before, it is dropped, or carried as an extra property where a JSON Schema
+     * allows one.
+     */
+    locale?: string;
   } & E
 ): Promise<void> {
   await apiFetch(config, '/auth/register', {

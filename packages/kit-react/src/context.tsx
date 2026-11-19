@@ -52,17 +52,18 @@ export interface RhAuth {
     teamName: string;
     firstName: string;
     lastName: string;
+    locale?: string;
     [key: string]: unknown;
   }): Promise<void>;
   verify(email: string, token: string, delivery?: 'cookie' | 'fragment'): Promise<string>;
   login(email: string, password: string, mode?: LoginMode): Promise<UserInfo>;
   logout(mode?: LoginMode): Promise<void>;
-  forgotPassword(email: string): Promise<void>;
+  forgotPassword(email: string, locale?: string): Promise<void>;
   resetPassword(
     payload: { email: string; token: string; password: string },
     mode?: LoginMode
   ): Promise<void>;
-  updateProfile(updates: { firstName?: string; lastName?: string }): Promise<void>;
+  updateProfile(updates: { firstName?: string; lastName?: string; locale?: string }): Promise<void>;
   updateUser(email: string, updates: Record<string, unknown>): Promise<void>;
   /**
    * A `fetch` against the service with the session already applied — the
@@ -86,14 +87,14 @@ export interface RhAuth {
   /** Force a new token, carrying the user document as it is now. */
   renewToken(mode?: LoginMode): Promise<string | null>;
   changePassword(currentPassword: string, newPassword: string): Promise<void>;
-  invite(email: string, role: 'owner' | 'member'): Promise<void>;
+  invite(email: string, role: 'owner' | 'member', locale?: string): Promise<void>;
   getInvitation(email: string, token: string): Promise<Invitation>;
   activate(
     payload: { email: string; token: string; password: string },
     mode?: LoginMode
   ): Promise<void>;
   acceptInvite(token: string): Promise<void>;
-  resendInvite(email: string): Promise<void>;
+  resendInvite(email: string, locale?: string): Promise<void>;
   listInvitations(): Promise<PendingInvitation[]>;
   loadTeams(): Promise<TeamMembership[]>;
   switchTeam(teamId: { $oid: string }, mode?: LoginMode): Promise<void>;
@@ -206,7 +207,7 @@ export function RhAuthProvider({ config, children }: RhAuthProviderProps): React
   );
 
   const updateProfile = useCallback(
-    async (updates: { firstName?: string; lastName?: string }): Promise<void> => {
+    async (updates: { firstName?: string; lastName?: string; locale?: string }): Promise<void> => {
       await kit.updateProfile(configRef.current, updates);
       await checkSession();
     },
@@ -224,7 +225,7 @@ export function RhAuthProvider({ config, children }: RhAuthProviderProps): React
     []
   );
   const forgotPassword = useCallback(
-    (email: string) => kit.forgotPassword(configRef.current, email),
+    (email: string, locale?: string) => kit.forgotPassword(configRef.current, email, locale),
     []
   );
   const resetPassword = useCallback(
@@ -270,7 +271,8 @@ export function RhAuthProvider({ config, children }: RhAuthProviderProps): React
     []
   );
   const invite = useCallback(
-    (email: string, role: 'owner' | 'member') => kit.invite(configRef.current, email, role),
+    (email: string, role: 'owner' | 'member', locale?: string) =>
+      kit.invite(configRef.current, email, role, locale),
     []
   );
   const getInvitation = useCallback(
@@ -289,7 +291,7 @@ export function RhAuthProvider({ config, children }: RhAuthProviderProps): React
     [checkSession]
   );
   const resendInvite = useCallback(
-    (email: string) => kit.resendInvite(configRef.current, email),
+    (email: string, locale?: string) => kit.resendInvite(configRef.current, email, locale),
     []
   );
   const listInvitations = useCallback(() => kit.listInvitations(configRef.current), []);

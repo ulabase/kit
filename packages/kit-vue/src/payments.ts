@@ -50,9 +50,9 @@ export interface RhPaymentsStore {
    * **Rejects with `status: 409`** when the team already has an active
    * subscription — send them to {@link openBillingPortal} instead.
    */
-  createCheckoutSession(plan: string, interval: 'month' | 'year'): Promise<{ url: string }>;
+  createCheckoutSession(plan: string, interval: 'month' | 'year', locale?: string): Promise<{ url: string }>;
   /** Open the Stripe Customer Portal for self-service plan changes. */
-  openBillingPortal(): Promise<{ url: string }>;
+  openBillingPortal(locale?: string): Promise<{ url: string }>;
   /** The team's seat licences. Requires `canManageBilling`. */
   getLicenses(): Promise<Licenses>;
   /**
@@ -71,6 +71,11 @@ export interface RhPaymentsStore {
    *
    * @param email Required for guest checkout.
    */
+  createOrder(
+    items: { productId: string; quantity: number }[],
+    options?: kit.CreateOrderOptions
+  ): Promise<{ _id: { $oid: string }; checkout_url: string; secret: string }>;
+  /** The signature before the options: `email` and `collection` as arguments, no `locale`. */
   createOrder(
     items: { productId: string; quantity: number }[],
     email?: string,
@@ -161,14 +166,21 @@ export function createRhPaymentsStore(
 
     loadSubscription,
     getPlans: () => kit.getPlans(config),
-    createCheckoutSession: (plan, interval) => kit.createCheckoutSession(config, plan, interval),
-    openBillingPortal: () => kit.openBillingPortal(config),
+    createCheckoutSession: (plan, interval, locale) => kit.createCheckoutSession(config, plan, interval, locale),
+    openBillingPortal: (locale) => kit.openBillingPortal(config, locale),
     getLicenses: () => kit.getLicenses(config),
     grantLicense: (userId) => kit.grantLicense(config, userId),
     revokeLicense: (userId) => kit.revokeLicense(config, userId),
     getCatalog: (opts) => kit.getCatalog(config, opts),
     getCatalogItem: (id, collection) => kit.getCatalogItem(config, id, collection),
-    createOrder: (items, email, collection) => kit.createOrder(config, items, email, collection),
+    createOrder: (
+      items: { productId: string; quantity: number }[],
+      emailOrOptions?: string | kit.CreateOrderOptions,
+      collection?: string
+    ) =>
+      typeof emailOrOptions === 'object'
+        ? kit.createOrder(config, items, emailOrOptions)
+        : kit.createOrder(config, items, emailOrOptions, collection),
     getOrder: (id, secret, collection) => kit.getOrder(config, id, secret, collection),
     waitForSubscription: async (predicate, opts) => {
       const sub = await kit.waitForSubscription(config, predicate, opts);

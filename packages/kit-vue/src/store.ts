@@ -36,17 +36,18 @@ export interface RhAuthStore {
     teamName: string;
     firstName: string;
     lastName: string;
+    locale?: string;
     [key: string]: unknown;
   }): Promise<void>;
   verify(email: string, token: string, delivery?: 'cookie' | 'fragment'): Promise<string>;
   login(email: string, password: string, mode?: LoginMode): Promise<UserInfo>;
   logout(mode?: LoginMode): Promise<void>;
-  forgotPassword(email: string): Promise<void>;
+  forgotPassword(email: string, locale?: string): Promise<void>;
   resetPassword(
     payload: { email: string; token: string; password: string },
     mode?: LoginMode
   ): Promise<void>;
-  updateProfile(updates: { firstName?: string; lastName?: string }): Promise<void>;
+  updateProfile(updates: { firstName?: string; lastName?: string; locale?: string }): Promise<void>;
   updateUser(email: string, updates: Record<string, unknown>): Promise<void>;
   /**
    * A `fetch` against the service with the session already applied — the Vue
@@ -70,14 +71,14 @@ export interface RhAuthStore {
   /** Force a new token, carrying the user document as it is now. */
   renewToken(mode?: LoginMode): Promise<string | null>;
   changePassword(currentPassword: string, newPassword: string): Promise<void>;
-  invite(email: string, role: 'owner' | 'member'): Promise<void>;
+  invite(email: string, role: 'owner' | 'member', locale?: string): Promise<void>;
   getInvitation(email: string, token: string): Promise<Invitation>;
   activate(
     payload: { email: string; token: string; password: string },
     mode?: LoginMode
   ): Promise<void>;
   acceptInvite(token: string): Promise<void>;
-  resendInvite(email: string): Promise<void>;
+  resendInvite(email: string, locale?: string): Promise<void>;
   listInvitations(): Promise<PendingInvitation[]>;
   loadTeams(): Promise<TeamMembership[]>;
   switchTeam(teamId: { $oid: string }, mode?: LoginMode): Promise<void>;
@@ -158,7 +159,7 @@ export function createRhAuthStore(config: AuthConfig): RhAuthStore {
     await checkSession();
   }
 
-  async function updateProfile(updates: { firstName?: string; lastName?: string }): Promise<void> {
+  async function updateProfile(updates: { firstName?: string; lastName?: string; locale?: string }): Promise<void> {
     await kit.updateProfile(config, updates);
     await checkSession();
   }
@@ -189,7 +190,7 @@ export function createRhAuthStore(config: AuthConfig): RhAuthStore {
     verify: (email, token, delivery = 'fragment') => kit.verify(config, email, token, delivery),
     login,
     logout,
-    forgotPassword: (email) => kit.forgotPassword(config, email),
+    forgotPassword: (email, locale) => kit.forgotPassword(config, email, locale),
     resetPassword: async (payload, mode = 'bearer') => {
       await kit.resetPassword(config, payload, mode);
     },
@@ -199,13 +200,13 @@ export function createRhAuthStore(config: AuthConfig): RhAuthStore {
     api: (path, init) => kit.apiFetch(config, path, init),
     acceptConsents,
     renewToken: (mode = 'bearer') => kit.renewToken(config, mode),
-    invite: (email, role) => kit.invite(config, email, role),
+    invite: (email, role, locale) => kit.invite(config, email, role, locale),
     getInvitation: (email, token) => kit.getInvitation(config, email, token),
     activate: async (payload, mode = 'bearer') => {
       await kit.activate(config, payload, mode);
     },
     acceptInvite,
-    resendInvite: (email) => kit.resendInvite(config, email),
+    resendInvite: (email, locale) => kit.resendInvite(config, email, locale),
     listInvitations: () => kit.listInvitations(config),
     loadTeams,
     switchTeam,

@@ -102,13 +102,13 @@ export class RhPaymentsService {
    * **Rejects with `status: 409`** when the team already has an active
    * subscription — send them to {@link openBillingPortal} instead.
    */
-  createCheckoutSession(plan: string, interval: 'month' | 'year'): Observable<{ url: string }> {
-    return from(kit.createCheckoutSession(this.config, plan, interval));
+  createCheckoutSession(plan: string, interval: 'month' | 'year', locale?: string): Observable<{ url: string }> {
+    return from(kit.createCheckoutSession(this.config, plan, interval, locale));
   }
 
   /** Open the Stripe Customer Portal for self-service plan changes. */
-  openBillingPortal(): Observable<{ url: string }> {
-    return from(kit.openBillingPortal(this.config));
+  openBillingPortal(locale?: string): Observable<{ url: string }> {
+    return from(kit.openBillingPortal(this.config, locale));
   }
 
   /** The team's seat licences. Requires `canManageBilling`. */
@@ -146,10 +146,24 @@ export class RhPaymentsService {
    */
   createOrder(
     items: { productId: string; quantity: number }[],
+    options?: kit.CreateOrderOptions
+  ): Observable<{ _id: { $oid: string }; checkout_url: string; secret: string }>;
+  /** The signature before the options: `email` and `collection` as arguments, no `locale`. */
+  createOrder(
+    items: { productId: string; quantity: number }[],
     email?: string,
     collection?: string
+  ): Observable<{ _id: { $oid: string }; checkout_url: string; secret: string }>;
+  createOrder(
+    items: { productId: string; quantity: number }[],
+    emailOrOptions?: string | kit.CreateOrderOptions,
+    collection?: string
   ): Observable<{ _id: { $oid: string }; checkout_url: string; secret: string }> {
-    return from(kit.createOrder(this.config, items, email, collection));
+    return from(
+      typeof emailOrOptions === 'object'
+        ? kit.createOrder(this.config, items, emailOrOptions)
+        : kit.createOrder(this.config, items, emailOrOptions, collection)
+    );
   }
 
   /** Read an order back. */

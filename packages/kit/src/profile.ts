@@ -1,10 +1,16 @@
 import type { AuthConfig } from './types.js';
 import { apiFetch } from './client.js';
 
-/** Updates the caller's own profile fields. restheart#646. */
+/**
+ * Updates the caller's own profile fields. restheart#646.
+ *
+ * `locale` is the language the user wants the emails in, a code of 2 to 5 letters such as
+ * `'it'`: the user's own choice, which replaces the one a registration or an invitation made
+ * for them. Needs RESTHeart 9.17.1: before, a body with only `locale` is refused with `400`.
+ */
 export async function updateProfile(
   config: AuthConfig,
-  updates: { firstName?: string; lastName?: string }
+  updates: { firstName?: string; lastName?: string; locale?: string }
 ): Promise<void> {
   await apiFetch(config, '/auth/profile', { method: 'PATCH', body: JSON.stringify(updates) });
 }

@@ -65,12 +65,43 @@ describe('createCheckoutSession', () => {
     const config: AuthConfig = { apiBaseUrl, transport: async () => new Response(null, { status: 409 }) };
     await expect(createCheckoutSession(config, 'gold', 'month')).rejects.toMatchObject({ status: 409 });
   });
+
+  it('sends locale only when given: a service that does not know it is sent nothing new', async () => {
+    const bodies: unknown[] = [];
+    const config: AuthConfig = {
+      apiBaseUrl,
+      transport: async (_url, init) => {
+        bodies.push(JSON.parse((init as RequestInit).body as string));
+        return new Response(JSON.stringify({ url: 'https://checkout.stripe.com/x' }), { status: 201 });
+      },
+    };
+    await createCheckoutSession(config, 'gold', 'month');
+    await createCheckoutSession(config, 'gold', 'month', 'it');
+    expect(bodies).toEqual([
+      { plan: 'gold', interval: 'month' },
+      { plan: 'gold', interval: 'month', locale: 'it' },
+    ]);
+  });
 });
 
 describe('openBillingPortal', () => {
   it('rejects with status 402 for a team with no Stripe customer yet', async () => {
     const config: AuthConfig = { apiBaseUrl, transport: async () => new Response(null, { status: 402 }) };
     await expect(openBillingPortal(config)).rejects.toMatchObject({ status: 402 });
+  });
+
+  it('has no body without a locale, and the locale alone with one', async () => {
+    const bodies: unknown[] = [];
+    const config: AuthConfig = {
+      apiBaseUrl,
+      transport: async (_url, init) => {
+        bodies.push((init as RequestInit).body);
+        return new Response(JSON.stringify({ url: 'https://billing.stripe.com/x' }), { status: 201 });
+      },
+    };
+    await openBillingPortal(config);
+    await openBillingPortal(config, 'it');
+    expect(bodies).toEqual([undefined, JSON.stringify({ locale: 'it' })]);
   });
 });
 

@@ -64,15 +64,21 @@ export async function getSubscription(config: AuthConfig): Promise<Subscription>
  *
  * @param interval `'month'` or `'year'` — must match a price the plan
  *                 declares, or this rejects with `status: 400`.
+ * @param locale   Optional. The language of the Checkout page, a code of 2 to 5
+ *                 letters such as `'it'`: pass the language of the page the buyer
+ *                 is on. Without it the page is in the language of the team's
+ *                 billing contact, else Stripe follows the browser. Needs
+ *                 RESTHeart 9.17.1.
  */
 export async function createCheckoutSession(
   config: AuthConfig,
   plan: string,
-  interval: 'month' | 'year'
+  interval: 'month' | 'year',
+  locale?: string
 ): Promise<{ url: string }> {
   const res = await apiFetch(config, '/stripe/checkout', {
     method: 'POST',
-    body: JSON.stringify({ plan, interval }),
+    body: JSON.stringify(locale ? { plan, interval, locale } : { plan, interval }),
   });
   return res.json() as Promise<{ url: string }>;
 }
@@ -87,9 +93,17 @@ export async function createCheckoutSession(
  * **Rejects with `status: 402`** for a team that has never checked out: the
  * Portal has nothing to manage without a Stripe Customer behind it. Route a
  * `402` to {@link createCheckoutSession} instead of retrying the Portal.
+ *
+ * @param locale Optional. The language of the Portal, with the same rule as
+ *               {@link createCheckoutSession}. Needs RESTHeart 9.17.1.
  */
-export async function openBillingPortal(config: AuthConfig): Promise<{ url: string }> {
-  const res = await apiFetch(config, '/stripe/portal', { method: 'POST' });
+export async function openBillingPortal(config: AuthConfig, locale?: string): Promise<{ url: string }> {
+  // no body without a locale, as before: an older service is sent nothing new
+  const res = await apiFetch(
+    config,
+    '/stripe/portal',
+    locale ? { method: 'POST', body: JSON.stringify({ locale }) } : { method: 'POST' }
+  );
   return res.json() as Promise<{ url: string }>;
 }
 

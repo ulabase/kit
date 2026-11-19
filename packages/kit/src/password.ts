@@ -2,10 +2,18 @@ import type { AuthConfig, LoginMode } from './types.js';
 import { apiFetch } from './client.js';
 import { applyBearerDelivery } from './auth.js';
 
-export async function forgotPassword(config: AuthConfig, email: string): Promise<void> {
+/**
+ * Asks for a password reset email. The answer is the same whether the email has an account
+ * or not.
+ *
+ * @param locale Optional. The language of the email, a code of 2 to 5 letters such as
+ *               `'it'`. The service uses it only when the recipient has no locale of their
+ *               own, and falls back to its default without it. Needs RESTHeart 9.17.1.
+ */
+export async function forgotPassword(config: AuthConfig, email: string, locale?: string): Promise<void> {
   await apiFetch(config, '/auth/forgot-password', {
     method: 'POST',
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(locale ? { email, locale } : { email }),
   });
 }
 
