@@ -4,6 +4,12 @@ title: "@ulabase/kit"
 description: Core framework-agnostic package with zero dependencies. Provides authentication, token management, team operations, consents gating, password reset, profile management, payments, orders, cart, and money formatting.
 tags: [package, core, authentication, payments, orders, cart, typescript]
 sources:
+  - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
+    resource: repo://docs/ADAPTER_CONTRACT.md
+  - id: openwiki-source-f11db6d857f6461980bb57f5
+    resource: repo://docs/ADAPTERS.md
+  - id: openwiki-source-04fe535dd40e91b8f0ab6855
+    resource: repo://packages/kit/src/__tests__/integration/invite.test.ts
   - id: openwiki-source-d846911884642122d8dd6179
     resource: repo://packages/kit/src/auth.ts
   - id: openwiki-source-7dbc4364bd37edb52c104a4d
@@ -28,10 +34,10 @@ sources:
     resource: repo://packages/kit/src/team.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-19T17:44:47.604Z" }
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-11T07:47:18.578Z
+    at: 2026-11-19T17:44:47.604Z
 ---
 
 # @ulabase/kit
@@ -412,6 +418,34 @@ await deleteTeam(config);
 
 ## Invitation Flows
 
+The invitation page is served at two paths: `/auth/activate` for a new user and `/invitations/accept` for an existing user. The service's invitation email links the invitee to the matching path, and both paths must stay unguarded so the page works for signed-out invitees, signed-in users, and people without an account. See the adapter pages for the routing requirement: [kit-ng](kit-ng.md#route-guards), [kit-react](kit-react.md#route-guards), [kit-vue](kit-vue.md#navigation-guards).
+
+Behind the page, the kit splits the flow at the API: `activate` sets the password and auto-logs in a newly invited user via `PATCH /auth/activate`, while `acceptInvite` adds an existing user to the team via `POST /auth/accept-invite`.
+
+```mermaid
+sequenceDiagram
+    participant Invitee as Invitee
+    participant Page as Invitation Page
+    participant Kit as @ulabase/kit
+    participant Service as Ulabase Service
+
+    alt New user linked to /auth/activate
+        Invitee->>Page: Opens the new-user invitation page
+        Page->>Kit: activate(config, payload)
+        Kit->>Service: PATCH /auth/activate
+        Service-->>Kit: access token in body or cookie
+        Kit-->>Page: bearer token or null
+    else Existing user linked to /invitations/accept
+        Invitee->>Page: Opens the existing-user invitation page
+        Page->>Kit: acceptInvite(config, token)
+        Kit->>Service: POST /auth/accept-invite
+        Service-->>Kit: 200
+        Kit-->>Page: void
+    end
+```
+
+*The two invitation-page serving paths and the `activate` / `acceptInvite` API split.*
+
 ### Send Invitation
 
 ```typescript
@@ -431,6 +465,8 @@ const invitation = await getInvitation(config, email, token);
 ```
 
 ### Activate Account (New User)
+
+Served on the `/auth/activate` path. Calls `PATCH /auth/activate` with a `delivery` query parameter (`body` for bearer mode, `cookie` for cookie mode).
 
 ```typescript
 import { activate } from '@ulabase/kit';
@@ -452,7 +488,11 @@ const nullResult = await activate(config, {
 // Backend sets cookie, no token in response, returns null
 ```
 
+Bearer mode returns the token in a single request — there is no follow-up `POST /token` call.
+
 ### Accept Invitation (Existing User)
+
+Served on the `/invitations/accept` path. Calls `POST /auth/accept-invite` with the invitation token.
 
 ```typescript
 import { acceptInvite } from '@ulabase/kit';

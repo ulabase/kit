@@ -4,6 +4,10 @@ title: "@ulabase/kit-react"
 description: React adapter for Ulabase Kit. Provides context, hooks, and route guards for authentication, payments, and cart, plus a /next subpath for Next.js SSR support.
 tags: [package, react, adapter, hooks, nextjs, payments, cart]
 sources:
+  - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
+    resource: repo://docs/ADAPTER_CONTRACT.md
+  - id: openwiki-source-f11db6d857f6461980bb57f5
+    resource: repo://docs/ADAPTERS.md
   - id: openwiki-source-54f8315d21086325777bcf77
     resource: repo://packages/kit-react/package.json
   - id: openwiki-source-55fe50166b2d54dba289eb90
@@ -32,12 +36,14 @@ sources:
     resource: repo://packages/kit-react/src/next/sync.tsx
   - id: openwiki-source-cb4e00ba25df046ed879c14f
     resource: repo://packages/kit-react/src/payments.tsx
+  - id: openwiki-source-77978ac75e6e04d6df6d024a
+    resource: repo://packages/kit/src/invite.ts
   - id: openwiki-source-42dfd0defa8189243ef19509
     resource: repo://packages/kit/src/types.ts
-generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-19T17:44:47.604Z" }
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-11T07:47:18.578Z
+    at: 2026-11-19T17:44:47.604Z
 ---
 
 # @ulabase/kit-react
@@ -94,6 +100,9 @@ import { AuthGuard, PublicGuard } from '@ulabase/kit-react';
 
 <Route path="/dashboard" element={<AuthGuard><Dashboard /></AuthGuard>} />
 <Route path="/login" element={<PublicGuard><Login /></PublicGuard>} />
+{/* the invitation page stays unguarded on both paths — see Route Guards */}
+<Route path="/auth/activate" element={<Activate />} />
+<Route path="/invitations/accept" element={<AcceptInvite />} />
 ```
 
 ## Hooks and Components
@@ -108,6 +117,27 @@ import { AuthGuard, PublicGuard } from '@ulabase/kit-react';
 | `RhCartProvider` | Component | Cart context provider, persists to `localStorage` |
 | `AuthGuard` | Component | Redirects unauthenticated users to `/auth/login` |
 | `PublicGuard` | Component | Redirects authenticated users into the app |
+
+## Route Guards
+
+`AuthGuard` and `PublicGuard` are `react-router-dom` wrappers around the reactive auth state from `useAuth()`. Both render `children` only after the initial session check has settled; while `initializing` is `true` they render the `fallback` prop (default `null`) instead of redirecting, so a reload does not flash the wrong screen.
+
+| Guard | Behavior | Redirects to |
+|-------|----------|-------------|
+| `AuthGuard` | Blocks unauthenticated users | `/auth/login` (`replace`) |
+| `PublicGuard` | Blocks authenticated users (login, signup) | `/` (`replace`) |
+
+The invitation page must stay **outside both guards, on both of its paths**: `/auth/activate` (where the service's invitation email links a new user) and `/invitations/accept` (an existing one). It has to work for signed-out invitees, signed-in users, and people without an account — so neither guard may wrap it on either path. This matches `docs/ADAPTER_CONTRACT.md` B5 and the shared guard rule in `docs/ADAPTERS.md`.
+
+```tsx
+<Routes>
+  <Route path="/app" element={<AuthGuard><Shell /></AuthGuard>} />
+  <Route path="/auth/login" element={<PublicGuard><Login /></PublicGuard>} />
+  {/* unguarded: reachable signed out, signed in, or with no account */}
+  <Route path="/auth/activate" element={<Activate />} />
+  <Route path="/invitations/accept" element={<AcceptInvite />} />
+</Routes>
+```
 
 ## Auth Methods
 
@@ -159,6 +189,8 @@ await auth.acceptInvite(token);
 await auth.resendInvite(email);
 await auth.listInvitations();           // → PendingInvitation[]
 ```
+
+The invitation page is served at two paths: `/auth/activate` for a new user (it sets the password and auto-logs the invitee in) and `/invitations/accept` for an existing user. Both paths must stay outside `AuthGuard` and `PublicGuard` — see [Route Guards](#route-guards). `activate` runs `checkSession()` after the call because activating signs the invited user in; `acceptInvite` reloads `teams`.
 
 #### Authenticated Fetch
 

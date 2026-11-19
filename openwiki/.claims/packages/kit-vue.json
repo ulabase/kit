@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:f3a11bf1bd0484271be5b288580889cc680da80d57e9f6f2af37246877517cf9",
+  "pageVersion": "sha256:66279854e8f2acfa505647cdc8819a2d6c78e9b19e8f23526091219cf1b8764f",
   "claims": [
     {
       "id": "claim_fd943bf630554acdae1a70e2df68b8d5",
@@ -63,7 +63,7 @@
           "version": "repo-lines-v1:sha256:9acdeaf766b85b81e2e07f3df6298a64cc12efeec338a9b24bc242d0a2d42a67:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWE4MzdjNTFhZTQwMjNiODQ4OTI1MjMyZDI5MDA3NzlkOGIzZTVlYTA0ZTdhZGM3ZGI3MzQzZDA2YmVjNTNiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDAyZGU1NzU5NzdhNDZlNjY2ZGQwYmY1NWYxNDhmYjgzZThjM2Y1YmQ3NTFkMTg3MWRlNDMzZGQ2ODUyMWU4MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzRkOGRjOTk4OTY3ZWY1NGY5ZDQ4MTA1Y2U5OWZkNDE1ZGYzMzA3MjMwZjA2NDc3MjMyN2YzZTNiZTFkNmIyNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODc3OTQ1ZmYxNDg3YWI1YTk3MzkyMGRlYmFkOWJkYTlhYmMwM2VhM2YzOWQzYjFhZmY0ZGExZTk4ODAwOTU1NCJ9"
         },
         {
-          "resource": "repo://packages/kit-vue/src/payments.ts#L140-L151",
+          "resource": "repo://packages/kit-vue/src/payments.ts#L142-L153",
           "version": "repo-lines-v1:sha256:95427acc980a050a3f48586f5fa71c4bc48b7b6ebabafcb63606483733a74cc7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkYzYyYzNkYjdhOGM2NjJmN2NiZTVmNmZkMmEzNmU2MTg0ZGVjNmM1ZjlhM2M5ZGNkYzMwNGExMDU5ZGYxNTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1ZGY5MzM4Mzg0ZThjOTAxMzRiYWEyNzlkYzA0ZjJjMmZlZjRhMGE1YWFiMDZiZmZlM2JjNjJhZDQ5NmZiNGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlNTViNzM3OWJlYTk2Mjc2NzljM2RlMzI1ZTU3MThlY2UwOTM0N2EyZGViMDkzYjFlOTcxMGM5MzFmMDAxMzYifQ"
         }
       ]
@@ -73,11 +73,11 @@
       "statement": "The payments store is disabled when `config.payments` is not `true` — `loadSubscription` returns `null` and the team-key watcher never fires, so no `/stripe/*` call is made.",
       "evidence": [
         {
-          "resource": "repo://packages/kit-vue/src/payments.ts#L114-L115",
+          "resource": "repo://packages/kit-vue/src/payments.ts#L116-L117",
           "version": "repo-lines-v1:sha256:496be5b9f7b68fef86d3690d193731c14ae0c89969a5533b66232791dd462d3a:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTk3NjYxNWNmY2Y0NGJkY2M1YWJlNmE1MTM4OTE2NzdkOGExZWEyMmM4YjQ2ZmRkNDUyNjJhMGY3ODFlZThkOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2ZiMjUyYjc1YTE3NGM4NDI2NWI0NDhlM2Y4OWVkYjViNTIzMDhjNmQzMjFmZjNlZjY5YmVjYThjMzA5OTcxZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRmYzI5YzI1N2NhOGIxMGRkNjBjYWE0MWZkN2I3MTkxOGFiZjMwMzUxZDNmMzgxNGRjZjY0YTM2NGIyZmEyNyJ9"
         },
         {
-          "resource": "repo://packages/kit-vue/src/payments.ts#L143-L151",
+          "resource": "repo://packages/kit-vue/src/payments.ts#L145-L153",
           "version": "repo-lines-v1:sha256:a67b6b593e2c224afc039de7643548fd3d3eaf5627331140f1d4bac58f28f52d:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDBjZmE3OGY5MWE1NTU0N2JkY2QyM2YxNGNiNmI0ZTgzZmQ4YWFkN2FhZTgzZDVjMTU3NjIxZTk4ZDNhZTZiZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTc0MjBkNWFmNDNjYzVlNjUyMTVmMzE5MTFmMjg2YjU4MjgzOWQwNzc3Nzc5YzNlZWFhZmNhM2EzN2RmNWVjOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2U1NWI3Mzc5YmVhOTYyNzY3OWMzZGUzMjVlNTcxOGVjZTA5MzQ3YTJkZWIwOTNiMWU5NzEwYzkzMWYwMDEzNiJ9"
         }
       ]
@@ -87,7 +87,7 @@
       "statement": "`canManageBilling` is a computed that compares `user.team.role` against `config.ownershipRole` (default `'owner'`), not a hardcoded string.",
       "evidence": [
         {
-          "resource": "repo://packages/kit-vue/src/payments.ts#L113-L118",
+          "resource": "repo://packages/kit-vue/src/payments.ts#L115-L120",
           "version": "repo-lines-v1:sha256:705d7d0c22077bc47016eb9e35e30b5255847f9f58bca28a2107f2d2945e4a5d:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQwNmYxZDNiYTNlNGIxMmFmMWM0NWU3NDVlOTdiNmRlZDI2ZDI2NTBkMzdhZDdhODdjM2U2MTFmYjhhOWQ0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTcwMmFlYzY2NTk4OGFmYjYwMjg1MjY4NDI5NTg4Njk2NDc2NmNmNGQ5MWNhOWQwOThkYzk1MDZjMmUzNzIwZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjI2MmE1MjJjOTk1MjE5YjE4Y2ZjZGQxN2FkZTA3ZDQyMTc5ZDNiNTFmYzBkODZkM2VkOThlMmMwZjlhZmU2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWUxMGZkNDE5ODRlOTJkYTM4NmE2Y2M5NDc2MTg1ZDQ2ZTAwYzczODJlNDU0OGJkNGZjMGQ3OGQ5MzA1ZDhmMSJ9"
         }
       ]
@@ -111,7 +111,7 @@
       "statement": "Navigation guards check the in-memory `isAuthenticated` computed first and only fall back to a `checkSession()` round trip when it is `false`; `authGuard` redirects to `loginPath` and `publicGuard` redirects to `appPath`.",
       "evidence": [
         {
-          "resource": "repo://packages/kit-vue/src/guards.ts#L28-L44",
+          "resource": "repo://packages/kit-vue/src/guards.ts#L30-L46",
           "version": "repo-lines-v1:sha256:c064bcecab14960b3b6cfa11d181d1e160b1cdb14a7b21d1e855b76c73dfee3f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZmNzFmMjdjZGQ5ZGQ5NTU0NmQyNTA5M2M2NWE0Mjg5ZDM4ZGRiYmI1NDdjYjBlZTk2ZjJmMTVlMDg1MmRkYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1YjM3ZTIwZTFiOWQ0ODYwOTM5NTZkZDYwZDg4OWUyNmU2ZDhjMzM3NmQ2YTRkZDIxMzk0ZWE2YzExYWQxZjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNlZDc3ZDViMWMzZTgyNTAyZTY1NjE2OWU3NTcwYzMwMmQ0MDA5MjY0ODYxZTA1MDkyMWVlMzRjOTg4YmI2OGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
@@ -163,10 +163,32 @@
           "version": "repo-lines-v1:sha256:8501c323cdebb1d208ad4c29055b8a5213bb0fecf0e02f8278ed4da862505601:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWM0M2VjYzE5NDY3MGY3OTg0ZDNiNTUwMmVhOGJkN2I1ZjNiZDAzODMxMDk5YjMzZTk0NDM0Mzg3MjVhY2U5MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzAxNDg2OWZiOGViMTJhZTljZDQwNTRiMzYxY2Y3YTY5ZmMzMTU3OTVhYzMzMTg0OGQ0ZmM4MGJiNTY5MDZkYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmQ1ZDdmN2ZkY2I0NWZkNDZjZWQ4YzM1ZDcwN2Q3NzJkZDA1MWYxYjY4ZGZkNDY0Y2JmMjVlMGUwYmE2Yjc3YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWM0MTA1ZDUwOTA2NDg0ZGUzZGM4M2E2ODQ0MWEyYjA2ZjhmZTY4ZDczNjZmOTVkZjQ0NGUwYmIxNWI2NTUyYSJ9"
         }
       ]
+    },
+    {
+      "id": "claim_a5232d23a23b40de9e71cbb79506098c",
+      "statement": "The invitation page is served at two paths — `/auth/activate` (new user: sets the password and auto-logs the invitee in) and `/invitations/accept` (existing user) — and both paths must stay outside `authGuard` and `publicGuard`, so the page works for signed-out invitees, signed-in users, and people without an account (docs/ADAPTER_CONTRACT.md B5).",
+      "evidence": [
+        {
+          "resource": "repo://docs/ADAPTER_CONTRACT.md#L43-L43",
+          "version": "repo-lines-v1:sha256:23fba26f51967709ffdc38726f5df61d542eccff8527e8da320dddd426af0a6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjg5YWE0NTExNDkxZjFmMTM5ZGE1MDQ3NGE2NmZlY2MzYTk4ZWViNzJlZTU2YTRmYzgwNmM0NTBkMjg1OWUzNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU4ODFiMGQyY2UyZjE3NjVmNjJkYzAxYTgxNTI4MDJhZTg2MmFjYWIwOTZiODQ2ZTk4N2U3NTliOWE2ZDQzZiJ9"
+        },
+        {
+          "resource": "repo://packages/kit-vue/src/guards.ts#L24-L29",
+          "version": "repo-lines-v1:sha256:12ae6a2fd63dd6ea95ee8bb76b2ff2a64a0a065051075e747aa6ac0cefda9227:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjIzY2I0YzEzZDY3NzU5ZDU0Zjc2NzFkNDQwMzQ5NzJkMDkwM2EzOWQwOGFmYWU3M2JiOTgxZWI5YWIwZGNmMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWNiYzJiMTc0OTliOWRiZDhlMmM5ZDY2OWE4ZDVmZmYzOWY4ZmRiOTdjYzJmOTFmMTI5YTc0MzdkMjUxNmJkNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTMyZTJkOWIyZjczYWI0N2NlMjA4Mjc5NWUwNTFmNTFjNTg0NWU5Nzk2MTA0MTNlNmY4MTI2YWI1ZTNkZmE5NCJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/auth.ts#L80-L83",
+          "version": "repo-lines-v1:sha256:a236214ea1682a058acf744985431777381a7f1d6a8fc2867f4b61c2a1db087a:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTIzMTA3ZTc2NmMxNGFlZjA4ODU2YWY3NjQ4MGYxMjMzNTkwYzUzMDliN2Q0MzZmNTY1NGEyYTlhNDNkYjk4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmNkMWZhNjliYTgwYzUyMGFjMTQ5ZjFkODU3ZTRhZjIxM2VhYTNlYzhiNzc1MmQ1MjMxZTExMThjODc0ZmY4NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTQ4ZWMzMWE5OTlmZGFkOWQxNWY0MmExNjJhOWE1ZjFjZjBlNWJjNmIyMGZhYjI3ZWQ4MDA3NzQ5ZGZiYTFhMSJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/invite.ts#L30-L44",
+          "version": "repo-lines-v1:sha256:181ca87321786dd598cf578ff77d83ea6c66a97e39eb3a53ed01f058c7549af6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyM2NiNGMxM2Q2Nzc1OWQ1NGY3NjcxZDQ0MDM0OTcyZDA5MDNhMzlkMDhhZmFlNzNiYjk4MWViOWFiMGRjZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczMGI0NTA0NDU0MDUzZDQzYmViM2UwZWFhYThhMDM1YWM0ZTAyNzQxMzhmYTRlNGI0MWNjYjI1ZTk0OWJkYzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxZDQwYzI2MGIzZjIzNWVkN2VlODRlMGE4OThhMTJkZTliMGRlNjA0MGUwNjkwNDk1MTQ4NGI2OGM1OGNlMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyZjI0MzRmN2QyZTI4YjFhYzE2OGJlODhhYmM3MjVhYTdlMDljMWYwMDFkZGY3M2U1OTQ5YjdhZDYyNjU0NDQifQ"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-12T17:21:34.616Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-19T17:44:47.604Z"
   }
 }

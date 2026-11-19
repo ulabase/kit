@@ -4,6 +4,10 @@ title: "@ulabase/kit-ng"
 description: Angular adapter for Ulabase Kit. Provides RhAuthService with signals, route guards, HTTP interceptor, payments service, and cart service for Angular applications.
 tags: [package, angular, adapter, signals, guards, payments, cart]
 sources:
+  - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
+    resource: repo://docs/ADAPTER_CONTRACT.md
+  - id: openwiki-source-f11db6d857f6461980bb57f5
+    resource: repo://docs/ADAPTERS.md
   - id: openwiki-source-bea1cd7cd3ced08116a2cc29
     resource: repo://packages/kit-ng/src/auth.guard.ts
   - id: openwiki-source-25c6d02acaef67e7df8e10df
@@ -22,14 +26,18 @@ sources:
     resource: repo://packages/kit-ng/src/provide-rh-auth.ts
   - id: openwiki-source-66f30d931d913bd85948b8cd
     resource: repo://packages/kit-ng/src/tokens.ts
+  - id: openwiki-source-1ffd6dbbbd5dbf3d4a0fd215
+    resource: repo://packages/kit-react/src/guards.tsx
+  - id: openwiki-source-fae15e7015e37cdf25d83800
+    resource: repo://packages/kit-vue/src/guards.ts
   - id: openwiki-source-24a15932eb8e15a6594b587f
     resource: repo://packages/kit/src/__tests__/unit/check-session.test.ts
   - id: openwiki-source-d846911884642122d8dd6179
     resource: repo://packages/kit/src/auth.ts
-generated: { by: "openwiki/0.9.0", at: "2026-11-11T07:47:18.578Z" }
+generated: { by: "openwiki/0.9.0", at: "2026-11-19T17:44:47.604Z" }
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-11T07:47:18.578Z
+    at: 2026-11-19T17:44:47.604Z
 ---
 
 # @ulabase/kit-ng
@@ -209,6 +217,8 @@ auth.resendInvite(email: string): Observable<void>
 // List pending invitations
 auth.listInvitations(): Observable<PendingInvitation[]>
 ```
+
+The invitation page is served at two paths: `/auth/activate` for a new user and `/invitations/accept` for an existing user. Both paths must remain reachable under neither `authGuard` nor `publicGuard` — the page must work for signed-out invitees, signed-in users, and people without an account. See [Route Guards](#route-guards) for the routing requirement.
 
 #### Team Management
 
@@ -442,6 +452,10 @@ cart.clear(): void
 State and `localStorage` move together in the same operation — not via an `effect`, which could be skipped or reordered.
 
 ## Route Guards
+
+### Invitation page stays unguarded
+
+The invitation page is served at two paths: `/auth/activate` for a new user and `/invitations/accept` for an existing user. Both paths must stay outside both `authGuard` and `publicGuard` — the page must work for signed-out invitees, signed-in users, and people without an account. This is consistent with `packages/kit-react/src/guards.tsx` and `packages/kit-vue/src/guards.ts`, and is required by `docs/ADAPTER_CONTRACT.md` B5. The guard composition sample below reflects this requirement.
 
 ### authGuard
 
@@ -761,7 +775,7 @@ export class MyService {
 
 ```typescript
 const routes: Routes = [
-  // Public routes (login, register)
+  // Public routes (login, register) — publicGuard only
   {
     path: 'auth',
     canActivate: [publicGuard],
@@ -771,6 +785,13 @@ const routes: Routes = [
       { path: 'verify', component: VerifyComponent },
     ]
   },
+
+  // Invitation page — unguarded on both paths (new user and existing user)
+  // /auth/activate and /invitations/accept must be reachable under neither
+  // authGuard nor publicGuard: signed-out invitees, signed-in users, and
+  // people without an account all land here from the invitation email.
+  { path: 'auth/activate', component: ActivateComponent },
+  { path: 'invitations/accept', component: AcceptInviteComponent },
 
   // Protected routes
   {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:c4cb3d582c61f84e8434d600b9ef9afc1bda144b8d5bdd549b5c99d0a67f509b",
+  "pageVersion": "sha256:d52746f43ffb48e365a662de0b72120285681967d63b6a4dec78eb19159199e4",
   "claims": [
     {
       "id": "claim_a7ad67a4c30f41539466368125d8fe2d",
@@ -217,10 +217,42 @@
           "version": "repo-lines-v1:sha256:58f34fd446e9642f74bb77c55d6e159b2def042b77c8cbb670623113d638b806:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlNmExNDgzYmQzMjU0NTljNTljYTFhYWZhYjgzNzE4Mzk5MzI4Y2YyYzc4ZWY0YTI2Njk5MDE4NzY3YzA2MzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
+    },
+    {
+      "id": "claim_01eb5c8643744c9c9a451fe7154903dc",
+      "statement": "The invitation page is served at two paths — /auth/activate for a new user and /invitations/accept for an existing user — and both paths must stay unguarded so the page works for signed-out invitees, signed-in users, and people without an account; behind the page, activate sets the password and auto-logs in a newly invited user via PATCH /auth/activate, while acceptInvite adds an existing user to the team via POST /auth/accept-invite",
+      "evidence": [
+        {
+          "resource": "repo://docs/ADAPTERS.md#L240-L243",
+          "version": "repo-lines-v1:sha256:5880f6b8da4ea73a68599f8c597493ac44e18edb082526542f69265d303c649c:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWI5NzhhZWZmZWMzNGZiMjQyOTBjMGJhN2VhZjFiOTg0NGUzNjQ2MGZjNDM1MWIzNzQ2OGJkNzI1YzI3NjYzZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2Y1MjA5MmFlZWUxYjRjOGFhYzhmYTNlNzRmZjQ0YjY3OWY0ZWZkZWE1ZjVlYzM0NWFhOThmNmRiZmZiOTg2NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDZhOWQ1ODI2OWJiYWMxOGFlNjI0ZWQzN2M4NGU5YTAwY2IwOGY1ZThjNzJiMzg1OTBlYzI4ZmFiYWI5YTM1ZSJ9"
+        },
+        {
+          "resource": "repo://docs/ADAPTER_CONTRACT.md#L43-L43",
+          "version": "repo-lines-v1:sha256:23fba26f51967709ffdc38726f5df61d542eccff8527e8da320dddd426af0a6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjg5YWE0NTExNDkxZjFmMTM5ZGE1MDQ3NGE2NmZlY2MzYTk4ZWViNzJlZTU2YTRmYzgwNmM0NTBkMjg1OWUzNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU4ODFiMGQyY2UyZjE3NjVmNjJkYzAxYTgxNTI4MDJhZTg2MmFjYWIwOTZiODQ2ZTk4N2U3NTliOWE2ZDQzZiJ9"
+        },
+        {
+          "resource": "repo://packages/kit/src/invite.ts#L38-L59",
+          "version": "repo-lines-v1:sha256:0631716d15c4ec2d7fbe9bbd865ab3bb2da86edf6ca3d2957c6f01ca688fadf6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YTVmMjY2MTZjMmRlMTcxNTVhZTdlOWQ0MjRiM2Y3YjljZmNiMGNkZTdhYTNiNzlkYzQ0YjhlMTc5ZWViMzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyOWI5ZTUwYzliOTI0N2ZkMmIyNmM0ZmRlNzhjNDczZGM4YTMwM2E1ZTcxZDMwODIxMjEzNWY1Y2RkOWZmZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2YTJlYjlhZjk3MGFjZDQ3ZTc4YzI0NGJhMTBkZmFkZTVjOWMyNWExMmRkNWRjZWM0MDA1ZDQ1ODE5NjBlZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkMGYyZDNhM2FhZGEyNzU4NjQ1NzhkMGE0MzkxNTYzOGQ1NDNmZWNhMmM5NDg1OGRiOTQxMjExZTg2Y2VmMmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_22c0e6d44fe547dc963589062838edf5",
+      "statement": "The activate function appends a delivery query parameter to PATCH /auth/activate — body in bearer mode, cookie in cookie mode — and bearer-mode activation obtains and stores the token with a single request, with no follow-up POST /token call",
+      "evidence": [
+        {
+          "resource": "repo://packages/kit/src/__tests__/integration/invite.test.ts#L50-L70",
+          "version": "repo-lines-v1:sha256:4864c0237fa3a1a9b436d1f061e21ed6d80eb358d7e13f447329385b87fa708a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2NjNlNGEyYmFjZGY3NjM1MTIyNDM0MWE1ODU4NzYyZjY1YmMyNGQyZWUwOWZjZTZhODgxZjJmYzczMGIyZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFmMTFiYzg0NzM2MWVmZGYwZGRjNWU4YmU3MjM4YjVmNjkyYzgyZDgyZjMzMzRjZjQ3YzM5MzUyNGFmYWIwZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0ZjVkNTZkNWYyMjk5OGI0NWQ3MmE1M2M2NzAyY2Q1NmU4NmEyZDE4YTU4ZTdkN2NkMjAyMDlkNGMyNmVhZmQifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/invite.ts#L38-L54",
+          "version": "repo-lines-v1:sha256:6368dccacecac2c9e6730088560ad33b196571381491cf19b72da5dfcb4282af:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YTVmMjY2MTZjMmRlMTcxNTVhZTdlOWQ0MjRiM2Y3YjljZmNiMGNkZTdhYTNiNzlkYzQ0YjhlMTc5ZWViMzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2YTJlYjlhZjk3MGFjZDQ3ZTc4YzI0NGJhMTBkZmFkZTVjOWMyNWExMmRkNWRjZWM0MDA1ZDQ1ODE5NjBlZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzMDg0YmI2YWY4ZDk0OWU5YWFjMWI3NDQzM2QzODcwNTgxZTU1ZWMwNmUzNjIwZTFjMzA4ZGQ5YmYyODY3MDQifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-11T07:47:18.578Z"
+    "at": "2026-11-19T17:44:47.604Z"
   }
 }

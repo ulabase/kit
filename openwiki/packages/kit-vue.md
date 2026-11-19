@@ -4,6 +4,8 @@ title: "@ulabase/kit-vue"
 description: Vue adapter for Ulabase Kit. Provides composables and navigation guards for auth, payments, and cart, plus a /nuxt subpath for Nuxt SSR support.
 tags: [package, vue, adapter, composables, nuxt, payments, cart]
 sources:
+  - id: openwiki-source-e7a0b8cb7be6a8386aa66fdb
+    resource: repo://docs/ADAPTER_CONTRACT.md
   - id: openwiki-source-133d4dd0df065adff47b96b2
     resource: repo://packages/kit-vue/src/cart-store.ts
   - id: openwiki-source-4035918f075932cd10bbcaf3
@@ -30,10 +32,14 @@ sources:
     resource: repo://packages/kit-vue/src/use-cart.ts
   - id: openwiki-source-2f025d008df98101db3a1cd4
     resource: repo://packages/kit-vue/src/use-payments.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-12T17:21:34.616Z" }
+  - id: openwiki-source-d846911884642122d8dd6179
+    resource: repo://packages/kit/src/auth.ts
+  - id: openwiki-source-77978ac75e6e04d6df6d024a
+    resource: repo://packages/kit/src/invite.ts
+generated: { by: "openwiki/0.9.0", at: "2026-11-19T17:44:47.604Z" }
 verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-12T17:21:34.616Z
+  - by: openwiki/0.9.0
+    at: 2026-11-19T17:44:47.604Z
 ---
 
 # @ulabase/kit-vue
@@ -171,6 +177,8 @@ await auth.acceptInvite(token);
 await auth.resendInvite(email);
 await auth.listInvitations();           // → PendingInvitation[]
 ```
+
+The invitation page is served at two paths: `/auth/activate` for a new user (it sets the password and auto-logs the invitee in) and `/invitations/accept` for an existing user. Both paths must stay outside `authGuard` and `publicGuard` — see [Navigation Guards](#navigation-guards).
 
 #### Authenticated Fetch
 
@@ -350,7 +358,7 @@ router.beforeEach(rhAuth.authGuard);
 
 Both guards check the in-memory session first and fall back to a `checkSession()` round trip. Both guards and the store derive from the same store instance, so `useAuth()` inside components sees the identical state.
 
-Leave `/invitations/accept` outside both guards — it must work for signed-out invitees, signed-in users, and people without an account.
+Leave the invitation page outside both guards, on both of its paths: `/auth/activate` (where the service's invitation email links a new user) and `/invitations/accept` (an existing one). It must work for signed-out invitees, signed-in users, and people without an account — so neither guard may wrap it on either path. This matches `docs/ADAPTER_CONTRACT.md` B5 and the shared guard rule in `docs/ADAPTERS.md`.
 
 `buildGuards` is also exported directly if you manage the store yourself:
 
