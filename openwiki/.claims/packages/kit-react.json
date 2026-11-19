@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:650d8c655b5d34a5ae40cbe682ee2247713e78f06732569f3723a3dd980263d8",
+  "pageVersion": "sha256:ac7215e7b430feadd04fc5ca93a8f4c2d134cc2b75df2815de691e6b7b770174",
   "claims": [
     {
       "id": "claim_052e7c730f284d558f4f996e69cfb5d4",
@@ -78,11 +78,19 @@
     },
     {
       "id": "claim_91e0e25dabbf455aad9e94718a71bc4e",
-      "statement": "AuthGuard and PublicGuard are React components that protect routes based on authentication state. AuthGuard redirects unauthenticated users to /auth/login, PublicGuard redirects authenticated users to /. Both render a fallback while the initial session check is in flight to avoid flash of unauthenticated content.",
+      "statement": "AuthGuard and PublicGuard are React components that protect routes based on authentication state. AuthGuard redirects unauthenticated users to /auth/login, PublicGuard redirects authenticated users to /. Both render a fallback while the initial session check is in flight to avoid flash of unauthenticated content. Their docstrings also require the invitation page to stay outside both guards on both of its paths (/auth/activate for a new user, /invitations/accept for an existing one), because it has to work for signed-out invitees, signed-in users, and people without an account.",
       "evidence": [
         {
+          "resource": "repo://docs/ADAPTERS.md#L239-L242",
+          "version": "repo-lines-v1:sha256:75fe5708acd0d87fb853b6527872182790a2a7327dd1ca3acc1a749a8ed1f7a6:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDhlNDNlNjNkOTJjZTk2ZGU2MDdiMDAwZGRkM2Q3NDIyZWQzMzNlZDliNjMwY2ZlMjMwNDkyZjkwMmJmNGQxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWJlY2EzYzNkZDI5MDkwMDhkMjIyYWVjYmVmMzg1ZDY4YmUwZGYyYmY4ODgxYjExYzkzMWI3MDY5ZTQ3YTdjZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzc3NTdmN2EwNTEzNGI0ODVlYWRjOTBhODhhYmRlY2FjNjJmNTQxZWE3MDliZjJmOTNlODk2ZmMxNDE2OTcyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTAwNGEyMTZiMzZlYTUyYTM3NzhkZWIyNGYzYzhkZTJjMTMxMWEzN2M3OWY2YTcyNzk0MDliMTM0YmU0ZDdjNyJ9"
+        },
+        {
+          "resource": "repo://docs/ADAPTER_CONTRACT.md#L35-L43",
+          "version": "repo-lines-v1:sha256:0596fc9bf2b1abb81ef55b0bdc3287e83a45e6c6e11963921b85f17abcff833e:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNjZTg2MGE1MThmNTljYmMxMTQyYWE2NTMxMTU5MTBjMGY3ZTA3NDNmY2ViZDQ1ZjA1MWM0M2ZjMzlhY2FlMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTY5N2UyMDY5NTI5MzJlM2JiZWQ2NWI5Y2E1MTRiMTVjM2FlZjgxZDAzZWVhYWU3Y2VmYWM4MTJiOTQxOGM0YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU4ODFiMGQyY2UyZjE3NjVmNjJkYzAxYTgxNTI4MDJhZTg2MmFjYWIwOTZiODQ2ZTk4N2U3NTliOWE2ZDQzZiJ9"
+        },
+        {
           "resource": "repo://packages/kit-react/src/guards.tsx#L23-L42",
-          "version": "repo-lines-v1:sha256:cd09d5bdd8b523582d2d84469c3c6de8d090bd13ee83716ab776670716873be1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkMTZiYjc3OWQzMmY0MTgxMzhiMmM1MDc3NDAyZGU0ZDk5ZDMyMDU1OTdhOTQwOWYzZDdkZmM1MzA0NWFkOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwMDNlNTFkMjhjYzk3OWNhNWUxYWZiYTc2NTBkYzAyMjIwODMwOWNmZWEwM2Y5ZWMyYWQ0ZWIzM2ZiMWViOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:37cb8b88b0c6188264c372149e0fd882c84e1fd6a198d42c7c7417b25870097d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkMTZiYjc3OWQzMmY0MTgxMzhiMmM1MDc3NDAyZGU0ZDk5ZDMyMDU1OTdhOTQwOWYzZDdkZmM1MzA0NWFkOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlYWZhOTc1N2UxODE3OGM4Y2EyZGIxMWY2M2YxMWZjOTFiYTlmNDllNmIzYmUzMTJkNjBhNTU2NzA1ODEzZTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwMDNlNTFkMjhjYzk3OWNhNWUxYWZiYTc2NTBkYzAyMjIwODMwOWNmZWEwM2Y5ZWMyYWQ0ZWIzM2ZiMWViOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViZTRjZmM2MjQ2OGE3YmMxZGUzOTcyMGQ0OTMxMDlmMmI2YWZjNzVmNjU2OWQ1ZDg1MmNlM2U4ZDBmMzFjZTIifQ"
         }
       ]
     },
@@ -239,10 +247,32 @@
           "version": "repo-lines-v1:sha256:618dde802eb76c5f3bc72bb4dfa61e63c0a701a5fdc1b38e89a697607df22f81:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTA5YjI0ODIxOTkwZGM2NmQ0ZWEzNWRkN2FlZDNmODRiODkxMzE1NWEwY2U5ZDJlNGIzYTUyMzgxZWE0NTdjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTVlZjAxYmMwOGRiYzNiNjNlNGU3NWVhM2QyNmE1Yjk0MTg5MTg3N2UyN2FkODkxMzI5Yzg0MTFkN2Q4ZGM0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTAyNGUzMjE2MTQzNWFjYmQzZmU2NTk2ZjBjMjNiOGI3YjMwMzFmZDJhMjA2MGI3NDMzZDJmNzEyNTVhNDg0YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzcwMTcxYjAzMDlkMzQxOTIwOTAxNzllZDY5MWZlM2I4Y2MyNDJhNGVkM2Q1N2JiNjVmMmVjMTk3MDE1ZmNlMyJ9"
         }
       ]
+    },
+    {
+      "id": "claim_aaed18429eae4bcb808885c48f670699",
+      "statement": "The invitation page is served at two paths — /auth/activate for a new user and /invitations/accept for an existing user — and both must remain reachable under neither AuthGuard nor PublicGuard. In the adapter, activate() runs checkSession() after the call because activating signs the invited user in, and acceptInvite() reloads teams.",
+      "evidence": [
+        {
+          "resource": "repo://docs/ADAPTER_CONTRACT.md#L43-L43",
+          "version": "repo-lines-v1:sha256:23fba26f51967709ffdc38726f5df61d542eccff8527e8da320dddd426af0a6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjg5YWE0NTExNDkxZjFmMTM5ZGE1MDQ3NGE2NmZlY2MzYTk4ZWViNzJlZTU2YTRmYzgwNmM0NTBkMjg1OWUzNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU4ODFiMGQyY2UyZjE3NjVmNjJkYzAxYTgxNTI4MDJhZTg2MmFjYWIwOTZiODQ2ZTk4N2U3NTliOWE2ZDQzZiJ9"
+        },
+        {
+          "resource": "repo://packages/kit-react/src/context.tsx#L194-L198",
+          "version": "repo-lines-v1:sha256:866166a624c10b5f3d1ff55c0f84e6a4e5f0b997e87cd38f846969f428e94103:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTgwNDA5ZTk0MmU5YzNiN2RmMWFhNGY5ZTFkMWNiMTU1ODJlNGVkNWQyOGY4NDk5MDRkOTQ3YWE5NjJkYzI1ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmRjNTJmMDhiMzliMDhiMDFjOGQzMDhiZjg4MGIwYmVmMDJmZDFkZmNjOWQ5YWE5M2E0ZDFiNWY0ZDU4YjZjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQyYjhkNTY4YzQyNWVlYmExNWE0MTI3YWZlZTk4NWVjMGI4NDI5NWYxOTEyZTE0M2RjZjEwZDhmODFhYzU2MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzFmOTY1NWUzYWJhY2E1YWZlMWI1YTM5MWZhZjdkNGM1ZjU1NzhlODZkZjg4N2Y0NzRjNGQ0YzQ1OTNiM2MwMCJ9"
+        },
+        {
+          "resource": "repo://packages/kit-react/src/context.tsx#L280-L290",
+          "version": "repo-lines-v1:sha256:0e0bb4b75079f75ba65302a3f300791cc178eb02e7444f3fd842d36b2320a60f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3Y2Q5MjNhZmFkYWZlNTA3ZDdkMDU0MDM3NDBmYjdmZjRiMGJlY2FiYjg2YTM0ZDNhNDhlOTliNWY3ZmQwYWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ZWYwMWJjMDhkYmMzYjYzZTRlNzVlYTNkMjZhNWI5NDE4OTE4NzdlMjdhZDg5MTMyOWM4NDExZDdkOGRjNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZlOWQxOTBhYjkyYjNiYzU4OWJkM2ZkZWRjN2Q3ODJjZDhjNjRiODhmZGI5ZjY0MTY2N2ZjY2UzYzM0ZDFmMzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmODdiMWIzNjM1OWRmNTUyMjAxYzBhNDAzZWU4OWQ3OGI1YzBhMmQ4NTBiYjk5ZGRmN2VmYzZiNTBjZWYwNTMifQ"
+        },
+        {
+          "resource": "repo://packages/kit/src/invite.ts#L24-L53",
+          "version": "repo-lines-v1:sha256:91ab7ac3012acd9d1bc219bd436b456c37cbd5e652038791dbbd3cd6983b678a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ZWYwMWJjMDhkYmMzYjYzZTRlNzVlYTNkMjZhNWI5NDE4OTE4NzdlMjdhZDg5MTMyOWM4NDExZDdkOGRjNGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzZDg4NjljYmEyMjJlMDAwM2IwZjI1YmExODMxM2I1Nzc3YTU1MDkxZDdmZjE4NjA5OTZkODg3NzY1OTI0ODgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1NjQwOTY2NmE5ZDQ4NjRkOTI1YmM3YTc3NzEzNDZlMDBiZWExOTUxODRlZDgyYmRiZjliNzU5NmI2MTkyMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwYTFmYjA2ZThlMTZlMjUzMWQyOGRmNjg5ZDdjZjlhYWU5MjE4NDRlMTVlYmVkZDc3MWRmNThkZWMyOGIzMjAifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-11T07:47:18.578Z"
+    "at": "2026-11-19T17:44:47.604Z"
   }
 }

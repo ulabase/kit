@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:14ca8bbce6c6aec96c888f6ab0034d1439bb1287495efc52fa227211a42f2478",
+  "pageVersion": "sha256:3abdd2767d290aefb0a91adffa3896935b842bd1ca1d213d2ff30bed71b59ff5",
   "claims": [
     {
       "id": "claim_a2cf71e33664494f972638cf9645b71e",
@@ -115,10 +115,32 @@
           "version": "repo-lines-v1:sha256:8ba65a6dcfd0e7a0f3eeac2ca6851792a3db30849ba195d543da89f2f0999efd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZWUwMzI5Y2Q5NWIyMjJhZTY2MmVkMWRlNTE0MGFlODY2NzA2M2ZhNzgxMmMwNGNlOTFmODY1ZWY4NmE3ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
+    },
+    {
+      "id": "claim_4e656a9ef32b42a08076290472745a50",
+      "statement": "The invitation page is served at two paths — /auth/activate for a new user and /invitations/accept for an existing user — and both paths must remain reachable under neither authGuard nor publicGuard so the page works for signed-out invitees, signed-in users, and people without an account; this is consistent with the React and Vue adapters and required by ADAPTER_CONTRACT B5.",
+      "evidence": [
+        {
+          "resource": "repo://docs/ADAPTERS.md#L239-L242",
+          "version": "repo-lines-v1:sha256:75fe5708acd0d87fb853b6527872182790a2a7327dd1ca3acc1a749a8ed1f7a6:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDhlNDNlNjNkOTJjZTk2ZGU2MDdiMDAwZGRkM2Q3NDIyZWQzMzNlZDliNjMwY2ZlMjMwNDkyZjkwMmJmNGQxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWJlY2EzYzNkZDI5MDkwMDhkMjIyYWVjYmVmMzg1ZDY4YmUwZGYyYmY4ODgxYjExYzkzMWI3MDY5ZTQ3YTdjZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzc3NTdmN2EwNTEzNGI0ODVlYWRjOTBhODhhYmRlY2FjNjJmNTQxZWE3MDliZjJmOTNlODk2ZmMxNDE2OTcyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTAwNGEyMTZiMzZlYTUyYTM3NzhkZWIyNGYzYzhkZTJjMTMxMWEzN2M3OWY2YTcyNzk0MDliMTM0YmU0ZDdjNyJ9"
+        },
+        {
+          "resource": "repo://docs/ADAPTER_CONTRACT.md#L43-L43",
+          "version": "repo-lines-v1:sha256:23fba26f51967709ffdc38726f5df61d542eccff8527e8da320dddd426af0a6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjNmYmEyNmY1MTk2NzcwOWZmZGMzODcyNmY1ZGY2MWQ1NDJlY2NmZjg1MjdlOGRhMzIwZGRkZDQyNmFmMGE2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjg5YWE0NTExNDkxZjFmMTM5ZGE1MDQ3NGE2NmZlY2MzYTk4ZWViNzJlZTU2YTRmYzgwNmM0NTBkMjg1OWUzNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU4ODFiMGQyY2UyZjE3NjVmNjJkYzAxYTgxNTI4MDJhZTg2MmFjYWIwOTZiODQ2ZTk4N2U3NTliOWE2ZDQzZiJ9"
+        },
+        {
+          "resource": "repo://packages/kit-react/src/guards.tsx#L34-L38",
+          "version": "repo-lines-v1:sha256:104d1e7433891e6671719a487dc557f5d5e5f74b59f394a16d1440252c434206:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODZmMGJiMGQxNzI5ODhlZTRhMjkzZWMyNTQyNWQ2YWM5OWU4MWEwOWViZjM1MzlmYWM1ZTQxOTA0MjM0NzE5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzgzNWU3MmUwM2JhOTQ4N2E2ODliYjQxZDQzZWZmMDVlYTY3YWIzZTkyZWYzZDJmZTk4ZTQzOGVlY2Y2MzUxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjhlMGUxMjdjODIzZjg0MmMwN2VhMmRmZDJkYzcwYTM0MGZkNjkxZjEwMGMzNDI4ZGM1MmU0NzFhYTYxMDk2ZCJ9"
+        },
+        {
+          "resource": "repo://packages/kit-vue/src/guards.ts#L25-L28",
+          "version": "repo-lines-v1:sha256:bdf3bfb90ec26c45d31633da6cd041fdb173c6909d65cace0e89ed1d96a7d4d7:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTU4MGY1ZDQ3OTkxZTFmMWIxMmQ4ZDhiMzcxMzkzNjQwYmZhMGFhYjE2ZGQyNjM4ZjEwZmUzMTNkOGMyNGU1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmZjODdlNjI1NTk2M2EwYjJhODVmYTAxMjhhMmUyYjBkN2EyMmU1NTVlZGIzNzU4YjkwOWYzM2U2NjM3ZWY1YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWRjODRhYTA1NGYxMDZiYzY3OWFiOTNhMjBmNGNiYmM1MWVhNzlkZGI3Y2ZlYjY4ODIwYjM2ZjNiMzFmZTU2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2UyYzNmYjUwZWNmNmE2OGNhZjhiN2Q5NDRjZTg3NmU4MDk1ZmU1M2Q1NWRkYmY5ZGIwYmZjOGZjZTY3OTk1MCJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-11T07:47:18.578Z"
+    "at": "2026-11-19T17:44:47.604Z"
   }
 }
