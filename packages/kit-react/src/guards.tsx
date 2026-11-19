@@ -31,8 +31,10 @@ export function AuthGuard({ children, fallback = null }: GuardProps): ReactNode 
  * Wraps a public-only route (login, signup). Redirects an already-authenticated
  * user into the app (`/`); otherwise renders `children`.
  *
- * `/invitations/accept` must stay outside both guards — it has to work for
- * signed-out invitees, signed-in users, and people without an account.
+ * The invitation page must stay outside both guards, on both of its paths:
+ * `/auth/activate` (where the service's invitation email links a new user) and
+ * `/invitations/accept` (an existing one). It has to work for signed-out
+ * invitees, signed-in users, and people without an account.
  */
 export function PublicGuard({ children, fallback = null }: GuardProps): ReactNode {
   const { isAuthenticated, initializing } = useAuth();

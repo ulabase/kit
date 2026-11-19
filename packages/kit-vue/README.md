@@ -105,7 +105,8 @@ router.beforeEach(rhAuth.authGuard);   // global — redirects to /auth/login wh
 const routes = [
   { path: '/app', component: Shell, beforeEnter: rhAuth.authGuard },
   { path: '/auth/login', component: Login, beforeEnter: rhAuth.publicGuard },
-  // /invitations/accept stays unguarded — it must work signed out, signed in, or with no account
+  // the invitation page (/auth/activate for a new user, /invitations/accept for an existing one)
+  // stays unguarded — it must work signed out, signed in, or with no account
 ];
 ```
 

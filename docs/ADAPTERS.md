@@ -237,8 +237,9 @@ consent already recorded. Adapters that add their own acceptance flow must keep 
 write, renew, then refresh the state.
 
 **Guards** — `authGuard` (no user → `/auth/login`) and `publicGuard` (user → into the app).
-`/invitations/accept` stays unguarded: it must work for signed-out invitees, signed-in
-users, and people without an account.
+The invitation page stays unguarded on both of its paths, `/auth/activate` (where the
+service's invitation email links a new user) and `/invitations/accept` (an existing one): it
+must work for signed-out invitees, signed-in users, and people without an account.
 
 **Token lifecycle** — attach the bearer, clear the session on 401, and keep the proactive
 refresh at 80% of the 15-minute TTL.

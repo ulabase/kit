@@ -22,8 +22,10 @@ export interface RhGuards {
  * redirects to `appPath` when already authenticated. Both check the in-memory
  * session first and fall back to a `checkSession()` round trip.
  *
- * Leave `/invitations/accept` outside both guards — it must work for signed-out
- * invitees, signed-in users, and people without an account.
+ * Leave the invitation page outside both guards, on both of its paths:
+ * `/auth/activate` (where the service's invitation email links a new user) and
+ * `/invitations/accept` (an existing one). It must work for signed-out invitees,
+ * signed-in users, and people without an account.
  */
 export function buildGuards(store: RhAuthStore, options: GuardOptions = {}): RhGuards {
   const loginPath = options.loginPath ?? '/auth/login';

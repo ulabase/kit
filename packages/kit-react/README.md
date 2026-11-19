@@ -130,7 +130,8 @@ import { AuthGuard, PublicGuard } from '@ulabase/kit-react';
 <Routes>
   <Route path="/app" element={<AuthGuard><Shell /></AuthGuard>} />
   <Route path="/auth/login" element={<PublicGuard><Login /></PublicGuard>} />
-  {/* /invitations/accept stays unguarded — it must work signed out, signed in, or with no account */}
+  {/* the invitation page (/auth/activate for a new user, /invitations/accept for an existing one)
+      stays unguarded — it must work signed out, signed in, or with no account */}
 </Routes>
 ```
 

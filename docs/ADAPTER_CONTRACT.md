@@ -40,7 +40,7 @@ state (signals / context / refs) and the framework glue (guards, middleware, coo
 | B2 | `authGuard`, authenticated | allow |
 | B3 | `publicGuard`, authenticated | redirect into the app |
 | B4 | `publicGuard`, unauthenticated | allow |
-| B5 | `/invitations/accept` | reachable under **neither** guard (checked at the starter level) |
+| B5 | `/auth/activate`, `/invitations/accept` (the invitation page, for a new and an existing user) | reachable under **neither** guard (checked at the starter level) |
 
 ## C. Token lifecycle
 
