@@ -22,6 +22,22 @@ export interface Step {
   check(ctx: StepContext): boolean | Promise<boolean>;
   /** Make it so. Runs only when `check` said no, and never in a dry run. */
   apply(ctx: StepContext): unknown | Promise<unknown>;
+  /**
+   * Whether the rest of the setup can go on without this step.
+   *
+   * A failing step halts the run by default, which is right for the ones later
+   * steps build on: a collection that was not created is not a good base for an
+   * index over it. It is wrong for a step that configures something the
+   * deployment may simply not use — a social sign-in provider whose credentials
+   * nobody set, say. Such a step used to take every step after it down with it,
+   * and an operator found out much later, through the symptom of whichever one
+   * mattered: a missing CORS origin surfaces as a browser error, far from here.
+   *
+   * An optional step that fails is reported `failed` like any other, and the
+   * run's `ok` is still false — it is not a way to make a broken setup look
+   * green, only a way to keep going.
+   */
+  optional?: boolean;
 }
 
 export interface Setup {
@@ -108,7 +124,7 @@ export interface RunOptions {
 /** Declare a step. A pair of halves, because idempotency is not an afterthought. */
 export function step(
   name: string,
-  halves: { check: Step['check']; apply: Step['apply'] }
+  halves: { check: Step['check']; apply: Step['apply']; optional?: Step['optional'] }
 ): Step {
   return { name, ...halves };
 }
@@ -232,8 +248,9 @@ export async function runSetup(setup: Setup, opts: RunOptions): Promise<SetupRep
     emit({ step: s.name, state, ...(error !== undefined ? { error } : {}), index, total });
 
     // A dry run keeps going: it changed nothing, so nothing downstream is any
-    // less answerable than it was.
-    if (state === 'failed' && !dryRun) halted = true;
+    // less answerable than it was. Nor does an optional step halt anything: what
+    // follows it does not depend on it, which is what declaring it optional says.
+    if (state === 'failed' && !dryRun && !s.optional) halted = true;
   }
 
   return {

@@ -50,6 +50,19 @@ npx ulabase setup --srv c0ffee       # a pipeline
 Not an adapter: it runs in Node rather than a browser, holds no reactive state, and authenticates
 as your Ulabase account rather than as a tenant. [Why](./docs/ADAPTERS.md#6-what-the-cli-is-not).
 
+It signs in with a **personal access token**, issued at
+[cloud.restheart.com](https://cloud.restheart.com) under your profile — not with your email and
+password:
+
+```bash
+rhc login                                    # prompts for the token, stores it
+RH_CLOUD_TOKEN=rhc_live_…  rhc setup         # or pass it, for CI
+```
+
+`RH_CLOUD_TOKEN` always wins over a stored session, which is what makes the same command work
+unattended in a pipeline. [The CLI README](./packages/cli/README.md#logging-in) covers both,
+including what a token is allowed to do and how a pipeline passes one.
+
 ## Quickstart
 
 The fastest path to a working app is a starter: [React](https://github.com/ulabase/starter-react),
