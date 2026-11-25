@@ -377,8 +377,16 @@ ulabase-dev setup --srv <id> --env production    # in the folder of a starter
 
 Over ssh the commands print the address and open nothing: that is the case of this machine.
 
-The trial, step by step, with what each step must show. It is Andrea's to run: the build and the
-commands are not run for him.
+The trial, step by step, with what each step must show.
+
+**Run on 2026-11-25**, by Claude with Andrea's authorization, with a test user on dev that has two
+Free services and two tokens (scripts and screenshots in `~/ulabase/artifacts/cli-trial-2026-11-25`).
+Every step below gave the result written, the ones on a terminal through a simulated one. The
+four starters passed steps 17 to 21 and are pushed. Two things seen on the way, not fixed:
+
+- the folder `app new` leaves has the starter's own `.github`, `openwiki`, `AGENTS.md` and
+  `CLAUDE.md`: they belong to our repository and say nothing to the user's app;
+- `npm install` of the React starter reports 11 vulnerabilities in its dependencies, 2 critical.
 
 | # | Do | Expect |
 |---|---|---|
