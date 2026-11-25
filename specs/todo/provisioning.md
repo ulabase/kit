@@ -375,15 +375,44 @@ ulabase-dev app new --name shop --starter react
 ulabase-dev setup --srv <id> --env production    # in the folder of a starter
 ```
 
-Over ssh the commands print the address and open nothing: that is the case of this machine. What
-to look at:
+Over ssh the commands print the address and open nothing: that is the case of this machine.
 
-- `srv ls` with a token limited to one service lists that service only;
-- `app new` asks which service, runs the starter's setup on it and leaves its address in the app;
-- `app new --starter nope` names the starters that exist;
-- `app new` in a folder that exists and is not empty changes nothing;
-- a starter cloned from GitHub is the published one until the starters' commits are pushed: the
-  `.env.<env>` files are in the local clones under `~/ulabase/starter-*`.
+The trial, step by step, with what each step must show. It is Andrea's to run: the build and the
+commands are not run for him.
+
+| # | Do | Expect |
+|---|---|---|
+| 1 | `ulabase-dev signup` | prints `https://ulabase.dev/signup`, opens nothing over ssh, exit 0 |
+| 2 | `ulabase-dev srv new --plan launch` | prints `https://ulabase.dev/new-service?tier=starter`; the page opens the wizard with Launch selected |
+| 3 | `ulabase-dev srv new --plan gold` | refuses, and names `free, launch, pro` |
+| 4 | in the console on dev, `/me/tokens?new=1` | the cursor is in the name field; the form offers «All my services» or «Only the services I choose» |
+| 5 | create a token limited to one service, then `ulabase-dev login` and paste it | «Logged in to https://api.ulabase.dev» |
+| 6 | `ulabase-dev srv ls` | that one service, with its plan as `Free`, `Launch` or `Pro` |
+| 7 | `ulabase-dev setup --srv <another service of yours> --dry-run`, in a starter's folder | refused: the token does not reach that service |
+| 8 | create a token for all the services, log in with it, `ulabase-dev srv ls` and `--json` | every service of every team; a `TEAM` column with more than one team |
+| 9 | `ulabase-dev login --new-token` | prints `https://ulabase.dev/me/tokens?new=1`, then asks for the token |
+| 10 | `ulabase-dev app new --name shop --starter react`, in an empty folder | clones, installs, lists the services and asks; after the answer runs the setup and ends with «It is connected to the service …» |
+| 11 | `cd shop && npm run dev` | the app opens on sign-up, and a sign-up works against the service chosen |
+| 12 | `ulabase-dev app new --name shop --starter react` again | «The folder shop exists and is not empty. Nothing was changed.» |
+| 13 | `ulabase-dev app new --name x --starter nope` | «There is no starter called "nope". The starters are: ecommerce, ng, react, vue.» |
+| 14 | `ulabase-dev app new shop` | «The name of the app is an option: ulabase app new --name shop» |
+| 15 | `ulabase-dev app new --name y --starter vue --no-setup` | downloads and installs, connects nothing, and says the app will not work until the setup has run |
+| 16 | `ulabase-dev srv ls > out.txt` | the table is in the file |
+
+The starters, in the local clones under `~/ulabase/starter-*`, which hold the commits not pushed
+yet. Step 10 clones from GitHub, so until the push it gets the published starter, whose setup
+writes `src/environments/environment.ts`: that works too.
+
+| # | Do, in `~/ulabase/starter-react` | Expect |
+|---|---|---|
+| 17 | `npm run dev` | the app starts on the service of `.env.development.local` |
+| 18 | `ulabase-dev setup --srv <id>` | the last step writes `VITE_API_URL` in `.env.development`; a second run changes nothing |
+| 19 | `ulabase-dev setup --srv <id> --env production` | the address is in `.env.production` |
+| 20 | `npm run build` | builds, with the production address |
+| 21 | the same in `starter-vue`, `starter-ecommerce`, and `starter-ng` with `--env staging` | Angular refuses `staging` and names its two environments |
+
+After steps 17 to 21, `git restore .env.development .env.production` in each clone, then push the
+starters.
 
 ### Open
 
