@@ -241,6 +241,8 @@ Downloads a starter app into a new folder, installs its packages and connects it
   install scripts, so the code comes from the `ulabase` organization only.
 - The download is `git clone --depth 1`, with the `.git` folder removed afterwards. git must be
   installed.
+- What belongs to the starter's repository is removed too: `.github`, its CI, and `openwiki`, a
+  wiki generated from the starter's code. The new folder is your app, with no history.
 
 Then the command connects the app. It takes the service from `--srv`, or lists your services and
 asks. Connecting runs the starter's own setup file, as `ulabase setup --srv <id>` would in that

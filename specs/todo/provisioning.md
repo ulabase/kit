@@ -198,6 +198,8 @@ What it does, in order:
 
 1. stops if the folder `<name>` exists and is not empty, and touches nothing;
 2. clones the default branch of the starter with `git clone --depth 1`, then removes `.git`;
+   it also removes what belongs to the starter's repository and not to the app: `.github`, which
+   is our CI, `openwiki`, and the block of `AGENTS.md` and `CLAUDE.md` that points at that wiki;
 3. writes `<name>` into `package.json`;
 4. runs `npm install` in the folder; `--no-install` skips it;
 5. connects the app to a service, as said below;
@@ -382,10 +384,10 @@ The trial, step by step, with what each step must show.
 **Run on 2026-11-25**, by Claude with Andrea's authorization, with a test user on dev that has two
 Free services and two tokens (scripts and screenshots in `~/ulabase/artifacts/cli-trial-2026-11-25`).
 Every step below gave the result written, the ones on a terminal through a simulated one. The
-four starters passed steps 17 to 21 and are pushed. Two things seen on the way, not fixed:
+four starters passed steps 17 to 21 and are pushed. Two things seen on the way:
 
-- the folder `app new` leaves has the starter's own `.github`, `openwiki`, `AGENTS.md` and
-  `CLAUDE.md`: they belong to our repository and say nothing to the user's app;
+- the folder `app new` left had the starter's own `.github`, `openwiki`, `AGENTS.md` and
+  `CLAUDE.md`. Fixed the same day: `app new` removes them;
 - `npm install` of the React starter reports 11 vulnerabilities in its dependencies, 2 critical.
 
 | # | Do | Expect |

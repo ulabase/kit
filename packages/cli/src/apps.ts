@@ -99,7 +99,36 @@ export function cloneStarter(starter: string, dir: string): boolean {
     return false;
   }
   rmSync(join(dir, '.git'), { recursive: true, force: true });
+  removeRepositoryFiles(dir);
   return true;
+}
+
+/** What a starter's repository holds for itself: its CI and its generated wiki. */
+const REPOSITORY_FOLDERS = ['.github', 'openwiki'];
+
+/** The files that tell a coding agent about that wiki, between these two markers. */
+const WIKI_BLOCK = /<!-- OPENWIKI:START -->[\s\S]*?<!-- OPENWIKI:END -->\n?/g;
+
+/**
+ * Take out of a new app what belongs to the starter's repository and not to the app.
+ *
+ * `.github` is the starter's own CI: one of its workflows refuses a commit that carries the
+ * address of a service, which is exactly what the user's app must have. `openwiki` is a wiki
+ * generated from the starter's code, kept current by that CI: in the user's project nothing
+ * updates it, and it would describe code that has moved on. `AGENTS.md` and `CLAUDE.md` lose the
+ * block that points a coding agent at that wiki, and go when nothing else is in them.
+ */
+export function removeRepositoryFiles(dir: string): void {
+  for (const folder of REPOSITORY_FOLDERS) {
+    rmSync(join(dir, folder), { recursive: true, force: true });
+  }
+  for (const name of ['AGENTS.md', 'CLAUDE.md']) {
+    const file = join(dir, name);
+    if (!existsSync(file)) continue;
+    const rest = readFileSync(file, 'utf8').replace(WIKI_BLOCK, '');
+    if (rest.trim() === '') rmSync(file, { force: true });
+    else writeFileSync(file, rest.replace(/^\n+/, ''));
+  }
 }
 
 /**

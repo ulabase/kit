@@ -1,4 +1,4 @@
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -8,6 +8,7 @@ import {
   isStarterName,
   listStarters,
   nameThePackage,
+  removeRepositoryFiles,
   startCommand,
   starterRepoUrl,
 } from '../../apps.js';
@@ -72,6 +73,28 @@ describe('the new folder', () => {
     expect(nameThePackage(dir, 'shop')).toBe(true);
     expect(readFileSync(join(dir, 'package.json'), 'utf8')).toBe(before.replace('starter-react', 'shop'));
     expect(startCommand(dir)).toBe('npm run dev');
+  });
+
+  it('loses what belongs to the starter's repository: its CI, its wiki, the pointers to the wiki', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'ulabase-app-'));
+    mkdirSync(join(dir, '.github', 'workflows'), { recursive: true });
+    writeFileSync(join(dir, '.github', 'workflows', 'no-service-url.yml'), 'on: push');
+    mkdirSync(join(dir, 'openwiki'));
+    writeFileSync(join(dir, 'openwiki', 'quickstart.md'), '# wiki');
+    const block = '<!-- OPENWIKI:START -->\n\n## OpenWiki\n\n@AGENTS.md\n\n<!-- OPENWIKI:END -->\n';
+    writeFileSync(join(dir, 'CLAUDE.md'), block);
+    writeFileSync(join(dir, 'AGENTS.md'), `# This app\n\nRun npm test.\n\n${block}`);
+    writeFileSync(join(dir, 'README.md'), '# Starter');
+
+    removeRepositoryFiles(dir);
+
+    expect(existsSync(join(dir, '.github'))).toBe(false);
+    expect(existsSync(join(dir, 'openwiki'))).toBe(false);
+    // nothing but the wiki block: the file goes
+    expect(existsSync(join(dir, 'CLAUDE.md'))).toBe(false);
+    // something of the app's own: it stays, without the block
+    expect(readFileSync(join(dir, 'AGENTS.md'), 'utf8')).toBe('# This app\n\nRun npm test.\n\n');
+    expect(readFileSync(join(dir, 'README.md'), 'utf8')).toBe('# Starter');
   });
 
   it('starts an Angular starter with npm start', () => {
