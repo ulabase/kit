@@ -273,6 +273,80 @@ Two ways, to choose in `ulabase-nodes`:
 - a `GET /srvs-mgmt` for `cli`, which answers the services `mayActOn` allows. It is one place for
   the scope rule, and the command needs no GraphQL.
 
+### Environments: one service each
+
+Decided by Andrea on 2026-11-25. An app has more than one environment, at least development and
+production, and each one is a service. Today a starter holds one address, the `apiUrl` line of
+`src/environments/environment.ts`, so to run the app against another service one has to run the
+setup again or edit a tracked file by hand.
+
+Each starter uses the mechanism of its own framework, and the command only has to know which
+environment it is writing.
+
+#### In the starters
+
+React, Vue and e-commerce are built with Vite, which reads one file for each mode:
+
+```
+.env.development     # VITE_API_URL=https://c0ffee.ulabase.app
+.env.production      # VITE_API_URL=https://2000c9.ulabase.app
+```
+
+`src/environments/environment.ts` stops holding the address and reads it:
+`apiUrl: import.meta.env.VITE_API_URL ?? ''`. Empty still shows the «configure your service»
+screen. The rest of the app keeps reading `environment.apiUrl`, so nothing else changes.
+
+```bash
+npm run dev                        # against the development service
+npm run dev -- --mode production   # against the production service
+npm run build                      # builds for production
+```
+
+Angular has the two files already, `environment.dev.ts` for `ng serve` and `environment.ts` for
+the production build, through `fileReplacements`. It keeps them.
+
+The two files are committed. The address of a service is not a secret, and who clones the project
+sees which service is production. The starters' own repositories keep them empty, as today, and
+the pre-commit guard that refuses a staged address now watches these files.
+
+#### In the command
+
+```bash
+ulabase setup --srv c0ffee                     # the development environment
+ulabase setup --srv 2000c9 --env production    # the production one
+```
+
+- `--env <name>` says which environment the run is for. Without it the environment is
+  `development`.
+- The name reaches the steps of the setup: the context a step receives, today `admin` and `srvId`,
+  gains `env`. The command does not write files itself. The step «the app points at this service»
+  of each starter chooses the file from `env`: `.env.<env>` with Vite, `environment.dev.ts` or
+  `environment.ts` with Angular.
+- Any name is accepted, because Vite takes any mode: `--env staging` writes `.env.staging`, and
+  `npm run dev -- --mode staging` runs on it. The Angular starter knows `development` and
+  `production` and refuses another name with a message.
+- Everything else in the setup is the same for every environment: the same file configures the
+  development service and the production one, so the two stay alike. What differs, such as a
+  Stripe key, comes from `fromEnv`, as today.
+- `ulabase app new` connects the development environment. Production is connected later, with
+  `setup --env production`.
+
+In a pipeline the token comes from `ULABASE_TOKEN`, limited to the production service, and the run
+is `ulabase setup --srv <id> --env production` before the build.
+
+Not built: a file in the project that gives a name to each service, so that `--env production`
+alone would find the id. The id is still passed with `--srv`. To revisit when a user asks.
+
+#### Acceptance
+
+- After `ulabase setup --srv c0ffee` and `ulabase setup --srv 2000c9 --env production`, the React
+  starter has the two addresses in `.env.development` and `.env.production`, and
+  `src/environments/environment.ts` has no address in it.
+- `npm run dev` calls `c0ffee`, `npm run dev -- --mode production` calls `2000c9`, and the build
+  holds the address of `2000c9`.
+- A second `ulabase setup --srv c0ffee` changes no file.
+- The Angular starter refuses `--env staging` and says which names it knows.
+
 ### In the console
 
 Small, and none of it blocks the commands:
@@ -298,8 +372,9 @@ Small, and none of it blocks the commands:
 2. `signup`, `srv new`, `login --new-token`.
 3. `app new`.
 4. `srv ls`, after the admin node can list services for a token.
-5. The manual: `cli.adoc`, the starters' READMEs and «Starter apps» in the console.
-6. In the console, `/me/tokens?new=1`.
+5. Environments: `--env` on `setup`, then the four starters.
+6. The manual: `cli.adoc`, the starters' READMEs and «Starter apps» in the console.
+7. In the console, `/me/tokens?new=1`.
 
 The scope of a token is separate work and can come before or after.
 
