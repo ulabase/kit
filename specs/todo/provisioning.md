@@ -1,6 +1,6 @@
 # `ulabase` — a session, and a service you can create from the terminal
 
-**Status:** to do. **Repo:** `ulabase/kit`, inside the existing `@ulabase/cli`.
+**Status:** built on 2026-11-25 as the «Revision of 2026-11-25» below says, on dev and not published to npm. To do: the trial on dev, then the release. **Repo:** `ulabase/kit`, inside the existing `@ulabase/cli`.
 **Depends on:** `GET /srv-tiers` on the admin node — see
 `restheart-cloud-server/specs/todo/srv-tiers-endpoint.md`. Everything else exists today.
 **Related:** [`configuration.md`](./configuration.md), whose CLI this extends.
@@ -356,6 +356,34 @@ Small, and none of it blocks the commands:
 - The scope of a token is chosen in that dialog. It is the work of
   `ulabase-nodes/specs/todo/sicurezza--pat-scope.md`, which no longer depends on this file.
 - «Starter apps» keeps showing the commands. Its login line becomes `ulabase login --new-token`.
+
+### Trying it on dev, with the local build
+
+Nothing is published: the commands are in `packages/cli` on `main`, and the trial uses a build of
+this checkout against dev.
+
+```bash
+cd ~/ulabase/kit && npm run build
+alias ulabase-dev="ULABASE_API=https://api.ulabase.dev node ~/ulabase/kit/packages/cli/dist/cli.js"
+
+ulabase-dev signup                 # prints https://ulabase.dev/signup
+ulabase-dev srv new --plan launch  # prints https://ulabase.dev/new-service?tier=starter
+ulabase-dev login --new-token      # prints https://ulabase.dev/me/tokens?new=1, then asks for the token
+ulabase-dev srv ls
+ulabase-dev srv ls --json
+ulabase-dev app new --name shop --starter react
+ulabase-dev setup --srv <id> --env production    # in the folder of a starter
+```
+
+Over ssh the commands print the address and open nothing: that is the case of this machine. What
+to look at:
+
+- `srv ls` with a token limited to one service lists that service only;
+- `app new` asks which service, runs the starter's setup on it and leaves its address in the app;
+- `app new --starter nope` names the starters that exist;
+- `app new` in a folder that exists and is not empty changes nothing;
+- a starter cloned from GitHub is the published one until the starters' commits are pushed: the
+  `.env.<env>` files are in the local clones under `~/ulabase/starter-*`.
 
 ### Open
 
