@@ -54,6 +54,251 @@ installed globally for `ulabase` and locally for a project's setup file — two 
 which works because a `Setup` is plain data and `fromEnv` matches with `Symbol.for`, so the two
 copies interoperate.
 
+## Revision of 2026-11-25
+
+Decided by Andrea on 2026-11-25. Where this section disagrees with the rest of the file, this
+section wins. Tasks 2 and 3 below are superseded by it.
+
+### The decision: the browser does it
+
+The Google Ads clicks of November 2026 left the site in seconds, and from sign-up to a starter that
+runs there are ten steps today. The first answer was a command that does everything: it signs the
+person up, creates the service and issues its own token. That needs an OAuth issuer on the admin
+node, a permission to create on the token, and a rule that widens a token's scope.
+
+Andrea chose the simple road instead. **The command opens the right page of the console, and the
+person completes the operation in the browser.** Where no browser can be opened, the command
+prints the address. The command creates nothing and is granted nothing new.
+
+The pages exist already:
+
+| Command | Page it opens |
+|---|---|
+| `ulabase signup` | `https://ulabase.com/signup` |
+| `ulabase srv new` | `https://ulabase.com/new-service` |
+| `ulabase login --new-token` | `https://ulabase.com/me/tokens` |
+
+What this removes from the earlier design:
+
+- no `OAuthTokenIssuer` on the admin node, no PKCE flow, no loopback redirect;
+- no `cli-create` role and no token whose scope grows: a scope is a list of services, chosen when
+  the token is created (`ulabase-nodes/specs/todo/sicurezza--pat-scope.md`);
+- no `POST /provision/free` from the command, so the `me: null` blocker below does not matter here;
+- no payment path in the command: the wizard in the console is the only place a service is bought.
+
+It reverses one earlier decision of the same day: there is a `ulabase signup` command.
+
+### The commands
+
+```bash
+ulabase signup                  # opens the sign-up page
+ulabase srv new             # opens the page that creates a service
+ulabase login                   # asks for a token, as today
+ulabase login --new-token       # opens the page that creates a token, then asks for it
+ulabase app new --name shop --starter react    # downloads a starter app into ./shop
+ulabase srv ls                  # lists your services
+ulabase setup --srv c0ffee      # as today
+```
+
+#### The names: the thing first, then the action
+
+Decided by Andrea on 2026-11-25. The commands follow Docker's convention, which is also the one of
+GitHub's `gh`: first the thing, then what to do with it. `ulabase srv new`, `ulabase srv ls`,
+`ulabase app new`. A thing gathers its actions, so `ulabase srv --help` shows them all, and a later
+`srv rm` or `token ls` needs no new rule.
+
+The commands with no thing stay at the first level, as `docker login` does: `signup`, `login`,
+`logout`, `setup`. `login --new-token` stays an option of `login`: it is a step of the login.
+
+The older sections of this file say `ulabase new free` and `ulabase new shared`. Those names were
+never published.
+
+#### Opening a page
+
+One function, shared by the three commands.
+
+- It tries to open the address in the default browser: `open` on macOS, `xdg-open` on Linux,
+  `start` on Windows. No new dependency.
+- It always prints the address too, on its own line, so the person can open it on another device.
+- It does not try to open a browser when there is none to open: over ssh (`SSH_CONNECTION` or
+  `SSH_TTY` set), on Linux with no `DISPLAY` and no `WAYLAND_DISPLAY`, or when stdout is not a
+  terminal. It prints the address and says to open it.
+- `--no-open` prints the address and opens nothing.
+- The console's address comes from the same place as the admin API's: `--api` and the stored
+  session decide prod or dev, so `ulabase signup` against dev opens `ulabase.dev`.
+
+A failed attempt to open the browser is not an error: the address is on the screen.
+
+#### `ulabase signup`
+
+Opens `/signup` and exits with 0. It prints what to run next: `ulabase srv new`.
+
+It does not wait and does not know whether the person signed up. After sign-up the console lands
+on the welcome page, whose one button creates a Free service, and then on «Starter apps», which
+shows the commands for that service. So a new user may never need `ulabase srv new`.
+
+#### `ulabase srv new`
+
+Opens `/new-service` and exits with 0. The console sends who is not signed in to the login page
+first, then to the wizard of their active team.
+
+- `--plan free|launch|pro` preselects the plan: the wizard already reads `?tier=`. The option is
+  named after the plans as the user reads them. `launch` maps to the wizard's `tier=starter`, the
+  internal id of the plan.
+- No `--name` and no `--region`: the wizard asks for them.
+
+It prints what to do next: copy the service id from the page the wizard lands on, then
+`ulabase setup --srv <id>`. That page, «Starter apps», already shows the command with the id in it.
+
+It runs anywhere, with or without a terminal: it creates nothing, so the dominant constraint is
+kept by construction. A pipeline that runs it gets a printed address and nothing else.
+
+#### `ulabase login --new-token`
+
+`ulabase login` stays as it is: it reads `ULABASE_TOKEN`, or asks for a token and stores it in
+`~/.config/ulabase/session.json`.
+
+`--new-token` adds one step before the question: it opens `/me/tokens`, where the person creates a
+token and copies it. Then the command asks for the token, as today. This works over ssh with no
+change: the page is opened on another device, and the token is pasted into the terminal.
+
+When `ulabase login` is run with no token and no `--new-token`, the prompt names the option:
+«No token yet? Run `ulabase login --new-token`».
+
+`ULABASE_TOKEN` set skips the page and the question, as today.
+
+#### `ulabase app new --name <name> --starter <starter>`
+
+Downloads a starter app into a new folder and installs its packages. It takes the place of
+`git clone` and `npm install` in the starters' READMEs. It creates no service and asks for no token.
+
+- **`--name <name>`** is the name of the application. The command creates the folder `<name>` and
+  writes `<name>` as `name` in the `package.json` it downloaded. It is an option and not a bare
+  argument, by Andrea's choice of 2026-11-25: the command reads the same as its meaning, and the
+  two options can come in any order. Without it, on a terminal the command asks for the name; with
+  no terminal it stops and says to pass the option.
+  A bare name, as in `ulabase app new shop`, is refused with a message that shows `--name shop`.
+- **`--starter <starter>`** names the starter by a rule, with no list in the code:
+  `--starter <x>` downloads `https://github.com/ulabase/starter-<x>`. So `react`, `ng`, `vue` and
+  `ecommerce` work today, and a repository `ulabase/starter-whatever` created tomorrow works with
+  `--starter whatever`, with no new release of the command.
+
+The rule decides three behaviours:
+
+- **The starter does not exist.** GitHub answers 404. The command says so and lists the starters
+  that exist. The list is read from GitHub at that moment: the public repositories of the `ulabase`
+  organization whose name starts with `starter-`. If that request fails too, the message gives the
+  address `https://github.com/ulabase` in its place.
+- **No `--starter`.** On a terminal the command shows the same list and asks. With no terminal it
+  stops and says to pass the option.
+- **Only public repositories of `ulabase`.** The option takes a name, never an address or another
+  owner, so the command downloads code only from our organization.
+
+What it does, in order:
+
+1. stops if the folder `<name>` exists and is not empty, and touches nothing;
+2. clones the default branch of the starter with `git clone --depth 1`, then removes `.git`;
+3. writes `<name>` into `package.json`;
+4. runs `npm install` in the folder; `--no-install` skips it;
+5. prints the next steps: `cd <name>`, `ulabase srv new`, `ulabase login --new-token`,
+   `ulabase setup --srv <id>`, and the command that starts the app.
+
+With `--srv <id>` and a stored session, it also runs the setup after step 4, as
+`ulabase setup --srv <id>` would in that folder. Without them it only prints the commands.
+
+The starter is downloaded with `git clone --depth 1`, and the `.git` folder is removed afterwards.
+Decided by Andrea on 2026-11-25, for one reason: GitHub counts clones in the traffic of a
+repository, and does not count downloads of the archive. So each `app new` shows up in the
+statistics of its starter. GitHub keeps those numbers for 14 days: to keep a history they have to
+be read and stored before they expire.
+
+The command needs git on the machine. Without it, it stops and says that git is required, with the
+address of the repository for who wants to download it by hand.
+
+A starter is trusted code: it is ours, and `npm install` runs its install scripts. That is why the
+option cannot name a repository outside `ulabase`.
+
+#### `ulabase srv ls`
+
+Asked by Andrea on 2026-11-25. It lists the services the stored token may act on, as a table:
+
+```
+ID      NAME        PLAN    REGION        TAGS
+c0ffee  shop        Free    eu-central-1  prod, web
+2000c9  shop-live   Launch  eu-central-1
+```
+
+- The columns are the id, the name, the plan, the region and the tags. The id is there because it
+  is what `--srv` takes.
+- The plan is shown with the name the user reads in the console: `Launch` for the internal
+  `starter`, `Enterprise` for `dedicated`.
+- The services of all the user's teams are listed, sorted by name. With more than one team, a
+  `TEAM` column is added.
+- `--json` prints the same rows as a JSON array, for scripts.
+- With no service it prints one line that says so and names `ulabase srv new`.
+- A token limited to some services lists only those.
+
+It needs a session, as `setup` does: with no token it says to run `ulabase login`.
+
+**Depends on the admin node.** The `cli` role has no request today that lists services. Its only
+candidate is `POST /graphql/cloud` with `me { orgs { srvs } }`, and `me` is `null` under a personal
+access token: see «Known blocker for Task 2» below. Whether that was fixed since is to check first.
+Two ways, to choose in `ulabase-nodes`:
+
+- fix `me` under a token, and filter the services by the token's scope;
+- a `GET /srvs-mgmt` for `cli`, which answers the services `mayActOn` allows. It is one place for
+  the scope rule, and the command needs no GraphQL.
+
+### In the console
+
+Small, and none of it blocks the commands:
+
+- `/me/tokens?new=1` opens the creation dialog at once, so the page the command opens is already
+  on the form. `login --new-token` uses this address when it exists.
+- The scope of a token is chosen in that dialog. It is the work of
+  `ulabase-nodes/specs/todo/sicurezza--pat-scope.md`, which no longer depends on this file.
+- «Starter apps» keeps showing the commands. Its login line becomes `ulabase login --new-token`.
+
+### Open
+
+1. **Sign-up with email verification.** The verification link opens the console from the mail.
+   `ulabase signup` does not need to survive it, because it waits for nothing. To check only that
+   the welcome page still follows.
+2. **The promise in the pages and the ads.** «An app in a minute from one command» is not what this
+   builds. The claim to make, if any, is decided after the first measured run from sign-up to a
+   running starter.
+
+### Order of the work
+
+1. The function that opens a page, with its rules for terminals with no browser.
+2. `signup`, `srv new`, `login --new-token`.
+3. `app new`.
+4. `srv ls`, after the admin node can list services for a token.
+5. The manual: `cli.adoc`, the starters' READMEs and «Starter apps» in the console.
+6. In the console, `/me/tokens?new=1`.
+
+The scope of a token is separate work and can come before or after.
+
+### Acceptance
+
+- On a laptop, `ulabase signup` opens the sign-up page in the browser and prints its address.
+- Over ssh, with no browser on the machine, each of the three commands prints the address, opens
+  nothing and exits with 0.
+- `ulabase srv new --plan launch` opens the wizard with the Launch plan selected.
+- `ulabase login --new-token` opens the tokens page, then stores the token the person pastes, and
+  `ulabase setup --srv <id>` runs on it.
+- With `ULABASE_TOKEN` set, `ulabase login --new-token` opens nothing and asks nothing.
+- Run with stdout redirected to a file, each command writes the address to the file and opens no
+  browser.
+- `ulabase app new --name shop --starter react` leaves a folder `shop` with the React starter, its
+  packages installed, `shop` as the package name and no `.git` folder.
+- A repository `ulabase/starter-whatever` created after the command was published is downloaded by
+  `--starter whatever`, with no new release.
+- `--starter nope` exits non-zero, says the starter does not exist and lists the ones that do.
+- With the folder `shop` already there and not empty, the command exits non-zero and changes nothing.
+- `ulabase srv ls` prints the id, name, plan, region and tags of the user's services; with a token
+  limited to `c0ffee` it prints that service only; `--json` prints an array.
+
 ## Task 1 — the session ✅ done
 
 **File:** `packages/cli/src/session.ts`, plus `login`/`logout` in `cli.ts` and `useToken`/
@@ -107,7 +352,7 @@ setting a password; `ulabase login` then `ulabase setup` works with no environme
 `setup` with `ULABASE_TOKEN` set uses that and not the file; a revoked token produces a message
 naming the cause rather than a bare `401`.
 
-## Task 2 — `ulabase new free`
+## Task 2 — `ulabase new free` (superseded on 2026-11-25)
 
 **File:** `packages/cli/src/commands/new.ts`
 
@@ -130,7 +375,7 @@ service limit (2, plus 2 per paid service)"*, because that is a sentence the use
 **Acceptance:** creates a service and prints its id, its URL, and the `ulabase setup --srv <id>` line
 to run next; over quota, exits non-zero with the limit explained rather than a `403`.
 
-## Task 3 — `ulabase new shared`
+## Task 3 — `ulabase new shared` (superseded on 2026-11-25)
 
 Same command, a different path, because the service does not exist when the call returns.
 
