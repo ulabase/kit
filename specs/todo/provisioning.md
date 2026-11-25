@@ -200,11 +200,35 @@ What it does, in order:
 2. clones the default branch of the starter with `git clone --depth 1`, then removes `.git`;
 3. writes `<name>` into `package.json`;
 4. runs `npm install` in the folder; `--no-install` skips it;
-5. prints the next steps: `cd <name>`, `ulabase srv new`, `ulabase login --new-token`,
-   `ulabase setup --srv <id>`, and the command that starts the app.
+5. connects the app to a service, as said below;
+6. prints the next steps: `cd <name>` and the command that starts the app, and before them the
+   steps that are still missing.
 
-With `--srv <id>` and a stored session, it also runs the setup after step 4, as
-`ulabase setup --srv <id>` would in that folder. Without them it only prints the commands.
+**Connecting the app to a service.** A starter does not work until it is connected: its
+`ulabase.setup.ts` has a step that writes the address of the service into the `apiUrl` line of
+`src/environments/environment.ts`, and the other steps configure the service for the app. An app
+started before that calls a placeholder address, and its sign-up fails. So `app new` connects the
+app itself, after step 4, by running the setup as `ulabase setup --srv <id>` would in that folder.
+
+Which service:
+
+- `--srv <id>` names it.
+- Without `--srv`, on a terminal, the command shows the services of `srv ls` and asks which one.
+  The list has one more choice, «none, I will connect it later». With one service only, it is
+  proposed as the answer.
+- With no service at all, the command says so, names `ulabase srv new`, and leaves the app
+  unconnected.
+- With no terminal and no `--srv`, it connects nothing.
+- `--no-setup` connects nothing and asks nothing.
+
+All of this needs a session. With no token the command does not fail: it downloads the starter,
+and prints `ulabase login --new-token` and `ulabase setup --srv <id>` as the next steps.
+
+When the app is left unconnected, the last lines say so plainly: the app will not work until
+`ulabase setup --srv <id>` has run.
+
+The question without `--srv` depends on the same request as `srv ls`: until the admin node can
+list services for a token, `app new` connects only with `--srv`.
 
 The starter is downloaded with `git clone --depth 1`, and the `.git` folder is removed afterwards.
 Decided by Andrea on 2026-11-25, for one reason: GitHub counts clones in the traffic of a
@@ -294,6 +318,11 @@ The scope of a token is separate work and can come before or after.
   packages installed, `shop` as the package name and no `.git` folder.
 - A repository `ulabase/starter-whatever` created after the command was published is downloaded by
   `--starter whatever`, with no new release.
+- With a session, `ulabase app new --name shop --starter react --srv c0ffee` leaves an app whose
+  `apiUrl` is the address of `c0ffee`, and whose sign-up works when started.
+- Without `--srv`, on a terminal, the command lists the services and connects the one chosen.
+- With no session, the command downloads the starter, connects nothing and says the app will not
+  work until the setup has run.
 - `--starter nope` exits non-zero, says the starter does not exist and lists the ones that do.
 - With the folder `shop` already there and not empty, the command exits non-zero and changes nothing.
 - `ulabase srv ls` prints the id, name, plan, region and tags of the user's services; with a token
