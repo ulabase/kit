@@ -14,6 +14,15 @@ export interface StepContext {
   service: ServiceClient;
   admin: AdminClient;
   srvId: string;
+  /**
+   * The environment this run is for: `development` unless `--env` named another.
+   *
+   * An app has more than one environment and each is a service. The steps that configure the
+   * service do the same for all of them, which is what keeps development and production alike.
+   * The one step that differs is the one that writes the service's address into the app: it
+   * reads this to choose the file, `.env.<env>` in a Vite project.
+   */
+  env: string;
 }
 
 export interface Step {
@@ -85,6 +94,8 @@ export interface RunOptions {
   onProgress?: (event: ProgressEvent) => void;
   /** For a setup that shares a service client with something else. */
   service?: ServiceClient;
+  /** The environment the run is for. Defaults to {@link DEFAULT_ENV}. */
+  env?: string;
   /**
    * Steps to apply without asking their `check` first.
    *
@@ -103,6 +114,14 @@ export interface RunOptions {
    * reaches "guests may read the catalog".
    */
   force?: boolean | string[];
+}
+
+/** The environment of a run that names none. */
+export const DEFAULT_ENV = 'development';
+
+/** What an environment may be called: it ends up in a file name, `.env.<name>`. */
+export function isEnvName(name: string): boolean {
+  return /^[a-z][a-z0-9-]{0,31}$/.test(name);
 }
 
 /** Declare a step. A pair of halves, because idempotency is not an afterthought. */
@@ -141,6 +160,7 @@ export async function runSetup(setup: Setup, opts: RunOptions): Promise<SetupRep
   const ctx: StepContext = {
     admin,
     srvId,
+    env: opts.env ?? DEFAULT_ENV,
     // Lazy all the way down — the client mints no token until a step asks it
     // to, so a setup of nothing but feature steps never touches the service node.
     service: opts.service ?? createServiceClient(admin, srvId),

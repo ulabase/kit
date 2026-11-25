@@ -9,6 +9,7 @@ import type {
   ServiceFeatures,
   ServiceToken,
 } from './types.js';
+import type { ListedService } from './services.js';
 
 /** What `createAdminClient` needs on top of the core's `AuthConfig`. */
 export interface AdminClientConfig extends Omit<AuthConfig, 'getToken' | 'setToken'> {
@@ -120,6 +121,13 @@ export interface AdminClient {
 
   /** A service-admin JWT and the service's URL — `GET /srvs-mgmt/{srvId}/jwt`. */
   serviceToken(srvId: string): Promise<ServiceToken>;
+
+  /**
+   * The services the current credential may act on — `GET /srvs-mgmt`.
+   *
+   * Those of the person's teams, and for a token limited to some services only those.
+   */
+  listServices(): Promise<ListedService[]>;
 
   /**
    * An escape hatch for what the methods above do not cover — the same one
@@ -268,6 +276,8 @@ export function createAdminClient(config: AdminClientConfig): AdminClient {
     async verifyToken() {
       await json<CatalogFeature[]>('/plugins');
     },
+
+    listServices: () => json<ListedService[]>('/srvs-mgmt'),
 
     featureCatalog,
     listFeatures,

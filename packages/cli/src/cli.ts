@@ -5,15 +5,30 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { createAdminClient, type AdminClient } from './admin.js';
 import { isApiError } from './http.js';
-import { runSetup, type Setup, type SetupReport, type ProgressEvent } from './setup.js';
+import { DEFAULT_ENV, isEnvName, runSetup, type Setup, type SetupReport, type ProgressEvent } from './setup.js';
 import {
   TOKEN_VAR,
   clearSession,
+  readSession,
   resolveToken,
   sessionPath,
   writeSession,
   type ResolvedToken,
 } from './session.js';
+import { openPage } from './open.js';
+import { PLAN_TIERS, formatServices, planLabel, sortServices, type ListedService } from './services.js';
+import {
+  cloneStarter,
+  folderIsFree,
+  hasGit,
+  installPackages,
+  isAppName,
+  isStarterName,
+  listStarters,
+  nameThePackage,
+  startCommand,
+  starterRepoPage,
+} from './apps.js';
 
 /** The admin node of Ulabase. */
 const DEFAULT_API = 'https://api.ulabase.com';
@@ -67,26 +82,48 @@ const PAT_PREFIX = 'ula_live_';
 const USAGE = `
 ulabase — the Ulabase CLI, also installed as \`ula\`
 
-  ulabase login
+  ulabase signup
+  ulabase srv new
+  ulabase login --new-token
+  ulabase app new --name shop --starter react
   ulabase setup --srv c0ffee
-  ulabase setup --srv c0ffee --dry-run
 
   npm i -g ulabase        for a terminal
   npx ulabase setup       for a pipeline
 
 Commands
+  signup          Open the page where you create your account.
   login           Store a personal access token for later commands.
-                  Issue one at ulabase.com, under your profile.
+                  --new-token opens the page where you create one first.
   logout          Forget the stored token.
+  srv new         Open the page where you create a service.
+  srv ls          List your services: id, name, plan, region, tags.
+  app new         Download a starter app into a new folder, install its
+                  packages and connect it to one of your services.
   setup           Bring a service to the state your setup file describes.
                   Every step is a check and an apply, so running it against a
                   service already set up writes nothing.
 
+  signup, srv new and login --new-token create nothing themselves: they open a
+  page of the console, and you finish there. Where no browser can be opened,
+  over ssh for instance, they print the address to open on another device.
+
 Options
+  --no-open       Print the address of the page and open no browser.
+  --new-token     With login: open the page that creates a token, then ask for it.
+  --plan <plan>   With srv new: free, launch or pro, selected on the page.
+  --name <name>   With app new: the name of the app, and of its folder.
+  --starter <s>   With app new: the starter to download. \`--starter react\` is
+                  github.com/ulabase/starter-react; any starter there works.
+  --no-install    With app new: do not run npm install.
+  --no-setup      With app new: do not connect the app to a service.
+  --srv <id>      The service to set up, or to connect a new app to.
+  --env <name>    The environment the setup is for (default: development).
+                  The step that writes the service's address into the app
+                  chooses the file from it: --env production for production.
   --file <path>   A module exporting a setup (default export, or \`setup\`).
                   A function export is called with no arguments.
                   Defaults to ./${DEFAULT_FILES[0]}.
-  --srv <id>      The service to set up.
   --dry-run       Run every check, apply nothing, write nothing.
   --force <name>  Apply the steps whose name contains <name> without asking
                   their check first — for a change the check cannot see, such as
@@ -94,7 +131,7 @@ Options
                   Bare --force takes every step, which is usually wrong: an
                   apply written to run once may not survive running twice.
   --api <url>     Admin node (default: ${API_VAR}, else ${DEFAULT_API}).
-  --json          Emit the report as JSON instead of a step list.
+  --json          Emit the report, or the list of services, as JSON.
   --version, -v   Print the version and exit.
   --help
 
@@ -102,7 +139,8 @@ Credentials
   A personal access token, and never a password — the CLI has no way to accept
   one. A token carries the \`cli\` role rather than yours: it configures services
   and cannot buy one, and it is revoked by itself, without touching anything
-  else the account is used for.
+  else the account is used for. It can be limited to some services when you
+  create it.
 
   ${TOKEN_VAR}       in a pipeline. Always wins over a stored session.
   ulabase login       in a terminal. Stored 0600 under ~/.config/ulabase.
@@ -116,15 +154,35 @@ Exit codes
   2  a dry run found work outstanding — configuration drift, not an error
 `;
 
-/** The commands this version answers to. `new` is specced, not built. */
-const COMMANDS = ['login', 'logout', 'setup'] as const;
+/**
+ * The commands this version answers to.
+ *
+ * The thing first, then the action, as `docker` and `gh` do: `srv new`, `srv ls`, `app new`. A
+ * thing gathers its actions. The commands with no thing stay at the first level.
+ */
+const COMMANDS = ['signup', 'login', 'logout', 'setup', 'srv', 'app'] as const;
 type Command = (typeof COMMANDS)[number];
+
+/** The actions of the commands that name a thing. */
+const ACTIONS: Partial<Record<Command, readonly string[]>> = { srv: ['new', 'ls'], app: ['new'] };
 
 interface Args {
   command?: Command;
+  /** The action of `srv` or `app`. */
+  action?: string;
   file?: string;
   srv?: string;
   api: string;
+  /** Whether `--api` was on the line, as against the default. */
+  apiGiven: boolean;
+  noOpen: boolean;
+  newToken: boolean;
+  plan?: string;
+  name?: string;
+  starter?: string;
+  noInstall: boolean;
+  noSetup: boolean;
+  env?: string;
   dryRun: boolean;
   force: boolean | string[];
   json: boolean;
@@ -133,7 +191,19 @@ interface Args {
 }
 
 function parseArgs(argv: string[]): Args {
-  const args: Args = { api: defaultApi(), dryRun: false, force: false, json: false, help: false, version: false };
+  const args: Args = {
+    api: defaultApi(),
+    apiGiven: false,
+    noOpen: false,
+    newToken: false,
+    noInstall: false,
+    noSetup: false,
+    dryRun: false,
+    force: false,
+    json: false,
+    help: false,
+    version: false,
+  };
 
   // The first bare word is the command. Taken before the option loop so an
   // unknown one is rejected as a command rather than as a stray option.
@@ -144,6 +214,22 @@ function parseArgs(argv: string[]): Args {
     }
     args.command = first as Command;
     argv = argv.slice(1);
+
+    // `srv` and `app` name a thing: the next bare word is what to do with it.
+    const actions = ACTIONS[args.command];
+    if (actions) {
+      const action = argv[0];
+      if (action === undefined || action.startsWith('-')) {
+        if (!argv.includes('--help') && !argv.includes('-h')) {
+          throw new Error(`ulabase ${first} needs an action: ${actions.map(a => `ulabase ${first} ${a}`).join(', ')}`);
+        }
+      } else if (!actions.includes(action)) {
+        throw new Error(`unknown action: ulabase ${first} ${action}\nAvailable: ${actions.map(a => `ulabase ${first} ${a}`).join(', ')}`);
+      } else {
+        args.action = action;
+        argv = argv.slice(1);
+      }
+    }
   }
 
   for (let i = 0; i < argv.length; i++) {
@@ -151,7 +237,15 @@ function parseArgs(argv: string[]): Args {
     switch (a) {
       case '--file': args.file = argv[++i]; break;
       case '--srv': args.srv = argv[++i]; break;
-      case '--api': args.api = argv[++i] ?? defaultApi(); break;
+      case '--api': args.api = argv[++i] ?? defaultApi(); args.apiGiven = true; break;
+      case '--no-open': args.noOpen = true; break;
+      case '--new-token': args.newToken = true; break;
+      case '--plan': args.plan = argv[++i]; break;
+      case '--name': args.name = argv[++i]; break;
+      case '--starter': args.starter = argv[++i]; break;
+      case '--no-install': args.noInstall = true; break;
+      case '--no-setup': args.noSetup = true; break;
+      case '--env': args.env = argv[++i]; break;
       case '--dry-run': args.dryRun = true; break;
       case '--force': {
         // A value only if the next argument is not another option. `--force`
@@ -171,6 +265,11 @@ function parseArgs(argv: string[]): Args {
       case '--version':
       case '-v': args.version = true; break;
       default:
+        // A bare word after `app new` is a name written the way `ng new` takes it. The name
+        // is an option here, so say which, rather than answer "unknown option".
+        if (a !== undefined && !a.startsWith('-') && args.command === 'app') {
+          throw new Error(`The name of the app is an option: ulabase app new --name ${a}`);
+        }
         // Rather than ignore it: a misspelled --dry-run that silently applied
         // the setup is the worst failure this tool could have.
         throw new Error(`unknown option: ${a}`);
@@ -385,10 +484,18 @@ async function cmdLogin(args: Args): Promise<number> {
     return 1;
   }
 
-  if (!fromEnv) {
+  if (!fromEnv && args.newToken) {
+    // The page creates the token; the terminal then asks for it, as it does without the option.
+    // So this works over ssh too: the page is opened on another device, the token pasted here.
+    process.stdout.write('Create a personal access token on this page, and copy it.\n');
+    openPage(`https://${consoleOf(args.api)}/me/tokens?new=1`, { noOpen: args.noOpen });
+  } else if (!fromEnv) {
     // Where to get one, then what to do, each on its own line: written on the line readline then
     // takes over, the instruction was erased, and the user was left in front of a silent cursor.
-    process.stdout.write(`Issue a personal access token at https://${consoleOf(args.api)}/me/tokens\n`);
+    process.stdout.write(
+      `Issue a personal access token at https://${consoleOf(args.api)}/me/tokens\n` +
+        'No token yet? Run `ulabase login --new-token`: it opens that page for you.\n'
+    );
   }
 
   const token =
@@ -489,13 +596,13 @@ function summarise(report: SetupReport): void {
   }
 }
 
-async function cmdSetup(args: Args): Promise<number> {
-  if (!args.srv) {
-    process.stderr.write(`--srv is required.\n${USAGE}`);
-    return 1;
-  }
-
-  const setup = await loadSetup(resolveFile(args.file));
+/**
+ * An admin client on the stored or environment token, checked before anything is done with it.
+ *
+ * What `setup`, `srv ls` and `app new` have in common: a credential, a refusal to send a stored
+ * one to another admin node, and one cheap call that turns a revoked token into a sentence.
+ */
+async function signedInAdmin(args: Args): Promise<AdminClient> {
   const credential = requireToken();
 
   // A stored token was verified against one admin node and means nothing to
@@ -519,21 +626,17 @@ async function cmdSetup(args: Args): Promise<number> {
     }
     throw err;
   }
+  return admin;
+}
 
-  if (args.force && args.dryRun) {
-    // Not an error worth failing on, but they pull opposite ways: a dry run
-    // asks what is missing, and forcing declares everything missing.
-    process.stderr.write('--force has no effect with --dry-run; every step is reported missing.\n');
-  }
-
+/** Run a loaded setup and print it, as `setup` does. Returns the exit code of the run. */
+async function runAndReport(setup: Setup, admin: AdminClient, args: Args, srvId: string, env: string): Promise<number> {
   const report = await runSetup(setup, {
     admin,
-    srvId: args.srv,
+    srvId,
+    env,
     dryRun: args.dryRun,
     force: args.force,
-    // Nothing but a name and a state reaches this — a step that configures a
-    // plugin has a secret in its arguments, and this output is the thing most
-    // likely to end up in a CI log.
     ...(args.json ? {} : { onProgress: render }),
   });
 
@@ -545,8 +648,253 @@ async function cmdSetup(args: Args): Promise<number> {
   return 0;
 }
 
+// ── the pages of the console ────────────────────────────────────────────────
+
+/** `ulabase signup`: the page where an account is created. The command creates nothing. */
+function cmdSignup(args: Args): number {
+  openPage(`https://${consoleOf(args.api)}/signup`, { noOpen: args.noOpen });
+  process.stdout.write(
+    'After you sign up, the console creates your first service with one button.\n' +
+      'Then, here:\n\n' +
+      '  ulabase login --new-token\n' +
+      '  ulabase app new --name <name> --starter react\n'
+  );
+  return 0;
+}
+
+/**
+ * `ulabase srv new`: the page where a service is created.
+ *
+ * It opens a page and creates nothing, so it is safe wherever it runs: a pipeline that calls it
+ * gets a printed address. Services are created, and paid for, in the console only.
+ */
+function cmdSrvNew(args: Args): number {
+  let query = '';
+  if (args.plan !== undefined) {
+    const tier = PLAN_TIERS[args.plan.toLowerCase()];
+    if (!tier) {
+      throw new Error(`--plan takes ${Object.keys(PLAN_TIERS).join(', ')}, not "${args.plan}".`);
+    }
+    query = `?tier=${tier}`;
+  }
+
+  openPage(`https://${consoleOf(args.api)}/new-service${query}`, { noOpen: args.noOpen });
+  process.stdout.write(
+    'The page gives you the id of the new service. Then, here:\n\n' +
+      '  ulabase srv ls                  to see it in the list\n' +
+      '  ulabase setup --srv <id>        in the folder of your app\n'
+  );
+  return 0;
+}
+
+/** `ulabase srv ls`: the services the stored token may act on. */
+async function cmdSrvLs(args: Args): Promise<number> {
+  const admin = await signedInAdmin(args);
+  const services = await admin.listServices();
+
+  if (args.json) {
+    process.stdout.write(`${JSON.stringify(sortServices(services), null, 2)}\n`);
+    return 0;
+  }
+
+  if (services.length === 0) {
+    process.stdout.write('No services yet. Create one with `ulabase srv new`.\n');
+    return 0;
+  }
+
+  process.stdout.write(`${formatServices(services)}\n`);
+  return 0;
+}
+
+// ── a new app ───────────────────────────────────────────────────────────────
+
+/** Ask to pick one of a list, by number. Returns the index, or -1 for an answer that picks none. */
+async function choose(question: string, options: string[]): Promise<number> {
+  options.forEach((o, i) => process.stdout.write(`  ${String(i + 1).padStart(2)}. ${o}\n`));
+  const answer = (await prompt(`${question} `)).trim();
+  const n = Number(answer);
+  return Number.isInteger(n) && n >= 1 && n <= options.length ? n - 1 : -1;
+}
+
+/**
+ * The service a new app is connected to: `--srv`, or the one picked from the list.
+ *
+ * @returns the id, or `null` with the reason already printed
+ */
+async function serviceForApp(args: Args, admin: AdminClient): Promise<string | null> {
+  if (args.srv) return args.srv;
+
+  if (!process.stdin.isTTY) {
+    process.stdout.write('No --srv, and no terminal to ask which service: the app is not connected yet.\n');
+    return null;
+  }
+
+  const services: ListedService[] = sortServices(await admin.listServices());
+
+  if (services.length === 0) {
+    process.stdout.write('You have no service yet. Create one with `ulabase srv new`.\n');
+    return null;
+  }
+
+  process.stdout.write('\nWhich service does this app use?\n\n');
+  const labels = services.map(s => `${s.name || s._id} (${s._id}, ${planLabel(s.plan)})`);
+  const picked = await choose(
+    services.length === 1 ? 'Press 1 to use it, or Enter to connect the app later:' : 'A number, or Enter to connect the app later:',
+    labels
+  );
+  return picked < 0 ? null : services[picked]!._id;
+}
+
+/**
+ * `ulabase app new`: a starter app in a new folder, its packages installed, connected to a
+ * service.
+ *
+ * It creates no service and needs no token to download: with no session it leaves a working
+ * tree and says what is missing. Connecting is the starter's own setup, run as `ulabase setup`
+ * would in that folder: it configures the service and writes its address into the app.
+ */
+async function cmdAppNew(args: Args): Promise<number> {
+  const interactive = Boolean(process.stdin.isTTY);
+
+  // the name: an option, asked for on a terminal
+  let name = args.name;
+  if (name === undefined) {
+    if (!interactive) throw new Error('--name is required: ulabase app new --name <name> --starter <starter>');
+    name = (await prompt('The name of the app, and of its folder: ')).trim();
+  }
+  if (!isAppName(name)) {
+    throw new Error(
+      `"${name}" cannot be the name of an app. Use lower-case letters, digits, "-", "_" and ".", starting with a letter or a digit.`
+    );
+  }
+
+  // the starter: an option, asked for from the list of the ones that exist
+  let starter = args.starter;
+  if (starter === undefined) {
+    if (!interactive) throw new Error('--starter is required: ulabase app new --name <name> --starter <starter>');
+    const starters = await listStarters();
+    if (!starters || starters.length === 0) {
+      throw new Error('Could not read the list of starters. Pass one with --starter: see https://github.com/ulabase');
+    }
+    process.stdout.write('\nWhich starter?\n\n');
+    const picked = await choose('A number:', starters);
+    if (picked < 0) throw new Error('No starter chosen.');
+    starter = starters[picked]!;
+  }
+  if (!isStarterName(starter)) {
+    throw new Error(`--starter takes the name of a starter, such as react, not "${starter}".`);
+  }
+
+  const dir = resolve(process.cwd(), name);
+  if (!folderIsFree(dir)) {
+    throw new Error(`The folder ${name} exists and is not empty. Nothing was changed.`);
+  }
+
+  if (!hasGit()) {
+    throw new Error(
+      `git is required to download a starter, and it was not found.\nInstall git, or download the starter by hand: ${starterRepoPage(starter)}`
+    );
+  }
+
+  process.stdout.write(`Downloading the ${starter} starter into ${name}...\n`);
+  if (!cloneStarter(starter, dir)) {
+    const starters = await listStarters();
+    if (starters && !starters.includes(starter)) {
+      throw new Error(`There is no starter called "${starter}". The starters are: ${starters.join(', ')}.`);
+    }
+    throw new Error(
+      starters
+        ? `Could not download the ${starter} starter. Check your connection and try again.`
+        : `Could not download the ${starter} starter. The starters are at https://github.com/ulabase`
+    );
+  }
+
+  nameThePackage(dir, name);
+
+  let installed = false;
+  if (args.noInstall) {
+    process.stdout.write('Skipping npm install (--no-install).\n');
+  } else {
+    process.stdout.write('Installing its packages...\n');
+    installed = installPackages(dir);
+    if (!installed) process.stderr.write('npm install failed. Run it again in the folder of the app.\n');
+  }
+
+  // Connecting: the starter's setup, on the service chosen. Each reason not to is said.
+  let connected: string | null = null;
+  const missing: string[] = [];
+
+  if (args.noSetup) {
+    missing.push('ulabase setup --srv <id>');
+  } else if (!installed) {
+    // the setup file imports this package from the app's own node_modules
+    missing.push(...(args.noInstall ? ['npm install'] : []), 'ulabase setup --srv <id>');
+  } else if (!resolveToken()) {
+    missing.push('ulabase login --new-token', 'ulabase setup --srv <id>');
+  } else {
+    const admin = await signedInAdmin(args);
+    const srvId = await serviceForApp(args, admin);
+    if (srvId === null) {
+      missing.push('ulabase setup --srv <id>');
+    } else {
+      const file = DEFAULT_FILES.map(f => resolve(dir, f)).find(f => existsSync(f));
+      if (!file) {
+        process.stdout.write('This starter has no setup file: there is nothing to connect.\n');
+      } else {
+        process.stdout.write(`\nConnecting ${name} to the service ${srvId}:\n\n`);
+        const code = await runAndReport(await loadSetup(file), admin, args, srvId, DEFAULT_ENV);
+        if (code === 0) connected = srvId;
+        else missing.push(`ulabase setup --srv ${srvId}`);
+      }
+    }
+  }
+
+  process.stdout.write(`\n${name} is ready in ./${name}\n`);
+  if (connected) {
+    process.stdout.write(`It is connected to the service ${connected}. Start it:\n\n`);
+  } else if (missing.length > 0) {
+    process.stdout.write('It is not connected to a service yet, and it will not work until it is. Next:\n\n');
+  } else {
+    process.stdout.write('Start it:\n\n');
+  }
+  process.stdout.write(`  cd ${name}\n`);
+  missing.forEach(m => process.stdout.write(`  ${m}\n`));
+  process.stdout.write(`  ${startCommand(dir)}\n`);
+  return 0;
+}
+
+async function cmdSetup(args: Args): Promise<number> {
+  if (!args.srv) {
+    process.stderr.write(`--srv is required.\n${USAGE}`);
+    return 1;
+  }
+
+  const env = args.env ?? DEFAULT_ENV;
+  if (!isEnvName(env)) {
+    throw new Error(`--env takes a name such as development or production, not "${env}".`);
+  }
+
+  const setup = await loadSetup(resolveFile(args.file));
+  const admin = await signedInAdmin(args);
+
+  if (args.force && args.dryRun) {
+    // Not an error worth failing on, but they pull opposite ways: a dry run
+    // asks what is missing, and forcing declares everything missing.
+    process.stderr.write('--force has no effect with --dry-run; every step is reported missing.\n');
+  }
+
+  return runAndReport(setup, admin, args, args.srv, env);
+}
+
 async function main(): Promise<number> {
   const args = parseArgs(process.argv.slice(2));
+
+  // With no --api and no ULABASE_API, the admin node is the one of the stored session: who logged
+  // in to another installation keeps working on it, and the pages opened are of its console.
+  if (!args.apiGiven && !process.env[API_VAR]?.trim()) {
+    const session = readSession();
+    if (session) args.api = session.api;
+  }
 
   // Before everything else, including the command check: `ulabase -v` has to answer
   // on a machine where nothing is set up yet, which is most of when it is asked.
@@ -565,9 +913,12 @@ async function main(): Promise<number> {
   }
 
   switch (args.command) {
+    case 'signup': return cmdSignup(args);
     case 'login': return cmdLogin(args);
     case 'logout': return cmdLogout();
     case 'setup': return cmdSetup(args);
+    case 'srv': return args.action === 'ls' ? cmdSrvLs(args) : cmdSrvNew(args);
+    case 'app': return cmdAppNew(args);
   }
 }
 

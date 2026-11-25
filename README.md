@@ -56,11 +56,13 @@ The fastest path to a working app is a starter: [React](https://github.com/ulaba
 [Angular](https://github.com/ulabase/starter-ng), [Vue](https://github.com/ulabase/starter-vue) or
 [e-commerce](https://github.com/ulabase/starter-ecommerce).
 
-1. Create a service on [Ulabase](https://ulabase.com)
-2. Clone a starter and run `npm install`
-3. `npx ulabase login`, then `npx ulabase setup --srv <srvId>`: it configures the service and writes
-   its URL into the app's environment file
-4. `npm run dev` (`npm start` for Angular)
+1. Create your account and a service on [Ulabase](https://ulabase.com): `npx ulabase signup` and
+   `npx ulabase srv new` open the pages
+2. `npx ulabase login --new-token`: it opens the page that creates a token, and stores the one you
+   paste
+3. `npx ulabase app new --name shop --starter react`: it downloads the starter, installs its
+   packages, configures your service and writes its address into the app
+4. `cd shop`, then `npm run dev` (`npm start` for Angular)
 
 ## Contributing
 

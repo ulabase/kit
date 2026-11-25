@@ -1,6 +1,21 @@
 # @ulabase/cli
 
-Set up a Ulabase service from a file committed to git.
+The `ulabase` command line. It starts an app from a starter, lists your services, and sets up a
+Ulabase service from a file committed to git.
+
+```bash
+ulabase signup                                  # your account, in the browser
+ulabase srv new                                 # your service, in the browser
+ulabase login --new-token                       # a token, created in the browser
+ulabase app new --name shop --starter react     # a starter app, connected to your service
+ulabase srv ls                                  # your services
+ulabase setup --srv c0ffee                      # a service, set up from a file
+```
+
+The first part of this page is the setup file, which is what the package is a library for. The
+commands that get you started are under [Starting an app](#starting-an-app).
+
+## Why a setup file
 
 A developer who forks a starter gets working code and an unconfigured service. What follows is
 clicking: create the catalog collection, add an index, write the ACL permission that lets a guest
@@ -174,16 +189,113 @@ secrets in the environment at all: a stored key comes back as bullets, a check w
 `isRedacted(v) || v !== ''` passes, and the apply that would have read `STRIPE_SECRET_KEY` never
 runs.
 
-## Logging in
+## Starting an app
 
-The credential is a **personal access token**. Issue one at
-[ulabase.com](https://ulabase.com), under your profile.
+Four commands take you from nothing to a starter app running on your own service. The first three
+open a page of the console, and you finish there. The last one runs in the terminal.
 
 ```bash
-ulabase login                     # prompts, stores 0600 under ~/.config/ulabase
+ulabase signup
+ulabase srv new
+ulabase login --new-token
+ulabase app new --name shop --starter react
+```
+
+### The commands that open a page
+
+`signup`, `srv new` and `login --new-token` create nothing themselves. Each opens a page of the
+console in your browser and prints its address. The account, the service and the token are created
+on the page.
+
+Where no browser can be opened, the command prints the address and opens nothing: over ssh, on
+Linux with no display, in a pipeline, or when the output is redirected. Open the address on another
+device. `--no-open` does the same on any machine.
+
+`srv new --plan free|launch|pro` selects the plan on the page.
+
+Services are created in the console only, and paid plans are bought there. So `srv new` is safe
+wherever it runs: a pipeline that calls it gets a printed address and nothing else.
+
+### `ulabase srv ls`
+
+```
+ID      NAME       PLAN    REGION        TAGS
+c0ffee  shop       Free    eu-central-1  prod, web
+2000c9  shop-live  Launch  eu-central-1
+```
+
+The services of all your teams, with a `TEAM` column when they are in more than one. The id is what
+`--srv` takes. A token limited to some services lists only those. `--json` prints the list as JSON.
+
+### `ulabase app new --name <name> --starter <starter>`
+
+Downloads a starter app into a new folder, installs its packages and connects it to a service.
+
+- `--name` is the name of the app. The command creates the folder and writes the name in the app's
+  `package.json`. A folder that exists and is not empty stops the command, and nothing changes.
+- `--starter` names the starter by a rule, with no list in the code: `--starter x` is the
+  repository `github.com/ulabase/starter-x`. So `react`, `ng`, `vue` and `ecommerce` work today,
+  and a starter published later works with no new release of this package. A name that matches no
+  repository gets the list of the starters that exist, read from GitHub at that moment.
+- The option takes a name, never an address or another owner. `npm install` runs the starter's
+  install scripts, so the code comes from the `ulabase` organization only.
+- The download is `git clone --depth 1`, with the `.git` folder removed afterwards. git must be
+  installed.
+
+Then the command connects the app. It takes the service from `--srv`, or lists your services and
+asks. Connecting runs the starter's own setup file, as `ulabase setup --srv <id>` would in that
+folder: it configures the service and writes its address into the app.
+
+An app that is not connected does not work. The command leaves it unconnected, and prints the
+commands that are missing, when you are not logged in, when you have no service, when you answer
+that you will connect it later, with `--no-setup`, with `--no-install`, or with no terminal to ask
+on and no `--srv`.
+
+## Environments
+
+An app has more than one environment, and each is a service: a Free one to build on, a paid one
+for production. The same setup file configures both, so they stay alike.
+
+```bash
+ulabase setup --srv c0ffee                     # the development environment
+ulabase setup --srv 2000c9 --env production    # the production one
+```
+
+`--env` reaches the steps as `env` in their context, `development` when the option is absent. The
+steps that configure the service ignore it. The one that writes the service's address into the app
+uses it to choose the file. In the starters built with Vite that is `.env.<env>`:
+
+```
+.env.development     # VITE_API_URL=https://c0ffee.ulabase.app
+.env.production      # VITE_API_URL=https://2000c9.ulabase.app
+```
+
+```bash
+npm run dev                        # the development service
+npm run dev -- --mode production   # the production service, from your computer
+npm run build                      # builds for the production service
+```
+
+The Angular starter has `environment.dev.ts` and `environment.ts`, and knows `development` and
+`production`.
+
+## Logging in
+
+The credential is a **personal access token**. You create it in the console, at
+[ulabase.com/me/tokens](https://ulabase.com/me/tokens), and you can limit it there to some of your
+services.
+
+```bash
+ulabase login --new-token         # opens the page that creates a token, then prompts for it
+ulabase login                     # prompts for a token you already have
 ulabase setup --srv c0ffee
 ulabase logout                    # forgets it here; revoke it in the console
 ```
+
+The token is stored 0600 under `~/.config/ulabase`.
+
+A token limited to some services reaches those and no others, and cannot create a service. Give a
+pipeline a token limited to the service it deploys to.
 
 The CLI has no way to accept a password, and that is the design rather than a gap. If you signed up
 with Google or GitHub you have no password to give it — the OAuth flow returns no token, only an
@@ -207,7 +319,7 @@ of every other user on the machine.
 
 ```yaml
 # .github/workflows/deploy.yml
-- run: npx ulabase setup --srv c0ffee
+- run: npx ulabase setup --srv 2000c9 --env production
   env:
     ULABASE_TOKEN: ${{ secrets.ULABASE_TOKEN }}
     STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
@@ -242,18 +354,28 @@ misconfigured Stripe key fails the pipeline before it can report success.
 ## CLI
 
 ```
-ulabase login  [--api <url>]
+ulabase signup   [--no-open]
+ulabase login    [--new-token] [--no-open]
 ulabase logout
-ulabase setup --srv <id> [options]
+ulabase srv new  [--plan free|launch|pro] [--no-open]
+ulabase srv ls   [--json]
+ulabase app new  --name <name> --starter <starter> [--srv <id>] [--no-install] [--no-setup]
+ulabase setup    --srv <id> [--env <name>] [options]
 
 --file <path>   A module exporting a setup (default export, or `setup`).
                 A function export is called with no arguments.
                 Defaults to ./ulabase.setup.ts in the working directory.
---srv <id>      The service to set up.
+--srv <id>      The service to set up, or to connect a new app to.
+--env <name>    The environment the setup is for (default: development).
 --dry-run       Run every check, apply nothing, write nothing.
---api <url>     Admin node (default: ULABASE_API, else https://api.ulabase.com).
---json          Emit the report as JSON instead of a step list.
+--force <name>  Apply the steps whose name contains <name> without their check.
+--api <url>     Admin node (default: ULABASE_API, else the one of the stored
+                session, else https://api.ulabase.com).
+--json          Emit the report, or the list of services, as JSON.
 ```
+
+The commands name the thing first and the action after it, as `docker` and `gh` do: `srv new`,
+`srv ls`, `app new`. The commands with no thing stay at the first level.
 
 `ulabase login` checks the token against the admin node before storing it. Writing an unverified
 credential to disk only moves the failure to the next command, where it lands as a `401` in the
@@ -262,11 +384,10 @@ stored session records which admin node the token was verified against, and a `-
 disagrees is refused rather than sent — otherwise a production credential would be offered to
 whatever host happened to be named.
 
-`ulabase new free|shared` — creating a service from the terminal — is specified in
-[`specs/todo/provisioning.md`](../../specs/todo/provisioning.md) and not built.
-
-Provisioning will deliberately not be reachable from a setup: a pipeline re-runs a setup on every
-merge, and a step that could create a *shared* service would start a purchase per merge.
+Creating a service is not reachable from a setup, and the command does not create one either:
+`ulabase srv new` opens the page of the console that does. A pipeline re-runs a setup on every
+merge, and a step that could create a paid service would start a purchase per merge. The design is
+in [`specs/todo/provisioning.md`](../../specs/todo/provisioning.md).
 
 A `.ts` setup needs a runtime that can load one — Node 22.18+ strips types on its own, anything
 earlier wants `npx tsx`.
@@ -311,14 +432,15 @@ A check answers `false` on `404` and throws on anything else — a `403` means t
 the thing, which is not the same as the thing not being there, and swallowing it would report
 "missing", apply, and fail again.
 
-### `runSetup(setup, { admin, srvId, dryRun?, onProgress? })`
+### `runSetup(setup, { admin, srvId, env?, dryRun?, onProgress? })`
 
 Returns a `SetupReport`. Progress is a callback, not `console.log` — the CLI subscribes to it, and
 so could a local page.
 
 ## Out of scope
 
-- **Creating services.** Provisioning is the console's job; this configures one that exists.
+- **Creating services.** Provisioning is the console's job: `ulabase srv new` opens its page, and
+  `ulabase setup` configures a service that exists.
 - **Billing.** `/purchase`, `/cancel` and `/invoices` move money. A wizard that can spend your
   money by accident is not a wizard.
 - **A hosted configuration page.** Ruled out by the `originVetoer`. A local page served *by* the

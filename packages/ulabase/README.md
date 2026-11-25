@@ -34,10 +34,22 @@ export default defineSetup('Shop', [
 ```
 
 ```bash
-ulabase login                          # once, with a personal access token
+ulabase login --new-token              # once: opens the page that creates a token
 ulabase setup --srv c0ffee --dry-run   # what would change
 ulabase setup --srv c0ffee             # apply it
 ```
+
+## A starter app, from the terminal
+
+```bash
+ulabase signup                                  # your account, in the browser
+ulabase srv new                                 # your service, in the browser
+ulabase app new --name shop --starter react     # a starter app, connected to your service
+ulabase srv ls                                  # your services
+```
+
+`signup` and `srv new` open a page of the console, where you finish. `app new` downloads a starter
+(`react`, `ng`, `vue`, `ecommerce`), installs its packages and connects it to one of your services.
 
 Every step is a check and an apply, so running it again on a service already set up writes
 nothing. In CI, set `ULABASE_TOKEN` from your secret store instead of logging in.

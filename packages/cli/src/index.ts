@@ -24,6 +24,9 @@ export type { ServiceClient, Document, IndexKeys } from './service.js';
 
 export { isApiError } from './http.js';
 
+export { planLabel, formatServices, sortServices } from './services.js';
+export type { ListedService } from './services.js';
+
 export {
   TOKEN_VAR,
   sessionPath,
@@ -34,7 +37,7 @@ export {
 } from './session.js';
 export type { Session, TokenSource, ResolvedToken } from './session.js';
 
-export { step, defineSetup, runSetup } from './setup.js';
+export { step, defineSetup, runSetup, DEFAULT_ENV, isEnvName } from './setup.js';
 export type {
   Step,
   StepContext,
