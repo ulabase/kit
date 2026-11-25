@@ -227,7 +227,7 @@ describe('runSetup', () => {
     expect(report.steps[0]!.error).toBe('missing STRIPE_SECRET_KEY');
   });
 
-  it('hands each step both clients and the service id', async () => {
+  it('hands each step both clients, the service id and the environment', async () => {
     const seen: unknown[] = [];
     await run([
       step('sees its context', {
@@ -239,7 +239,26 @@ describe('runSetup', () => {
       }),
     ]);
 
-    expect(seen[0]).toEqual({ admin, service, srvId: 'ea820b' });
+    // no --env: the run is for development
+    expect(seen[0]).toEqual({ admin, service, srvId: 'ea820b', env: 'development' });
+  });
+
+  it('passes the environment named by --env to the steps', async () => {
+    const seen: string[] = [];
+    await runSetup(
+      defineSetup('Test', [
+        step('reads its environment', {
+          check: ctx => {
+            seen.push(ctx.env);
+            return true;
+          },
+          apply: () => undefined,
+        }),
+      ]),
+      { admin, srvId: 'ea820b', service, env: 'production' }
+    );
+
+    expect(seen).toEqual(['production']);
   });
 });
 
