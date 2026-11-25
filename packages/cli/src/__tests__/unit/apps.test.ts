@@ -75,7 +75,7 @@ describe('the new folder', () => {
     expect(startCommand(dir)).toBe('npm run dev');
   });
 
-  it('loses what belongs to the starter's repository: its CI, its wiki, the pointers to the wiki', () => {
+  it("loses what belongs to the starter's repository: its CI, its wiki, the pointers to the wiki", () => {
     const dir = mkdtempSync(join(tmpdir(), 'ulabase-app-'));
     mkdirSync(join(dir, '.github', 'workflows'), { recursive: true });
     writeFileSync(join(dir, '.github', 'workflows', 'no-service-url.yml'), 'on: push');
