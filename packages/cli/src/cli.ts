@@ -16,6 +16,7 @@ import {
   type ResolvedToken,
 } from './session.js';
 import { openPage } from './open.js';
+import { maskEcho } from './mask.js';
 import { PLAN_TIERS, formatServices, planLabel, sortServices, type ListedService } from './services.js';
 import {
   cloneStarter,
@@ -393,13 +394,19 @@ async function prompt(question: string, silent = false): Promise<string> {
   const rl = createInterface({ input: process.stdin, output: process.stdout, terminal: true });
 
   if (silent) {
-    // Nothing at all rather than bullets. For a password this hides the length,
-    // which is worth a little; for a token it is worth nothing, since the shape
-    // is fixed and public. It stays because the prompt now says the input is
-    // hidden, which is the reassurance that was actually missing, and because a
-    // masked paste of fifty characters is its own kind of noise.
-    const out = rl as unknown as { output: NodeJS.WriteStream; _writeToOutput?: (s: string) => void };
-    out._writeToOutput = () => {};
+    // A dot for each character, and never the character. A terminal that shows nothing after a
+    // paste is indistinguishable from one where the paste did not arrive: the dots say it did,
+    // and how much. They give away the length, which for a token is public anyway: its shape is
+    // fixed.
+    //
+    // readline writes two kinds of thing here: the characters typed or pasted, and the escape
+    // sequences that move the cursor and clear the line when it redraws, after a backspace for
+    // instance. The sequences go through as they are, so the redraw works; everything else that
+    // prints becomes a dot.
+    const out = rl as unknown as { _writeToOutput?: (s: string) => void };
+    out._writeToOutput = (s: string) => {
+      process.stdout.write(maskEcho(s));
+    };
   }
 
   try {
@@ -499,7 +506,7 @@ async function cmdLogin(args: Args): Promise<number> {
   }
 
   const token =
-    fromEnv || (await prompt('Paste it here and press Enter (the input stays hidden):\n', true)).trim();
+    fromEnv || (await prompt('Paste it here and press Enter (it shows as dots):\n', true)).trim();
 
   if (!token) {
     process.stderr.write('No token given.\n');
