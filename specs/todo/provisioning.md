@@ -38,8 +38,8 @@ create, print the id, and the id goes into the next command.
 
 ```bash
 ulabase login                       # once a day
-ulabase new free   --name shop      # a service, immediately
-ulabase new shared --name shop      # a service, after you pay for it in a browser
+ulabase new free   --name my-app      # a service, immediately
+ulabase new shared --name my-app      # a service, after you pay for it in a browser
 ulabase setup --srv c0ffee
 ```
 
@@ -95,7 +95,7 @@ ulabase signup                  # opens the sign-up page
 ulabase srv new             # opens the page that creates a service
 ulabase login                   # asks for a token, as today
 ulabase login --new-token       # opens the page that creates a token, then asks for it
-ulabase app new --name shop --starter react    # downloads a starter app into ./shop
+ulabase app new --name my-app --starter react    # downloads a starter app into ./my-app
 ulabase srv ls                  # lists your services
 ulabase setup --srv c0ffee      # as today
 ```
@@ -177,7 +177,7 @@ Downloads a starter app into a new folder and installs its packages. It takes th
   argument, by Andrea's choice of 2026-11-25: the command reads the same as its meaning, and the
   two options can come in any order. Without it, on a terminal the command asks for the name; with
   no terminal it stops and says to pass the option.
-  A bare name, as in `ulabase app new shop`, is refused with a message that shows `--name shop`.
+  A bare name, as in `ulabase app new my-app`, is refused with a message that shows `--name my-app`.
 - **`--starter <starter>`** names the starter by a rule, with no list in the code:
   `--starter <x>` downloads `https://github.com/ulabase/starter-<x>`. So `react`, `ng`, `vue` and
   `ecommerce` work today, and a repository `ulabase/starter-whatever` created tomorrow works with
@@ -373,7 +373,7 @@ ulabase-dev srv new --plan launch  # prints https://ulabase.dev/orgs/active/new-
 ulabase-dev login --new-token      # prints https://ulabase.dev/me/tokens?new=1, then asks for the token
 ulabase-dev srv ls
 ulabase-dev srv ls --json
-ulabase-dev app new --name shop --starter react
+ulabase-dev app new --name my-app --starter react
 ulabase-dev setup --srv <id> --env production    # in the folder of a starter
 ```
 
@@ -401,11 +401,11 @@ four starters passed steps 17 to 21 and are pushed. Two things seen on the way:
 | 7 | `ulabase-dev setup --srv <another service of yours> --dry-run`, in a starter's folder | refused: the token does not reach that service |
 | 8 | create a token for all the services, log in with it, `ulabase-dev srv ls` and `--json` | every service of every team; a `TEAM` column with more than one team |
 | 9 | `ulabase-dev login --new-token` | prints `https://ulabase.dev/me/tokens?new=1`, then asks for the token |
-| 10 | `ulabase-dev app new --name shop --starter react`, in an empty folder | clones, installs, lists the services and asks; after the answer runs the setup and ends with «It is connected to the service …» |
-| 11 | `cd shop && npm run dev` | the app opens on sign-up, and a sign-up works against the service chosen |
-| 12 | `ulabase-dev app new --name shop --starter react` again | «The folder shop exists and is not empty. Nothing was changed.» |
+| 10 | `ulabase-dev app new --name my-app --starter react`, in an empty folder | clones, installs, lists the services and asks; after the answer runs the setup and ends with «It is connected to the service …» |
+| 11 | `cd my-app && npm run dev` | the app opens on sign-up, and a sign-up works against the service chosen |
+| 12 | `ulabase-dev app new --name my-app --starter react` again | «The folder my-app exists and is not empty. Nothing was changed.» |
 | 13 | `ulabase-dev app new --name x --starter nope` | «There is no starter called "nope". The starters are: ecommerce, ng, react, vue.» |
-| 14 | `ulabase-dev app new shop` | «The name of the app is an option: ulabase app new --name shop» |
+| 14 | `ulabase-dev app new my-app` | «The name of the app is an option: ulabase app new --name my-app» |
 | 15 | `ulabase-dev app new --name y --starter vue --no-setup` | downloads and installs, connects nothing, and says the app will not work until the setup has run |
 | 16 | `ulabase-dev srv ls > out.txt` | the table is in the file |
 
@@ -456,17 +456,17 @@ The scope of a token is separate work and can come before or after.
 - With `ULABASE_TOKEN` set, `ulabase login --new-token` opens nothing and asks nothing.
 - Run with stdout redirected to a file, each command writes the address to the file and opens no
   browser.
-- `ulabase app new --name shop --starter react` leaves a folder `shop` with the React starter, its
-  packages installed, `shop` as the package name and no `.git` folder.
+- `ulabase app new --name my-app --starter react` leaves a folder `my-app` with the React starter, its
+  packages installed, `my-app` as the package name and no `.git` folder.
 - A repository `ulabase/starter-whatever` created after the command was published is downloaded by
   `--starter whatever`, with no new release.
-- With a session, `ulabase app new --name shop --starter react --srv c0ffee` leaves an app whose
+- With a session, `ulabase app new --name my-app --starter react --srv c0ffee` leaves an app whose
   `apiUrl` is the address of `c0ffee`, and whose sign-up works when started.
 - Without `--srv`, on a terminal, the command lists the services and connects the one chosen.
 - With no session, the command downloads the starter, connects nothing and says the app will not
   work until the setup has run.
 - `--starter nope` exits non-zero, says the starter does not exist and lists the ones that do.
-- With the folder `shop` already there and not empty, the command exits non-zero and changes nothing.
+- With the folder `my-app` already there and not empty, the command exits non-zero and changes nothing.
 - `ulabase srv ls` prints the id, name, plan, region and tags of the user's services; with a token
   limited to `c0ffee` it prints that service only; `--json` prints an array.
 

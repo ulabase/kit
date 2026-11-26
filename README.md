@@ -60,9 +60,9 @@ The fastest path to a working app is a starter: [React](https://github.com/ulaba
    `npx ulabase srv new` open the pages
 2. `npx ulabase login --new-token`: it opens the page that creates a token, and stores the one you
    paste
-3. `npx ulabase app new --name shop --starter react`: it downloads the starter, installs its
+3. `npx ulabase app new --name my-app --starter react`: it downloads the starter, installs its
    packages, configures your service and writes its address into the app
-4. `cd shop`, then `npm run dev` (`npm start` for Angular)
+4. `cd my-app`, then `npm run dev` (`npm start` for Angular)
 
 ## Contributing
 

@@ -44,7 +44,7 @@ ulabase setup --srv c0ffee             # apply it
 ```bash
 ulabase signup                                  # your account, in the browser
 ulabase srv new                                 # your service, in the browser
-ulabase app new --name shop --starter react     # a starter app, connected to your service
+ulabase app new --name my-app --starter react     # a starter app, connected to your service
 ulabase srv ls                                  # your services
 ```
 

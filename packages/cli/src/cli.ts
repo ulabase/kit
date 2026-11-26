@@ -85,7 +85,7 @@ ulabase — the Ulabase CLI, also installed as \`ula\`
   ulabase signup
   ulabase srv new
   ulabase login --new-token
-  ulabase app new --name shop --starter react
+  ulabase app new --name my-app --starter react
   ulabase setup --srv c0ffee
 
   npm i -g ulabase        for a terminal

@@ -7,7 +7,7 @@ Ulabase service from a file committed to git.
 ulabase signup                                  # your account, in the browser
 ulabase srv new                                 # your service, in the browser
 ulabase login --new-token                       # a token, created in the browser
-ulabase app new --name shop --starter react     # a starter app, connected to your service
+ulabase app new --name my-app --starter react     # a starter app, connected to your service
 ulabase srv ls                                  # your services
 ulabase setup --srv c0ffee                      # a service, set up from a file
 ```
@@ -198,7 +198,7 @@ open a page of the console, and you finish there. The last one runs in the termi
 ulabase signup
 ulabase srv new
 ulabase login --new-token
-ulabase app new --name shop --starter react
+ulabase app new --name my-app --starter react
 ```
 
 ### The commands that open a page
