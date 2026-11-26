@@ -678,7 +678,9 @@ function cmdSrvNew(args: Args): number {
     query = `?tier=${tier}`;
   }
 
-  openPage(`https://${consoleOf(args.api)}/new-service${query}`, { noOpen: args.noOpen });
+  // `/orgs/active/...`: the console waits for the account, then puts the active team in the address.
+  // The shorter `/new-service` reads the team before the account is loaded and lands on the list of teams.
+  openPage(`https://${consoleOf(args.api)}/orgs/active/new-service${query}`, { noOpen: args.noOpen });
   process.stdout.write(
     'The page gives you the id of the new service. Then, here:\n\n' +
       '  ulabase srv ls                  to see it in the list\n' +
