@@ -399,7 +399,7 @@ Four departures from what is written above:
   "Config" was the alternative and lost on collision: this tool already reads and writes plugin
   *config*, and two meanings of the word in one tool is a real cost.
 - **The package is `@ulabase/cli`, not `@ulabase/kit-config`,** and the bin is
-  `ulabase setup` rather than a bare `rh-config`. See [`provisioning.md`](./provisioning.md) — a global
+  `ulabase setup` rather than a bare `rh-config`. See [`provisioning.md`](../done/provisioning.md) — a global
   install of a package named `kit-config` would not have satisfied a setup file's import anyway.
 - **A sixth ecommerce step.** The starter's README lists three settings that must line up; writing
   them as code exposed a fourth, `orders-read-anon`, without which the buyer pays, lands on

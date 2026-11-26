@@ -1,6 +1,6 @@
 # `ulabase` — a session, and a service you can create from the terminal
 
-**Status:** built on 2026-11-25 as the «Revision of 2026-11-25» below says, on dev and not published to npm. To do: the trial on dev, then the release. **Repo:** `ulabase/kit`, inside the existing `@ulabase/cli`.
+**Status:** done. Built on 2026-11-25 as the «Revision of 2026-11-25» below says, tried on dev, released on npm as 0.16.0 on 2026-11-26, with the console and the nodes in production the same day. Two changes made after the release wait for the next one: the pasted token shown as dots, and `my-app` as the example name. **Repo:** `ulabase/kit`, inside the existing `@ulabase/cli`.
 **Depends on:** `GET /srv-tiers` on the admin node — see
 `restheart-cloud-server/specs/todo/srv-tiers-endpoint.md`. Everything else exists today.
 **Related:** [`configuration.md`](./configuration.md), whose CLI this extends.
@@ -82,7 +82,7 @@ What this removes from the earlier design:
 
 - no `OAuthTokenIssuer` on the admin node, no PKCE flow, no loopback redirect;
 - no `cli-create` role and no token whose scope grows: a scope is a list of services, chosen when
-  the token is created (`ulabase-nodes/specs/todo/sicurezza--pat-scope.md`);
+  the token is created (`ulabase-nodes/specs/done/sicurezza--pat-scope.md`);
 - no `POST /provision/free` from the command, so the `me: null` blocker below does not matter here;
 - no payment path in the command: the wizard in the console is the only place a service is bought.
 
@@ -356,7 +356,7 @@ Small, and none of it blocks the commands:
 - `/me/tokens?new=1` opens the creation dialog at once, so the page the command opens is already
   on the form. `login --new-token` uses this address when it exists.
 - The scope of a token is chosen in that dialog. It is the work of
-  `ulabase-nodes/specs/todo/sicurezza--pat-scope.md`, which no longer depends on this file.
+  `ulabase-nodes/specs/done/sicurezza--pat-scope.md`, which no longer depends on this file.
 - «Starter apps» keeps showing the commands. Its login line becomes `ulabase login --new-token`.
 
 ### Trying it on dev, with the local build

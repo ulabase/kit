@@ -389,7 +389,7 @@ whatever host happened to be named.
 Creating a service is not reachable from a setup, and the command does not create one either:
 `ulabase srv new` opens the page of the console that does. A pipeline re-runs a setup on every
 merge, and a step that could create a paid service would start a purchase per merge. The design is
-in [`specs/todo/provisioning.md`](../../specs/todo/provisioning.md).
+in [`specs/done/provisioning.md`](../../specs/done/provisioning.md).
 
 A `.ts` setup needs a runtime that can load one — Node 22.18+ strips types on its own, anything
 earlier wants `npx tsx`.
