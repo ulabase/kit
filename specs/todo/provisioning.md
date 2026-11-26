@@ -143,8 +143,8 @@ Opens `/orgs/active/new-service` and exits with 0. The console sends who is not 
 first, then to the wizard of their active team.
 
 - `--plan free|launch|pro` preselects the plan: the wizard already reads `?tier=`. The option is
-  named after the plans as the user reads them. `launch` maps to the wizard's `tier=starter`, the
-  internal id of the plan.
+  named after the plans as the user reads them. The address carries the same word, `tier=launch`: the wizard maps it to
+  the plan's internal id, `starter`, which no address shows.
 - No `--name` and no `--region`: the wizard asks for them.
 
 It prints what to do next: copy the service id from the page the wizard lands on, then
@@ -369,7 +369,7 @@ cd ~/ulabase/kit && npm run build
 alias ulabase-dev="ULABASE_API=https://api.ulabase.dev node ~/ulabase/kit/packages/cli/dist/cli.js"
 
 ulabase-dev signup                 # prints https://ulabase.dev/signup
-ulabase-dev srv new --plan launch  # prints https://ulabase.dev/orgs/active/new-service?tier=starter
+ulabase-dev srv new --plan launch  # prints https://ulabase.dev/orgs/active/new-service?tier=launch
 ulabase-dev login --new-token      # prints https://ulabase.dev/me/tokens?new=1, then asks for the token
 ulabase-dev srv ls
 ulabase-dev srv ls --json
@@ -393,7 +393,7 @@ four starters passed steps 17 to 21 and are pushed. Two things seen on the way:
 | # | Do | Expect |
 |---|---|---|
 | 1 | `ulabase-dev signup` | prints `https://ulabase.dev/signup`, opens nothing over ssh, exit 0 |
-| 2 | `ulabase-dev srv new --plan launch` | prints `https://ulabase.dev/orgs/active/new-service?tier=starter`; the page opens the wizard with Launch selected |
+| 2 | `ulabase-dev srv new --plan launch` | prints `https://ulabase.dev/orgs/active/new-service?tier=launch`; the page opens the wizard with Launch selected |
 | 3 | `ulabase-dev srv new --plan gold` | refuses, and names `free, launch, pro` |
 | 4 | in the console on dev, `/me/tokens?new=1` | the cursor is in the name field; the form offers «All my services» or «Only the services I choose» |
 | 5 | create a token limited to one service, then `ulabase-dev login` and paste it | «Logged in to https://api.ulabase.dev» |

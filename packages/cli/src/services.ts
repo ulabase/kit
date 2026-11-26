@@ -32,8 +32,12 @@ export function planLabel(plan: string): string {
   }
 }
 
-/** The values `srv new --plan` takes, and the `tier` the console's wizard reads for each. */
-export const PLAN_TIERS: Record<string, string> = { free: 'free', launch: 'starter', pro: 'pro' };
+/**
+ * The values `srv new --plan` takes, and the `tier` the address of the console's wizard carries for
+ * each. The same words: an address shows the name of a plan as people read it, and the wizard maps
+ * `launch` to the plan's internal id.
+ */
+export const PLAN_TIERS: Record<string, string> = { free: 'free', launch: 'launch', pro: 'pro' };
 
 /** By name, then by id: the order of the table and of the question `app new` asks. */
 export function sortServices(services: ListedService[]): ListedService[] {

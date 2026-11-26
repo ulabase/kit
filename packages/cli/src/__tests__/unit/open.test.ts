@@ -28,7 +28,7 @@ describe('canOpenBrowser', () => {
 
 describe('openCommand', () => {
   it('keeps the address as one argument, query string included', () => {
-    const url = 'https://ulabase.com/orgs/active/new-service?tier=starter&x=1';
+    const url = 'https://ulabase.com/orgs/active/new-service?tier=launch&x=1';
     expect(openCommand('darwin', url)).toEqual({ command: 'open', args: [url] });
     expect(openCommand('linux', url)).toEqual({ command: 'xdg-open', args: [url] });
     expect(openCommand('win32', url).args.at(-1)).toBe(url);

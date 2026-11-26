@@ -14,8 +14,8 @@ describe('planLabel', () => {
     expect(planLabel('dedicated')).toBe('Enterprise');
   });
 
-  it('maps --plan launch to the tier the wizard reads', () => {
-    expect(PLAN_TIERS['launch']).toBe('starter');
+  it('puts the name people read in the address, never the internal id', () => {
+    expect(PLAN_TIERS['launch']).toBe('launch');
     expect(PLAN_TIERS['starter']).toBeUndefined();
   });
 });
