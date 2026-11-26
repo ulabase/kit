@@ -68,3 +68,27 @@ describe('publicGuard', () => {
     expect(await run(publicGuard)).toBe(true);
   });
 });
+
+describe('a session check that fails', () => {
+  // the consents gate answers 451 to /users/me, and the kit throws anything but 401 and 403
+  function refused() {
+    vi.mocked(kit.getToken).mockReturnValue('tok');
+    vi.mocked(kit.checkSession).mockRejectedValue({ status: 451, message: 'You must accept the current Terms' });
+  }
+
+  it('B5 authGuard reads it as no session and redirects to /auth/login, without failing', async () => {
+    refused();
+    setup();
+    const nav = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    expect(await run(authGuard)).toBe(false);
+    expect(nav).toHaveBeenCalledWith(['/auth/login']);
+  });
+
+  it('B6 publicGuard reads it as no session and lets the public page open', async () => {
+    refused();
+    setup();
+    // only a signed-in state reaches the session check in publicGuard
+    vi.spyOn(TestBed.inject(RhAuthService), 'isAuthenticated').mockReturnValue(true);
+    expect(await run(publicGuard)).toBe(true);
+  });
+});
